@@ -36,8 +36,8 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 p-4 md:flex-row md:p-6">
-        <div ref={tableRef} className="flex-1 md:w-[60%]">
+      <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 p-4 md:p-6">
+        <div ref={tableRef}>
           <PeriodicTable />
 
           <div className="mt-4 flex flex-wrap items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/50 p-3 backdrop-blur">
@@ -53,10 +53,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="md:w-[40%]">
-          <div className="sticky top-6">
-            <ReactionStage />
-          </div>
+        <div className="w-full">
+          <ReactionStage />
         </div>
       </main>
 
