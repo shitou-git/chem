@@ -1,81 +1,34 @@
 import { useRef, useEffect } from "react";
-import { ELEMENTS, REACTIONS } from "@/data";
+import { ELEMENTS } from "@/data/elements";
 import { useChemStore } from "@/store/chemStore";
 import ElementCard from "./ElementCard";
 
-export default function PeriodicTable() {
-  const {
-    firstElement,
-    reactiveSymbols,
-    currentReaction,
-    setFirstElement,
-    setReactiveSymbols,
-    setCurrentReaction,
-    setMessage,
-  } = useChemStore();
+interface PeriodicTableProps {
+  highlightSymbol?: string | null;
+  onElementClick?: (symbol: string) => void;
+}
+
+export default function PeriodicTable({ highlightSymbol, onElementClick }: PeriodicTableProps) {
+  const { selectedElements, reactiveSymbols, currentReactions } = useChemStore();
 
   const refs = useRef<Record<string, HTMLButtonElement | null>>({});
 
-  const handleElementClick = (symbol: string) => {
-    const element = ELEMENTS.find((e) => e.symbol === symbol);
-    if (!element) return;
-
-    if (!firstElement) {
-      setFirstElement(element);
-      const partners = REACTIONS.filter((r) =>
-        r.reactants.includes(element.symbol)
-      )
-        .map((r) => r.reactants.find((s) => s !== element.symbol))
-        .filter((s): s is string => Boolean(s));
-
-      const unique = Array.from(new Set(partners));
-      setReactiveSymbols(unique);
-      setCurrentReaction(null);
-      setMessage(
-        unique.length > 0
-          ? `已选择 ${element.name}（${element.symbol}），请选择一个可化合的元素`
-          : `${element.name}（${element.symbol}）暂无内置化合反应，请重新选择`
-      );
-      return;
-    }
-
-    if (firstElement.symbol === element.symbol) {
-      setMessage("已取消选择，请重新选择第一个元素");
-      setFirstElement(null);
-      setReactiveSymbols([]);
-      setCurrentReaction(null);
-      return;
-    }
-
-    if (reactiveSymbols.includes(element.symbol)) {
-      const reaction = REACTIONS.find(
-        (r) =>
-          r.reactants.includes(firstElement.symbol) &&
-          r.reactants.includes(element.symbol)
-      );
-      if (reaction) {
-        setCurrentReaction(reaction);
-        setMessage(`生成 ${reaction.productName}：${reaction.equation}`);
-      } else {
-        setMessage("暂未收录该组合的方程式");
-      }
-      setReactiveSymbols([]);
-    } else {
-      setMessage(`${element.name} 无法与 ${firstElement.name} 直接化合，请重新选择`);
-    }
-  };
+  const selectedSymbols = selectedElements.map((e) => e.symbol);
+  const reactionReactantSymbols = new Set(
+    currentReactions.flatMap((r) => r.reactants)
+  );
 
   const maxRow = Math.max(...ELEMENTS.map((e) => e.row));
 
   useEffect(() => {
-    if (firstElement && refs.current[firstElement.symbol]) {
-      refs.current[firstElement.symbol]?.scrollIntoView({
+    if (highlightSymbol && refs.current[highlightSymbol]) {
+      refs.current[highlightSymbol]?.scrollIntoView({
         behavior: "smooth",
         block: "nearest",
         inline: "nearest",
       });
     }
-  }, [firstElement]);
+  }, [highlightSymbol]);
 
   return (
     <div className="w-full overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/50 p-3 backdrop-blur md:p-4">
@@ -95,12 +48,12 @@ export default function PeriodicTable() {
             return <div key={`empty-${row}-${col}`} className="min-h-[44px] min-w-[44px]" />;
           }
 
-          const isSelected = firstElement?.symbol === element.symbol;
-          const isProduct =
-            currentReaction?.reactants.includes(element.symbol) ?? false;
+          const isSelected = selectedSymbols.includes(element.symbol);
           const isReactive = reactiveSymbols.includes(element.symbol);
+          const isProduct = reactionReactantSymbols.has(element.symbol);
+          const isHighlighted = highlightSymbol === element.symbol;
           const isDimmed =
-            Boolean(firstElement) &&
+            selectedSymbols.length > 0 &&
             !isSelected &&
             !isReactive &&
             !isProduct;
@@ -109,10 +62,10 @@ export default function PeriodicTable() {
             <div key={element.symbol} className="relative flex items-center justify-center pb-4">
               <ElementCard
                 element={element}
-                isSelected={isSelected || (Boolean(currentReaction) && isProduct)}
+                isSelected={isSelected || (currentReactions.length > 0 && isProduct) || isHighlighted}
                 isReactive={isReactive}
                 isDimmed={isDimmed}
-                onClick={() => handleElementClick(element.symbol)}
+                onClick={() => onElementClick?.(element.symbol)}
                 size="md"
                 ref={(el) => {
                   refs.current[element.symbol] = el;

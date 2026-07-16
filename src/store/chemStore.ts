@@ -11,14 +11,14 @@ export interface SavedReaction {
 }
 
 interface ChemState {
-  firstElement: ChemicalElement | null;
+  selectedElements: ChemicalElement[];
   reactiveSymbols: string[];
-  currentReaction: ChemicalReaction | null;
+  currentReactions: ChemicalReaction[];
   message: string;
   savedReactions: SavedReaction[];
-  setFirstElement: (el: ChemicalElement | null) => void;
+  toggleElement: (el: ChemicalElement) => void;
   setReactiveSymbols: (symbols: string[]) => void;
-  setCurrentReaction: (reaction: ChemicalReaction | null) => void;
+  setCurrentReactions: (reactions: ChemicalReaction[]) => void;
   setMessage: (msg: string) => void;
   reset: () => void;
   saveReaction: (reaction: ChemicalReaction) => void;
@@ -27,9 +27,9 @@ interface ChemState {
 }
 
 const initialState = {
-  firstElement: null,
+  selectedElements: [],
   reactiveSymbols: [],
-  currentReaction: null,
+  currentReactions: [],
   message: "点击元素周期表中的元素开始探索化学反应",
   savedReactions: [],
 };
@@ -38,9 +38,17 @@ export const useChemStore = create<ChemState>()(
   persist(
     (set) => ({
       ...initialState,
-      setFirstElement: (el) => set({ firstElement: el }),
+      toggleElement: (el) =>
+        set((state) => {
+          const exists = state.selectedElements.some((e) => e.symbol === el.symbol);
+          if (exists) {
+            return { selectedElements: state.selectedElements.filter((e) => e.symbol !== el.symbol) };
+          } else {
+            return { selectedElements: [...state.selectedElements, el] };
+          }
+        }),
       setReactiveSymbols: (symbols) => set({ reactiveSymbols: symbols }),
-      setCurrentReaction: (reaction) => set({ currentReaction: reaction }),
+      setCurrentReactions: (reactions) => set({ currentReactions: reactions }),
       setMessage: (msg) => set({ message: msg }),
       reset: () =>
         set((state) => ({

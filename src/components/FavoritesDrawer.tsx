@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { Bookmark, X, Trash2, ChevronUp } from "lucide-react";
-import { REACTIONS } from "@/data";
+import { REACTIONS } from "@/data/reactions";
+import { ELEMENTS } from "@/data/elements";
 import { useChemStore, type SavedReaction } from "@/store/chemStore";
 import { cn } from "@/lib/utils";
 
 export default function FavoritesDrawer() {
-  const { savedReactions, removeSavedReaction } = useChemStore();
+  const { savedReactions, removeSavedReaction, toggleElement, setCurrentReactions } = useChemStore();
   const [isOpen, setIsOpen] = useState(false);
 
   const loadReaction = (saved: SavedReaction) => {
     const reaction = REACTIONS.find((r) => r.id === saved.id);
     if (!reaction) return;
+    const elements = reaction.reactants
+      .map((s) => ELEMENTS.find((e) => e.symbol === s))
+      .filter(Boolean) as typeof ELEMENTS;
     useChemStore.setState({
-      currentReaction: reaction,
-      firstElement: null,
+      selectedElements: elements,
+      currentReactions: [reaction],
       reactiveSymbols: [],
       message: `已载入收藏：${reaction.productName} — ${reaction.equation}`,
     });

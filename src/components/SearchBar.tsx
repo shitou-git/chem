@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Search, X } from "lucide-react";
-import { ELEMENTS, REACTIONS } from "@/data";
+import { ELEMENTS } from "@/data/elements";
 import { useChemStore } from "@/store/chemStore";
 
 interface SearchBarProps {
@@ -12,12 +12,7 @@ export default function SearchBar({ onLocate }: SearchBarProps) {
   const [suggestions, setSuggestions] = useState<typeof ELEMENTS>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const {
-    setFirstElement,
-    setReactiveSymbols,
-    setCurrentReaction,
-    setMessage,
-  } = useChemStore();
+  const { toggleElement, setMessage } = useChemStore();
 
   const handleInput = (value: string) => {
     setQuery(value);
@@ -38,18 +33,8 @@ export default function SearchBar({ onLocate }: SearchBarProps) {
     const element = ELEMENTS.find((e) => e.symbol === symbol);
     if (!element) return;
 
-    setFirstElement(element);
-    const partners = REACTIONS.filter((r) => r.reactants.includes(element.symbol))
-      .map((r) => r.reactants.find((s) => s !== element.symbol))
-      .filter((s): s is string => Boolean(s));
-    const unique = Array.from(new Set(partners));
-    setReactiveSymbols(unique);
-    setCurrentReaction(null);
-    setMessage(
-      unique.length > 0
-        ? `搜索定位：${element.name}（${element.symbol}），请选择一个可化合元素`
-        : `${element.name}（${element.symbol}）暂无内置化合反应`
-    );
+    toggleElement(element);
+    setMessage(`已定位并选择 ${element.name}（${element.symbol}）`);
     setQuery("");
     setSuggestions([]);
     onLocate?.(symbol);

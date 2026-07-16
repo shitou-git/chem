@@ -1,44 +1,142 @@
-import { useRef } from "react";
-import { Atom } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Search, Sparkles } from "lucide-react";
 import PeriodicTable from "@/components/PeriodicTable";
 import ReactionStage from "@/components/ReactionStage";
-import SearchBar from "@/components/SearchBar";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
-import { GROUP_COLORS, GROUP_LABELS, type ElementGroup } from "@/data/elements";
+import { useChemStore } from "@/store/chemStore";
+import { ELEMENTS, GROUP_COLORS, GROUP_LABELS, type ElementGroup } from "@/data/elements";
+import { findReactiveSymbols, findReactions } from "@/data/reactions";
 
 export default function Home() {
+  const {
+    selectedElements,
+    toggleElement,
+    setReactiveSymbols,
+    setCurrentReactions,
+    setMessage,
+    reset,
+  } = useChemStore();
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResult, setSearchResult] = useState<string | null>(null);
   const tableRef = useRef<HTMLDivElement>(null);
 
-  const handleLocate = () => {
-    tableRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const selectedSymbols = useMemo(
+    () => selectedElements.map((e) => e.symbol),
+    [selectedElements]
+  );
+
+  const reactiveSymbols = useMemo(() => {
+    if (selectedElements.length === 0) return [];
+    return findReactiveSymbols(selectedSymbols);
+  }, [selectedSymbols]);
+
+  const matchedReactions = useMemo(() => {
+    if (selectedElements.length < 2) return [];
+    return findReactions(selectedSymbols);
+  }, [selectedSymbols]);
+
+  useEffect(() => {
+    setReactiveSymbols(reactiveSymbols);
+  }, [reactiveSymbols, setReactiveSymbols]);
+
+  useEffect(() => {
+    setCurrentReactions(matchedReactions);
+  }, [matchedReactions, setCurrentReactions]);
+
+  useEffect(() => {
+    if (selectedElements.length === 0) {
+      setMessage("点击元素周期表中的元素开始探索化学反应");
+    } else if (selectedElements.length === 1) {
+      const el = selectedElements[0];
+      if (reactiveSymbols.length > 0) {
+        setMessage(`已选择 ${el.name}，高亮的元素可与它发生化合反应`);
+      } else {
+        setMessage(`已选择 ${el.name}，暂无已知的化合反应`);
+      }
+    } else {
+      if (matchedReactions.length > 0) {
+        setMessage(`共找到 ${matchedReactions.length} 个反应`);
+      } else {
+        setMessage("所选元素之间暂无已知的化合反应");
+      }
+    }
+  }, [selectedElements, reactiveSymbols, matchedReactions, setMessage]);
+
+  const handleElementClick = (symbol: string) => {
+    const element = ELEMENTS.find((e) => e.symbol === symbol);
+    if (!element) return;
+    toggleElement(element);
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    if (!query.trim()) {
+      setSearchResult(null);
+      return;
+    }
+    const q = query.trim().toLowerCase();
+    const found = ELEMENTS.find(
+      (e) =>
+        e.symbol.toLowerCase() === q ||
+        e.name === q ||
+        e.symbol.toLowerCase().startsWith(q) ||
+        e.name.startsWith(q)
+    );
+    if (found) {
+      setSearchResult(found.symbol);
+      setTimeout(() => {
+        const el = document.getElementById(`element-${found.symbol}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+        }
+      }, 100);
+    } else {
+      setSearchResult(null);
+    }
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-slate-950 text-slate-100">
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(56,189,248,0.08),_transparent_50%),radial-gradient(ellipse_at_bottom_left,_rgba(244,114,182,0.06),_transparent_50%)]" />
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl" />
+        <div className="absolute top-1/2 -right-40 h-96 w-96 rounded-full bg-fuchsia-500/10 blur-3xl" />
+        <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-violet-500/10 blur-3xl" />
+      </div>
 
-      <header className="relative z-10 border-b border-slate-800/60 bg-slate-950/80 px-4 py-4 backdrop-blur md:px-8 md:py-5">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.25)]">
-              <Atom className="h-6 w-6" />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold leading-tight md:text-xl">
-                化学方程式互动实验室
-              </h1>
-              <p className="text-xs text-slate-500">
-                点击元素 → 高亮可化合元素 → 生成方程式
-              </p>
+      <header className="relative z-10 flex flex-col gap-4 px-4 pb-2 pt-6 md:px-6 md:pt-8">
+        <div className="flex flex-col items-center gap-3 text-center md:flex-row md:justify-between md:text-left">
+          <div>
+            <h1 className="bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-violet-400 bg-clip-text text-2xl font-bold text-transparent md:text-3xl">
+              <Sparkles className="mr-2 inline h-6 w-6 text-cyan-400" />
+              化学方程式互动实验室
+            </h1>
+            <p className="mt-1 text-sm text-slate-400">
+              点击元素 → 探索化合物 → 配平化学方程式
+            </p>
+          </div>
+
+          <div className="flex w-full items-center gap-2 md:w-80">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+                placeholder="搜索元素符号或名称..."
+                className="w-full rounded-lg border border-slate-700 bg-slate-900/70 py-2 pl-9 pr-3 text-sm text-slate-200 placeholder-slate-500 backdrop-blur focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              />
             </div>
           </div>
-          <SearchBar onLocate={handleLocate} />
         </div>
       </header>
 
       <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 p-4 md:p-6">
         <div ref={tableRef}>
-          <PeriodicTable />
+          <PeriodicTable
+            highlightSymbol={searchResult}
+            onElementClick={handleElementClick}
+          />
 
           <div className="mt-4 flex flex-wrap items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/50 p-3 backdrop-blur">
             {(Object.keys(GROUP_COLORS) as ElementGroup[]).map((group) => (
@@ -58,11 +156,11 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="relative z-10 px-4 pb-24 pt-2 text-center text-xs text-slate-600 md:pb-8">
-        课堂演示模式 · 支持触摸操作 · 方程式自动保存到浏览器本地
-      </footer>
-
       <FavoritesDrawer />
+
+      <footer className="relative z-10 pb-6 pt-2 text-center text-xs text-slate-500">
+        <p>课堂演示模式 · 支持触摸操作 · 方程式自动保存到浏览器本地</p>
+      </footer>
     </div>
   );
 }
