@@ -117,6 +117,7 @@ export default function ReactionStage() {
                       (reaction.type ?? "化合") === "分解" && "bg-orange-500/15 text-orange-300",
                       (reaction.type ?? "化合") === "置换" && "bg-amber-500/15 text-amber-300",
                       (reaction.type ?? "化合") === "复分解" && "bg-rose-500/15 text-rose-300",
+                      (reaction.type ?? "化合") === "氧化还原" && "bg-violet-500/15 text-violet-300",
                     )}>
                       {reaction.type ?? "化合"}
                     </span>
