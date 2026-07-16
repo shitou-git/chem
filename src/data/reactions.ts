@@ -13,18 +13,25 @@ export interface ChemicalReaction {
   description?: string;
 }
 
+/**
+ * 找出"再选一个元素就能触发反应"的元素符号
+ * 即：已选元素都是某反应的部分反应物，且该反应只差一个元素就能完全匹配
+ */
 export function findReactiveSymbols(selectedSymbols: string[]): string[] {
+  const set = new Set(selectedSymbols);
   const partners = new Set<string>();
+
   REACTIONS.forEach((r) => {
-    const hasSelected = r.reactants.some((s) => selectedSymbols.includes(s));
-    if (hasSelected) {
-      r.reactants.forEach((s) => {
-        if (!selectedSymbols.includes(s)) {
-          partners.add(s);
-        }
-      });
+    const reactantSet = new Set(r.reactants);
+    const hasSelected = selectedSymbols.every((s) => reactantSet.has(s));
+    if (!hasSelected) return;
+
+    const missing = r.reactants.filter((s) => !set.has(s));
+    if (missing.length === 1) {
+      partners.add(missing[0]);
     }
   });
+
   return Array.from(partners);
 }
 
