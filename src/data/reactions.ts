@@ -35,4 +35,23 @@ export function findReactions(selectedSymbols: string[]): ChemicalReaction[] {
   );
 }
 
+/** 按物质名称搜索反应（匹配产物名称或产物化学式） */
+export function searchReactions(query: string): ChemicalReaction[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+  return REACTIONS.filter(
+    (r) =>
+      r.productName.includes(query.trim()) ||
+      r.product.toLowerCase().includes(q) ||
+      r.equation.toLowerCase().includes(q)
+  );
+}
+
+/** 按物质名称搜索，返回该物质涉及的所有元素符号 */
+export function getSymbolsFromReactions(reactions: ChemicalReaction[]): string[] {
+  const symbols = new Set<string>();
+  reactions.forEach((r) => r.reactants.forEach((s) => symbols.add(s)));
+  return Array.from(symbols);
+}
+
 export const REACTIONS: ChemicalReaction[] = reactionsData as ChemicalReaction[];

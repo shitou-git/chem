@@ -5,7 +5,7 @@ import ReactionStage from "@/components/ReactionStage";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
 import { useChemStore } from "@/store/chemStore";
 import { ELEMENTS, GROUP_COLORS, GROUP_LABELS, type ElementGroup } from "@/data/elements";
-import { findReactiveSymbols, findReactions } from "@/data/reactions";
+import { findReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions } from "@/data/reactions";
 
 export default function Home() {
   const {
@@ -74,26 +74,64 @@ export default function Home() {
     setSearchQuery(query);
     if (!query.trim()) {
       setSearchResult(null);
+      reset();
       return;
     }
+
     const q = query.trim().toLowerCase();
-    const found = ELEMENTS.find(
+
+    // 先尝试匹配元素
+    const foundElement = ELEMENTS.find(
       (e) =>
         e.symbol.toLowerCase() === q ||
-        e.name === q ||
+        e.name === query.trim() ||
         e.symbol.toLowerCase().startsWith(q) ||
-        e.name.startsWith(q)
+        e.name.startsWith(query.trim())
     );
-    if (found) {
-      setSearchResult(found.symbol);
+
+    if (foundElement) {
+      setSearchResult(foundElement.symbol);
       setTimeout(() => {
-        const el = document.getElementById(`element-${found.symbol}`);
+        const el = document.getElementById(`element-${foundElement.symbol}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+        }
+      }, 100);
+      return;
+    }
+
+    // 再尝试搜索物质名称（如"四氧化三铁"）
+    const foundReactions = searchReactions(query.trim());
+    if (foundReactions.length > 0) {
+      setSearchResult(null);
+      // 获取所有涉及的元素并自动选中
+      const symbols = getSymbolsFromReactions(foundReactions);
+      const elements = symbols
+        .map((s) => ELEMENTS.find((e) => e.symbol === s))
+        .filter(Boolean) as typeof ELEMENTS;
+
+      // 重置后批量选中
+      reset();
+      elements.forEach((el) => {
+        if (!useChemStore.getState().selectedElements.some((s) => s.symbol === el.symbol)) {
+          toggleElement(el);
+        }
+      });
+
+      // 直接设置反应结果到舞台
+      setCurrentReactions(foundReactions);
+      setMessage(`搜索"${query.trim()}"，找到 ${foundReactions.length} 个相关反应`);
+
+      // 滚动到第一个高亮元素
+      setTimeout(() => {
+        const el = document.getElementById(`element-${symbols[0]}`);
         if (el) {
           el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
         }
       }, 100);
     } else {
       setSearchResult(null);
+      setMessage(`未找到与"${query.trim()}"相关的物质或元素`);
     }
   };
 
@@ -117,14 +155,14 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex w-full items-center gap-2 md:w-80">
+          <div className="flex w-full items-center gap-2 md:w-96">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
-                placeholder="搜索元素符号或名称..."
+                placeholder="搜索元素或物质名称（如：四氧化三铁）..."
                 className="w-full rounded-lg border border-slate-700 bg-slate-900/70 py-2 pl-9 pr-3 text-sm text-slate-200 placeholder-slate-500 backdrop-blur focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
               />
             </div>
