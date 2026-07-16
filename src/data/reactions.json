@@ -2,7 +2,10 @@
   {
     "id": "h-o",
     "type": "化合",
-    "reactants": ["H", "O"],
+    "reactants": [
+      "H",
+      "O"
+    ],
     "product": "H₂O",
     "productName": "水",
     "equation": "2H₂ + O₂ → 2H₂O",
@@ -12,7 +15,10 @@
   {
     "id": "h-cl",
     "type": "化合",
-    "reactants": ["H", "Cl"],
+    "reactants": [
+      "H",
+      "Cl"
+    ],
     "product": "HCl",
     "productName": "氯化氢",
     "equation": "H₂ + Cl₂ → 2HCl",
@@ -22,7 +28,10 @@
   {
     "id": "h-n",
     "type": "化合",
-    "reactants": ["H", "N"],
+    "reactants": [
+      "H",
+      "N"
+    ],
     "product": "NH₃",
     "productName": "氨",
     "equation": "N₂ + 3H₂ ⇌ 2NH₃",
@@ -32,7 +41,10 @@
   {
     "id": "h-c",
     "type": "化合",
-    "reactants": ["H", "C"],
+    "reactants": [
+      "H",
+      "C"
+    ],
     "product": "CH₄",
     "productName": "甲烷",
     "equation": "C + 2H₂ → CH₄",
@@ -42,7 +54,10 @@
   {
     "id": "c-o",
     "type": "化合",
-    "reactants": ["C", "O"],
+    "reactants": [
+      "C",
+      "O"
+    ],
     "product": "CO₂",
     "productName": "二氧化碳",
     "equation": "C + O₂ → CO₂",
@@ -52,7 +67,10 @@
   {
     "id": "c-o2",
     "type": "化合",
-    "reactants": ["C", "O"],
+    "reactants": [
+      "C",
+      "O"
+    ],
     "product": "CO",
     "productName": "一氧化碳",
     "equation": "2C + O₂ → 2CO",
@@ -62,7 +80,10 @@
   {
     "id": "n-o",
     "type": "化合",
-    "reactants": ["N", "O"],
+    "reactants": [
+      "N",
+      "O"
+    ],
     "product": "NO",
     "productName": "一氧化氮",
     "equation": "N₂ + O₂ → 2NO",
@@ -72,7 +93,10 @@
   {
     "id": "n-o2",
     "type": "化合",
-    "reactants": ["N", "O"],
+    "reactants": [
+      "N",
+      "O"
+    ],
     "product": "NO₂",
     "productName": "二氧化氮",
     "equation": "2NO + O₂ → 2NO₂",
@@ -82,7 +106,10 @@
   {
     "id": "s-o",
     "type": "化合",
-    "reactants": ["S", "O"],
+    "reactants": [
+      "S",
+      "O"
+    ],
     "product": "SO₂",
     "productName": "二氧化硫",
     "equation": "S + O₂ → SO₂",
@@ -92,7 +119,10 @@
   {
     "id": "p-o",
     "type": "化合",
-    "reactants": ["P", "O"],
+    "reactants": [
+      "P",
+      "O"
+    ],
     "product": "P₂O₅",
     "productName": "五氧化二磷",
     "equation": "4P + 5O₂ → 2P₂O₅",
@@ -102,7 +132,10 @@
   {
     "id": "mg-o",
     "type": "化合",
-    "reactants": ["Mg", "O"],
+    "reactants": [
+      "Mg",
+      "O"
+    ],
     "product": "MgO",
     "productName": "氧化镁",
     "equation": "2Mg + O₂ → 2MgO",
@@ -112,7 +145,10 @@
   {
     "id": "fe-o",
     "type": "化合",
-    "reactants": ["Fe", "O"],
+    "reactants": [
+      "Fe",
+      "O"
+    ],
     "product": "Fe₃O₄",
     "productName": "四氧化三铁",
     "equation": "3Fe + 2O₂ → Fe₃O₄",
@@ -122,7 +158,10 @@
   {
     "id": "cu-o",
     "type": "化合",
-    "reactants": ["Cu", "O"],
+    "reactants": [
+      "Cu",
+      "O"
+    ],
     "product": "CuO",
     "productName": "氧化铜",
     "equation": "2Cu + O₂ → 2CuO",
@@ -132,7 +171,10 @@
   {
     "id": "na-cl",
     "type": "化合",
-    "reactants": ["Na", "Cl"],
+    "reactants": [
+      "Na",
+      "Cl"
+    ],
     "product": "NaCl",
     "productName": "氯化钠",
     "equation": "2Na + Cl₂ → 2NaCl",
@@ -142,7 +184,10 @@
   {
     "id": "h-s",
     "type": "化合",
-    "reactants": ["H", "S"],
+    "reactants": [
+      "H",
+      "S"
+    ],
     "product": "H₂S",
     "productName": "硫化氢",
     "equation": "H₂ + S → H₂S",
@@ -152,7 +197,10 @@
   {
     "id": "ca-o",
     "type": "化合",
-    "reactants": ["Ca", "O"],
+    "reactants": [
+      "Ca",
+      "O"
+    ],
     "product": "CaO",
     "productName": "氧化钙",
     "equation": "2Ca + O₂ → 2CaO",
@@ -162,7 +210,10 @@
   {
     "id": "al-o",
     "type": "化合",
-    "reactants": ["Al", "O"],
+    "reactants": [
+      "Al",
+      "O"
+    ],
     "product": "Al₂O₃",
     "productName": "氧化铝",
     "equation": "4Al + 3O₂ → 2Al₂O₃",
@@ -172,7 +223,10 @@
   {
     "id": "zn-o",
     "type": "化合",
-    "reactants": ["Zn", "O"],
+    "reactants": [
+      "Zn",
+      "O"
+    ],
     "product": "ZnO",
     "productName": "氧化锌",
     "equation": "2Zn + O₂ → 2ZnO",
@@ -182,7 +236,10 @@
   {
     "id": "k-o",
     "type": "化合",
-    "reactants": ["K", "O"],
+    "reactants": [
+      "K",
+      "O"
+    ],
     "product": "K₂O",
     "productName": "氧化钾",
     "equation": "4K + O₂ → 2K₂O",
@@ -192,7 +249,10 @@
   {
     "id": "li-o",
     "type": "化合",
-    "reactants": ["Li", "O"],
+    "reactants": [
+      "Li",
+      "O"
+    ],
     "product": "Li₂O",
     "productName": "氧化锂",
     "equation": "4Li + O₂ → 2Li₂O",
@@ -202,7 +262,10 @@
   {
     "id": "fe-cl",
     "type": "化合",
-    "reactants": ["Fe", "Cl"],
+    "reactants": [
+      "Fe",
+      "Cl"
+    ],
     "product": "FeCl₃",
     "productName": "氯化铁",
     "equation": "2Fe + 3Cl₂ → 2FeCl₃",
@@ -212,7 +275,10 @@
   {
     "id": "cu-cl",
     "type": "化合",
-    "reactants": ["Cu", "Cl"],
+    "reactants": [
+      "Cu",
+      "Cl"
+    ],
     "product": "CuCl₂",
     "productName": "氯化铜",
     "equation": "Cu + Cl₂ → CuCl₂",
@@ -222,7 +288,10 @@
   {
     "id": "h-br",
     "type": "化合",
-    "reactants": ["H", "Br"],
+    "reactants": [
+      "H",
+      "Br"
+    ],
     "product": "HBr",
     "productName": "溴化氢",
     "equation": "H₂ + Br₂ → 2HBr",
@@ -232,7 +301,10 @@
   {
     "id": "h-i",
     "type": "化合",
-    "reactants": ["H", "I"],
+    "reactants": [
+      "H",
+      "I"
+    ],
     "product": "HI",
     "productName": "碘化氢",
     "equation": "H₂ + I₂ ⇌ 2HI",
@@ -242,7 +314,10 @@
   {
     "id": "c-h",
     "type": "化合",
-    "reactants": ["C", "H"],
+    "reactants": [
+      "C",
+      "H"
+    ],
     "product": "C₂H₂",
     "productName": "乙炔",
     "equation": "2C + H₂ → C₂H₂",
@@ -252,7 +327,10 @@
   {
     "id": "si-o",
     "type": "化合",
-    "reactants": ["Si", "O"],
+    "reactants": [
+      "Si",
+      "O"
+    ],
     "product": "SiO₂",
     "productName": "二氧化硅",
     "equation": "Si + O₂ → SiO₂",
@@ -262,7 +340,10 @@
   {
     "id": "ca-c",
     "type": "化合",
-    "reactants": ["Ca", "C"],
+    "reactants": [
+      "Ca",
+      "C"
+    ],
     "product": "CaC₂",
     "productName": "碳化钙",
     "equation": "Ca + 2C → CaC₂",
@@ -272,7 +353,10 @@
   {
     "id": "ag-s",
     "type": "化合",
-    "reactants": ["Ag", "S"],
+    "reactants": [
+      "Ag",
+      "S"
+    ],
     "product": "Ag₂S",
     "productName": "硫化银",
     "equation": "2Ag + S → Ag₂S",
@@ -282,7 +366,11 @@
   {
     "id": "ca-c-o",
     "type": "化合",
-    "reactants": ["Ca", "C", "O"],
+    "reactants": [
+      "Ca",
+      "C",
+      "O"
+    ],
     "product": "CaCO₃",
     "productName": "碳酸钙",
     "equation": "Ca + C + 3O → CaCO₃",
@@ -292,7 +380,11 @@
   {
     "id": "na-c-o",
     "type": "化合",
-    "reactants": ["Na", "C", "O"],
+    "reactants": [
+      "Na",
+      "C",
+      "O"
+    ],
     "product": "Na₂CO₃",
     "productName": "碳酸钠",
     "equation": "2Na + C + 3O → Na₂CO₃",
@@ -302,7 +394,11 @@
   {
     "id": "h-n-o",
     "type": "化合",
-    "reactants": ["H", "N", "O"],
+    "reactants": [
+      "H",
+      "N",
+      "O"
+    ],
     "product": "HNO₃",
     "productName": "硝酸",
     "equation": "H + N + 3O → HNO₃",
@@ -312,7 +408,11 @@
   {
     "id": "h-s-o",
     "type": "化合",
-    "reactants": ["H", "S", "O"],
+    "reactants": [
+      "H",
+      "S",
+      "O"
+    ],
     "product": "H₂SO₄",
     "productName": "硫酸",
     "equation": "2H + S + 4O → H₂SO₄",
@@ -322,7 +422,11 @@
   {
     "id": "h-p-o",
     "type": "化合",
-    "reactants": ["H", "P", "O"],
+    "reactants": [
+      "H",
+      "P",
+      "O"
+    ],
     "product": "H₃PO₄",
     "productName": "磷酸",
     "equation": "3H + P + 4O → H₃PO₄",
@@ -332,7 +436,11 @@
   {
     "id": "ca-h-o",
     "type": "化合",
-    "reactants": ["Ca", "H", "O"],
+    "reactants": [
+      "Ca",
+      "H",
+      "O"
+    ],
     "product": "Ca(OH)₂",
     "productName": "氢氧化钙",
     "equation": "Ca + 2H + 2O → Ca(OH)₂",
@@ -342,7 +450,11 @@
   {
     "id": "na-h-o",
     "type": "化合",
-    "reactants": ["Na", "H", "O"],
+    "reactants": [
+      "Na",
+      "H",
+      "O"
+    ],
     "product": "NaOH",
     "productName": "氢氧化钠",
     "equation": "Na + H + O → NaOH",
@@ -352,7 +464,11 @@
   {
     "id": "n-h-cl",
     "type": "化合",
-    "reactants": ["N", "H", "Cl"],
+    "reactants": [
+      "N",
+      "H",
+      "Cl"
+    ],
     "product": "NH₄Cl",
     "productName": "氯化铵",
     "equation": "N + 4H + Cl → NH₄Cl",
@@ -362,7 +478,11 @@
   {
     "id": "fe-h-o",
     "type": "化合",
-    "reactants": ["Fe", "H", "O"],
+    "reactants": [
+      "Fe",
+      "H",
+      "O"
+    ],
     "product": "Fe(OH)₃",
     "productName": "氢氧化铁",
     "equation": "Fe + 3H + 3O → Fe(OH)₃",
@@ -372,7 +492,11 @@
   {
     "id": "al-h-o",
     "type": "化合",
-    "reactants": ["Al", "H", "O"],
+    "reactants": [
+      "Al",
+      "H",
+      "O"
+    ],
     "product": "Al(OH)₃",
     "productName": "氢氧化铝",
     "equation": "Al + 3H + 3O → Al(OH)₃",
@@ -382,7 +506,12 @@
   {
     "id": "na-h-c-o",
     "type": "化合",
-    "reactants": ["Na", "H", "C", "O"],
+    "reactants": [
+      "Na",
+      "H",
+      "C",
+      "O"
+    ],
     "product": "NaHCO₃",
     "productName": "碳酸氢钠",
     "equation": "Na + H + C + 3O → NaHCO₃",
@@ -392,7 +521,12 @@
   {
     "id": "n-h-s-o",
     "type": "化合",
-    "reactants": ["N", "H", "S", "O"],
+    "reactants": [
+      "N",
+      "H",
+      "S",
+      "O"
+    ],
     "product": "(NH₄)₂SO₄",
     "productName": "硫酸铵",
     "equation": "2N + 8H + S + 4O → (NH₄)₂SO₄",
@@ -402,7 +536,11 @@
   {
     "id": "k-mn-o",
     "type": "化合",
-    "reactants": ["K", "Mn", "O"],
+    "reactants": [
+      "K",
+      "Mn",
+      "O"
+    ],
     "product": "KMnO₄",
     "productName": "高锰酸钾",
     "equation": "K + Mn + 4O → KMnO₄",
@@ -412,7 +550,11 @@
   {
     "id": "ca-p-o",
     "type": "化合",
-    "reactants": ["Ca", "P", "O"],
+    "reactants": [
+      "Ca",
+      "P",
+      "O"
+    ],
     "product": "Ca₃(PO₄)₂",
     "productName": "磷酸钙",
     "equation": "3Ca + 2P + 8O → Ca₃(PO₄)₂",
@@ -422,7 +564,11 @@
   {
     "id": "cu-h-o",
     "type": "化合",
-    "reactants": ["Cu", "H", "O"],
+    "reactants": [
+      "Cu",
+      "H",
+      "O"
+    ],
     "product": "Cu(OH)₂",
     "productName": "氢氧化铜",
     "equation": "Cu + 2H + 2O → Cu(OH)₂",
@@ -432,7 +578,11 @@
   {
     "id": "mg-h-o",
     "type": "化合",
-    "reactants": ["Mg", "H", "O"],
+    "reactants": [
+      "Mg",
+      "H",
+      "O"
+    ],
     "product": "Mg(OH)₂",
     "productName": "氢氧化镁",
     "equation": "Mg + 2H + 2O → Mg(OH)₂",
@@ -442,7 +592,11 @@
   {
     "id": "k-cl-o",
     "type": "化合",
-    "reactants": ["K", "Cl", "O"],
+    "reactants": [
+      "K",
+      "Cl",
+      "O"
+    ],
     "product": "KClO₃",
     "productName": "氯酸钾",
     "equation": "K + Cl + 3O → KClO₃",
@@ -452,7 +606,11 @@
   {
     "id": "na-s-o",
     "type": "化合",
-    "reactants": ["Na", "S", "O"],
+    "reactants": [
+      "Na",
+      "S",
+      "O"
+    ],
     "product": "Na₂SO₄",
     "productName": "硫酸钠",
     "equation": "2Na + S + 4O → Na₂SO₄",
@@ -462,7 +620,10 @@
   {
     "id": "fe-s",
     "type": "化合",
-    "reactants": ["Fe", "S"],
+    "reactants": [
+      "Fe",
+      "S"
+    ],
     "product": "FeS",
     "productName": "硫化亚铁",
     "equation": "Fe + S → FeS",
@@ -472,7 +633,10 @@
   {
     "id": "cu-s",
     "type": "化合",
-    "reactants": ["Cu", "S"],
+    "reactants": [
+      "Cu",
+      "S"
+    ],
     "product": "Cu₂S",
     "productName": "硫化亚铜",
     "equation": "2Cu + S → Cu₂S",
@@ -482,7 +646,10 @@
   {
     "id": "zn-s",
     "type": "化合",
-    "reactants": ["Zn", "S"],
+    "reactants": [
+      "Zn",
+      "S"
+    ],
     "product": "ZnS",
     "productName": "硫化锌",
     "equation": "Zn + S → ZnS",
@@ -492,7 +659,10 @@
   {
     "id": "na-s",
     "type": "化合",
-    "reactants": ["Na", "S"],
+    "reactants": [
+      "Na",
+      "S"
+    ],
     "product": "Na₂S",
     "productName": "硫化钠",
     "equation": "2Na + S → Na₂S",
@@ -502,7 +672,10 @@
   {
     "id": "na-br",
     "type": "化合",
-    "reactants": ["Na", "Br"],
+    "reactants": [
+      "Na",
+      "Br"
+    ],
     "product": "NaBr",
     "productName": "溴化钠",
     "equation": "2Na + Br₂ → 2NaBr",
@@ -512,7 +685,10 @@
   {
     "id": "k-cl",
     "type": "化合",
-    "reactants": ["K", "Cl"],
+    "reactants": [
+      "K",
+      "Cl"
+    ],
     "product": "KCl",
     "productName": "氯化钾",
     "equation": "2K + Cl₂ → 2KCl",
@@ -522,7 +698,10 @@
   {
     "id": "al-cl",
     "type": "化合",
-    "reactants": ["Al", "Cl"],
+    "reactants": [
+      "Al",
+      "Cl"
+    ],
     "product": "AlCl₃",
     "productName": "氯化铝",
     "equation": "2Al + 3Cl₂ → 2AlCl₃",
@@ -532,7 +711,10 @@
   {
     "id": "c-s",
     "type": "化合",
-    "reactants": ["C", "S"],
+    "reactants": [
+      "C",
+      "S"
+    ],
     "product": "CS₂",
     "productName": "二硫化碳",
     "equation": "C + 2S → CS₂",
@@ -542,7 +724,10 @@
   {
     "id": "si-c",
     "type": "化合",
-    "reactants": ["Si", "C"],
+    "reactants": [
+      "Si",
+      "C"
+    ],
     "product": "SiC",
     "productName": "碳化硅",
     "equation": "Si + C → SiC",
@@ -552,7 +737,10 @@
   {
     "id": "na-o2-na2o2",
     "type": "化合",
-    "reactants": ["Na", "O"],
+    "reactants": [
+      "Na",
+      "O"
+    ],
     "product": "Na₂O₂",
     "productName": "过氧化钠",
     "equation": "2Na + O₂ → Na₂O₂",
@@ -562,7 +750,10 @@
   {
     "id": "ba-o",
     "type": "化合",
-    "reactants": ["Ba", "O"],
+    "reactants": [
+      "Ba",
+      "O"
+    ],
     "product": "BaO",
     "productName": "氧化钡",
     "equation": "2Ba + O₂ → 2BaO",
@@ -572,7 +763,11 @@
   {
     "id": "fe-s-o",
     "type": "化合",
-    "reactants": ["Fe", "S", "O"],
+    "reactants": [
+      "Fe",
+      "S",
+      "O"
+    ],
     "product": "FeSO₄",
     "productName": "硫酸亚铁",
     "equation": "Fe + S + 4O → FeSO₄",
@@ -582,7 +777,11 @@
   {
     "id": "k-n-o",
     "type": "化合",
-    "reactants": ["K", "N", "O"],
+    "reactants": [
+      "K",
+      "N",
+      "O"
+    ],
     "product": "KNO₃",
     "productName": "硝酸钾",
     "equation": "K + N + 3O → KNO₃",
@@ -592,7 +791,11 @@
   {
     "id": "na-n-o",
     "type": "化合",
-    "reactants": ["Na", "N", "O"],
+    "reactants": [
+      "Na",
+      "N",
+      "O"
+    ],
     "product": "NaNO₃",
     "productName": "硝酸钠",
     "equation": "Na + N + 3O → NaNO₃",
@@ -602,7 +805,11 @@
   {
     "id": "k-h-o",
     "type": "化合",
-    "reactants": ["K", "H", "O"],
+    "reactants": [
+      "K",
+      "H",
+      "O"
+    ],
     "product": "KOH",
     "productName": "氢氧化钾",
     "equation": "K + H + O → KOH",
@@ -612,7 +819,11 @@
   {
     "id": "ca-n-o",
     "type": "化合",
-    "reactants": ["Ca", "N", "O"],
+    "reactants": [
+      "Ca",
+      "N",
+      "O"
+    ],
     "product": "Ca(NO₃)₂",
     "productName": "硝酸钙",
     "equation": "Ca + 2N + 6O → Ca(NO₃)₂",
@@ -622,7 +833,11 @@
   {
     "id": "ba-s-o",
     "type": "化合",
-    "reactants": ["Ba", "S", "O"],
+    "reactants": [
+      "Ba",
+      "S",
+      "O"
+    ],
     "product": "BaSO₄",
     "productName": "硫酸钡",
     "equation": "Ba + S + 4O → BaSO₄",
@@ -632,7 +847,10 @@
   {
     "id": "decomp-h2o",
     "type": "分解",
-    "reactants": ["H", "O"],
+    "reactants": [
+      "H",
+      "O"
+    ],
     "product": "H₂ + O₂",
     "productName": "氢气和氧气",
     "equation": "2H₂O → 2H₂ + O₂",
@@ -642,7 +860,11 @@
   {
     "id": "decomp-caco3",
     "type": "分解",
-    "reactants": ["Ca", "C", "O"],
+    "reactants": [
+      "Ca",
+      "C",
+      "O"
+    ],
     "product": "CaO + CO₂",
     "productName": "氧化钙和二氧化碳",
     "equation": "CaCO₃ → CaO + CO₂",
@@ -652,7 +874,10 @@
   {
     "id": "decomp-h2o2",
     "type": "分解",
-    "reactants": ["H", "O"],
+    "reactants": [
+      "H",
+      "O"
+    ],
     "product": "H₂O + O₂",
     "productName": "水和氧气",
     "equation": "2H₂O₂ → 2H₂O + O₂",
@@ -662,7 +887,11 @@
   {
     "id": "decomp-kclo3",
     "type": "分解",
-    "reactants": ["K", "Cl", "O"],
+    "reactants": [
+      "K",
+      "Cl",
+      "O"
+    ],
     "product": "KCl + O₂",
     "productName": "氯化钾和氧气",
     "equation": "2KClO₃ → 2KCl + 3O₂",
@@ -672,7 +901,11 @@
   {
     "id": "decomp-kmno4",
     "type": "分解",
-    "reactants": ["K", "Mn", "O"],
+    "reactants": [
+      "K",
+      "Mn",
+      "O"
+    ],
     "product": "K₂MnO₄ + MnO₂ + O₂",
     "productName": "锰酸钾、二氧化锰和氧气",
     "equation": "2KMnO₄ → K₂MnO₄ + MnO₂ + O₂",
@@ -682,7 +915,11 @@
   {
     "id": "decomp-cuoh2",
     "type": "分解",
-    "reactants": ["Cu", "H", "O"],
+    "reactants": [
+      "Cu",
+      "H",
+      "O"
+    ],
     "product": "CuO + H₂O",
     "productName": "氧化铜和水",
     "equation": "Cu(OH)₂ → CuO + H₂O",
@@ -692,7 +929,12 @@
   {
     "id": "decomp-nh4hco3",
     "type": "分解",
-    "reactants": ["N", "H", "C", "O"],
+    "reactants": [
+      "N",
+      "H",
+      "C",
+      "O"
+    ],
     "product": "NH₃ + H₂O + CO₂",
     "productName": "氨气、水和二氧化碳",
     "equation": "NH₄HCO₃ → NH₃ + H₂O + CO₂",
@@ -702,7 +944,12 @@
   {
     "id": "decomp-cabhco3",
     "type": "分解",
-    "reactants": ["Ca", "H", "C", "O"],
+    "reactants": [
+      "Ca",
+      "H",
+      "C",
+      "O"
+    ],
     "product": "CaCO₃ + H₂O + CO₂",
     "productName": "碳酸钙、水和二氧化碳",
     "equation": "Ca(HCO₃)₂ → CaCO₃ + H₂O + CO₂",
@@ -712,7 +959,11 @@
   {
     "id": "decomp-feoh3",
     "type": "分解",
-    "reactants": ["Fe", "H", "O"],
+    "reactants": [
+      "Fe",
+      "H",
+      "O"
+    ],
     "product": "Fe₂O₃ + H₂O",
     "productName": "氧化铁和水",
     "equation": "2Fe(OH)₃ → Fe₂O₃ + 3H₂O",
@@ -722,7 +973,11 @@
   {
     "id": "decomp-aloh3",
     "type": "分解",
-    "reactants": ["Al", "H", "O"],
+    "reactants": [
+      "Al",
+      "H",
+      "O"
+    ],
     "product": "Al₂O₃ + H₂O",
     "productName": "氧化铝和水",
     "equation": "2Al(OH)₃ → Al₂O₃ + 3H₂O",
@@ -732,7 +987,11 @@
   {
     "id": "decomp-mgoh2",
     "type": "分解",
-    "reactants": ["Mg", "H", "O"],
+    "reactants": [
+      "Mg",
+      "H",
+      "O"
+    ],
     "product": "MgO + H₂O",
     "productName": "氧化镁和水",
     "equation": "Mg(OH)₂ → MgO + H₂O",
@@ -742,7 +1001,12 @@
   {
     "id": "decomp-nahco3",
     "type": "分解",
-    "reactants": ["Na", "H", "C", "O"],
+    "reactants": [
+      "Na",
+      "H",
+      "C",
+      "O"
+    ],
     "product": "Na₂CO₃ + H₂O + CO₂",
     "productName": "碳酸钠、水和二氧化碳",
     "equation": "2NaHCO₃ → Na₂CO₃ + H₂O + CO₂",
@@ -752,7 +1016,11 @@
   {
     "id": "decomp-mgco3",
     "type": "分解",
-    "reactants": ["Mg", "C", "O"],
+    "reactants": [
+      "Mg",
+      "C",
+      "O"
+    ],
     "product": "MgO + CO₂",
     "productName": "氧化镁和二氧化碳",
     "equation": "MgCO₃ → MgO + CO₂",
@@ -762,7 +1030,11 @@
   {
     "id": "decomp-nh4cl",
     "type": "分解",
-    "reactants": ["N", "H", "Cl"],
+    "reactants": [
+      "N",
+      "H",
+      "Cl"
+    ],
     "product": "NH₃ + HCl",
     "productName": "氨气和氯化氢",
     "equation": "NH₄Cl → NH₃ + HCl",
@@ -772,7 +1044,11 @@
   {
     "id": "decomp-hno3",
     "type": "分解",
-    "reactants": ["H", "N", "O"],
+    "reactants": [
+      "H",
+      "N",
+      "O"
+    ],
     "product": "NO₂ + O₂ + H₂O",
     "productName": "二氧化氮、氧气和水",
     "equation": "4HNO₃ → 4NO₂ + O₂ + 2H₂O",
@@ -782,7 +1058,11 @@
   {
     "id": "decomp-cabh2o2",
     "type": "分解",
-    "reactants": ["Ca", "H", "O"],
+    "reactants": [
+      "Ca",
+      "H",
+      "O"
+    ],
     "product": "CaO + H₂O",
     "productName": "氧化钙和水",
     "equation": "Ca(OH)₂ → CaO + H₂O",
@@ -792,7 +1072,12 @@
   {
     "id": "replace-fe-cu",
     "type": "置换",
-    "reactants": ["Fe", "Cu", "S", "O"],
+    "reactants": [
+      "Fe",
+      "Cu",
+      "S",
+      "O"
+    ],
     "product": "FeSO₄ + Cu",
     "productName": "硫酸亚铁和铜",
     "equation": "Fe + CuSO₄ → FeSO₄ + Cu",
@@ -802,7 +1087,12 @@
   {
     "id": "replace-zn-cu",
     "type": "置换",
-    "reactants": ["Zn", "Cu", "S", "O"],
+    "reactants": [
+      "Zn",
+      "Cu",
+      "S",
+      "O"
+    ],
     "product": "ZnSO₄ + Cu",
     "productName": "硫酸锌和铜",
     "equation": "Zn + CuSO₄ → ZnSO₄ + Cu",
@@ -812,7 +1102,11 @@
   {
     "id": "replace-zn-h",
     "type": "置换",
-    "reactants": ["Zn", "H", "Cl"],
+    "reactants": [
+      "Zn",
+      "H",
+      "Cl"
+    ],
     "product": "ZnCl₂ + H₂",
     "productName": "氯化锌和氢气",
     "equation": "Zn + 2HCl → ZnCl₂ + H₂",
@@ -822,7 +1116,11 @@
   {
     "id": "replace-fe-h",
     "type": "置换",
-    "reactants": ["Fe", "H", "Cl"],
+    "reactants": [
+      "Fe",
+      "H",
+      "Cl"
+    ],
     "product": "FeCl₂ + H₂",
     "productName": "氯化亚铁和氢气",
     "equation": "Fe + 2HCl → FeCl₂ + H₂",
@@ -832,7 +1130,11 @@
   {
     "id": "replace-mg-h",
     "type": "置换",
-    "reactants": ["Mg", "H", "Cl"],
+    "reactants": [
+      "Mg",
+      "H",
+      "Cl"
+    ],
     "product": "MgCl₂ + H₂",
     "productName": "氯化镁和氢气",
     "equation": "Mg + 2HCl → MgCl₂ + H₂",
@@ -842,7 +1144,11 @@
   {
     "id": "replace-al-h",
     "type": "置换",
-    "reactants": ["Al", "H", "Cl"],
+    "reactants": [
+      "Al",
+      "H",
+      "Cl"
+    ],
     "product": "AlCl₃ + H₂",
     "productName": "氯化铝和氢气",
     "equation": "2Al + 6HCl → 2AlCl₃ + 3H₂",
@@ -852,7 +1158,12 @@
   {
     "id": "replace-cu-ag",
     "type": "置换",
-    "reactants": ["Cu", "Ag", "N", "O"],
+    "reactants": [
+      "Cu",
+      "Ag",
+      "N",
+      "O"
+    ],
     "product": "Cu(NO₃)₂ + Ag",
     "productName": "硝酸铜和银",
     "equation": "Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag",
@@ -862,7 +1173,11 @@
   {
     "id": "replace-cl-br",
     "type": "置换",
-    "reactants": ["Cl", "Na", "Br"],
+    "reactants": [
+      "Cl",
+      "Na",
+      "Br"
+    ],
     "product": "NaCl + Br₂",
     "productName": "氯化钠和溴",
     "equation": "Cl₂ + 2NaBr → 2NaCl + Br₂",
@@ -872,7 +1187,11 @@
   {
     "id": "replace-cl-i",
     "type": "置换",
-    "reactants": ["Cl", "K", "I"],
+    "reactants": [
+      "Cl",
+      "K",
+      "I"
+    ],
     "product": "KCl + I₂",
     "productName": "氯化钾和碘",
     "equation": "Cl₂ + 2KI → 2KCl + I₂",
@@ -882,7 +1201,12 @@
   {
     "id": "replace-zn-h2so4",
     "type": "置换",
-    "reactants": ["Zn", "H", "S", "O"],
+    "reactants": [
+      "Zn",
+      "H",
+      "S",
+      "O"
+    ],
     "product": "ZnSO₄ + H₂",
     "productName": "硫酸锌和氢气",
     "equation": "Zn + H₂SO₄ → ZnSO₄ + H₂",
@@ -892,7 +1216,11 @@
   {
     "id": "replace-c-cuo",
     "type": "置换",
-    "reactants": ["C", "Cu", "O"],
+    "reactants": [
+      "C",
+      "Cu",
+      "O"
+    ],
     "product": "CO₂ + Cu",
     "productName": "二氧化碳和铜",
     "equation": "2CuO + C → 2Cu + CO₂",
@@ -902,7 +1230,11 @@
   {
     "id": "replace-c-fe2o3",
     "type": "置换",
-    "reactants": ["C", "Fe", "O"],
+    "reactants": [
+      "C",
+      "Fe",
+      "O"
+    ],
     "product": "Fe + CO₂",
     "productName": "铁和二氧化碳",
     "equation": "2Fe₂O₃ + 3C → 4Fe + 3CO₂",
@@ -912,7 +1244,11 @@
   {
     "id": "replace-c-zno",
     "type": "置换",
-    "reactants": ["C", "Zn", "O"],
+    "reactants": [
+      "C",
+      "Zn",
+      "O"
+    ],
     "product": "Zn + CO₂",
     "productName": "锌和二氧化碳",
     "equation": "2ZnO + C → 2Zn + CO₂",
@@ -922,7 +1258,11 @@
   {
     "id": "replace-h2-cuo",
     "type": "置换",
-    "reactants": ["H", "Cu", "O"],
+    "reactants": [
+      "H",
+      "Cu",
+      "O"
+    ],
     "product": "Cu + H₂O",
     "productName": "铜和水",
     "equation": "CuO + H₂ → Cu + H₂O",
@@ -932,7 +1272,11 @@
   {
     "id": "replace-h2-fe2o3",
     "type": "置换",
-    "reactants": ["H", "Fe", "O"],
+    "reactants": [
+      "H",
+      "Fe",
+      "O"
+    ],
     "product": "Fe + H₂O",
     "productName": "铁和水",
     "equation": "Fe₂O₃ + 3H₂ → 2Fe + 3H₂O",
@@ -942,7 +1286,12 @@
   {
     "id": "replace-fe-znso4",
     "type": "置换",
-    "reactants": ["Fe", "Zn", "S", "O"],
+    "reactants": [
+      "Fe",
+      "Zn",
+      "S",
+      "O"
+    ],
     "product": "FeSO₄ + Zn",
     "productName": "硫酸亚铁和锌",
     "equation": "Fe + ZnSO₄ → FeSO₄ + Zn",
@@ -952,7 +1301,12 @@
   {
     "id": "replace-cu-hg",
     "type": "置换",
-    "reactants": ["Cu", "Hg", "S", "O"],
+    "reactants": [
+      "Cu",
+      "Hg",
+      "S",
+      "O"
+    ],
     "product": "CuSO₄ + Hg",
     "productName": "硫酸铜和汞",
     "equation": "Cu + HgSO₄ → CuSO₄ + Hg",
@@ -962,7 +1316,12 @@
   {
     "id": "replace-mg-znso4",
     "type": "置换",
-    "reactants": ["Mg", "Zn", "S", "O"],
+    "reactants": [
+      "Mg",
+      "Zn",
+      "S",
+      "O"
+    ],
     "product": "MgSO₄ + Zn",
     "productName": "硫酸镁和锌",
     "equation": "Mg + ZnSO₄ → MgSO₄ + Zn",
@@ -972,7 +1331,11 @@
   {
     "id": "replace-zn-fecl2",
     "type": "置换",
-    "reactants": ["Zn", "Fe", "Cl"],
+    "reactants": [
+      "Zn",
+      "Fe",
+      "Cl"
+    ],
     "product": "ZnCl₂ + Fe",
     "productName": "氯化锌和铁",
     "equation": "Zn + FeCl₂ → ZnCl₂ + Fe",
@@ -982,7 +1345,12 @@
   {
     "id": "double-naoh-hcl",
     "type": "复分解",
-    "reactants": ["Na", "O", "H", "Cl"],
+    "reactants": [
+      "Na",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "NaCl + H₂O",
     "productName": "氯化钠和水",
     "equation": "NaOH + HCl → NaCl + H₂O",
@@ -992,7 +1360,12 @@
   {
     "id": "double-naoh-h2so4",
     "type": "复分解",
-    "reactants": ["Na", "O", "H", "S"],
+    "reactants": [
+      "Na",
+      "O",
+      "H",
+      "S"
+    ],
     "product": "Na₂SO₄ + H₂O",
     "productName": "硫酸钠和水",
     "equation": "2NaOH + H₂SO₄ → Na₂SO₄ + 2H₂O",
@@ -1002,7 +1375,13 @@
   {
     "id": "double-agno3-nacl",
     "type": "复分解",
-    "reactants": ["Ag", "N", "O", "Na", "Cl"],
+    "reactants": [
+      "Ag",
+      "N",
+      "O",
+      "Na",
+      "Cl"
+    ],
     "product": "AgCl + NaNO₃",
     "productName": "氯化银和硝酸钠",
     "equation": "AgNO₃ + NaCl → AgCl + NaNO₃",
@@ -1012,7 +1391,13 @@
   {
     "id": "double-bacl2-na2so4",
     "type": "复分解",
-    "reactants": ["Ba", "Cl", "Na", "S", "O"],
+    "reactants": [
+      "Ba",
+      "Cl",
+      "Na",
+      "S",
+      "O"
+    ],
     "product": "BaSO₄ + NaCl",
     "productName": "硫酸钡和氯化钠",
     "equation": "BaCl₂ + Na₂SO₄ → BaSO₄ + 2NaCl",
@@ -1022,7 +1407,13 @@
   {
     "id": "double-na2co3-hcl",
     "type": "复分解",
-    "reactants": ["Na", "C", "O", "H", "Cl"],
+    "reactants": [
+      "Na",
+      "C",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "NaCl + H₂O + CO₂",
     "productName": "氯化钠、水和二氧化碳",
     "equation": "Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂",
@@ -1032,7 +1423,13 @@
   {
     "id": "double-caco3-hcl",
     "type": "复分解",
-    "reactants": ["Ca", "C", "O", "H", "Cl"],
+    "reactants": [
+      "Ca",
+      "C",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "CaCl₂ + H₂O + CO₂",
     "productName": "氯化钙、水和二氧化碳",
     "equation": "CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂",
@@ -1042,7 +1439,13 @@
   {
     "id": "double-cuso4-naoh",
     "type": "复分解",
-    "reactants": ["Cu", "S", "O", "Na", "H"],
+    "reactants": [
+      "Cu",
+      "S",
+      "O",
+      "Na",
+      "H"
+    ],
     "product": "Cu(OH)₂ + Na₂SO₄",
     "productName": "氢氧化铜和硫酸钠",
     "equation": "CuSO₄ + 2NaOH → Cu(OH)₂ + Na₂SO₄",
@@ -1052,7 +1455,13 @@
   {
     "id": "double-fecl3-naoh",
     "type": "复分解",
-    "reactants": ["Fe", "Cl", "Na", "O", "H"],
+    "reactants": [
+      "Fe",
+      "Cl",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "Fe(OH)₃ + NaCl",
     "productName": "氢氧化铁和氯化钠",
     "equation": "FeCl₃ + 3NaOH → Fe(OH)₃ + 3NaCl",
@@ -1062,7 +1471,12 @@
   {
     "id": "double-koh-hno3",
     "type": "复分解",
-    "reactants": ["K", "O", "H", "N"],
+    "reactants": [
+      "K",
+      "O",
+      "H",
+      "N"
+    ],
     "product": "KNO₃ + H₂O",
     "productName": "硝酸钾和水",
     "equation": "KOH + HNO₃ → KNO₃ + H₂O",
@@ -1072,7 +1486,12 @@
   {
     "id": "double-naoh-hno3",
     "type": "复分解",
-    "reactants": ["Na", "O", "H", "N"],
+    "reactants": [
+      "Na",
+      "O",
+      "H",
+      "N"
+    ],
     "product": "NaNO₃ + H₂O",
     "productName": "硝酸钠和水",
     "equation": "NaOH + HNO₃ → NaNO₃ + H₂O",
@@ -1082,7 +1501,12 @@
   {
     "id": "double-caoh2-hcl",
     "type": "复分解",
-    "reactants": ["Ca", "O", "H", "Cl"],
+    "reactants": [
+      "Ca",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "CaCl₂ + H₂O",
     "productName": "氯化钙和水",
     "equation": "Ca(OH)₂ + 2HCl → CaCl₂ + 2H₂O",
@@ -1092,7 +1516,12 @@
   {
     "id": "double-caoh2-h2so4",
     "type": "复分解",
-    "reactants": ["Ca", "O", "H", "S"],
+    "reactants": [
+      "Ca",
+      "O",
+      "H",
+      "S"
+    ],
     "product": "CaSO₄ + H₂O",
     "productName": "硫酸钙和水",
     "equation": "Ca(OH)₂ + H₂SO₄ → CaSO₄ + 2H₂O",
@@ -1102,7 +1531,13 @@
   {
     "id": "double-cuso4-bacl2",
     "type": "复分解",
-    "reactants": ["Cu", "S", "O", "Ba", "Cl"],
+    "reactants": [
+      "Cu",
+      "S",
+      "O",
+      "Ba",
+      "Cl"
+    ],
     "product": "BaSO₄ + CuCl₂",
     "productName": "硫酸钡和氯化铜",
     "equation": "CuSO₄ + BaCl₂ → BaSO₄ + CuCl₂",
@@ -1112,7 +1547,13 @@
   {
     "id": "double-agno3-hcl",
     "type": "复分解",
-    "reactants": ["Ag", "N", "O", "H", "Cl"],
+    "reactants": [
+      "Ag",
+      "N",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "AgCl + HNO₃",
     "productName": "氯化银和硝酸",
     "equation": "AgNO₃ + HCl → AgCl + HNO₃",
@@ -1122,7 +1563,13 @@
   {
     "id": "double-na2co3-cacl2",
     "type": "复分解",
-    "reactants": ["Na", "C", "O", "Ca", "Cl"],
+    "reactants": [
+      "Na",
+      "C",
+      "O",
+      "Ca",
+      "Cl"
+    ],
     "product": "CaCO₃ + NaCl",
     "productName": "碳酸钙和氯化钠",
     "equation": "Na₂CO₃ + CaCl₂ → CaCO₃ + 2NaCl",
@@ -1132,7 +1579,13 @@
   {
     "id": "double-na2co3-bacl2",
     "type": "复分解",
-    "reactants": ["Na", "C", "O", "Ba", "Cl"],
+    "reactants": [
+      "Na",
+      "C",
+      "O",
+      "Ba",
+      "Cl"
+    ],
     "product": "BaCO₃ + NaCl",
     "productName": "碳酸钡和氯化钠",
     "equation": "Na₂CO₃ + BaCl₂ → BaCO₃ + 2NaCl",
@@ -1142,7 +1595,13 @@
   {
     "id": "double-fecl3-naoh-extra",
     "type": "复分解",
-    "reactants": ["Fe", "Cl", "Na", "O", "H"],
+    "reactants": [
+      "Fe",
+      "Cl",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "Fe(OH)₃ + NaCl",
     "productName": "氢氧化铁和氯化钠",
     "equation": "FeCl₃ + 3NaOH → Fe(OH)₃ + 3NaCl",
@@ -1152,7 +1611,13 @@
   {
     "id": "double-mgcl2-naoh",
     "type": "复分解",
-    "reactants": ["Mg", "Cl", "Na", "O", "H"],
+    "reactants": [
+      "Mg",
+      "Cl",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "Mg(OH)₂ + NaCl",
     "productName": "氢氧化镁和氯化钠",
     "equation": "MgCl₂ + 2NaOH → Mg(OH)₂ + 2NaCl",
@@ -1162,7 +1627,13 @@
   {
     "id": "double-cuso4-na2co3",
     "type": "复分解",
-    "reactants": ["Cu", "S", "O", "Na", "C"],
+    "reactants": [
+      "Cu",
+      "S",
+      "O",
+      "Na",
+      "C"
+    ],
     "product": "CuCO₃ + Na₂SO₄",
     "productName": "碳酸铜和硫酸钠",
     "equation": "CuSO₄ + Na₂CO₃ → CuCO₃ + Na₂SO₄",
@@ -1172,7 +1643,13 @@
   {
     "id": "double-nh4cl-naoh",
     "type": "复分解",
-    "reactants": ["N", "H", "Cl", "Na", "O"],
+    "reactants": [
+      "N",
+      "H",
+      "Cl",
+      "Na",
+      "O"
+    ],
     "product": "NaCl + NH₃ + H₂O",
     "productName": "氯化钠、氨气和水",
     "equation": "NH₄Cl + NaOH → NaCl + NH₃ + H₂O",
@@ -1182,7 +1659,12 @@
   {
     "id": "double-nh4no3-naoh",
     "type": "复分解",
-    "reactants": ["N", "H", "O", "Na"],
+    "reactants": [
+      "N",
+      "H",
+      "O",
+      "Na"
+    ],
     "product": "NaNO₃ + NH₃ + H₂O",
     "productName": "硝酸钠、氨气和水",
     "equation": "NH₄NO₃ + NaOH → NaNO₃ + NH₃ + H₂O",
@@ -1192,7 +1674,13 @@
   {
     "id": "double-h2so4-na2co3",
     "type": "复分解",
-    "reactants": ["H", "S", "O", "Na", "C"],
+    "reactants": [
+      "H",
+      "S",
+      "O",
+      "Na",
+      "C"
+    ],
     "product": "Na₂SO₄ + H₂O + CO₂",
     "productName": "硫酸钠、水和二氧化碳",
     "equation": "H₂SO₄ + Na₂CO₃ → Na₂SO₄ + H₂O + CO₂",
@@ -1202,7 +1690,12 @@
   {
     "id": "double-koh-hcl",
     "type": "复分解",
-    "reactants": ["K", "O", "H", "Cl"],
+    "reactants": [
+      "K",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "KCl + H₂O",
     "productName": "氯化钾和水",
     "equation": "KOH + HCl → KCl + H₂O",
@@ -1212,7 +1705,11 @@
   {
     "id": "redox-co-fe2o3",
     "type": "氧化还原",
-    "reactants": ["C", "O", "Fe"],
+    "reactants": [
+      "C",
+      "O",
+      "Fe"
+    ],
     "product": "Fe + CO₂",
     "productName": "铁和二氧化碳",
     "equation": "3CO + Fe₂O₃ → 2Fe + 3CO₂",
@@ -1222,7 +1719,11 @@
   {
     "id": "redox-co-cuo",
     "type": "氧化还原",
-    "reactants": ["C", "O", "Cu"],
+    "reactants": [
+      "C",
+      "O",
+      "Cu"
+    ],
     "product": "Cu + CO₂",
     "productName": "铜和二氧化碳",
     "equation": "CO + CuO → Cu + CO₂",
@@ -1232,7 +1733,10 @@
   {
     "id": "redox-c-co2",
     "type": "氧化还原",
-    "reactants": ["C", "O"],
+    "reactants": [
+      "C",
+      "O"
+    ],
     "product": "CO",
     "productName": "一氧化碳",
     "equation": "C + CO₂ → 2CO",
@@ -1242,7 +1746,10 @@
   {
     "id": "redox-co-o2",
     "type": "氧化还原",
-    "reactants": ["C", "O"],
+    "reactants": [
+      "C",
+      "O"
+    ],
     "product": "CO₂",
     "productName": "二氧化碳",
     "equation": "2CO + O₂ → 2CO₂",
@@ -1252,7 +1759,11 @@
   {
     "id": "redox-ch4-o2",
     "type": "氧化还原",
-    "reactants": ["C", "H", "O"],
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
     "product": "CO₂ + H₂O",
     "productName": "二氧化碳和水",
     "equation": "CH₄ + 2O₂ → CO₂ + 2H₂O",
@@ -1262,7 +1773,11 @@
   {
     "id": "redox-c2h5oh-o2",
     "type": "氧化还原",
-    "reactants": ["C", "H", "O"],
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
     "product": "CO₂ + H₂O",
     "productName": "二氧化碳和水",
     "equation": "C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O",
@@ -1272,7 +1787,11 @@
   {
     "id": "redox-h2-cuo",
     "type": "氧化还原",
-    "reactants": ["H", "Cu", "O"],
+    "reactants": [
+      "H",
+      "Cu",
+      "O"
+    ],
     "product": "Cu + H₂O",
     "productName": "铜和水",
     "equation": "H₂ + CuO → Cu + H₂O",
@@ -1282,7 +1801,11 @@
   {
     "id": "redox-cuo-h2",
     "type": "氧化还原",
-    "reactants": ["H", "Cu", "O"],
+    "reactants": [
+      "H",
+      "Cu",
+      "O"
+    ],
     "product": "Cu + H₂O",
     "productName": "铜和水",
     "equation": "CuO + H₂ → Cu + H₂O",
@@ -1292,7 +1815,10 @@
   {
     "id": "redox-fe-cl2-extra",
     "type": "氧化还原",
-    "reactants": ["Fe", "Cl"],
+    "reactants": [
+      "Fe",
+      "Cl"
+    ],
     "product": "FeCl₃",
     "productName": "氯化铁",
     "equation": "2Fe + 3Cl₂ → 2FeCl₃",
@@ -1302,7 +1828,12 @@
   {
     "id": "redox-cu-h2so4",
     "type": "氧化还原",
-    "reactants": ["Cu", "H", "S", "O"],
+    "reactants": [
+      "Cu",
+      "H",
+      "S",
+      "O"
+    ],
     "product": "CuSO₄ + SO₂ + H₂O",
     "productName": "硫酸铜、二氧化硫和水",
     "equation": "Cu + 2H₂SO₄(浓) → CuSO₄ + SO₂ + 2H₂O",
@@ -1312,7 +1843,12 @@
   {
     "id": "redox-cu-hno3",
     "type": "氧化还原",
-    "reactants": ["Cu", "H", "N", "O"],
+    "reactants": [
+      "Cu",
+      "H",
+      "N",
+      "O"
+    ],
     "product": "Cu(NO₃)₂ + NO₂ + H₂O",
     "productName": "硝酸铜、二氧化氮和水",
     "equation": "Cu + 4HNO₃(浓) → Cu(NO₃)₂ + 2NO₂ + 2H₂O",
@@ -1322,7 +1858,12 @@
   {
     "id": "redox-c-hno3-dilute",
     "type": "氧化还原",
-    "reactants": ["C", "H", "N", "O"],
+    "reactants": [
+      "C",
+      "H",
+      "N",
+      "O"
+    ],
     "product": "CO₂ + NO + H₂O",
     "productName": "二氧化碳、一氧化氮和水",
     "equation": "3C + 4HNO₃(稀) → 3CO₂ + 4NO + 2H₂O",
@@ -1332,7 +1873,12 @@
   {
     "id": "redox-mno2-hcl",
     "type": "氧化还原",
-    "reactants": ["Mn", "O", "H", "Cl"],
+    "reactants": [
+      "Mn",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "MnCl₂ + Cl₂ + H₂O",
     "productName": "氯化锰、氯气和水",
     "equation": "MnO₂ + 4HCl(浓) → MnCl₂ + Cl₂ + 2H₂O",
@@ -1342,7 +1888,10 @@
   {
     "id": "redox-fe-cl2-fecl2",
     "type": "氧化还原",
-    "reactants": ["Fe", "Cl"],
+    "reactants": [
+      "Fe",
+      "Cl"
+    ],
     "product": "FeCl₂",
     "productName": "氯化亚铁",
     "equation": "Fe + Cl₂ → FeCl₂",
@@ -1352,7 +1901,10 @@
   {
     "id": "redox-c-o-co",
     "type": "氧化还原",
-    "reactants": ["C", "O"],
+    "reactants": [
+      "C",
+      "O"
+    ],
     "product": "CO",
     "productName": "一氧化碳",
     "equation": "2C + O₂ → 2CO",
@@ -1362,7 +1914,10 @@
   {
     "id": "na-o-na2o",
     "type": "化合",
-    "reactants": ["Na", "O"],
+    "reactants": [
+      "Na",
+      "O"
+    ],
     "product": "Na₂O",
     "productName": "氧化钠",
     "equation": "4Na + O₂ → 2Na₂O",
@@ -1372,7 +1927,10 @@
   {
     "id": "na2o-o-na2o2",
     "type": "化合",
-    "reactants": ["Na", "O"],
+    "reactants": [
+      "Na",
+      "O"
+    ],
     "product": "Na₂O₂",
     "productName": "过氧化钠",
     "equation": "2Na₂O + O₂ → 2Na₂O₂",
@@ -1382,7 +1940,11 @@
   {
     "id": "na2o-h2o-naoh",
     "type": "化合",
-    "reactants": ["Na", "H", "O"],
+    "reactants": [
+      "Na",
+      "H",
+      "O"
+    ],
     "product": "NaOH",
     "productName": "氢氧化钠",
     "equation": "Na₂O + H₂O → 2NaOH",
@@ -1392,7 +1954,11 @@
   {
     "id": "na2o-co2-na2co3",
     "type": "化合",
-    "reactants": ["Na", "C", "O"],
+    "reactants": [
+      "Na",
+      "C",
+      "O"
+    ],
     "product": "Na₂CO₃",
     "productName": "碳酸钠",
     "equation": "Na₂O + CO₂ → Na₂CO₃",
@@ -1402,7 +1968,11 @@
   {
     "id": "na2o2-h2o-o2",
     "type": "氧化还原",
-    "reactants": ["Na", "H", "O"],
+    "reactants": [
+      "Na",
+      "H",
+      "O"
+    ],
     "product": "NaOH + O₂",
     "productName": "氢氧化钠和氧气",
     "equation": "2Na₂O₂ + 2H₂O → 4NaOH + O₂",
@@ -1412,7 +1982,11 @@
   {
     "id": "na2o2-co2-o2",
     "type": "氧化还原",
-    "reactants": ["Na", "C", "O"],
+    "reactants": [
+      "Na",
+      "C",
+      "O"
+    ],
     "product": "Na₂CO₃ + O₂",
     "productName": "碳酸钠和氧气",
     "equation": "2Na₂O₂ + 2CO₂ → 2Na₂CO₃ + O₂",
@@ -1422,7 +1996,11 @@
   {
     "id": "na-hcl-nacl-h2",
     "type": "置换",
-    "reactants": ["Na", "H", "Cl"],
+    "reactants": [
+      "Na",
+      "H",
+      "Cl"
+    ],
     "product": "NaCl + H₂",
     "productName": "氯化钠和氢气",
     "equation": "2Na + 2HCl → 2NaCl + H₂",
@@ -1432,7 +2010,12 @@
   {
     "id": "na2co3-co2-h2o-nahco3",
     "type": "化合",
-    "reactants": ["Na", "H", "C", "O"],
+    "reactants": [
+      "Na",
+      "H",
+      "C",
+      "O"
+    ],
     "product": "NaHCO₃",
     "productName": "碳酸氢钠",
     "equation": "Na₂CO₃ + CO₂ + H₂O → 2NaHCO₃",
@@ -1442,7 +2025,12 @@
   {
     "id": "nahco3-naoh-na2co3",
     "type": "复分解",
-    "reactants": ["Na", "H", "C", "O"],
+    "reactants": [
+      "Na",
+      "H",
+      "C",
+      "O"
+    ],
     "product": "Na₂CO₃ + H₂O",
     "productName": "碳酸钠和水",
     "equation": "NaHCO₃ + NaOH → Na₂CO₃ + H₂O",
@@ -1452,7 +2040,12 @@
   {
     "id": "naoh-co2-na2co3",
     "type": "复分解",
-    "reactants": ["Na", "H", "C", "O"],
+    "reactants": [
+      "Na",
+      "H",
+      "C",
+      "O"
+    ],
     "product": "Na₂CO₃ + H₂O",
     "productName": "碳酸钠和水",
     "equation": "2NaOH + CO₂ → Na₂CO₃ + H₂O",
@@ -1462,7 +2055,12 @@
   {
     "id": "naoh-co2-nahco3",
     "type": "复分解",
-    "reactants": ["Na", "H", "C", "O"],
+    "reactants": [
+      "Na",
+      "H",
+      "C",
+      "O"
+    ],
     "product": "NaHCO₃",
     "productName": "碳酸氢钠",
     "equation": "NaOH + CO₂ → NaHCO₃",
@@ -1472,7 +2070,12 @@
   {
     "id": "al-naoh-h2o-naalo2-h2",
     "type": "氧化还原",
-    "reactants": ["Al", "Na", "O", "H"],
+    "reactants": [
+      "Al",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "NaAlO₂ + H₂",
     "productName": "偏铝酸钠和氢气",
     "equation": "2Al + 2NaOH + 2H₂O → 2NaAlO₂ + 3H₂",
@@ -1482,7 +2085,12 @@
   {
     "id": "al2o3-naoh-naalo2",
     "type": "复分解",
-    "reactants": ["Al", "Na", "O", "H"],
+    "reactants": [
+      "Al",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "NaAlO₂ + H₂O",
     "productName": "偏铝酸钠和水",
     "equation": "Al₂O₃ + 2NaOH → 2NaAlO₂ + H₂O",
@@ -1492,7 +2100,12 @@
   {
     "id": "aloh3-naoh-naalo2",
     "type": "复分解",
-    "reactants": ["Al", "Na", "O", "H"],
+    "reactants": [
+      "Al",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "NaAlO₂ + H₂O",
     "productName": "偏铝酸钠和水",
     "equation": "Al(OH)₃ + NaOH → NaAlO₂ + 2H₂O",
@@ -1502,7 +2115,12 @@
   {
     "id": "aloh3-hcl-alcl3",
     "type": "复分解",
-    "reactants": ["Al", "O", "H", "Cl"],
+    "reactants": [
+      "Al",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "AlCl₃ + H₂O",
     "productName": "氯化铝和水",
     "equation": "Al(OH)₃ + 3HCl → AlCl₃ + 3H₂O",
@@ -1512,7 +2130,12 @@
   {
     "id": "al2o3-hcl-alcl3",
     "type": "复分解",
-    "reactants": ["Al", "O", "H", "Cl"],
+    "reactants": [
+      "Al",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "AlCl₃ + H₂O",
     "productName": "氯化铝和水",
     "equation": "Al₂O₃ + 6HCl → 2AlCl₃ + 3H₂O",
@@ -1522,7 +2145,11 @@
   {
     "id": "al-fe2o3-al2o3-fe",
     "type": "置换",
-    "reactants": ["Al", "Fe", "O"],
+    "reactants": [
+      "Al",
+      "Fe",
+      "O"
+    ],
     "product": "Al₂O₃ + Fe",
     "productName": "氧化铝和铁",
     "equation": "2Al + Fe₂O₃ → Al₂O₃ + 2Fe",
@@ -1532,7 +2159,11 @@
   {
     "id": "al-mno2-al2o3-mn",
     "type": "置换",
-    "reactants": ["Al", "Mn", "O"],
+    "reactants": [
+      "Al",
+      "Mn",
+      "O"
+    ],
     "product": "Al₂O₃ + Mn",
     "productName": "氧化铝和锰",
     "equation": "4Al + 3MnO₂ → 2Al₂O₃ + 3Mn",
@@ -1542,7 +2173,13 @@
   {
     "id": "alcl3-nh3h2o-aloh3",
     "type": "复分解",
-    "reactants": ["Al", "Cl", "N", "H", "O"],
+    "reactants": [
+      "Al",
+      "Cl",
+      "N",
+      "H",
+      "O"
+    ],
     "product": "Al(OH)₃ + NH₄Cl",
     "productName": "氢氧化铝和氯化铵",
     "equation": "AlCl₃ + 3NH₃·H₂O → Al(OH)₃ + 3NH₄Cl",
@@ -1552,7 +2189,13 @@
   {
     "id": "naalo2-hcl-aloh3",
     "type": "复分解",
-    "reactants": ["Na", "Al", "O", "H", "Cl"],
+    "reactants": [
+      "Na",
+      "Al",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "Al(OH)₃ + NaCl",
     "productName": "氢氧化铝和氯化钠",
     "equation": "NaAlO₂ + HCl + H₂O → Al(OH)₃ + NaCl",
@@ -1562,7 +2205,13 @@
   {
     "id": "naalo2-co2-aloh3",
     "type": "复分解",
-    "reactants": ["Na", "Al", "O", "C", "H"],
+    "reactants": [
+      "Na",
+      "Al",
+      "O",
+      "C",
+      "H"
+    ],
     "product": "Al(OH)₃ + NaHCO₃",
     "productName": "氢氧化铝和碳酸氢钠",
     "equation": "NaAlO₂ + CO₂ + 2H₂O → Al(OH)₃ + NaHCO₃",
@@ -1572,7 +2221,11 @@
   {
     "id": "fe-h2o-fe3o4-h2",
     "type": "置换",
-    "reactants": ["Fe", "H", "O"],
+    "reactants": [
+      "Fe",
+      "H",
+      "O"
+    ],
     "product": "Fe₃O₄ + H₂",
     "productName": "四氧化三铁和氢气",
     "equation": "3Fe + 4H₂O(g) → Fe₃O₄ + 4H₂",
@@ -1582,7 +2235,11 @@
   {
     "id": "feoh2-o2-h2o-feoh3",
     "type": "化合",
-    "reactants": ["Fe", "O", "H"],
+    "reactants": [
+      "Fe",
+      "O",
+      "H"
+    ],
     "product": "Fe(OH)₃",
     "productName": "氢氧化铁",
     "equation": "4Fe(OH)₂ + O₂ + 2H₂O → 4Fe(OH)₃",
@@ -1592,7 +2249,10 @@
   {
     "id": "fecl2-cl2-fecl3",
     "type": "氧化还原",
-    "reactants": ["Fe", "Cl"],
+    "reactants": [
+      "Fe",
+      "Cl"
+    ],
     "product": "FeCl₃",
     "productName": "氯化铁",
     "equation": "2FeCl₂ + Cl₂ → 2FeCl₃",
@@ -1602,7 +2262,10 @@
   {
     "id": "fecl3-fe-fecl2",
     "type": "氧化还原",
-    "reactants": ["Fe", "Cl"],
+    "reactants": [
+      "Fe",
+      "Cl"
+    ],
     "product": "FeCl₂",
     "productName": "氯化亚铁",
     "equation": "2FeCl₃ + Fe → 3FeCl₂",
@@ -1612,7 +2275,11 @@
   {
     "id": "fecl3-cu-fecl2-cucl2",
     "type": "氧化还原",
-    "reactants": ["Fe", "Cl", "Cu"],
+    "reactants": [
+      "Fe",
+      "Cl",
+      "Cu"
+    ],
     "product": "FeCl₂ + CuCl₂",
     "productName": "氯化亚铁和氯化铜",
     "equation": "2FeCl₃ + Cu → 2FeCl₂ + CuCl₂",
@@ -1622,7 +2289,11 @@
   {
     "id": "fe2o3-co-fe-co2",
     "type": "氧化还原",
-    "reactants": ["Fe", "C", "O"],
+    "reactants": [
+      "Fe",
+      "C",
+      "O"
+    ],
     "product": "Fe + CO₂",
     "productName": "铁和二氧化碳",
     "equation": "Fe₂O₃ + 3CO → 2Fe + 3CO₂",
@@ -1632,7 +2303,12 @@
   {
     "id": "fe2o3-hcl-fecl3",
     "type": "复分解",
-    "reactants": ["Fe", "O", "H", "Cl"],
+    "reactants": [
+      "Fe",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "FeCl₃ + H₂O",
     "productName": "氯化铁和水",
     "equation": "Fe₂O₃ + 6HCl → 2FeCl₃ + 3H₂O",
@@ -1642,7 +2318,12 @@
   {
     "id": "feo-hcl-fecl2",
     "type": "复分解",
-    "reactants": ["Fe", "O", "H", "Cl"],
+    "reactants": [
+      "Fe",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "FeCl₂ + H₂O",
     "productName": "氯化亚铁和水",
     "equation": "FeO + 2HCl → FeCl₂ + H₂O",
@@ -1652,7 +2333,12 @@
   {
     "id": "fe3o4-hcl-fecl2-fecl3",
     "type": "复分解",
-    "reactants": ["Fe", "O", "H", "Cl"],
+    "reactants": [
+      "Fe",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "FeCl₂ + FeCl₃ + H₂O",
     "productName": "氯化亚铁、氯化铁和水",
     "equation": "Fe₃O₄ + 8HCl → FeCl₂ + 2FeCl₃ + 4H₂O",
@@ -1662,7 +2348,12 @@
   {
     "id": "cu-h2so4-concentrated",
     "type": "氧化还原",
-    "reactants": ["Cu", "H", "S", "O"],
+    "reactants": [
+      "Cu",
+      "H",
+      "S",
+      "O"
+    ],
     "product": "CuSO₄ + SO₂ + H₂O",
     "productName": "硫酸铜、二氧化硫和水",
     "equation": "Cu + 2H₂SO₄(浓) → CuSO₄ + SO₂ + 2H₂O",
@@ -1672,7 +2363,12 @@
   {
     "id": "cu-hno3-dilute",
     "type": "氧化还原",
-    "reactants": ["Cu", "H", "N", "O"],
+    "reactants": [
+      "Cu",
+      "H",
+      "N",
+      "O"
+    ],
     "product": "Cu(NO₃)₂ + NO + H₂O",
     "productName": "硝酸铜、一氧化氮和水",
     "equation": "3Cu + 8HNO₃(稀) → 3Cu(NO₃)₂ + 2NO + 4H₂O",
@@ -1682,7 +2378,11 @@
   {
     "id": "cu-fecl3-cucl2-fecl2",
     "type": "氧化还原",
-    "reactants": ["Cu", "Fe", "Cl"],
+    "reactants": [
+      "Cu",
+      "Fe",
+      "Cl"
+    ],
     "product": "CuCl₂ + FeCl₂",
     "productName": "氯化铜和氯化亚铁",
     "equation": "Cu + 2FeCl₃ → CuCl₂ + 2FeCl₂",
@@ -1692,7 +2392,11 @@
   {
     "id": "cl2-h2o-hcl-hclo",
     "type": "氧化还原",
-    "reactants": ["Cl", "H", "O"],
+    "reactants": [
+      "Cl",
+      "H",
+      "O"
+    ],
     "product": "HCl + HClO",
     "productName": "盐酸和次氯酸",
     "equation": "Cl₂ + H₂O ⇌ HCl + HClO",
@@ -1702,7 +2406,12 @@
   {
     "id": "cl2-naoh-nacl-naclo",
     "type": "氧化还原",
-    "reactants": ["Cl", "Na", "O", "H"],
+    "reactants": [
+      "Cl",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "NaCl + NaClO + H₂O",
     "productName": "氯化钠、次氯酸钠和水",
     "equation": "Cl₂ + 2NaOH → NaCl + NaClO + H₂O",
@@ -1712,7 +2421,12 @@
   {
     "id": "cl2-caoh2-cacl2-ca(clo)2",
     "type": "氧化还原",
-    "reactants": ["Cl", "Ca", "O", "H"],
+    "reactants": [
+      "Cl",
+      "Ca",
+      "O",
+      "H"
+    ],
     "product": "CaCl₂ + Ca(ClO)₂ + H₂O",
     "productName": "氯化钙、次氯酸钙和水",
     "equation": "2Cl₂ + 2Ca(OH)₂ → CaCl₂ + Ca(ClO)₂ + 2H₂O",
@@ -1722,7 +2436,11 @@
   {
     "id": "hclo-decomp",
     "type": "分解",
-    "reactants": ["H", "Cl", "O"],
+    "reactants": [
+      "H",
+      "Cl",
+      "O"
+    ],
     "product": "HCl + O₂",
     "productName": "盐酸和氧气",
     "equation": "2HClO → 2HCl + O₂",
@@ -1732,7 +2450,12 @@
   {
     "id": "nacl-h2o-electrolysis",
     "type": "氧化还原",
-    "reactants": ["Na", "Cl", "H", "O"],
+    "reactants": [
+      "Na",
+      "Cl",
+      "H",
+      "O"
+    ],
     "product": "NaOH + H₂ + Cl₂",
     "productName": "氢氧化钠、氢气和氯气",
     "equation": "2NaCl + 2H₂O → 2NaOH + H₂ + Cl₂",
@@ -1742,7 +2465,11 @@
   {
     "id": "so2-h2o-h2so3",
     "type": "化合",
-    "reactants": ["S", "H", "O"],
+    "reactants": [
+      "S",
+      "H",
+      "O"
+    ],
     "product": "H₂SO₃",
     "productName": "亚硫酸",
     "equation": "SO₂ + H₂O ⇌ H₂SO₃",
@@ -1752,7 +2479,10 @@
   {
     "id": "so2-o2-so3",
     "type": "化合",
-    "reactants": ["S", "O"],
+    "reactants": [
+      "S",
+      "O"
+    ],
     "product": "SO₃",
     "productName": "三氧化硫",
     "equation": "2SO₂ + O₂ ⇌ 2SO₃",
@@ -1762,7 +2492,11 @@
   {
     "id": "so3-h2o-h2so4",
     "type": "化合",
-    "reactants": ["S", "H", "O"],
+    "reactants": [
+      "S",
+      "H",
+      "O"
+    ],
     "product": "H₂SO₄",
     "productName": "硫酸",
     "equation": "SO₃ + H₂O → H₂SO₄",
@@ -1772,7 +2506,12 @@
   {
     "id": "so2-naoh-na2so3",
     "type": "复分解",
-    "reactants": ["S", "Na", "O", "H"],
+    "reactants": [
+      "S",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "Na₂SO₃ + H₂O",
     "productName": "亚硫酸钠和水",
     "equation": "SO₂ + 2NaOH → Na₂SO₃ + H₂O",
@@ -1782,7 +2521,12 @@
   {
     "id": "so2-naoh-nahso3",
     "type": "复分解",
-    "reactants": ["S", "Na", "O", "H"],
+    "reactants": [
+      "S",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "NaHSO₃",
     "productName": "亚硫酸氢钠",
     "equation": "SO₂ + NaOH → NaHSO₃",
@@ -1792,7 +2536,12 @@
   {
     "id": "so2-caoh2-caso3",
     "type": "复分解",
-    "reactants": ["S", "Ca", "O", "H"],
+    "reactants": [
+      "S",
+      "Ca",
+      "O",
+      "H"
+    ],
     "product": "CaSO₃ + H₂O",
     "productName": "亚硫酸钙和水",
     "equation": "SO₂ + Ca(OH)₂ → CaSO₃ + H₂O",
@@ -1802,7 +2551,12 @@
   {
     "id": "so2-cl2-h2o-h2so4-hcl",
     "type": "氧化还原",
-    "reactants": ["S", "Cl", "H", "O"],
+    "reactants": [
+      "S",
+      "Cl",
+      "H",
+      "O"
+    ],
     "product": "H₂SO₄ + HCl",
     "productName": "硫酸和盐酸",
     "equation": "SO₂ + Cl₂ + 2H₂O → H₂SO₄ + 2HCl",
@@ -1812,7 +2566,11 @@
   {
     "id": "h2s-so2-s-h2o",
     "type": "氧化还原",
-    "reactants": ["H", "S", "O"],
+    "reactants": [
+      "H",
+      "S",
+      "O"
+    ],
     "product": "S + H₂O",
     "productName": "硫和水",
     "equation": "2H₂S + SO₂ → 3S + 2H₂O",
@@ -1822,7 +2580,12 @@
   {
     "id": "c-h2so4-concentrated",
     "type": "氧化还原",
-    "reactants": ["C", "H", "S", "O"],
+    "reactants": [
+      "C",
+      "H",
+      "S",
+      "O"
+    ],
     "product": "CO₂ + SO₂ + H₂O",
     "productName": "二氧化碳、二氧化硫和水",
     "equation": "C + 2H₂SO₄(浓) → CO₂ + 2SO₂ + 2H₂O",
@@ -1832,7 +2595,11 @@
   {
     "id": "nh3-h2o-nh3h2o",
     "type": "化合",
-    "reactants": ["N", "H", "O"],
+    "reactants": [
+      "N",
+      "H",
+      "O"
+    ],
     "product": "NH₃·H₂O",
     "productName": "一水合氨",
     "equation": "NH₃ + H₂O ⇌ NH₃·H₂O",
@@ -1842,7 +2609,11 @@
   {
     "id": "nh3-hcl-nh4cl",
     "type": "化合",
-    "reactants": ["N", "H", "Cl"],
+    "reactants": [
+      "N",
+      "H",
+      "Cl"
+    ],
     "product": "NH₄Cl",
     "productName": "氯化铵",
     "equation": "NH₃ + HCl → NH₄Cl",
@@ -1852,7 +2623,11 @@
   {
     "id": "nh3-o2-no-h2o",
     "type": "氧化还原",
-    "reactants": ["N", "H", "O"],
+    "reactants": [
+      "N",
+      "H",
+      "O"
+    ],
     "product": "NO + H₂O",
     "productName": "一氧化氮和水",
     "equation": "4NH₃ + 5O₂ → 4NO + 6H₂O",
@@ -1862,7 +2637,11 @@
   {
     "id": "no2-h2o-hno3-no",
     "type": "氧化还原",
-    "reactants": ["N", "H", "O"],
+    "reactants": [
+      "N",
+      "H",
+      "O"
+    ],
     "product": "HNO₃ + NO",
     "productName": "硝酸和一氧化氮",
     "equation": "3NO₂ + H₂O → 2HNO₃ + NO",
@@ -1872,7 +2651,11 @@
   {
     "id": "no2-o2-h2o-hno3",
     "type": "化合",
-    "reactants": ["N", "H", "O"],
+    "reactants": [
+      "N",
+      "H",
+      "O"
+    ],
     "product": "HNO₃",
     "productName": "硝酸",
     "equation": "4NO₂ + O₂ + 2H₂O → 4HNO₃",
@@ -1882,7 +2665,11 @@
   {
     "id": "no-o2-h2o-hno3",
     "type": "化合",
-    "reactants": ["N", "H", "O"],
+    "reactants": [
+      "N",
+      "H",
+      "O"
+    ],
     "product": "HNO₃",
     "productName": "硝酸",
     "equation": "4NO + 3O₂ + 2H₂O → 4HNO₃",
@@ -1892,7 +2679,13 @@
   {
     "id": "nh4cl-caoh2-nh3-cacl2",
     "type": "复分解",
-    "reactants": ["N", "H", "Cl", "Ca", "O"],
+    "reactants": [
+      "N",
+      "H",
+      "Cl",
+      "Ca",
+      "O"
+    ],
     "product": "NH₃ + CaCl₂ + H₂O",
     "productName": "氨气、氯化钙和水",
     "equation": "2NH₄Cl + Ca(OH)₂ → 2NH₃ + CaCl₂ + 2H₂O",
@@ -1902,7 +2695,12 @@
   {
     "id": "si-naoh-h2o-na2sio3-h2",
     "type": "氧化还原",
-    "reactants": ["Si", "Na", "O", "H"],
+    "reactants": [
+      "Si",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "Na₂SiO₃ + H₂",
     "productName": "硅酸钠和氢气",
     "equation": "Si + 2NaOH + H₂O → Na₂SiO₃ + 2H₂",
@@ -1912,7 +2710,12 @@
   {
     "id": "sio2-naoh-na2sio3",
     "type": "复分解",
-    "reactants": ["Si", "Na", "O", "H"],
+    "reactants": [
+      "Si",
+      "Na",
+      "O",
+      "H"
+    ],
     "product": "Na₂SiO₃ + H₂O",
     "productName": "硅酸钠和水",
     "equation": "SiO₂ + 2NaOH → Na₂SiO₃ + H₂O",
@@ -1922,7 +2725,11 @@
   {
     "id": "sio2-cao-casio3",
     "type": "化合",
-    "reactants": ["Si", "Ca", "O"],
+    "reactants": [
+      "Si",
+      "Ca",
+      "O"
+    ],
     "product": "CaSiO₃",
     "productName": "硅酸钙",
     "equation": "SiO₂ + CaO → CaSiO₃",
@@ -1932,7 +2739,11 @@
   {
     "id": "sio2-c-si-co",
     "type": "置换",
-    "reactants": ["Si", "C", "O"],
+    "reactants": [
+      "Si",
+      "C",
+      "O"
+    ],
     "product": "Si + CO",
     "productName": "硅和一氧化碳",
     "equation": "SiO₂ + 2C → Si + 2CO",
@@ -1942,7 +2753,13 @@
   {
     "id": "na2sio3-co2-h2o-h2sio3",
     "type": "复分解",
-    "reactants": ["Si", "Na", "C", "O", "H"],
+    "reactants": [
+      "Si",
+      "Na",
+      "C",
+      "O",
+      "H"
+    ],
     "product": "H₂SiO₃ + Na₂CO₃",
     "productName": "硅酸和碳酸钠",
     "equation": "Na₂SiO₃ + CO₂ + H₂O → H₂SiO₃ + Na₂CO₃",
@@ -1952,7 +2769,11 @@
   {
     "id": "h2sio3-decomp",
     "type": "分解",
-    "reactants": ["Si", "H", "O"],
+    "reactants": [
+      "Si",
+      "H",
+      "O"
+    ],
     "product": "SiO₂ + H₂O",
     "productName": "二氧化硅和水",
     "equation": "H₂SiO₃ → SiO₂ + H₂O",
@@ -1962,7 +2783,11 @@
   {
     "id": "mg-co2-mgo-c",
     "type": "置换",
-    "reactants": ["Mg", "C", "O"],
+    "reactants": [
+      "Mg",
+      "C",
+      "O"
+    ],
     "product": "MgO + C",
     "productName": "氧化镁和碳",
     "equation": "2Mg + CO₂ → 2MgO + C",
@@ -1972,7 +2797,10 @@
   {
     "id": "mg-n2-mg3n2",
     "type": "化合",
-    "reactants": ["Mg", "N"],
+    "reactants": [
+      "Mg",
+      "N"
+    ],
     "product": "Mg₃N₂",
     "productName": "氮化镁",
     "equation": "3Mg + N₂ → Mg₃N₂",
@@ -1982,7 +2810,12 @@
   {
     "id": "mg3n2-h2o-mgoh2-nh3",
     "type": "复分解",
-    "reactants": ["Mg", "N", "H", "O"],
+    "reactants": [
+      "Mg",
+      "N",
+      "H",
+      "O"
+    ],
     "product": "Mg(OH)₂ + NH₃",
     "productName": "氢氧化镁和氨气",
     "equation": "Mg₃N₂ + 6H₂O → 3Mg(OH)₂ + 2NH₃",
@@ -1992,7 +2825,11 @@
   {
     "id": "mgo-h2o-mgoh2",
     "type": "化合",
-    "reactants": ["Mg", "H", "O"],
+    "reactants": [
+      "Mg",
+      "H",
+      "O"
+    ],
     "product": "Mg(OH)₂",
     "productName": "氢氧化镁",
     "equation": "MgO + H₂O → Mg(OH)₂",
@@ -2002,7 +2839,11 @@
   {
     "id": "cao-h2o-caoh2",
     "type": "化合",
-    "reactants": ["Ca", "H", "O"],
+    "reactants": [
+      "Ca",
+      "H",
+      "O"
+    ],
     "product": "Ca(OH)₂",
     "productName": "氢氧化钙",
     "equation": "CaO + H₂O → Ca(OH)₂",
@@ -2012,7 +2853,12 @@
   {
     "id": "caoh2-co2-caco3",
     "type": "复分解",
-    "reactants": ["Ca", "H", "C", "O"],
+    "reactants": [
+      "Ca",
+      "H",
+      "C",
+      "O"
+    ],
     "product": "CaCO₃ + H₂O",
     "productName": "碳酸钙和水",
     "equation": "Ca(OH)₂ + CO₂ → CaCO₃ + H₂O",
@@ -2022,7 +2868,12 @@
   {
     "id": "caco3-co2-h2o-cahco32",
     "type": "化合",
-    "reactants": ["Ca", "H", "C", "O"],
+    "reactants": [
+      "Ca",
+      "H",
+      "C",
+      "O"
+    ],
     "product": "Ca(HCO₃)₂",
     "productName": "碳酸氢钙",
     "equation": "CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂",
@@ -2032,7 +2883,10 @@
   {
     "id": "ca-cl2-cacl2",
     "type": "化合",
-    "reactants": ["Ca", "Cl"],
+    "reactants": [
+      "Ca",
+      "Cl"
+    ],
     "product": "CaCl₂",
     "productName": "氯化钙",
     "equation": "Ca + Cl₂ → CaCl₂",
@@ -2042,7 +2896,11 @@
   {
     "id": "br2-ki-kbr-i2",
     "type": "置换",
-    "reactants": ["Br", "K", "I"],
+    "reactants": [
+      "Br",
+      "K",
+      "I"
+    ],
     "product": "KBr + I₂",
     "productName": "溴化钾和碘",
     "equation": "Br₂ + 2KI → 2KBr + I₂",
@@ -2052,7 +2910,11 @@
   {
     "id": "f2-h2o-hf-o2",
     "type": "置换",
-    "reactants": ["F", "H", "O"],
+    "reactants": [
+      "F",
+      "H",
+      "O"
+    ],
     "product": "HF + O₂",
     "productName": "氟化氢和氧气",
     "equation": "2F₂ + 2H₂O → 4HF + O₂",
@@ -2062,7 +2924,13 @@
   {
     "id": "kmno4-hcl-kcl-mncl2-cl2-h2o",
     "type": "氧化还原",
-    "reactants": ["K", "Mn", "O", "H", "Cl"],
+    "reactants": [
+      "K",
+      "Mn",
+      "O",
+      "H",
+      "Cl"
+    ],
     "product": "KCl + MnCl₂ + Cl₂ + H₂O",
     "productName": "氯化钾、氯化锰、氯气和水",
     "equation": "2KMnO₄ + 16HCl(浓) → 2KCl + 2MnCl₂ + 5Cl₂ + 8H₂O",
@@ -2072,7 +2940,11 @@
   {
     "id": "na2so3-o2-na2so4",
     "type": "化合",
-    "reactants": ["Na", "S", "O"],
+    "reactants": [
+      "Na",
+      "S",
+      "O"
+    ],
     "product": "Na₂SO₄",
     "productName": "硫酸钠",
     "equation": "2Na₂SO₃ + O₂ → 2Na₂SO₄",
@@ -2082,7 +2954,11 @@
   {
     "id": "h2s-o2-so2-h2o",
     "type": "氧化还原",
-    "reactants": ["H", "S", "O"],
+    "reactants": [
+      "H",
+      "S",
+      "O"
+    ],
     "product": "SO₂ + H₂O",
     "productName": "二氧化硫和水",
     "equation": "2H₂S + 3O₂ → 2SO₂ + 2H₂O",
@@ -2092,12 +2968,1337 @@
   {
     "id": "h2s-o2-s-h2o-incomplete",
     "type": "氧化还原",
-    "reactants": ["H", "S", "O"],
+    "reactants": [
+      "H",
+      "S",
+      "O"
+    ],
     "product": "S + H₂O",
     "productName": "硫和水",
     "equation": "2H₂S + O₂ → 2S + 2H₂O",
     "condition": "不充分燃烧",
     "description": "硫化氢在氧气不足时不充分燃烧生成硫单质。"
+  },
+  {
+    "id": "k-o-k2o",
+    "type": "化合",
+    "reactants": [
+      "K",
+      "O"
+    ],
+    "product": "K₂O",
+    "productName": "氧化钾",
+    "equation": "4K + O₂ → 2K₂O",
+    "condition": "常温",
+    "description": "钾在空气中缓慢氧化生成氧化钾。"
+  },
+  {
+    "id": "k-o-ko2",
+    "type": "化合",
+    "reactants": [
+      "K",
+      "O"
+    ],
+    "product": "KO₂",
+    "productName": "超氧化钾",
+    "equation": "K + O₂ → KO₂",
+    "condition": "点燃",
+    "description": "钾在氧气中燃烧生成超氧化钾，黄色固体。"
+  },
+  {
+    "id": "k-h2o-koh-h2",
+    "type": "置换",
+    "reactants": [
+      "K",
+      "H",
+      "O"
+    ],
+    "product": "KOH + H₂",
+    "productName": "氢氧化钾和氢气",
+    "equation": "2K + 2H₂O → 2KOH + H₂",
+    "condition": "常温",
+    "description": "钾与水剧烈反应，比钠更剧烈。"
+  },
+  {
+    "id": "k2o-h2o-koh",
+    "type": "化合",
+    "reactants": [
+      "K",
+      "H",
+      "O"
+    ],
+    "product": "KOH",
+    "productName": "氢氧化钾",
+    "equation": "K₂O + H₂O → 2KOH",
+    "condition": "常温",
+    "description": "氧化钾与水反应生成氢氧化钾。"
+  },
+  {
+    "id": "k2o2-h2o-o2",
+    "type": "氧化还原",
+    "reactants": [
+      "K",
+      "H",
+      "O"
+    ],
+    "product": "KOH + O₂",
+    "productName": "氢氧化钾和氧气",
+    "equation": "2K₂O₂ + 2H₂O → 4KOH + O₂",
+    "condition": "常温",
+    "description": "过氧化钾与水反应放出氧气。"
+  },
+  {
+    "id": "ko2-co2-k2co3-o2",
+    "type": "氧化还原",
+    "reactants": [
+      "K",
+      "O",
+      "C"
+    ],
+    "product": "K₂CO₃ + O₂",
+    "productName": "碳酸钾和氧气",
+    "equation": "4KO₂ + 2CO₂ → 2K₂CO₃ + 3O₂",
+    "condition": "常温",
+    "description": "超氧化钾与二氧化碳反应放出氧气，用于呼吸面具。"
+  },
+  {
+    "id": "koh-co2-k2co3",
+    "type": "复分解",
+    "reactants": [
+      "K",
+      "H",
+      "O",
+      "C"
+    ],
+    "product": "K₂CO₃ + H₂O",
+    "productName": "碳酸钾和水",
+    "equation": "2KOH + CO₂ → K₂CO₃ + H₂O",
+    "condition": "常温",
+    "description": "氢氧化钾与少量二氧化碳反应生成碳酸钾。"
+  },
+  {
+    "id": "koh-co2-khco3",
+    "type": "复分解",
+    "reactants": [
+      "K",
+      "H",
+      "O",
+      "C"
+    ],
+    "product": "KHCO₃",
+    "productName": "碳酸氢钾",
+    "equation": "KOH + CO₂ → KHCO₃",
+    "condition": "常温",
+    "description": "氢氧化钾与过量二氧化碳反应生成碳酸氢钾。"
+  },
+  {
+    "id": "li-o-li2o",
+    "type": "化合",
+    "reactants": [
+      "Li",
+      "O"
+    ],
+    "product": "Li₂O",
+    "productName": "氧化锂",
+    "equation": "4Li + O₂ → 2Li₂O",
+    "condition": "点燃",
+    "description": "锂在氧气中燃烧生成氧化锂，不生成过氧化物。"
+  },
+  {
+    "id": "li-h2-lih",
+    "type": "化合",
+    "reactants": [
+      "Li",
+      "H"
+    ],
+    "product": "LiH",
+    "productName": "氢化锂",
+    "equation": "2Li + H₂ → 2LiH",
+    "condition": "加热",
+    "description": "锂与氢气加热反应生成氢化锂。"
+  },
+  {
+    "id": "li2co3-decomp",
+    "type": "分解",
+    "reactants": [
+      "Li",
+      "C",
+      "O"
+    ],
+    "product": "Li₂O + CO₂",
+    "productName": "氧化锂和二氧化碳",
+    "equation": "Li₂CO₃ → Li₂O + CO₂",
+    "condition": "高温",
+    "description": "碳酸锂高温分解，碱金属中仅锂的碳酸盐加热易分解。"
+  },
+  {
+    "id": "ba-o-bao",
+    "type": "化合",
+    "reactants": [
+      "Ba",
+      "O"
+    ],
+    "product": "BaO",
+    "productName": "氧化钡",
+    "equation": "2Ba + O₂ → 2BaO",
+    "condition": "常温",
+    "description": "钡在空气中被氧化为氧化钡。"
+  },
+  {
+    "id": "ba-o-bao2",
+    "type": "化合",
+    "reactants": [
+      "Ba",
+      "O"
+    ],
+    "product": "BaO₂",
+    "productName": "过氧化钡",
+    "equation": "2BaO + O₂ → 2BaO₂",
+    "condition": "加热",
+    "description": "氧化钡加热时与氧气反应生成过氧化钡。"
+  },
+  {
+    "id": "ba-h2o-baoh2",
+    "type": "置换",
+    "reactants": [
+      "Ba",
+      "H",
+      "O"
+    ],
+    "product": "Ba(OH)₂ + H₂",
+    "productName": "氢氧化钡和氢气",
+    "equation": "Ba + 2H₂O → Ba(OH)₂ + H₂",
+    "condition": "常温",
+    "description": "钡与水反应生成氢氧化钡和氢气，反应较剧烈。"
+  },
+  {
+    "id": "bao-h2o-baoh2",
+    "type": "化合",
+    "reactants": [
+      "Ba",
+      "H",
+      "O"
+    ],
+    "product": "Ba(OH)₂",
+    "productName": "氢氧化钡",
+    "equation": "BaO + H₂O → Ba(OH)₂",
+    "condition": "常温",
+    "description": "氧化钡与水反应生成氢氧化钡，放出大量热。"
+  },
+  {
+    "id": "baco3-co2-h2o-bahco32",
+    "type": "化合",
+    "reactants": [
+      "Ba",
+      "C",
+      "O",
+      "H"
+    ],
+    "product": "Ba(HCO₃)₂",
+    "productName": "碳酸氢钡",
+    "equation": "BaCO₃ + CO₂ + H₂O → Ba(HCO₃)₂",
+    "condition": "常温",
+    "description": "碳酸钡中通过量二氧化碳生成可溶的碳酸氢钡。"
+  },
+  {
+    "id": "baoh2-co2-baco3",
+    "type": "复分解",
+    "reactants": [
+      "Ba",
+      "H",
+      "C",
+      "O"
+    ],
+    "product": "BaCO₃ + H₂O",
+    "productName": "碳酸钡和水",
+    "equation": "Ba(OH)₂ + CO₂ → BaCO₃ + H₂O",
+    "condition": "常温",
+    "description": "氢氧化钡与二氧化碳反应生成白色碳酸钡沉淀。"
+  },
+  {
+    "id": "ag-o-ag2o",
+    "type": "化合",
+    "reactants": [
+      "Ag",
+      "O"
+    ],
+    "product": "Ag₂O",
+    "productName": "氧化银",
+    "equation": "4Ag + O₂ → 2Ag₂O",
+    "condition": "加热",
+    "description": "银在加热下与氧气反应生成棕黑色氧化银。"
+  },
+  {
+    "id": "ag2o-decomp",
+    "type": "分解",
+    "reactants": [
+      "Ag",
+      "O"
+    ],
+    "product": "Ag + O₂",
+    "productName": "银和氧气",
+    "equation": "2Ag₂O → 4Ag + O₂",
+    "condition": "加热",
+    "description": "氧化银加热分解生成银和氧气。"
+  },
+  {
+    "id": "agno3-nacl-agcl",
+    "type": "复分解",
+    "reactants": [
+      "Ag",
+      "N",
+      "O",
+      "Na",
+      "Cl"
+    ],
+    "product": "AgCl + NaNO₃",
+    "productName": "氯化银和硝酸钠",
+    "equation": "AgNO₃ + NaCl → AgCl + NaNO₃",
+    "condition": "常温",
+    "description": "硝酸银与氯化钠反应生成白色氯化银沉淀，检验氯离子。"
+  },
+  {
+    "id": "agno3-hcl-agcl",
+    "type": "复分解",
+    "reactants": [
+      "Ag",
+      "N",
+      "O",
+      "H",
+      "Cl"
+    ],
+    "product": "AgCl + HNO₃",
+    "productName": "氯化银和硝酸",
+    "equation": "AgNO₃ + HCl → AgCl + HNO₃",
+    "condition": "常温",
+    "description": "硝酸银与盐酸反应生成白色氯化银沉淀。"
+  },
+  {
+    "id": "agno3-nabr-agbr",
+    "type": "复分解",
+    "reactants": [
+      "Ag",
+      "N",
+      "O",
+      "Na",
+      "Br"
+    ],
+    "product": "AgBr + NaNO₃",
+    "productName": "溴化银和硝酸钠",
+    "equation": "AgNO₃ + NaBr → AgBr + NaNO₃",
+    "condition": "常温",
+    "description": "硝酸银与溴化钠反应生成淡黄色溴化银沉淀。"
+  },
+  {
+    "id": "agno3-ki-agi",
+    "type": "复分解",
+    "reactants": [
+      "Ag",
+      "N",
+      "O",
+      "K",
+      "I"
+    ],
+    "product": "AgI + KNO₃",
+    "productName": "碘化银和硝酸钾",
+    "equation": "AgNO₃ + KI → AgI + KNO₃",
+    "condition": "常温",
+    "description": "硝酸银与碘化钾反应生成黄色碘化银沉淀。"
+  },
+  {
+    "id": "hg-o-hgo",
+    "type": "化合",
+    "reactants": [
+      "Hg",
+      "O"
+    ],
+    "product": "HgO",
+    "productName": "氧化汞",
+    "equation": "2Hg + O₂ → 2HgO",
+    "condition": "加热",
+    "description": "汞与氧气加热反应生成红色氧化汞。"
+  },
+  {
+    "id": "hgo-decomp",
+    "type": "分解",
+    "reactants": [
+      "Hg",
+      "O"
+    ],
+    "product": "Hg + O₂",
+    "productName": "汞和氧气",
+    "equation": "2HgO → 2Hg + O₂",
+    "condition": "加强热",
+    "description": "氧化汞加强热分解为汞和氧气，拉瓦锡实验原理。"
+  },
+  {
+    "id": "zn-h2o-zno-h2",
+    "type": "置换",
+    "reactants": [
+      "Zn",
+      "H",
+      "O"
+    ],
+    "product": "ZnO + H₂",
+    "productName": "氧化锌和氢气",
+    "equation": "Zn + H₂O(g) → ZnO + H₂",
+    "condition": "高温",
+    "description": "锌与水蒸气在高温下反应生成氧化锌和氢气。"
+  },
+  {
+    "id": "zno-hcl-zncl2",
+    "type": "复分解",
+    "reactants": [
+      "Zn",
+      "O",
+      "H",
+      "Cl"
+    ],
+    "product": "ZnCl₂ + H₂O",
+    "productName": "氯化锌和水",
+    "equation": "ZnO + 2HCl → ZnCl₂ + H₂O",
+    "condition": "常温",
+    "description": "氧化锌与盐酸反应生成氯化锌和水。"
+  },
+  {
+    "id": "zno-naoh-na2zno2",
+    "type": "复分解",
+    "reactants": [
+      "Zn",
+      "O",
+      "Na",
+      "H"
+    ],
+    "product": "Na₂ZnO₂ + H₂O",
+    "productName": "锌酸钠和水",
+    "equation": "ZnO + 2NaOH → Na₂ZnO₂ + H₂O",
+    "condition": "常温",
+    "description": "氧化锌与氢氧化钠反应，体现锌的两性。"
+  },
+  {
+    "id": "zn-naoh-na2zno2-h2",
+    "type": "置换",
+    "reactants": [
+      "Zn",
+      "Na",
+      "O",
+      "H"
+    ],
+    "product": "Na₂ZnO₂ + H₂",
+    "productName": "锌酸钠和氢气",
+    "equation": "Zn + 2NaOH → Na₂ZnO₂ + H₂",
+    "condition": "常温",
+    "description": "锌与氢氧化钠溶液反应生成锌酸钠和氢气，体现两性。"
+  },
+  {
+    "id": "znoh2-decomp",
+    "type": "分解",
+    "reactants": [
+      "Zn",
+      "H",
+      "O"
+    ],
+    "product": "ZnO + H₂O",
+    "productName": "氧化锌和水",
+    "equation": "Zn(OH)₂ → ZnO + H₂O",
+    "condition": "加热",
+    "description": "氢氧化锌加热分解为氧化锌和水。"
+  },
+  {
+    "id": "sn-o-sno2",
+    "type": "化合",
+    "reactants": [
+      "Sn",
+      "O"
+    ],
+    "product": "SnO₂",
+    "productName": "二氧化锡",
+    "equation": "Sn + O₂ → SnO₂",
+    "condition": "加热",
+    "description": "锡在空气中加热生成二氧化锡。"
+  },
+  {
+    "id": "sn-cl2-sncl4",
+    "type": "化合",
+    "reactants": [
+      "Sn",
+      "Cl"
+    ],
+    "product": "SnCl₄",
+    "productName": "四氯化锡",
+    "equation": "Sn + 2Cl₂ → SnCl₄",
+    "condition": "加热",
+    "description": "锡与氯气加热反应生成四氯化锡。"
+  },
+  {
+    "id": "pb-o-pbo",
+    "type": "化合",
+    "reactants": [
+      "Pb",
+      "O"
+    ],
+    "product": "PbO",
+    "productName": "氧化铅",
+    "equation": "2Pb + O₂ → 2PbO",
+    "condition": "加热",
+    "description": "铅在空气中加热生成黄色氧化铅。"
+  },
+  {
+    "id": "pbo2-decomp",
+    "type": "分解",
+    "reactants": [
+      "Pb",
+      "O"
+    ],
+    "product": "PbO + O₂",
+    "productName": "氧化铅和氧气",
+    "equation": "2PbO₂ → 2PbO + O₂",
+    "condition": "加热",
+    "description": "二氧化铅加热分解为氧化铅和氧气。"
+  },
+  {
+    "id": "cu-o-cu2o",
+    "type": "化合",
+    "reactants": [
+      "Cu",
+      "O"
+    ],
+    "product": "Cu₂O",
+    "productName": "氧化亚铜",
+    "equation": "4Cu + O₂ → 2Cu₂O",
+    "condition": "高温",
+    "description": "铜在高温下与氧气反应生成红色氧化亚铜。"
+  },
+  {
+    "id": "cuso4-h2s-cus",
+    "type": "复分解",
+    "reactants": [
+      "Cu",
+      "S",
+      "O",
+      "H"
+    ],
+    "product": "CuS + H₂SO₄",
+    "productName": "硫化铜和硫酸",
+    "equation": "CuSO₄ + H₂S → CuS + H₂SO₄",
+    "condition": "常温",
+    "description": "硫酸铜与硫化氢反应生成黑色硫化铜沉淀，检验H₂S。"
+  },
+  {
+    "id": "cuso4-naoh-cuoh2",
+    "type": "复分解",
+    "reactants": [
+      "Cu",
+      "S",
+      "O",
+      "Na",
+      "H"
+    ],
+    "product": "Cu(OH)₂ + Na₂SO₄",
+    "productName": "氢氧化铜和硫酸钠",
+    "equation": "CuSO₄ + 2NaOH → Cu(OH)₂ + Na₂SO₄",
+    "condition": "常温",
+    "description": "硫酸铜与氢氧化钠反应生成蓝色氢氧化铜沉淀。"
+  },
+  {
+    "id": "mn-o-mn3o4",
+    "type": "化合",
+    "reactants": [
+      "Mn",
+      "O"
+    ],
+    "product": "Mn₃O₄",
+    "productName": "四氧化三锰",
+    "equation": "3Mn + 2O₂ → Mn₃O₄",
+    "condition": "点燃",
+    "description": "锰在氧气中燃烧生成四氧化三锰。"
+  },
+  {
+    "id": "mno2-hcl-concentrated",
+    "type": "氧化还原",
+    "reactants": [
+      "Mn",
+      "O",
+      "H",
+      "Cl"
+    ],
+    "product": "MnCl₂ + Cl₂ + H₂O",
+    "productName": "氯化锰、氯气和水",
+    "equation": "MnO₂ + 4HCl(浓) → MnCl₂ + Cl₂ + 2H₂O",
+    "condition": "加热",
+    "description": "二氧化锰与浓盐酸加热反应制氯气，实验室制法。"
+  },
+  {
+    "id": "p-o-p2o3",
+    "type": "化合",
+    "reactants": [
+      "P",
+      "O"
+    ],
+    "product": "P₂O₃",
+    "productName": "三氧化二磷",
+    "equation": "4P + 3O₂ → 2P₂O₃",
+    "condition": "氧气不足",
+    "description": "磷在氧气不足时燃烧生成三氧化二磷。"
+  },
+  {
+    "id": "p2o5-h2o-hpo3",
+    "type": "化合",
+    "reactants": [
+      "P",
+      "H",
+      "O"
+    ],
+    "product": "HPO₃",
+    "productName": "偏磷酸",
+    "equation": "P₂O₅ + H₂O → 2HPO₃",
+    "condition": "冷水",
+    "description": "五氧化二磷与冷水反应生成偏磷酸。"
+  },
+  {
+    "id": "p2o5-h2o-h3po4",
+    "type": "化合",
+    "reactants": [
+      "P",
+      "H",
+      "O"
+    ],
+    "product": "H₃PO₄",
+    "productName": "磷酸",
+    "equation": "P₂O₅ + 3H₂O → 2H₃PO₄",
+    "condition": "热水",
+    "description": "五氧化二磷与热水反应生成磷酸。"
+  },
+  {
+    "id": "p-cl2-pcl3",
+    "type": "化合",
+    "reactants": [
+      "P",
+      "Cl"
+    ],
+    "product": "PCl₃",
+    "productName": "三氯化磷",
+    "equation": "2P + 3Cl₂ → 2PCl₃",
+    "condition": "氯气不足",
+    "description": "磷在氯气中不充分燃烧生成三氯化磷。"
+  },
+  {
+    "id": "p-cl2-pcl5",
+    "type": "化合",
+    "reactants": [
+      "P",
+      "Cl"
+    ],
+    "product": "PCl₅",
+    "productName": "五氯化磷",
+    "equation": "2P + 5Cl₂ → 2PCl₅",
+    "condition": "氯气充足",
+    "description": "磷在充足氯气中燃烧生成五氯化磷。"
+  },
+  {
+    "id": "br2-h2o-hbr-hbro",
+    "type": "氧化还原",
+    "reactants": [
+      "Br",
+      "H",
+      "O"
+    ],
+    "product": "HBr + HBrO",
+    "productName": "氢溴酸和次溴酸",
+    "equation": "Br₂ + H₂O ⇌ HBr + HBrO",
+    "condition": "常温",
+    "description": "溴与水反应生成氢溴酸和次溴酸，类似氯水。"
+  },
+  {
+    "id": "i2-fe-fei2",
+    "type": "化合",
+    "reactants": [
+      "I",
+      "Fe"
+    ],
+    "product": "FeI₂",
+    "productName": "碘化亚铁",
+    "equation": "Fe + I₂ → FeI₂",
+    "condition": "加热",
+    "description": "碘的氧化性较弱，只能将铁氧化为二价碘化亚铁。"
+  },
+  {
+    "id": "hbr-agno3-agbr",
+    "type": "复分解",
+    "reactants": [
+      "H",
+      "Br",
+      "Ag",
+      "N",
+      "O"
+    ],
+    "product": "AgBr + HNO₃",
+    "productName": "溴化银和硝酸",
+    "equation": "HBr + AgNO₃ → AgBr + HNO₃",
+    "condition": "常温",
+    "description": "氢溴酸与硝酸银反应生成淡黄色溴化银沉淀。"
+  },
+  {
+    "id": "hi-agno3-agi",
+    "type": "复分解",
+    "reactants": [
+      "H",
+      "I",
+      "Ag",
+      "N",
+      "O"
+    ],
+    "product": "AgI + HNO₃",
+    "productName": "碘化银和硝酸",
+    "equation": "HI + AgNO₃ → AgI + HNO₃",
+    "condition": "常温",
+    "description": "氢碘酸与硝酸银反应生成黄色碘化银沉淀。"
+  },
+  {
+    "id": "c-co2-co",
+    "type": "化合",
+    "reactants": [
+      "C",
+      "O"
+    ],
+    "product": "CO",
+    "productName": "一氧化碳",
+    "equation": "C + CO₂ → 2CO",
+    "condition": "高温",
+    "description": "碳与二氧化碳高温反应生成一氧化碳。"
+  },
+  {
+    "id": "co-o2-co2",
+    "type": "化合",
+    "reactants": [
+      "C",
+      "O"
+    ],
+    "product": "CO₂",
+    "productName": "二氧化碳",
+    "equation": "2CO + O₂ → 2CO₂",
+    "condition": "点燃",
+    "description": "一氧化碳燃烧生成二氧化碳，蓝色火焰。"
+  },
+  {
+    "id": "co-cuo-cu-co2",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "O",
+      "Cu"
+    ],
+    "product": "Cu + CO₂",
+    "productName": "铜和二氧化碳",
+    "equation": "CO + CuO → Cu + CO₂",
+    "condition": "加热",
+    "description": "一氧化碳还原氧化铜，黑色变红色。"
+  },
+  {
+    "id": "ch4-o2-co2-h2o",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CO₂ + H₂O",
+    "productName": "二氧化碳和水",
+    "equation": "CH₄ + 2O₂ → CO₂ + 2H₂O",
+    "condition": "点燃",
+    "description": "甲烷完全燃烧，蓝色火焰，天然气主要成分。"
+  },
+  {
+    "id": "ch4-cl2-ch3cl-hcl",
+    "type": "置换",
+    "reactants": [
+      "C",
+      "H",
+      "Cl"
+    ],
+    "product": "CH₃Cl + HCl",
+    "productName": "一氯甲烷和氯化氢",
+    "equation": "CH₄ + Cl₂ → CH₃Cl + HCl",
+    "condition": "光照",
+    "description": "甲烷与氯气光照下发生取代反应。"
+  },
+  {
+    "id": "c2h4-o2-co2-h2o",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CO₂ + H₂O",
+    "productName": "二氧化碳和水",
+    "equation": "C₂H₄ + 3O₂ → 2CO₂ + 2H₂O",
+    "condition": "点燃",
+    "description": "乙烯完全燃烧，火焰明亮并伴有黑烟。"
+  },
+  {
+    "id": "c2h4-br2-ch2brch2br",
+    "type": "化合",
+    "reactants": [
+      "C",
+      "H",
+      "Br"
+    ],
+    "product": "CH₂BrCH₂Br",
+    "productName": "1,2-二溴乙烷",
+    "equation": "C₂H₄ + Br₂ → CH₂BrCH₂Br",
+    "condition": "常温",
+    "description": "乙烯与溴水发生加成反应，溴水褪色。"
+  },
+  {
+    "id": "c2h4-h2o-c2h5oh",
+    "type": "化合",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "C₂H₅OH",
+    "productName": "乙醇",
+    "equation": "C₂H₄ + H₂O → C₂H₅OH",
+    "condition": "催化剂、加热加压",
+    "description": "乙烯与水加成制取乙醇，工业制乙醇方法。"
+  },
+  {
+    "id": "c6h6-o2-co2-h2o",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CO₂ + H₂O",
+    "productName": "二氧化碳和水",
+    "equation": "2C₆H₆ + 15O₂ → 12CO₂ + 6H₂O",
+    "condition": "点燃",
+    "description": "苯完全燃烧，火焰明亮有浓烈黑烟。"
+  },
+  {
+    "id": "c2h5oh-o2-co2-h2o",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CO₂ + H₂O",
+    "productName": "二氧化碳和水",
+    "equation": "C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O",
+    "condition": "点燃",
+    "description": "乙醇完全燃烧，淡蓝色火焰。"
+  },
+  {
+    "id": "c2h5oh-cu-o2-ch3cho",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "Cu"
+    ],
+    "product": "CH₃CHO + H₂O",
+    "productName": "乙醛和水",
+    "equation": "2C₂H₅OH + O₂ → 2CH₃CHO + 2H₂O",
+    "condition": "Cu催化、加热",
+    "description": "乙醇的催化氧化生成乙醛。"
+  },
+  {
+    "id": "ch3cooh-c2h5oh-ester",
+    "type": "复分解",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CH₃COOC₂H₅ + H₂O",
+    "productName": "乙酸乙酯和水",
+    "equation": "CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O",
+    "condition": "浓硫酸、加热",
+    "description": "乙酸与乙醇的酯化反应，生成有香味的乙酸乙酯。"
+  },
+  {
+    "id": "na2co3-cacl2-caco3",
+    "type": "复分解",
+    "reactants": [
+      "Na",
+      "C",
+      "O",
+      "Ca",
+      "Cl"
+    ],
+    "product": "CaCO₃ + NaCl",
+    "productName": "碳酸钙和氯化钠",
+    "equation": "Na₂CO₃ + CaCl₂ → CaCO₃ + 2NaCl",
+    "condition": "常温",
+    "description": "碳酸钠与氯化钙反应生成白色碳酸钙沉淀。"
+  },
+  {
+    "id": "na2co3-bacl2-baco3",
+    "type": "复分解",
+    "reactants": [
+      "Na",
+      "C",
+      "O",
+      "Ba",
+      "Cl"
+    ],
+    "product": "BaCO₃ + NaCl",
+    "productName": "碳酸钡和氯化钠",
+    "equation": "Na₂CO₃ + BaCl₂ → BaCO₃ + 2NaCl",
+    "condition": "常温",
+    "description": "碳酸钠与氯化钡反应生成白色碳酸钡沉淀。"
+  },
+  {
+    "id": "mgcl2-naoh-mgoh2",
+    "type": "复分解",
+    "reactants": [
+      "Mg",
+      "Cl",
+      "Na",
+      "O",
+      "H"
+    ],
+    "product": "Mg(OH)₂ + NaCl",
+    "productName": "氢氧化镁和氯化钠",
+    "equation": "MgCl₂ + 2NaOH → Mg(OH)₂ + 2NaCl",
+    "condition": "常温",
+    "description": "氯化镁与氢氧化钠反应生成白色氢氧化镁沉淀。"
+  },
+  {
+    "id": "fecl3-naoh-feoh3",
+    "type": "复分解",
+    "reactants": [
+      "Fe",
+      "Cl",
+      "Na",
+      "O",
+      "H"
+    ],
+    "product": "Fe(OH)₃ + NaCl",
+    "productName": "氢氧化铁和氯化钠",
+    "equation": "FeCl₃ + 3NaOH → Fe(OH)₃ + 3NaCl",
+    "condition": "常温",
+    "description": "氯化铁与氢氧化钠反应生成红褐色氢氧化铁沉淀。"
+  },
+  {
+    "id": "al2so43-nh3h2o-aloh3",
+    "type": "复分解",
+    "reactants": [
+      "Al",
+      "S",
+      "O",
+      "N",
+      "H"
+    ],
+    "product": "Al(OH)₃ + (NH₄)₂SO₄",
+    "productName": "氢氧化铝和硫酸铵",
+    "equation": "Al₂(SO₄)₃ + 6NH₃·H₂O → 2Al(OH)₃ + 3(NH₄)₂SO₄",
+    "condition": "常温",
+    "description": "硫酸铝与氨水反应制备氢氧化铝。"
+  },
+  {
+    "id": "naoh-h2so4-na2so4",
+    "type": "复分解",
+    "reactants": [
+      "Na",
+      "O",
+      "H",
+      "S"
+    ],
+    "product": "Na₂SO₄ + H₂O",
+    "productName": "硫酸钠和水",
+    "equation": "2NaOH + H₂SO₄ → Na₂SO₄ + 2H₂O",
+    "condition": "常温",
+    "description": "氢氧化钠与硫酸的中和反应。"
+  },
+  {
+    "id": "caoh2-h2so4-caso4",
+    "type": "复分解",
+    "reactants": [
+      "Ca",
+      "O",
+      "H",
+      "S"
+    ],
+    "product": "CaSO₄ + H₂O",
+    "productName": "硫酸钙和水",
+    "equation": "Ca(OH)₂ + H₂SO₄ → CaSO₄ + 2H₂O",
+    "condition": "常温",
+    "description": "氢氧化钙与硫酸中和，生成微溶的硫酸钙。"
+  },
+  {
+    "id": "h2so4-bacl2-baso4",
+    "type": "复分解",
+    "reactants": [
+      "H",
+      "S",
+      "O",
+      "Ba",
+      "Cl"
+    ],
+    "product": "BaSO₄ + HCl",
+    "productName": "硫酸钡和盐酸",
+    "equation": "H₂SO₄ + BaCl₂ → BaSO₄ + 2HCl",
+    "condition": "常温",
+    "description": "硫酸与氯化钡反应生成白色硫酸钡沉淀，检验硫酸根。"
+  },
+  {
+    "id": "na2so4-bacl2-baso4",
+    "type": "复分解",
+    "reactants": [
+      "Na",
+      "S",
+      "O",
+      "Ba",
+      "Cl"
+    ],
+    "product": "BaSO₄ + NaCl",
+    "productName": "硫酸钡和氯化钠",
+    "equation": "Na₂SO₄ + BaCl₂ → BaSO₄ + 2NaCl",
+    "condition": "常温",
+    "description": "硫酸钠与氯化钡反应生成白色硫酸钡沉淀。"
+  },
+  {
+    "id": "h2-cuo-cu-h2o",
+    "type": "置换",
+    "reactants": [
+      "H",
+      "Cu",
+      "O"
+    ],
+    "product": "Cu + H₂O",
+    "productName": "铜和水",
+    "equation": "H₂ + CuO → Cu + H₂O",
+    "condition": "加热",
+    "description": "氢气还原氧化铜，黑色变红色，试管口有水珠。"
+  },
+  {
+    "id": "h2-fe2o3-fe-h2o",
+    "type": "置换",
+    "reactants": [
+      "H",
+      "Fe",
+      "O"
+    ],
+    "product": "Fe + H₂O",
+    "productName": "铁和水",
+    "equation": "3H₂ + Fe₂O₃ → 2Fe + 3H₂O",
+    "condition": "高温",
+    "description": "氢气还原氧化铁。"
+  },
+  {
+    "id": "c-cuo-cu-co2",
+    "type": "置换",
+    "reactants": [
+      "C",
+      "Cu",
+      "O"
+    ],
+    "product": "Cu + CO₂",
+    "productName": "铜和二氧化碳",
+    "equation": "C + 2CuO → 2Cu + CO₂",
+    "condition": "高温",
+    "description": "碳还原氧化铜，黑色变红色。"
+  },
+  {
+    "id": "c-fe2o3-fe-co2",
+    "type": "置换",
+    "reactants": [
+      "C",
+      "Fe",
+      "O"
+    ],
+    "product": "Fe + CO₂",
+    "productName": "铁和二氧化碳",
+    "equation": "3C + 2Fe₂O₃ → 4Fe + 3CO₂",
+    "condition": "高温",
+    "description": "碳还原氧化铁，焦炭炼铁基本原理。"
+  },
+  {
+    "id": "co-fe3o4-fe-co2",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "O",
+      "Fe"
+    ],
+    "product": "Fe + CO₂",
+    "productName": "铁和二氧化碳",
+    "equation": "4CO + Fe₃O₄ → 3Fe + 4CO₂",
+    "condition": "高温",
+    "description": "一氧化碳还原四氧化三铁。"
+  },
+  {
+    "id": "fe-cuso4-feso4-cu",
+    "type": "置换",
+    "reactants": [
+      "Fe",
+      "Cu",
+      "S",
+      "O"
+    ],
+    "product": "FeSO₄ + Cu",
+    "productName": "硫酸亚铁和铜",
+    "equation": "Fe + CuSO₄ → FeSO₄ + Cu",
+    "condition": "常温",
+    "description": "铁与硫酸铜溶液反应，湿法炼铜，曾青得铁则化为铜。"
+  },
+  {
+    "id": "cu-hgno32-hg",
+    "type": "置换",
+    "reactants": [
+      "Cu",
+      "Hg",
+      "N",
+      "O"
+    ],
+    "product": "Cu(NO₃)₂ + Hg",
+    "productName": "硝酸铜和汞",
+    "equation": "Cu + Hg(NO₃)₂ → Cu(NO₃)₂ + Hg",
+    "condition": "常温",
+    "description": "铜置换出硝酸汞中的汞，铜表面析出银白色液态汞。"
+  },
+  {
+    "id": "n2-h2-nh3",
+    "type": "化合",
+    "reactants": [
+      "N",
+      "H"
+    ],
+    "product": "NH₃",
+    "productName": "氨气",
+    "equation": "N₂ + 3H₂ ⇌ 2NH₃",
+    "condition": "高温高压催化剂",
+    "description": "工业合成氨（哈伯法），可逆反应。"
+  },
+  {
+    "id": "nh3-h2so4-nh42so4",
+    "type": "化合",
+    "reactants": [
+      "N",
+      "H",
+      "S",
+      "O"
+    ],
+    "product": "(NH₄)₂SO₄",
+    "productName": "硫酸铵",
+    "equation": "2NH₃ + H₂SO₄ → (NH₄)₂SO₄",
+    "condition": "常温",
+    "description": "氨气与硫酸反应生成硫酸铵，一种氮肥。"
+  },
+  {
+    "id": "nh3-hno3-nh4no3",
+    "type": "化合",
+    "reactants": [
+      "N",
+      "H",
+      "O"
+    ],
+    "product": "NH₄NO₃",
+    "productName": "硝酸铵",
+    "equation": "NH₃ + HNO₃ → NH₄NO₃",
+    "condition": "常温",
+    "description": "氨气与硝酸反应生成硝酸铵，含氮量高的氮肥。"
+  },
+  {
+    "id": "nh4no3-naoh-nano3-nh3",
+    "type": "复分解",
+    "reactants": [
+      "N",
+      "H",
+      "O",
+      "Na"
+    ],
+    "product": "NaNO₃ + NH₃ + H₂O",
+    "productName": "硝酸钠、氨气和水",
+    "equation": "NH₄NO₃ + NaOH → NaNO₃ + NH₃ + H₂O",
+    "condition": "加热",
+    "description": "铵盐与碱加热反应放出氨气，检验铵根离子。"
+  },
+  {
+    "id": "hno3-decomp",
+    "type": "分解",
+    "reactants": [
+      "H",
+      "N",
+      "O"
+    ],
+    "product": "NO₂ + O₂ + H₂O",
+    "productName": "二氧化氮、氧气和水",
+    "equation": "4HNO₃ → 4NO₂ + O₂ + 2H₂O",
+    "condition": "光照或加热",
+    "description": "浓硝酸见光或受热分解，所以浓硝酸呈黄色。"
+  },
+  {
+    "id": "c-hno3-concentrated",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "N",
+      "O"
+    ],
+    "product": "CO₂ + NO₂ + H₂O",
+    "productName": "二氧化碳、二氧化氮和水",
+    "equation": "C + 4HNO₃(浓) → CO₂ + 4NO₂ + 2H₂O",
+    "condition": "加热",
+    "description": "碳与浓硝酸加热反应，浓硝酸表现强氧化性。"
+  },
+  {
+    "id": "fe-hno3-dilute",
+    "type": "氧化还原",
+    "reactants": [
+      "Fe",
+      "H",
+      "N",
+      "O"
+    ],
+    "product": "Fe(NO₃)₃ + NO + H₂O",
+    "productName": "硝酸铁、一氧化氮和水",
+    "equation": "Fe + 4HNO₃(稀) → Fe(NO₃)₃ + NO + 2H₂O",
+    "condition": "常温",
+    "description": "铁与稀硝酸反应生成硝酸铁和一氧化氮。"
+  },
+  {
+    "id": "h2s-cl2-hcl-s",
+    "type": "置换",
+    "reactants": [
+      "H",
+      "S",
+      "Cl"
+    ],
+    "product": "HCl + S",
+    "productName": "氯化氢和硫",
+    "equation": "H₂S + Cl₂ → 2HCl + S",
+    "condition": "常温",
+    "description": "硫化氢与氯气反应生成淡黄色硫沉淀，证明氯非金属性强于硫。"
+  },
+  {
+    "id": "fes-hcl-fecl2-h2s",
+    "type": "复分解",
+    "reactants": [
+      "Fe",
+      "S",
+      "H",
+      "Cl"
+    ],
+    "product": "FeCl₂ + H₂S",
+    "productName": "氯化亚铁和硫化氢",
+    "equation": "FeS + 2HCl → FeCl₂ + H₂S",
+    "condition": "常温",
+    "description": "实验室常用硫化亚铁与稀盐酸反应制取硫化氢。"
+  },
+  {
+    "id": "na2s-na2so3-h2so4-s",
+    "type": "氧化还原",
+    "reactants": [
+      "Na",
+      "S",
+      "O",
+      "H"
+    ],
+    "product": "Na₂SO₄ + S + H₂O",
+    "productName": "硫酸钠、硫和水",
+    "equation": "2Na₂S + Na₂SO₃ + 3H₂SO₄ → 3Na₂SO₄ + 3S + 3H₂O",
+    "condition": "常温",
+    "description": "硫化钠与亚硫酸钠在酸性条件下归中反应生成硫单质。"
+  },
+  {
+    "id": "c-h2o-co-h2",
+    "type": "置换",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CO + H₂",
+    "productName": "一氧化碳和氢气",
+    "equation": "C + H₂O(g) → CO + H₂",
+    "condition": "高温",
+    "description": "碳与水蒸气高温反应制取水煤气。"
+  },
+  {
+    "id": "h2-cl2-hcl",
+    "type": "化合",
+    "reactants": [
+      "H",
+      "Cl"
+    ],
+    "product": "HCl",
+    "productName": "氯化氢",
+    "equation": "H₂ + Cl₂ → 2HCl",
+    "condition": "点燃或光照",
+    "description": "氢气与氯气反应，点燃苍白色火焰，光照爆炸。"
+  },
+  {
+    "id": "h2-br2-hbr",
+    "type": "化合",
+    "reactants": [
+      "H",
+      "Br"
+    ],
+    "product": "HBr",
+    "productName": "溴化氢",
+    "equation": "H₂ + Br₂ → 2HBr",
+    "condition": "加热",
+    "description": "氢气与溴蒸气加热反应生成溴化氢。"
+  },
+  {
+    "id": "h2-i2-hi",
+    "type": "化合",
+    "reactants": [
+      "H",
+      "I"
+    ],
+    "product": "HI",
+    "productName": "碘化氢",
+    "equation": "H₂ + I₂ ⇌ 2HI",
+    "condition": "持续加热",
+    "description": "氢气与碘蒸气加热反应生成碘化氢，可逆反应。"
+  },
+  {
+    "id": "si-cl2-sicl4",
+    "type": "化合",
+    "reactants": [
+      "Si",
+      "Cl"
+    ],
+    "product": "SiCl₄",
+    "productName": "四氯化硅",
+    "equation": "Si + 2Cl₂ → SiCl₄",
+    "condition": "加热",
+    "description": "硅与氯气加热反应生成四氯化硅，提纯硅的中间步骤。"
+  },
+  {
+    "id": "sicl4-h2-si-hcl",
+    "type": "置换",
+    "reactants": [
+      "Si",
+      "Cl",
+      "H"
+    ],
+    "product": "Si + HCl",
+    "productName": "硅和氯化氢",
+    "equation": "SiCl₄ + 2H₂ → Si + 4HCl",
+    "condition": "高温",
+    "description": "氢气还原四氯化硅得到高纯硅，半导体工业提纯硅。"
+  },
+  {
+    "id": "si-o2-sio2",
+    "type": "化合",
+    "reactants": [
+      "Si",
+      "O"
+    ],
+    "product": "SiO₂",
+    "productName": "二氧化硅",
+    "equation": "Si + O₂ → SiO₂",
+    "condition": "加热",
+    "description": "硅在氧气中加热生成二氧化硅。"
   }
 ]
-
