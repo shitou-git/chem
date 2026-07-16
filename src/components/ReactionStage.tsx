@@ -111,6 +111,15 @@ export default function ReactionStage() {
                     <span className="rounded-full bg-purple-500/15 px-2 py-0.5 text-xs font-medium text-purple-300">
                       {reaction.condition}
                     </span>
+                    <span className={cn(
+                      "rounded-full px-2 py-0.5 text-xs font-medium",
+                      (reaction.type ?? "化合") === "化合" && "bg-cyan-500/15 text-cyan-300",
+                      (reaction.type ?? "化合") === "分解" && "bg-orange-500/15 text-orange-300",
+                      (reaction.type ?? "化合") === "置换" && "bg-amber-500/15 text-amber-300",
+                      (reaction.type ?? "化合") === "复分解" && "bg-rose-500/15 text-rose-300",
+                    )}>
+                      {reaction.type ?? "化合"}
+                    </span>
                   </div>
 
                   <div className="mb-3 text-xs text-slate-500">配平方程式</div>
@@ -137,7 +146,7 @@ export default function ReactionStage() {
                   </div>
 
                   <div className="mb-3 text-sm text-slate-400">
-                    生成 <span className="font-semibold text-emerald-400">{reaction.productName}</span>
+                    {(reaction.type ?? "化合") === "分解" ? "分解为" : "生成"} <span className="font-semibold text-emerald-400">{reaction.productName}</span>
                   </div>
 
                   {reaction.description && (
