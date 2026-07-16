@@ -45,7 +45,7 @@ export default function PeriodicTable({ highlightSymbol, onElementClick }: Perio
           const element = ELEMENTS.find((e) => e.row === row && e.col === col);
 
           if (!element) {
-            return <div key={`empty-${row}-${col}`} className="min-h-[44px] min-w-[44px]" />;
+            return <div key={`empty-${row}-${col}`} className="min-h-[52px] min-w-[52px]" />;
           }
 
           const isSelected = selectedSymbols.includes(element.symbol);
