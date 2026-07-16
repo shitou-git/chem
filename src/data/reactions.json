@@ -1358,5 +1358,746 @@
     "equation": "2C + O₂ → 2CO",
     "condition": "不充分燃烧",
     "description": "碳在氧气不足时不充分燃烧生成一氧化碳。"
+  },
+  {
+    "id": "na-o-na2o",
+    "type": "化合",
+    "reactants": ["Na", "O"],
+    "product": "Na₂O",
+    "productName": "氧化钠",
+    "equation": "4Na + O₂ → 2Na₂O",
+    "condition": "常温",
+    "description": "钠在常温下被空气氧化生成白色氧化钠。"
+  },
+  {
+    "id": "na2o-o-na2o2",
+    "type": "化合",
+    "reactants": ["Na", "O"],
+    "product": "Na₂O₂",
+    "productName": "过氧化钠",
+    "equation": "2Na₂O + O₂ → 2Na₂O₂",
+    "condition": "加热",
+    "description": "氧化钠在加热下继续被氧化为淡黄色过氧化钠。"
+  },
+  {
+    "id": "na2o-h2o-naoh",
+    "type": "化合",
+    "reactants": ["Na", "H", "O"],
+    "product": "NaOH",
+    "productName": "氢氧化钠",
+    "equation": "Na₂O + H₂O → 2NaOH",
+    "condition": "常温",
+    "description": "氧化钠与水反应生成氢氧化钠，碱性氧化物通性。"
+  },
+  {
+    "id": "na2o-co2-na2co3",
+    "type": "化合",
+    "reactants": ["Na", "C", "O"],
+    "product": "Na₂CO₃",
+    "productName": "碳酸钠",
+    "equation": "Na₂O + CO₂ → Na₂CO₃",
+    "condition": "常温",
+    "description": "氧化钠与二氧化碳反应生成碳酸钠。"
+  },
+  {
+    "id": "na2o2-h2o-o2",
+    "type": "氧化还原",
+    "reactants": ["Na", "H", "O"],
+    "product": "NaOH + O₂",
+    "productName": "氢氧化钠和氧气",
+    "equation": "2Na₂O₂ + 2H₂O → 4NaOH + O₂",
+    "condition": "常温",
+    "description": "过氧化钠与水反应放出氧气，可做供氧剂。"
+  },
+  {
+    "id": "na2o2-co2-o2",
+    "type": "氧化还原",
+    "reactants": ["Na", "C", "O"],
+    "product": "Na₂CO₃ + O₂",
+    "productName": "碳酸钠和氧气",
+    "equation": "2Na₂O₂ + 2CO₂ → 2Na₂CO₃ + O₂",
+    "condition": "常温",
+    "description": "过氧化钠与二氧化碳反应放出氧气，用于呼吸面具。"
+  },
+  {
+    "id": "na-hcl-nacl-h2",
+    "type": "置换",
+    "reactants": ["Na", "H", "Cl"],
+    "product": "NaCl + H₂",
+    "productName": "氯化钠和氢气",
+    "equation": "2Na + 2HCl → 2NaCl + H₂",
+    "condition": "常温",
+    "description": "钠与盐酸剧烈反应生成氯化钠和氢气。"
+  },
+  {
+    "id": "na2co3-co2-h2o-nahco3",
+    "type": "化合",
+    "reactants": ["Na", "H", "C", "O"],
+    "product": "NaHCO₃",
+    "productName": "碳酸氢钠",
+    "equation": "Na₂CO₃ + CO₂ + H₂O → 2NaHCO₃",
+    "condition": "常温",
+    "description": "碳酸钠溶液通入二氧化碳生成碳酸氢钠。"
+  },
+  {
+    "id": "nahco3-naoh-na2co3",
+    "type": "复分解",
+    "reactants": ["Na", "H", "C", "O"],
+    "product": "Na₂CO₃ + H₂O",
+    "productName": "碳酸钠和水",
+    "equation": "NaHCO₃ + NaOH → Na₂CO₃ + H₂O",
+    "condition": "常温",
+    "description": "碳酸氢钠与氢氧化钠反应生成碳酸钠和水。"
+  },
+  {
+    "id": "naoh-co2-na2co3",
+    "type": "复分解",
+    "reactants": ["Na", "H", "C", "O"],
+    "product": "Na₂CO₃ + H₂O",
+    "productName": "碳酸钠和水",
+    "equation": "2NaOH + CO₂ → Na₂CO₃ + H₂O",
+    "condition": "常温",
+    "description": "氢氧化钠与少量二氧化碳反应生成碳酸钠。"
+  },
+  {
+    "id": "naoh-co2-nahco3",
+    "type": "复分解",
+    "reactants": ["Na", "H", "C", "O"],
+    "product": "NaHCO₃",
+    "productName": "碳酸氢钠",
+    "equation": "NaOH + CO₂ → NaHCO₃",
+    "condition": "常温",
+    "description": "氢氧化钠与过量二氧化碳反应生成碳酸氢钠。"
+  },
+  {
+    "id": "al-naoh-h2o-naalo2-h2",
+    "type": "氧化还原",
+    "reactants": ["Al", "Na", "O", "H"],
+    "product": "NaAlO₂ + H₂",
+    "productName": "偏铝酸钠和氢气",
+    "equation": "2Al + 2NaOH + 2H₂O → 2NaAlO₂ + 3H₂",
+    "condition": "常温",
+    "description": "铝与氢氧化钠溶液反应生成偏铝酸钠和氢气，体现铝的两性。"
+  },
+  {
+    "id": "al2o3-naoh-naalo2",
+    "type": "复分解",
+    "reactants": ["Al", "Na", "O", "H"],
+    "product": "NaAlO₂ + H₂O",
+    "productName": "偏铝酸钠和水",
+    "equation": "Al₂O₃ + 2NaOH → 2NaAlO₂ + H₂O",
+    "condition": "常温",
+    "description": "氧化铝与氢氧化钠反应生成偏铝酸钠和水，体现两性。"
+  },
+  {
+    "id": "aloh3-naoh-naalo2",
+    "type": "复分解",
+    "reactants": ["Al", "Na", "O", "H"],
+    "product": "NaAlO₂ + H₂O",
+    "productName": "偏铝酸钠和水",
+    "equation": "Al(OH)₃ + NaOH → NaAlO₂ + 2H₂O",
+    "condition": "常温",
+    "description": "氢氧化铝与氢氧化钠反应生成偏铝酸钠，体现两性氢氧化物的性质。"
+  },
+  {
+    "id": "aloh3-hcl-alcl3",
+    "type": "复分解",
+    "reactants": ["Al", "O", "H", "Cl"],
+    "product": "AlCl₃ + H₂O",
+    "productName": "氯化铝和水",
+    "equation": "Al(OH)₃ + 3HCl → AlCl₃ + 3H₂O",
+    "condition": "常温",
+    "description": "氢氧化铝与盐酸反应生成氯化铝和水。"
+  },
+  {
+    "id": "al2o3-hcl-alcl3",
+    "type": "复分解",
+    "reactants": ["Al", "O", "H", "Cl"],
+    "product": "AlCl₃ + H₂O",
+    "productName": "氯化铝和水",
+    "equation": "Al₂O₃ + 6HCl → 2AlCl₃ + 3H₂O",
+    "condition": "常温",
+    "description": "氧化铝与盐酸反应生成氯化铝和水。"
+  },
+  {
+    "id": "al-fe2o3-al2o3-fe",
+    "type": "置换",
+    "reactants": ["Al", "Fe", "O"],
+    "product": "Al₂O₃ + Fe",
+    "productName": "氧化铝和铁",
+    "equation": "2Al + Fe₂O₃ → Al₂O₃ + 2Fe",
+    "condition": "高温",
+    "description": "铝热反应，铝还原氧化铁，放出大量热，用于焊接钢轨和冶炼难熔金属。"
+  },
+  {
+    "id": "al-mno2-al2o3-mn",
+    "type": "置换",
+    "reactants": ["Al", "Mn", "O"],
+    "product": "Al₂O₃ + Mn",
+    "productName": "氧化铝和锰",
+    "equation": "4Al + 3MnO₂ → 2Al₂O₃ + 3Mn",
+    "condition": "高温",
+    "description": "铝热法冶炼金属锰。"
+  },
+  {
+    "id": "alcl3-nh3h2o-aloh3",
+    "type": "复分解",
+    "reactants": ["Al", "Cl", "N", "H", "O"],
+    "product": "Al(OH)₃ + NH₄Cl",
+    "productName": "氢氧化铝和氯化铵",
+    "equation": "AlCl₃ + 3NH₃·H₂O → Al(OH)₃ + 3NH₄Cl",
+    "condition": "常温",
+    "description": "实验室制备氢氧化铝，用氨水而不用强碱，防止氢氧化铝溶解。"
+  },
+  {
+    "id": "naalo2-hcl-aloh3",
+    "type": "复分解",
+    "reactants": ["Na", "Al", "O", "H", "Cl"],
+    "product": "Al(OH)₃ + NaCl",
+    "productName": "氢氧化铝和氯化钠",
+    "equation": "NaAlO₂ + HCl + H₂O → Al(OH)₃ + NaCl",
+    "condition": "常温",
+    "description": "向偏铝酸钠溶液中滴加少量盐酸生成氢氧化铝沉淀。"
+  },
+  {
+    "id": "naalo2-co2-aloh3",
+    "type": "复分解",
+    "reactants": ["Na", "Al", "O", "C", "H"],
+    "product": "Al(OH)₃ + NaHCO₃",
+    "productName": "氢氧化铝和碳酸氢钠",
+    "equation": "NaAlO₂ + CO₂ + 2H₂O → Al(OH)₃ + NaHCO₃",
+    "condition": "常温",
+    "description": "向偏铝酸钠溶液中通入过量二氧化碳生成氢氧化铝沉淀。"
+  },
+  {
+    "id": "fe-h2o-fe3o4-h2",
+    "type": "置换",
+    "reactants": ["Fe", "H", "O"],
+    "product": "Fe₃O₄ + H₂",
+    "productName": "四氧化三铁和氢气",
+    "equation": "3Fe + 4H₂O(g) → Fe₃O₄ + 4H₂",
+    "condition": "高温",
+    "description": "铁与水蒸气在高温下反应生成四氧化三铁和氢气。"
+  },
+  {
+    "id": "feoh2-o2-h2o-feoh3",
+    "type": "化合",
+    "reactants": ["Fe", "O", "H"],
+    "product": "Fe(OH)₃",
+    "productName": "氢氧化铁",
+    "equation": "4Fe(OH)₂ + O₂ + 2H₂O → 4Fe(OH)₃",
+    "condition": "常温",
+    "description": "氢氧化亚铁被氧化，白色沉淀迅速变灰绿色，最后变为红褐色。"
+  },
+  {
+    "id": "fecl2-cl2-fecl3",
+    "type": "氧化还原",
+    "reactants": ["Fe", "Cl"],
+    "product": "FeCl₃",
+    "productName": "氯化铁",
+    "equation": "2FeCl₂ + Cl₂ → 2FeCl₃",
+    "condition": "常温",
+    "description": "氯化亚铁被氯气氧化为氯化铁，二价铁转化为三价铁。"
+  },
+  {
+    "id": "fecl3-fe-fecl2",
+    "type": "氧化还原",
+    "reactants": ["Fe", "Cl"],
+    "product": "FeCl₂",
+    "productName": "氯化亚铁",
+    "equation": "2FeCl₃ + Fe → 3FeCl₂",
+    "condition": "常温",
+    "description": "三价铁被铁粉还原为二价铁，用于除去氯化亚铁中的三价铁杂质。"
+  },
+  {
+    "id": "fecl3-cu-fecl2-cucl2",
+    "type": "氧化还原",
+    "reactants": ["Fe", "Cl", "Cu"],
+    "product": "FeCl₂ + CuCl₂",
+    "productName": "氯化亚铁和氯化铜",
+    "equation": "2FeCl₃ + Cu → 2FeCl₂ + CuCl₂",
+    "condition": "常温",
+    "description": "三价铁氧化铜，用于制作印刷电路板。"
+  },
+  {
+    "id": "fe2o3-co-fe-co2",
+    "type": "氧化还原",
+    "reactants": ["Fe", "C", "O"],
+    "product": "Fe + CO₂",
+    "productName": "铁和二氧化碳",
+    "equation": "Fe₂O₃ + 3CO → 2Fe + 3CO₂",
+    "condition": "高温",
+    "description": "高炉炼铁主要反应，一氧化碳还原氧化铁。"
+  },
+  {
+    "id": "fe2o3-hcl-fecl3",
+    "type": "复分解",
+    "reactants": ["Fe", "O", "H", "Cl"],
+    "product": "FeCl₃ + H₂O",
+    "productName": "氯化铁和水",
+    "equation": "Fe₂O₃ + 6HCl → 2FeCl₃ + 3H₂O",
+    "condition": "常温",
+    "description": "氧化铁与盐酸反应生成黄色氯化铁溶液，盐酸除锈原理。"
+  },
+  {
+    "id": "feo-hcl-fecl2",
+    "type": "复分解",
+    "reactants": ["Fe", "O", "H", "Cl"],
+    "product": "FeCl₂ + H₂O",
+    "productName": "氯化亚铁和水",
+    "equation": "FeO + 2HCl → FeCl₂ + H₂O",
+    "condition": "常温",
+    "description": "氧化亚铁与盐酸反应生成浅绿色氯化亚铁溶液。"
+  },
+  {
+    "id": "fe3o4-hcl-fecl2-fecl3",
+    "type": "复分解",
+    "reactants": ["Fe", "O", "H", "Cl"],
+    "product": "FeCl₂ + FeCl₃ + H₂O",
+    "productName": "氯化亚铁、氯化铁和水",
+    "equation": "Fe₃O₄ + 8HCl → FeCl₂ + 2FeCl₃ + 4H₂O",
+    "condition": "常温",
+    "description": "四氧化三铁与盐酸反应生成氯化亚铁和氯化铁的混合溶液。"
+  },
+  {
+    "id": "cu-h2so4-concentrated",
+    "type": "氧化还原",
+    "reactants": ["Cu", "H", "S", "O"],
+    "product": "CuSO₄ + SO₂ + H₂O",
+    "productName": "硫酸铜、二氧化硫和水",
+    "equation": "Cu + 2H₂SO₄(浓) → CuSO₄ + SO₂ + 2H₂O",
+    "condition": "加热",
+    "description": "铜与浓硫酸加热反应，浓硫酸表现氧化性和酸性。"
+  },
+  {
+    "id": "cu-hno3-dilute",
+    "type": "氧化还原",
+    "reactants": ["Cu", "H", "N", "O"],
+    "product": "Cu(NO₃)₂ + NO + H₂O",
+    "productName": "硝酸铜、一氧化氮和水",
+    "equation": "3Cu + 8HNO₃(稀) → 3Cu(NO₃)₂ + 2NO + 4H₂O",
+    "condition": "常温",
+    "description": "铜与稀硝酸反应生成无色一氧化氮气体。"
+  },
+  {
+    "id": "cu-fecl3-cucl2-fecl2",
+    "type": "氧化还原",
+    "reactants": ["Cu", "Fe", "Cl"],
+    "product": "CuCl₂ + FeCl₂",
+    "productName": "氯化铜和氯化亚铁",
+    "equation": "Cu + 2FeCl₃ → CuCl₂ + 2FeCl₂",
+    "condition": "常温",
+    "description": "铜与氯化铁溶液反应，三价铁被还原为二价铁。"
+  },
+  {
+    "id": "cl2-h2o-hcl-hclo",
+    "type": "氧化还原",
+    "reactants": ["Cl", "H", "O"],
+    "product": "HCl + HClO",
+    "productName": "盐酸和次氯酸",
+    "equation": "Cl₂ + H₂O ⇌ HCl + HClO",
+    "condition": "常温",
+    "description": "氯气与水反应生成盐酸和次氯酸，次氯酸有漂白性。"
+  },
+  {
+    "id": "cl2-naoh-nacl-naclo",
+    "type": "氧化还原",
+    "reactants": ["Cl", "Na", "O", "H"],
+    "product": "NaCl + NaClO + H₂O",
+    "productName": "氯化钠、次氯酸钠和水",
+    "equation": "Cl₂ + 2NaOH → NaCl + NaClO + H₂O",
+    "condition": "常温",
+    "description": "氯气与氢氧化钠反应，制漂白液，也是实验室吸收尾气的方法。"
+  },
+  {
+    "id": "cl2-caoh2-cacl2-ca(clo)2",
+    "type": "氧化还原",
+    "reactants": ["Cl", "Ca", "O", "H"],
+    "product": "CaCl₂ + Ca(ClO)₂ + H₂O",
+    "productName": "氯化钙、次氯酸钙和水",
+    "equation": "2Cl₂ + 2Ca(OH)₂ → CaCl₂ + Ca(ClO)₂ + 2H₂O",
+    "condition": "常温",
+    "description": "氯气与石灰乳反应制漂白粉，有效成分是次氯酸钙。"
+  },
+  {
+    "id": "hclo-decomp",
+    "type": "分解",
+    "reactants": ["H", "Cl", "O"],
+    "product": "HCl + O₂",
+    "productName": "盐酸和氧气",
+    "equation": "2HClO → 2HCl + O₂",
+    "condition": "光照",
+    "description": "次氯酸不稳定，见光分解，故氯水需现用现配。"
+  },
+  {
+    "id": "nacl-h2o-electrolysis",
+    "type": "氧化还原",
+    "reactants": ["Na", "Cl", "H", "O"],
+    "product": "NaOH + H₂ + Cl₂",
+    "productName": "氢氧化钠、氢气和氯气",
+    "equation": "2NaCl + 2H₂O → 2NaOH + H₂ + Cl₂",
+    "condition": "通电",
+    "description": "电解饱和食盐水，工业制氯气、氢气和烧碱（氯碱工业）。"
+  },
+  {
+    "id": "so2-h2o-h2so3",
+    "type": "化合",
+    "reactants": ["S", "H", "O"],
+    "product": "H₂SO₃",
+    "productName": "亚硫酸",
+    "equation": "SO₂ + H₂O ⇌ H₂SO₃",
+    "condition": "常温",
+    "description": "二氧化硫溶于水生成亚硫酸，是可逆反应。"
+  },
+  {
+    "id": "so2-o2-so3",
+    "type": "化合",
+    "reactants": ["S", "O"],
+    "product": "SO₃",
+    "productName": "三氧化硫",
+    "equation": "2SO₂ + O₂ ⇌ 2SO₃",
+    "condition": "催化剂、加热",
+    "description": "二氧化硫催化氧化生成三氧化硫，工业制硫酸的第二步。"
+  },
+  {
+    "id": "so3-h2o-h2so4",
+    "type": "化合",
+    "reactants": ["S", "H", "O"],
+    "product": "H₂SO₄",
+    "productName": "硫酸",
+    "equation": "SO₃ + H₂O → H₂SO₄",
+    "condition": "常温",
+    "description": "三氧化硫与水反应生成硫酸，工业上用浓硫酸吸收SO₃。"
+  },
+  {
+    "id": "so2-naoh-na2so3",
+    "type": "复分解",
+    "reactants": ["S", "Na", "O", "H"],
+    "product": "Na₂SO₃ + H₂O",
+    "productName": "亚硫酸钠和水",
+    "equation": "SO₂ + 2NaOH → Na₂SO₃ + H₂O",
+    "condition": "常温",
+    "description": "二氧化硫与氢氧化钠反应，用于吸收尾气。"
+  },
+  {
+    "id": "so2-naoh-nahso3",
+    "type": "复分解",
+    "reactants": ["S", "Na", "O", "H"],
+    "product": "NaHSO₃",
+    "productName": "亚硫酸氢钠",
+    "equation": "SO₂ + NaOH → NaHSO₃",
+    "condition": "常温",
+    "description": "过量二氧化硫与氢氧化钠反应生成亚硫酸氢钠。"
+  },
+  {
+    "id": "so2-caoh2-caso3",
+    "type": "复分解",
+    "reactants": ["S", "Ca", "O", "H"],
+    "product": "CaSO₃ + H₂O",
+    "productName": "亚硫酸钙和水",
+    "equation": "SO₂ + Ca(OH)₂ → CaSO₃ + H₂O",
+    "condition": "常温",
+    "description": "二氧化硫使澄清石灰水变浑浊，与二氧化碳现象类似。"
+  },
+  {
+    "id": "so2-cl2-h2o-h2so4-hcl",
+    "type": "氧化还原",
+    "reactants": ["S", "Cl", "H", "O"],
+    "product": "H₂SO₄ + HCl",
+    "productName": "硫酸和盐酸",
+    "equation": "SO₂ + Cl₂ + 2H₂O → H₂SO₄ + 2HCl",
+    "condition": "常温",
+    "description": "二氧化硫与氯气等物质的量混合后通入水中，漂白性消失。"
+  },
+  {
+    "id": "h2s-so2-s-h2o",
+    "type": "氧化还原",
+    "reactants": ["H", "S", "O"],
+    "product": "S + H₂O",
+    "productName": "硫和水",
+    "equation": "2H₂S + SO₂ → 3S + 2H₂O",
+    "condition": "常温",
+    "description": "硫化氢与二氧化硫反应生成淡黄色硫单质沉淀，归中反应。"
+  },
+  {
+    "id": "c-h2so4-concentrated",
+    "type": "氧化还原",
+    "reactants": ["C", "H", "S", "O"],
+    "product": "CO₂ + SO₂ + H₂O",
+    "productName": "二氧化碳、二氧化硫和水",
+    "equation": "C + 2H₂SO₄(浓) → CO₂ + 2SO₂ + 2H₂O",
+    "condition": "加热",
+    "description": "碳与浓硫酸加热反应，浓硫酸表现强氧化性，蔗糖发泡实验原理。"
+  },
+  {
+    "id": "nh3-h2o-nh3h2o",
+    "type": "化合",
+    "reactants": ["N", "H", "O"],
+    "product": "NH₃·H₂O",
+    "productName": "一水合氨",
+    "equation": "NH₃ + H₂O ⇌ NH₃·H₂O",
+    "condition": "常温",
+    "description": "氨气极易溶于水，与水反应生成一水合氨（氨水主要成分）。"
+  },
+  {
+    "id": "nh3-hcl-nh4cl",
+    "type": "化合",
+    "reactants": ["N", "H", "Cl"],
+    "product": "NH₄Cl",
+    "productName": "氯化铵",
+    "equation": "NH₃ + HCl → NH₄Cl",
+    "condition": "常温",
+    "description": "氨气与氯化氢气体相遇产生大量白烟，可用于检验氨气。"
+  },
+  {
+    "id": "nh3-o2-no-h2o",
+    "type": "氧化还原",
+    "reactants": ["N", "H", "O"],
+    "product": "NO + H₂O",
+    "productName": "一氧化氮和水",
+    "equation": "4NH₃ + 5O₂ → 4NO + 6H₂O",
+    "condition": "催化剂、加热",
+    "description": "氨气的催化氧化，工业制硝酸的第一步。"
+  },
+  {
+    "id": "no2-h2o-hno3-no",
+    "type": "氧化还原",
+    "reactants": ["N", "H", "O"],
+    "product": "HNO₃ + NO",
+    "productName": "硝酸和一氧化氮",
+    "equation": "3NO₂ + H₂O → 2HNO₃ + NO",
+    "condition": "常温",
+    "description": "二氧化氮与水反应，工业制硝酸的第三步，歧化反应。"
+  },
+  {
+    "id": "no2-o2-h2o-hno3",
+    "type": "化合",
+    "reactants": ["N", "H", "O"],
+    "product": "HNO₃",
+    "productName": "硝酸",
+    "equation": "4NO₂ + O₂ + 2H₂O → 4HNO₃",
+    "condition": "常温",
+    "description": "二氧化氮、氧气和水完全反应生成硝酸，无气体剩余。"
+  },
+  {
+    "id": "no-o2-h2o-hno3",
+    "type": "化合",
+    "reactants": ["N", "H", "O"],
+    "product": "HNO₃",
+    "productName": "硝酸",
+    "equation": "4NO + 3O₂ + 2H₂O → 4HNO₃",
+    "condition": "常温",
+    "description": "一氧化氮、氧气和水完全反应生成硝酸。"
+  },
+  {
+    "id": "nh4cl-caoh2-nh3-cacl2",
+    "type": "复分解",
+    "reactants": ["N", "H", "Cl", "Ca", "O"],
+    "product": "NH₃ + CaCl₂ + H₂O",
+    "productName": "氨气、氯化钙和水",
+    "equation": "2NH₄Cl + Ca(OH)₂ → 2NH₃ + CaCl₂ + 2H₂O",
+    "condition": "加热",
+    "description": "实验室制氨气，用氯化铵和氢氧化钙固体混合加热。"
+  },
+  {
+    "id": "si-naoh-h2o-na2sio3-h2",
+    "type": "氧化还原",
+    "reactants": ["Si", "Na", "O", "H"],
+    "product": "Na₂SiO₃ + H₂",
+    "productName": "硅酸钠和氢气",
+    "equation": "Si + 2NaOH + H₂O → Na₂SiO₃ + 2H₂",
+    "condition": "常温",
+    "description": "硅与氢氧化钠溶液反应生成硅酸钠和氢气。"
+  },
+  {
+    "id": "sio2-naoh-na2sio3",
+    "type": "复分解",
+    "reactants": ["Si", "Na", "O", "H"],
+    "product": "Na₂SiO₃ + H₂O",
+    "productName": "硅酸钠和水",
+    "equation": "SiO₂ + 2NaOH → Na₂SiO₃ + H₂O",
+    "condition": "常温",
+    "description": "二氧化硅与氢氧化钠反应生成硅酸钠，装碱液不用玻璃塞。"
+  },
+  {
+    "id": "sio2-cao-casio3",
+    "type": "化合",
+    "reactants": ["Si", "Ca", "O"],
+    "product": "CaSiO₃",
+    "productName": "硅酸钙",
+    "equation": "SiO₂ + CaO → CaSiO₃",
+    "condition": "高温",
+    "description": "二氧化硅与氧化钙高温化合，玻璃工业中的造渣反应。"
+  },
+  {
+    "id": "sio2-c-si-co",
+    "type": "置换",
+    "reactants": ["Si", "C", "O"],
+    "product": "Si + CO",
+    "productName": "硅和一氧化碳",
+    "equation": "SiO₂ + 2C → Si + 2CO",
+    "condition": "高温",
+    "description": "工业上用碳还原二氧化硅制粗硅。"
+  },
+  {
+    "id": "na2sio3-co2-h2o-h2sio3",
+    "type": "复分解",
+    "reactants": ["Si", "Na", "C", "O", "H"],
+    "product": "H₂SiO₃ + Na₂CO₃",
+    "productName": "硅酸和碳酸钠",
+    "equation": "Na₂SiO₃ + CO₂ + H₂O → H₂SiO₃ + Na₂CO₃",
+    "condition": "常温",
+    "description": "硅酸钠溶液中通入二氧化碳生成白色硅酸沉淀，证明碳酸酸性强于硅酸。"
+  },
+  {
+    "id": "h2sio3-decomp",
+    "type": "分解",
+    "reactants": ["Si", "H", "O"],
+    "product": "SiO₂ + H₂O",
+    "productName": "二氧化硅和水",
+    "equation": "H₂SiO₃ → SiO₂ + H₂O",
+    "condition": "加热",
+    "description": "硅酸受热分解为二氧化硅和水。"
+  },
+  {
+    "id": "mg-co2-mgo-c",
+    "type": "置换",
+    "reactants": ["Mg", "C", "O"],
+    "product": "MgO + C",
+    "productName": "氧化镁和碳",
+    "equation": "2Mg + CO₂ → 2MgO + C",
+    "condition": "点燃",
+    "description": "镁在二氧化碳中剧烈燃烧，生成白色氧化镁和黑色碳。"
+  },
+  {
+    "id": "mg-n2-mg3n2",
+    "type": "化合",
+    "reactants": ["Mg", "N"],
+    "product": "Mg₃N₂",
+    "productName": "氮化镁",
+    "equation": "3Mg + N₂ → Mg₃N₂",
+    "condition": "点燃",
+    "description": "镁在氮气中燃烧生成淡黄色氮化镁。"
+  },
+  {
+    "id": "mg3n2-h2o-mgoh2-nh3",
+    "type": "复分解",
+    "reactants": ["Mg", "N", "H", "O"],
+    "product": "Mg(OH)₂ + NH₃",
+    "productName": "氢氧化镁和氨气",
+    "equation": "Mg₃N₂ + 6H₂O → 3Mg(OH)₂ + 2NH₃",
+    "condition": "常温",
+    "description": "氮化镁遇水剧烈反应生成氢氧化镁和氨气。"
+  },
+  {
+    "id": "mgo-h2o-mgoh2",
+    "type": "化合",
+    "reactants": ["Mg", "H", "O"],
+    "product": "Mg(OH)₂",
+    "productName": "氢氧化镁",
+    "equation": "MgO + H₂O → Mg(OH)₂",
+    "condition": "缓慢",
+    "description": "氧化镁与水缓慢反应生成氢氧化镁。"
+  },
+  {
+    "id": "cao-h2o-caoh2",
+    "type": "化合",
+    "reactants": ["Ca", "H", "O"],
+    "product": "Ca(OH)₂",
+    "productName": "氢氧化钙",
+    "equation": "CaO + H₂O → Ca(OH)₂",
+    "condition": "常温",
+    "description": "生石灰与水反应生成熟石灰，放出大量热。"
+  },
+  {
+    "id": "caoh2-co2-caco3",
+    "type": "复分解",
+    "reactants": ["Ca", "H", "C", "O"],
+    "product": "CaCO₃ + H₂O",
+    "productName": "碳酸钙和水",
+    "equation": "Ca(OH)₂ + CO₂ → CaCO₃ + H₂O",
+    "condition": "常温",
+    "description": "二氧化碳使澄清石灰水变浑浊，检验二氧化碳的方法。"
+  },
+  {
+    "id": "caco3-co2-h2o-cahco32",
+    "type": "化合",
+    "reactants": ["Ca", "H", "C", "O"],
+    "product": "Ca(HCO₃)₂",
+    "productName": "碳酸氢钙",
+    "equation": "CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂",
+    "condition": "常温",
+    "description": "继续通入过量二氧化碳，浑浊石灰水又变澄清。"
+  },
+  {
+    "id": "ca-cl2-cacl2",
+    "type": "化合",
+    "reactants": ["Ca", "Cl"],
+    "product": "CaCl₂",
+    "productName": "氯化钙",
+    "equation": "Ca + Cl₂ → CaCl₂",
+    "condition": "点燃",
+    "description": "钙在氯气中燃烧生成氯化钙。"
+  },
+  {
+    "id": "br2-ki-kbr-i2",
+    "type": "置换",
+    "reactants": ["Br", "K", "I"],
+    "product": "KBr + I₂",
+    "productName": "溴化钾和碘",
+    "equation": "Br₂ + 2KI → 2KBr + I₂",
+    "condition": "常温",
+    "description": "溴将碘从碘化钾溶液中置换出来，证明溴的非金属性强于碘。"
+  },
+  {
+    "id": "f2-h2o-hf-o2",
+    "type": "置换",
+    "reactants": ["F", "H", "O"],
+    "product": "HF + O₂",
+    "productName": "氟化氢和氧气",
+    "equation": "2F₂ + 2H₂O → 4HF + O₂",
+    "condition": "常温",
+    "description": "氟气与水剧烈反应置换出氧气，体现氟的强氧化性。"
+  },
+  {
+    "id": "kmno4-hcl-kcl-mncl2-cl2-h2o",
+    "type": "氧化还原",
+    "reactants": ["K", "Mn", "O", "H", "Cl"],
+    "product": "KCl + MnCl₂ + Cl₂ + H₂O",
+    "productName": "氯化钾、氯化锰、氯气和水",
+    "equation": "2KMnO₄ + 16HCl(浓) → 2KCl + 2MnCl₂ + 5Cl₂ + 8H₂O",
+    "condition": "常温",
+    "description": "高锰酸钾与浓盐酸常温下反应制取氯气，不需加热。"
+  },
+  {
+    "id": "na2so3-o2-na2so4",
+    "type": "化合",
+    "reactants": ["Na", "S", "O"],
+    "product": "Na₂SO₄",
+    "productName": "硫酸钠",
+    "equation": "2Na₂SO₃ + O₂ → 2Na₂SO₄",
+    "condition": "常温",
+    "description": "亚硫酸钠在空气中易被氧化为硫酸钠，需密封保存。"
+  },
+  {
+    "id": "h2s-o2-so2-h2o",
+    "type": "氧化还原",
+    "reactants": ["H", "S", "O"],
+    "product": "SO₂ + H₂O",
+    "productName": "二氧化硫和水",
+    "equation": "2H₂S + 3O₂ → 2SO₂ + 2H₂O",
+    "condition": "充分燃烧",
+    "description": "硫化氢在充足氧气中充分燃烧生成二氧化硫和水。"
+  },
+  {
+    "id": "h2s-o2-s-h2o-incomplete",
+    "type": "氧化还原",
+    "reactants": ["H", "S", "O"],
+    "product": "S + H₂O",
+    "productName": "硫和水",
+    "equation": "2H₂S + O₂ → 2S + 2H₂O",
+    "condition": "不充分燃烧",
+    "description": "硫化氢在氧气不足时不充分燃烧生成硫单质。"
   }
 ]
+
