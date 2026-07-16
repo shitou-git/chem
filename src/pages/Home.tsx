@@ -46,7 +46,7 @@ export default function Home() {
 
   useEffect(() => {
     if (selectedElements.length === 0) {
-      setMessage("点击元素周期表中的元素开始探索化学反应");
+      setMessage("点击元素周期表中的元素开始探索化学反应，支持二元和多元化合物");
     } else if (selectedElements.length === 1) {
       const el = selectedElements[0];
       if (reactiveSymbols.length > 0) {
@@ -55,10 +55,11 @@ export default function Home() {
         setMessage(`已选择 ${el.name}，暂无已知的化合反应`);
       }
     } else {
+      const names = selectedElements.map((e) => e.name).join("、");
       if (matchedReactions.length > 0) {
-        setMessage(`共找到 ${matchedReactions.length} 个反应`);
+        setMessage(`已选择 ${names}，共找到 ${matchedReactions.length} 个反应`);
       } else {
-        setMessage("所选元素之间暂无已知的化合反应");
+        setMessage(`所选元素（${names}）之间暂无已知的化合反应，试试添加更多元素`);
       }
     }
   }, [selectedElements, reactiveSymbols, matchedReactions, setMessage]);
