@@ -3,9 +3,8 @@
  * 用于解释化学反应的原理、应用和注意事项
  */
 
-// 开发环境使用代理，生产环境直接调用
-const API_BASE_URL = import.meta.env.DEV ? "/api/agnes" : "https://apihub.agnes-ai.com/v1";
-const API_KEY = "sk-bF0s663RzXQh86dOyYqc57DR7SAdXiv5MJvrPYXgWA9g55zq";
+// 使用 Cloudflare Workers 代理，API Key 保存在后端环境变量
+const API_BASE_URL = "https://api.chatlz.dpdns.org";
 const MODEL = "agnes-2.0-flash";
 
 export interface AIExplanation {
@@ -47,11 +46,10 @@ export async function explainReaction(
 - 反应类型：${type}`;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/chat/completions`, {
+    const response = await fetch(`${API_BASE_URL}/v1/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${API_KEY}`,
       },
       body: JSON.stringify({
         model: MODEL,
