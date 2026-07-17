@@ -21,7 +21,7 @@ const ElementCard = forwardRef<HTMLButtonElement, ElementCardProps>(
       type="button"
       onClick={onClick}
       className={cn(
-        "relative flex flex-col items-center justify-center rounded-lg border transition-all duration-200 select-none touch-manipulation",
+        "relative flex flex-col items-center justify-center w-full h-full rounded-lg border transition-all duration-200 select-none touch-manipulation",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
         size === "md" ? "p-1" : "p-0.5",
         isSelected && "scale-110 z-10",
