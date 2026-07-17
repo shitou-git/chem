@@ -199,6 +199,7 @@ export default function Home() {
 
       <footer className="relative z-10 pb-6 pt-2 text-center text-xs text-slate-500">
         <p>课堂演示模式 · 支持触摸操作 · 方程式自动保存到浏览器本地</p>
+        <p className="mt-1 font-mono">@Stone || v{__APP_VERSION__}</p>
       </footer>
     </div>
   );
