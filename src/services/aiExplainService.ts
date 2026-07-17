@@ -68,7 +68,6 @@ export async function explainReaction(
     }
 
     const data = await response.json();
-    console.log("API 响应数据:", JSON.stringify(data, null, 2));
 
     const message = data.choices?.[0]?.message;
     const content = message?.content || "";
