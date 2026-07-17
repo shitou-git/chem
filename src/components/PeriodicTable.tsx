@@ -32,20 +32,14 @@ export default function PeriodicTable({ highlightSymbol, onElementClick }: Perio
 
   return (
     <div className="w-full overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/50 p-3 backdrop-blur md:p-4">
-      <div
-        className="grid gap-1.5 md:gap-2"
-        style={{
-          gridTemplateColumns: "repeat(18, minmax(44px, 1fr))",
-          minWidth: "760px",
-        }}
-      >
+      <div className="grid gap-1" style={{ gridTemplateColumns: "repeat(18, 1fr)" }}>
         {Array.from({ length: maxRow * 18 }, (_, i) => i).map((index) => {
           const row = Math.floor(index / 18) + 1;
           const col = (index % 18) + 1;
           const element = ELEMENTS.find((e) => e.row === row && e.col === col);
 
           if (!element) {
-            return <div key={`empty-${row}-${col}`} className="min-h-[52px] min-w-[52px]" />;
+            return <div key={`empty-${row}-${col}`} />;
           }
 
           const isSelected = selectedSymbols.includes(element.symbol);

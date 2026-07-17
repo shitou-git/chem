@@ -23,7 +23,7 @@ const ElementCard = forwardRef<HTMLButtonElement, ElementCardProps>(
       className={cn(
         "relative flex flex-col items-center justify-center rounded-lg border transition-all duration-200 select-none touch-manipulation",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
-        size === "md" ? "min-h-[52px] min-w-[52px] p-1" : "min-h-[44px] min-w-[44px] p-0.5",
+        size === "md" ? "p-1" : "p-0.5",
         isSelected && "scale-110 z-10",
         isReactive && !isSelected && "animate-pulse-glow z-10",
         isDimmed && "opacity-25",
