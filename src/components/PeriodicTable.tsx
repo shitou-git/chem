@@ -32,7 +32,7 @@ export default function PeriodicTable({ highlightSymbol, onElementClick }: Perio
 
   return (
     <div className="w-full overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/50 p-3 backdrop-blur md:p-4">
-      <div className="grid gap-1" style={{ gridTemplateColumns: "repeat(18, 1fr)" }}>
+      <div className="grid gap-1" style={{ gridTemplateColumns: "repeat(18, minmax(32px, 1fr))", minWidth: "640px" }}>
         {Array.from({ length: maxRow * 18 }, (_, i) => i).map((index) => {
           const row = Math.floor(index / 18) + 1;
           const col = (index % 18) + 1;
