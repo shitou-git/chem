@@ -60,7 +60,6 @@ export async function explainReaction(
           { role: "user", content: userPrompt },
         ],
         temperature: 0.7,
-        max_tokens: 2048,
       }),
     });
 
@@ -74,14 +73,23 @@ export async function explainReaction(
     console.log("API 响应数据:", JSON.stringify(data, null, 2));
 
     const message = data.choices?.[0]?.message;
-    const content = message?.content;
-    const reasoningContent = message?.reasoning_content;
+    const content = message?.content || "";
+    const reasoningContent = message?.reasoning_content || "";
 
-    if (!content && !reasoningContent) {
+    if (!content.trim() && !reasoningContent.trim()) {
       throw new Error("AI 返回内容为空");
     }
 
-    const actualContent = content || reasoningContent;
+    let actualContent = content.trim();
+
+    if (!actualContent && reasoningContent.trim()) {
+      const jsonMatch = reasoningContent.match(/```json\s*([\s\S]*?)\s*```/) || reasoningContent.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        actualContent = jsonMatch[1] || jsonMatch[0];
+      } else {
+        actualContent = reasoningContent;
+      }
+    }
 
     try {
       const jsonMatch = actualContent.match(/\{[\s\S]*\}/);
