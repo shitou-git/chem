@@ -20,7 +20,7 @@ export interface ChemicalElement {
 export const GROUP_COLORS: Record<ElementGroup, string> = {
   alkali: "#FF4D6D",
   alkaline: "#FFB703",
-  transition: "#3A86FF",
+  transition: "#E85D04",
   metal: "#4895EF",
   metalloid: "#FB5607",
   nonmetal: "#06D6A0",
