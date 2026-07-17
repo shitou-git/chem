@@ -66,6 +66,7 @@ export async function explainReaction(
 
     if (!response.ok) {
       const errorText = await response.text();
+      console.error("API 错误响应:", response.status, errorText);
       throw new Error(`API 请求失败: ${response.status} - ${errorText}`);
     }
 
