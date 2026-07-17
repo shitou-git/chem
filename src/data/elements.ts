@@ -22,7 +22,7 @@ export const GROUP_COLORS: Record<ElementGroup, string> = {
   alkaline: "#FFB703",
   transition: "#4895EF",
   metal: "#E85D04",
-  metalloid: "#FB5607",
+  metalloid: "#94A3B8",
   nonmetal: "#06D6A0",
   halogen: "#9D4EDD",
   noble: "#00B4D8",
