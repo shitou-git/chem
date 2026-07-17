@@ -62,50 +62,32 @@ function parseStreamContent(
   fullText: string
 ): { partial: Partial<AIExplanation>; currentKey: ExplanationKey | null } {
   const result: Partial<AIExplanation> = {};
-  let currentKey: ExplanationKey | null = null;
-  let currentContent = "";
 
-  const lines = fullText.split("\n");
-  let remainingText = fullText;
-
-  const markerEntries = Object.entries(SECTION_MARKERS);
-
-  let lastIndex = 0;
-  let foundMarkers: { key: ExplanationKey; start: number; end: number }[] = [];
-
-  for (const [marker, key] of markerEntries) {
+  // 找到所有标记的位置
+  const foundMarkers: { key: ExplanationKey; start: number; end: number }[] = [];
+  for (const [marker, key] of Object.entries(SECTION_MARKERS)) {
     const idx = fullText.indexOf(marker);
     if (idx !== -1) {
       foundMarkers.push({ key, start: idx, end: idx + marker.length });
     }
   }
 
+  if (foundMarkers.length === 0) {
+    return { partial: result, currentKey: null };
+  }
+
   foundMarkers.sort((a, b) => a.start - b.start);
 
+  // 提取每个标记的内容
   for (let i = 0; i < foundMarkers.length; i++) {
     const current = foundMarkers[i];
     const next = foundMarkers[i + 1];
-    const contentStart = current.end;
     const contentEnd = next ? next.start : fullText.length;
-    const content = fullText.slice(contentStart, contentEnd).trim();
-
-    if (content) {
-      result[current.key] = content;
-    }
-
-    if (i === foundMarkers.length - 1 && !next) {
-      currentKey = current.key;
-      currentContent = content;
-    }
+    result[current.key] = fullText.slice(current.end, contentEnd).trim();
   }
 
-  if (foundMarkers.length > 0) {
-    const lastMarker = foundMarkers[foundMarkers.length - 1];
-    const afterLastMarker = fullText.slice(lastMarker.end);
-    result[lastMarker.key] = afterLastMarker.trim();
-    currentKey = lastMarker.key;
-  }
-
+  // 当前正在生成的段落是最后一个找到的标记
+  const currentKey = foundMarkers[foundMarkers.length - 1].key;
   return { partial: result, currentKey };
 }
 
