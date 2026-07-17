@@ -3,7 +3,8 @@
  * 用于解释化学反应的原理、应用和注意事项
  */
 
-const API_BASE_URL = "https://api.agnes-ai.com/v1";
+// 开发环境使用代理，生产环境直接调用
+const API_BASE_URL = import.meta.env.DEV ? "/api/agnes" : "https://api.agnes-ai.com/v1";
 const API_KEY = "sk-bF0s663RzXQh86dOyYqc57DR7SAdXiv5MJvrPYXgWA9g55zq";
 const MODEL = "agnes-20-flash";
 
