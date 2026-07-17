@@ -21,7 +21,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/agnes': {
-        target: 'https://api.agnes-ai.com/v1',
+        target: 'https://apihub.agnes-ai.com/v1',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/agnes/, ''),
       },
