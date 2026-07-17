@@ -32,7 +32,7 @@ export default function PeriodicTable({ highlightSymbol, onElementClick }: Perio
 
   return (
     <div className="w-full overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/50 p-3 backdrop-blur md:p-4">
-      <div className="grid gap-1" style={{ gridTemplateColumns: "repeat(18, minmax(32px, 1fr))", minWidth: "640px" }}>
+      <div className="grid gap-2" style={{ gridTemplateColumns: "repeat(18, minmax(36px, 1fr))", minWidth: "720px" }}>
         {Array.from({ length: maxRow * 18 }, (_, i) => i).map((index) => {
           const row = Math.floor(index / 18) + 1;
           const col = (index % 18) + 1;
@@ -53,7 +53,7 @@ export default function PeriodicTable({ highlightSymbol, onElementClick }: Perio
             !isProduct;
 
           return (
-            <div key={element.symbol} className="relative flex items-center justify-center min-h-[32px]">
+            <div key={element.symbol} className="relative flex items-center justify-center">
               <ElementCard
                 element={element}
                 isSelected={isSelected || (currentReactions.length > 0 && isProduct) || isHighlighted}
