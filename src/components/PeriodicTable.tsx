@@ -53,7 +53,7 @@ export default function PeriodicTable({ highlightSymbol, onElementClick }: Perio
             !isProduct;
 
           return (
-            <div key={element.symbol} className="relative flex items-center justify-center aspect-square">
+            <div key={element.symbol} className="relative flex items-center justify-center min-h-[32px]">
               <ElementCard
                 element={element}
                 isSelected={isSelected || (currentReactions.length > 0 && isProduct) || isHighlighted}
