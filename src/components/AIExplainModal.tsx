@@ -32,6 +32,12 @@ export default function AIExplainModal({
       return;
     }
 
+    // 禁止底层页面滚动，防止滚动穿透
+    const originalOverflow = document.body.style.overflow;
+    const originalTouchAction = document.body.style.touchAction;
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
+
     const fetchExplanation = async () => {
       setLoading(true);
       setError(null);
@@ -46,6 +52,11 @@ export default function AIExplainModal({
     };
 
     fetchExplanation();
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.touchAction = originalTouchAction;
+    };
   }, [isOpen, equation, productName, condition, type]);
 
   if (!isOpen) return null;
