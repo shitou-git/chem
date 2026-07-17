@@ -1,49 +1,122 @@
 /**
  * AI 解释服务 - 调用 Agnes 2.0 Flash API
  * 用于解释化学反应的原理、应用和注意事项
+ * 支持流式输出，提升用户体验
  */
 
-// 使用 Cloudflare Workers 代理，API Key 保存在后端环境变量
 const API_BASE_URL = "https://api.chatlz.dpdns.org";
 const MODEL = "agnes-2.0-flash";
 
 export interface AIExplanation {
-  principle: string;      // 反应原理
-  application: string;    // 工业应用
-  safety: string;         // 安全提示
-  extension: string;      // 延伸知识
+  principle: string;
+  application: string;
+  safety: string;
+  extension: string;
 }
 
-/**
- * 调用 AI 生成化学反应解释
- */
-export async function explainReaction(
+export type ExplanationKey = keyof AIExplanation;
+
+export interface StreamCallbacks {
+  onUpdate: (partial: Partial<AIExplanation>, currentKey: ExplanationKey | null) => void;
+  onDone: (result: AIExplanation) => void;
+  onError: (error: Error) => void;
+}
+
+const SECTION_MARKERS: Record<string, ExplanationKey> = {
+  "【反应原理】": "principle",
+  "【工业应用】": "application",
+  "【安全提示】": "safety",
+  "【延伸知识】": "extension",
+};
+
+const SYSTEM_PROMPT = `你是一位专业的化学教师，擅长用通俗易懂的语言解释化学反应。
+请从以下四个方面解释给定的化学反应，每个部分用简短的段落回答（50-100字）：
+
+请严格按照以下格式输出，使用中文方括号标记每个部分：
+【反应原理】为什么这些物质能发生反应？从化学键、电子转移、能量变化等角度简要说明。
+【工业应用】这个反应在工业生产或日常生活中有什么实际用途？
+【安全提示】进行这个反应时需要注意哪些安全问题？
+【延伸知识】有哪些相关的化学反应或知识点值得了解？
+
+注意事项：
+1. 每个标记独占一行
+2. 内容紧跟在标记后面
+3. 不要使用 JSON 格式
+4. 不要添加额外的引言或结语
+5. 按顺序输出四个部分`;
+
+function buildUserPrompt(
   equation: string,
   productName: string,
   condition: string,
   type: string
-): Promise<AIExplanation> {
-  const systemPrompt = `你是一位专业的化学教师，擅长用通俗易懂的语言解释化学反应。
-请从以下四个方面解释给定的化学反应，每个部分用简短的段落回答（50-100字）：
-
-1. 反应原理：为什么这些物质能发生反应？从化学键、电子转移、能量变化等角度简要说明。
-2. 工业应用：这个反应在工业生产或日常生活中有什么实际用途？
-3. 安全提示：进行这个反应时需要注意哪些安全问题？
-4. 延伸知识：有哪些相关的化学反应或知识点值得了解？
-
-请用 JSON 格式返回，格式如下：
-{
-  "principle": "反应原理说明",
-  "application": "工业应用说明",
-  "safety": "安全提示说明",
-  "extension": "延伸知识说明"
-}`;
-
-  const userPrompt = `请解释以下化学反应：
+): string {
+  return `请解释以下化学反应：
 - 方程式：${equation}
 - 产物：${productName}
 - 反应条件：${condition}
 - 反应类型：${type}`;
+}
+
+function parseStreamContent(
+  fullText: string
+): { partial: Partial<AIExplanation>; currentKey: ExplanationKey | null } {
+  const result: Partial<AIExplanation> = {};
+  let currentKey: ExplanationKey | null = null;
+  let currentContent = "";
+
+  const lines = fullText.split("\n");
+  let remainingText = fullText;
+
+  const markerEntries = Object.entries(SECTION_MARKERS);
+
+  let lastIndex = 0;
+  let foundMarkers: { key: ExplanationKey; start: number; end: number }[] = [];
+
+  for (const [marker, key] of markerEntries) {
+    const idx = fullText.indexOf(marker);
+    if (idx !== -1) {
+      foundMarkers.push({ key, start: idx, end: idx + marker.length });
+    }
+  }
+
+  foundMarkers.sort((a, b) => a.start - b.start);
+
+  for (let i = 0; i < foundMarkers.length; i++) {
+    const current = foundMarkers[i];
+    const next = foundMarkers[i + 1];
+    const contentStart = current.end;
+    const contentEnd = next ? next.start : fullText.length;
+    const content = fullText.slice(contentStart, contentEnd).trim();
+
+    if (content) {
+      result[current.key] = content;
+    }
+
+    if (i === foundMarkers.length - 1 && !next) {
+      currentKey = current.key;
+      currentContent = content;
+    }
+  }
+
+  if (foundMarkers.length > 0) {
+    const lastMarker = foundMarkers[foundMarkers.length - 1];
+    const afterLastMarker = fullText.slice(lastMarker.end);
+    result[lastMarker.key] = afterLastMarker.trim();
+    currentKey = lastMarker.key;
+  }
+
+  return { partial: result, currentKey };
+}
+
+export async function streamExplanation(
+  equation: string,
+  productName: string,
+  condition: string,
+  type: string,
+  callbacks: StreamCallbacks
+): Promise<void> {
+  const { onUpdate, onDone, onError } = callbacks;
 
   try {
     const response = await fetch(`${API_BASE_URL}/v1/chat/completions`, {
@@ -54,10 +127,11 @@ export async function explainReaction(
       body: JSON.stringify({
         model: MODEL,
         messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
+          { role: "system", content: SYSTEM_PROMPT },
+          { role: "user", content: buildUserPrompt(equation, productName, condition, type) },
         ],
         temperature: 0.7,
+        stream: true,
       }),
     });
 
@@ -67,50 +141,103 @@ export async function explainReaction(
       throw new Error(`API 请求失败: ${response.status} - ${errorText}`);
     }
 
-    const data = await response.json();
-
-    const message = data.choices?.[0]?.message;
-    const content = message?.content || "";
-    const reasoningContent = message?.reasoning_content || "";
-
-    if (!content.trim() && !reasoningContent.trim()) {
-      throw new Error("AI 返回内容为空");
+    if (!response.body) {
+      throw new Error("响应体为空，无法进行流式读取");
     }
 
-    let actualContent = content.trim();
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let fullContent = "";
+    let buffer = "";
 
-    if (!actualContent && reasoningContent.trim()) {
-      const jsonMatch = reasoningContent.match(/```json\s*([\s\S]*?)\s*```/) || reasoningContent.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        actualContent = jsonMatch[1] || jsonMatch[0];
-      } else {
-        actualContent = reasoningContent;
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+
+      const lines = buffer.split("\n");
+      buffer = lines.pop() || "";
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+        if (!trimmed.startsWith("data:")) continue;
+
+        const dataStr = trimmed.slice(5).trim();
+        if (dataStr === "[DONE]") continue;
+
+        try {
+          const data = JSON.parse(dataStr);
+          const delta = data.choices?.[0]?.delta;
+          const content = delta?.content || "";
+          const reasoningContent = delta?.reasoning_content || "";
+
+          if (content) {
+            fullContent += content;
+            const { partial, currentKey } = parseStreamContent(fullContent);
+            onUpdate(partial, currentKey);
+          }
+
+          if (reasoningContent) {
+            // 忽略思考过程
+          }
+        } catch (e) {
+          // 解析失败跳过这一行
+          console.warn("流式数据解析失败:", dataStr);
+        }
       }
     }
 
-    try {
-      const jsonMatch = actualContent.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        return JSON.parse(jsonMatch[0]);
+    if (buffer) {
+      const trimmed = buffer.trim();
+      if (trimmed.startsWith("data:")) {
+        const dataStr = trimmed.slice(5).trim();
+        if (dataStr !== "[DONE]") {
+          try {
+            const data = JSON.parse(dataStr);
+            const delta = data.choices?.[0]?.delta;
+            const content = delta?.content || "";
+            if (content) {
+              fullContent += content;
+            }
+          } catch (e) {
+            // 忽略
+          }
+        }
       }
-      return JSON.parse(actualContent);
-    } catch {
-      return {
-        principle: actualContent,
-        application: "AI 无法解析结构化回复",
-        safety: "请以实际教学内容为准",
-        extension: "",
-      };
     }
+
+    const { partial } = parseStreamContent(fullContent);
+    const finalResult: AIExplanation = {
+      principle: partial.principle || "",
+      application: partial.application || "",
+      safety: partial.safety || "",
+      extension: partial.extension || "",
+    };
+
+    onDone(finalResult);
   } catch (error) {
-    console.error("AI 解释失败:", error);
-    throw error;
+    console.error("AI 流式解释失败:", error);
+    onError(error instanceof Error ? error : new Error(String(error)));
   }
 }
 
-/**
- * 解释缓存 - 避免重复调用 API
- */
+export async function explainReaction(
+  equation: string,
+  productName: string,
+  condition: string,
+  type: string
+): Promise<AIExplanation> {
+  return new Promise((resolve, reject) => {
+    streamExplanation(equation, productName, condition, type, {
+      onUpdate: () => {},
+      onDone: resolve,
+      onError: reject,
+    });
+  });
+}
+
 const explanationCache = new Map<string, AIExplanation>();
 
 export async function getExplanation(
@@ -128,4 +255,21 @@ export async function getExplanation(
   const explanation = await explainReaction(equation, productName, condition, type);
   explanationCache.set(cacheKey, explanation);
   return explanation;
+}
+
+export function getCachedExplanation(
+  equation: string,
+  productName: string
+): AIExplanation | undefined {
+  const cacheKey = `${equation}|${productName}`;
+  return explanationCache.get(cacheKey);
+}
+
+export function cacheExplanation(
+  equation: string,
+  productName: string,
+  explanation: AIExplanation
+): void {
+  const cacheKey = `${equation}|${productName}`;
+  explanationCache.set(cacheKey, explanation);
 }
