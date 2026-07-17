@@ -71,24 +71,27 @@ export async function explainReaction(
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content;
+    console.log("API 响应数据:", JSON.stringify(data, null, 2));
 
-    if (!content) {
+    const message = data.choices?.[0]?.message;
+    const content = message?.content;
+    const reasoningContent = message?.reasoning_content;
+
+    if (!content && !reasoningContent) {
       throw new Error("AI 返回内容为空");
     }
 
-    // 尝试解析 JSON
+    const actualContent = content || reasoningContent;
+
     try {
-      // 提取 JSON 部分（AI 可能返回包含 ```json 的内容）
-      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      const jsonMatch = actualContent.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         return JSON.parse(jsonMatch[0]);
       }
-      return JSON.parse(content);
+      return JSON.parse(actualContent);
     } catch {
-      // JSON 解析失败，返回原始内容作为原理
       return {
-        principle: content,
+        principle: actualContent,
         application: "AI 无法解析结构化回复",
         safety: "请以实际教学内容为准",
         extension: "",
