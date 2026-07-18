@@ -1349,7 +1349,7 @@
   },
   {
     "id": "redox-c-co2",
-    "type": "氧化还原",
+    "type": "化合",
     "reactants": [
       "C",
       "O"
@@ -1403,7 +1403,7 @@
   },
   {
     "id": "redox-h2-cuo",
-    "type": "氧化还原",
+    "type": "置换",
     "reactants": [
       "H",
       "Cu",
@@ -2819,8 +2819,8 @@
     "product": "Hg + O₂",
     "productName": "汞和氧气",
     "equation": "2HgO → 2Hg + O₂",
-    "condition": "加强热",
-    "description": "氧化汞加强热分解为汞和氧气，拉瓦锡实验原理。"
+    "condition": "加热",
+    "description": "氧化汞受热分解为汞和氧气，拉瓦锡实验原理。"
   },
   {
     "id": "zn-h2o-zno-h2",
@@ -5552,5 +5552,15 @@
     "equation": "3NaOH + FeCl₃ → Fe(OH)₃↓ + 3NaCl",
     "condition": "常温",
     "description": "氢氧化钠与氯化铁反应生成红褐色氢氧化铁沉淀，用于检验铁离子。"
+  },
+  {
+    "id": "edu-co2-caoh2",
+    "type": "复分解",
+    "reactants": ["Ca", "O", "H", "C"],
+    "product": "CaCO₃",
+    "productName": "碳酸钙",
+    "equation": "CO₂ + Ca(OH)₂ → CaCO₃↓ + H₂O",
+    "condition": "常温",
+    "description": "二氧化碳通入澄清石灰水变浑浊，生成碳酸钙沉淀和水，用于检验二氧化碳。"
   }
 ]
