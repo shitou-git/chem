@@ -5122,5 +5122,315 @@
     "equation": "Ca₃(PO₄)₂ + 2H₂SO₄ → Ca(H₂PO₄)₂ + 2CaSO₄",
     "condition": "常温",
     "description": "磷酸钙与硫酸反应制过磷酸钙，磷肥的主要成分。"
+  },
+  {
+    "id": "phet-n2o5-synth",
+    "type": "化合",
+    "reactants": ["N", "O"],
+    "product": "N₂O₅",
+    "productName": "五氧化二氮",
+    "equation": "2N₂ + 5O₂ → 2N₂O₅",
+    "condition": "放电",
+    "description": "PhET权威数据：氮气与氧气在放电条件下化合生成五氧化二氮。"
+  },
+  {
+    "id": "phet-c2h2-h2-c2h6",
+    "type": "化合",
+    "reactants": ["C", "H"],
+    "product": "C₂H₆",
+    "productName": "乙烷",
+    "equation": "C₂H₂ + 2H₂ → C₂H₆",
+    "condition": "催化加氢",
+    "description": "PhET权威数据：乙炔加氢生成乙烷，需Ni催化。"
+  },
+  {
+    "id": "phet-ch2o-h2-ch3oh",
+    "type": "化合",
+    "reactants": ["C", "H", "O"],
+    "product": "CH₃OH",
+    "productName": "甲醇",
+    "equation": "CH₂O + H₂ → CH₃OH",
+    "condition": "催化加氢",
+    "description": "PhET权威数据：甲醛催化加氢生成甲醇。"
+  },
+  {
+    "id": "phet-n2o-synth",
+    "type": "化合",
+    "reactants": ["N", "O"],
+    "product": "N₂O",
+    "productName": "一氧化二氮",
+    "equation": "2N₂ + O₂ → 2N₂O",
+    "condition": "高温",
+    "description": "PhET权威数据：氮气与氧气在高温下化合生成一氧化二氮（笑气）。"
+  },
+  {
+    "id": "phet-p4-h2-ph3",
+    "type": "化合",
+    "reactants": ["P", "H"],
+    "product": "PH₃",
+    "productName": "磷化氢",
+    "equation": "P₄ + 6H₂ → 4PH₃",
+    "condition": "高温",
+    "description": "PhET权威数据：白磷与氢气在高温下化合生成磷化氢。"
+  },
+  {
+    "id": "phet-p4-f2-pf3",
+    "type": "化合",
+    "reactants": ["P", "F"],
+    "product": "PF₃",
+    "productName": "三氟化磷",
+    "equation": "P₄ + 6F₂ → 4PF₃",
+    "condition": "常温",
+    "description": "PhET权威数据：白磷与氟气化合生成三氟化磷。"
+  },
+  {
+    "id": "phet-ch3oh-decomp",
+    "type": "分解",
+    "reactants": ["C", "H", "O"],
+    "product": "CO + H₂",
+    "productName": "一氧化碳和氢气",
+    "equation": "CH₃OH → CO + 2H₂",
+    "condition": "催化加热",
+    "description": "PhET权威数据：甲醇催化分解为一氧化碳和氢气。"
+  },
+  {
+    "id": "phet-no2-decomp",
+    "type": "分解",
+    "reactants": ["N", "O"],
+    "product": "NO + O₂",
+    "productName": "一氧化氮和氧气",
+    "equation": "2NO₂ → 2NO + O₂",
+    "condition": "高温",
+    "description": "PhET权威数据：二氧化氮高温分解为一氧化氮和氧气。"
+  },
+  {
+    "id": "phet-pcl3-decomp",
+    "type": "分解",
+    "reactants": ["P", "Cl"],
+    "product": "P + Cl₂",
+    "productName": "磷和氯气",
+    "equation": "2PCl₃ → 2P + 3Cl₂",
+    "condition": "高温",
+    "description": "PhET权威数据：三氯化磷高温分解为磷和氯气。"
+  },
+  {
+    "id": "phet-pcl5-decomp",
+    "type": "分解",
+    "reactants": ["P", "Cl"],
+    "product": "PCl₃ + Cl₂",
+    "productName": "三氯化磷和氯气",
+    "equation": "PCl₅ → PCl₃ + Cl₂",
+    "condition": "加热",
+    "description": "PhET权威数据：五氯化磷受热分解为三氯化磷和氯气。"
+  },
+  {
+    "id": "phet-hcl-decomp",
+    "type": "分解",
+    "reactants": ["H", "Cl"],
+    "product": "H₂ + Cl₂",
+    "productName": "氢气和氯气",
+    "equation": "2HCl → H₂ + Cl₂",
+    "condition": "高温或电解",
+    "description": "PhET权威数据：氯化氢高温分解为氢气和氯气。"
+  },
+  {
+    "id": "phet-c2h6-decomp",
+    "type": "分解",
+    "reactants": ["C", "H"],
+    "product": "C₂H₄ + H₂",
+    "productName": "乙烯和氢气",
+    "equation": "C₂H₆ → C₂H₄ + H₂",
+    "condition": "催化裂解",
+    "description": "PhET权威数据：乙烷催化裂解生成乙烯和氢气。"
+  },
+  {
+    "id": "phet-co2-decomp",
+    "type": "分解",
+    "reactants": ["C", "O"],
+    "product": "CO + O₂",
+    "productName": "一氧化碳和氧气",
+    "equation": "2CO₂ → 2CO + O₂",
+    "condition": "高温",
+    "description": "PhET权威数据：二氧化碳高温分解为一氧化碳和氧气。"
+  },
+  {
+    "id": "phet-nh3-decomp",
+    "type": "分解",
+    "reactants": ["N", "H"],
+    "product": "N₂ + H₂",
+    "productName": "氮气和氢气",
+    "equation": "2NH₃ → N₂ + 3H₂",
+    "condition": "催化加热",
+    "description": "PhET权威数据：氨催化加热分解为氮气和氢气（合成氨逆反应）。"
+  },
+  {
+    "id": "phet-no-decomp",
+    "type": "分解",
+    "reactants": ["N", "O"],
+    "product": "N₂ + O₂",
+    "productName": "氮气和氧气",
+    "equation": "2NO → N₂ + O₂",
+    "condition": "常温（缓慢）",
+    "description": "PhET权威数据：一氧化氮常温下缓慢分解为氮气和氧气。"
+  },
+  {
+    "id": "phet-so3-decomp",
+    "type": "分解",
+    "reactants": ["S", "O"],
+    "product": "SO₂ + O₂",
+    "productName": "二氧化硫和氧气",
+    "equation": "2SO₃ → 2SO₂ + O₂",
+    "condition": "催化加热",
+    "description": "PhET权威数据：三氧化硫催化加热分解为二氧化硫和氧气。"
+  },
+  {
+    "id": "phet-ch3oh-combust",
+    "type": "氧化还原",
+    "reactants": ["C", "H", "O"],
+    "product": "CO₂ + H₂O",
+    "productName": "二氧化碳和水",
+    "equation": "2CH₃OH + 3O₂ → 2CO₂ + 4H₂O",
+    "condition": "点燃",
+    "description": "PhET权威数据：甲醇在氧气中燃烧生成二氧化碳和水。"
+  },
+  {
+    "id": "phet-c2h6-combust",
+    "type": "氧化还原",
+    "reactants": ["C", "H", "O"],
+    "product": "CO₂ + H₂O",
+    "productName": "二氧化碳和水",
+    "equation": "2C₂H₆ + 7O₂ → 4CO₂ + 6H₂O",
+    "condition": "点燃",
+    "description": "PhET权威数据：乙烷在氧气中燃烧生成二氧化碳和水。"
+  },
+  {
+    "id": "phet-cs2-combust",
+    "type": "氧化还原",
+    "reactants": ["C", "S", "O"],
+    "product": "CO₂ + SO₂",
+    "productName": "二氧化碳和二氧化硫",
+    "equation": "CS₂ + 3O₂ → CO₂ + 2SO₂",
+    "condition": "点燃",
+    "description": "PhET权威数据：二硫化碳在氧气中燃烧生成二氧化碳和二氧化硫。"
+  },
+  {
+    "id": "phet-c-h2o-ch4-co2",
+    "type": "其他",
+    "reactants": ["C", "H", "O"],
+    "product": "CH₄ + CO₂",
+    "productName": "甲烷和二氧化碳",
+    "equation": "2C + 2H₂O → CH₄ + CO₂",
+    "condition": "高温",
+    "description": "PhET权威数据：碳与水蒸气在高温下反应生成甲烷和二氧化碳。"
+  },
+  {
+    "id": "phet-ch4-h2o-reform",
+    "type": "其他",
+    "reactants": ["C", "H", "O"],
+    "product": "H₂ + CO",
+    "productName": "氢气和一氧化碳",
+    "equation": "CH₄ + H₂O → 3H₂ + CO",
+    "condition": "催化高温",
+    "description": "PhET权威数据：甲烷水蒸气重整制合成气，工业制氢重要方法。"
+  },
+  {
+    "id": "phet-c2h6-cl2-sub",
+    "type": "其他",
+    "reactants": ["C", "H", "Cl"],
+    "product": "C₂H₅Cl + HCl",
+    "productName": "氯乙烷和氯化氢",
+    "equation": "C₂H₆ + Cl₂ → C₂H₅Cl + HCl",
+    "condition": "光照",
+    "description": "PhET权威数据：乙烷在光照下与氯气发生取代反应生成氯乙烷。"
+  },
+  {
+    "id": "phet-ch4-s-cs2-h2s",
+    "type": "其他",
+    "reactants": ["C", "H", "S"],
+    "product": "CS₂ + H₂S",
+    "productName": "二硫化碳和硫化氢",
+    "equation": "CH₄ + 4S → CS₂ + 2H₂S",
+    "condition": "催化高温",
+    "description": "PhET权威数据：甲烷与硫在催化高温下反应生成二硫化碳和硫化氢。"
+  },
+  {
+    "id": "phet-co-disprop",
+    "type": "其他",
+    "reactants": ["C", "O"],
+    "product": "C + CO₂",
+    "productName": "碳和二氧化碳",
+    "equation": "2CO → C + CO₂",
+    "condition": "高温",
+    "description": "PhET权威数据：一氧化碳歧化反应（Boudouard反应），高炉煤气反应之一。"
+  },
+  {
+    "id": "phet-so2-h2-redox",
+    "type": "氧化还原",
+    "reactants": ["S", "O", "H"],
+    "product": "S + H₂O",
+    "productName": "硫和水",
+    "equation": "SO₂ + 2H₂ → S + 2H₂O",
+    "condition": "催化加热",
+    "description": "PhET权威数据：二氧化硫被氢气还原为单质硫和水。"
+  },
+  {
+    "id": "phet-so2-h2-h2s",
+    "type": "氧化还原",
+    "reactants": ["S", "O", "H"],
+    "product": "H₂S + H₂O",
+    "productName": "硫化氢和水",
+    "equation": "SO₂ + 3H₂ → H₂S + 2H₂O",
+    "condition": "催化高温",
+    "description": "PhET权威数据：二氧化硫被氢气深度还原生成硫化氢。"
+  },
+  {
+    "id": "phet-f2-h2o-of2",
+    "type": "氧化还原",
+    "reactants": ["F", "H", "O"],
+    "product": "OF₂ + HF",
+    "productName": "二氟化氧和氟化氢",
+    "equation": "2F₂ + H₂O → OF₂ + 2HF",
+    "condition": "常温",
+    "description": "PhET权威数据：氟气与水反应生成二氟化氧和氟化氢。"
+  },
+  {
+    "id": "phet-of2-h2o",
+    "type": "氧化还原",
+    "reactants": ["O", "F", "H"],
+    "product": "O₂ + HF",
+    "productName": "氧气和氟化氢",
+    "equation": "OF₂ + H₂O → O₂ + 2HF",
+    "condition": "常温",
+    "description": "PhET权威数据：二氟化氧与水反应生成氧气和氟化氢。"
+  },
+  {
+    "id": "phet-nh3-o2-n2",
+    "type": "氧化还原",
+    "reactants": ["N", "H", "O"],
+    "product": "N₂ + H₂O",
+    "productName": "氮气和水",
+    "equation": "4NH₃ + 3O₂ → 2N₂ + 6H₂O",
+    "condition": "点燃",
+    "description": "PhET权威数据：氨气在氧气中燃烧生成氮气和水。"
+  },
+  {
+    "id": "phet-nh3-o2-no2",
+    "type": "氧化还原",
+    "reactants": ["N", "H", "O"],
+    "product": "NO₂ + H₂O",
+    "productName": "二氧化氮和水",
+    "equation": "4NH₃ + 7O₂ → 4NO₂ + 6H₂O",
+    "condition": "催化高温",
+    "description": "PhET权威数据：氨气在过量氧气和催化条件下氧化为二氧化氮。"
+  },
+  {
+    "id": "phet-nh3-no-redox",
+    "type": "氧化还原",
+    "reactants": ["N", "H", "O"],
+    "product": "N₂ + H₂O",
+    "productName": "氮气和水",
+    "equation": "4NH₃ + 6NO → 5N₂ + 6H₂O",
+    "condition": "催化加热",
+    "description": "PhET权威数据：氨气还原一氧化氮生成氮气和水，工业尾气处理反应。"
   }
 ]
