@@ -39,8 +39,12 @@ export default function Home() {
 
   const matchedReactions = useMemo(() => {
     if (selectedElements.length < 2) return [];
-    return findReactions(selectedSymbols);
-  }, [selectedSymbols]);
+    const all = findReactions(selectedSymbols);
+    if (highlightMode === "compound") {
+      return all.filter((r) => r.reactants.length === selectedElements.length);
+    }
+    return all;
+  }, [selectedSymbols, highlightMode]);
 
   useEffect(() => {
     setReactiveSymbols(reactiveSymbols);
