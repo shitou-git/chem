@@ -5432,5 +5432,125 @@
     "equation": "4NH₃ + 6NO → 5N₂ + 6H₂O",
     "condition": "催化加热",
     "description": "氨气还原一氧化氮生成氮气和水，工业尾气处理反应。"
+  },
+  {
+    "id": "edu-cuso4-hydrate",
+    "type": "化合",
+    "reactants": ["Cu", "S", "O", "H"],
+    "product": "CuSO₄·5H₂O",
+    "productName": "五水硫酸铜",
+    "equation": "CuSO₄ + 5H₂O → CuSO₄·5H₂O",
+    "condition": "常温",
+    "description": "无水硫酸铜白色粉末遇水变蓝，生成五水硫酸铜，可用于检验水的存在。"
+  },
+  {
+    "id": "edu-cu2oh2co3-decomp",
+    "type": "分解",
+    "reactants": ["Cu", "O", "H", "C"],
+    "product": "CuO + H₂O + CO₂",
+    "productName": "氧化铜、水和二氧化碳",
+    "equation": "Cu₂(OH)₂CO₃ → 2CuO + H₂O + CO₂↑",
+    "condition": "加热",
+    "description": "碱式碳酸铜（铜绿）受热分解，绿色粉末变黑，生成水和二氧化碳。"
+  },
+  {
+    "id": "edu-cuso4-5h2o-decomp",
+    "type": "分解",
+    "reactants": ["Cu", "S", "O", "H"],
+    "product": "CuSO₄ + H₂O",
+    "productName": "硫酸铜和水",
+    "equation": "CuSO₄·5H₂O → CuSO₄ + 5H₂O",
+    "condition": "加热",
+    "description": "蓝色硫酸铜晶体受热失去结晶水，变为白色粉末。"
+  },
+  {
+    "id": "edu-al2o3-electrolysis",
+    "type": "分解",
+    "reactants": ["Al", "O"],
+    "product": "Al + O₂",
+    "productName": "铝和氧气",
+    "equation": "2Al₂O₃ → 4Al + 3O₂↑",
+    "condition": "通电（熔融）",
+    "description": "电解熔融氧化铝制取金属铝，工业炼铝原理。"
+  },
+  {
+    "id": "edu-mgcl2-electrolysis",
+    "type": "分解",
+    "reactants": ["Mg", "Cl"],
+    "product": "Mg + Cl₂",
+    "productName": "镁和氯气",
+    "equation": "MgCl₂ → Mg + Cl₂↑",
+    "condition": "通电（熔融）",
+    "description": "电解熔融氯化镁制取金属镁。"
+  },
+  {
+    "id": "edu-mg-h2so4",
+    "type": "置换",
+    "reactants": ["Mg", "H", "S", "O"],
+    "product": "MgSO₄",
+    "productName": "硫酸镁",
+    "equation": "Mg + H₂SO₄ → MgSO₄ + H₂↑",
+    "condition": "常温",
+    "description": "镁与稀硫酸反应生成硫酸镁和氢气，反应剧烈。"
+  },
+  {
+    "id": "edu-al-h2so4",
+    "type": "置换",
+    "reactants": ["Al", "H", "S", "O"],
+    "product": "Al₂(SO₄)₃",
+    "productName": "硫酸铝",
+    "equation": "2Al + 3H₂SO₄ → Al₂(SO₄)₃ + 3H₂↑",
+    "condition": "常温",
+    "description": "铝与稀硫酸反应生成硫酸铝和氢气。"
+  },
+  {
+    "id": "edu-fe-h2so4",
+    "type": "置换",
+    "reactants": ["Fe", "H", "S", "O"],
+    "product": "FeSO₄",
+    "productName": "硫酸亚铁",
+    "equation": "Fe + H₂SO₄ → FeSO₄ + H₂↑",
+    "condition": "常温",
+    "description": "铁与稀硫酸反应生成硫酸亚铁（亚铁盐）和氢气，溶液由无色变浅绿色。"
+  },
+  {
+    "id": "edu-na-h2o",
+    "type": "置换",
+    "reactants": ["Na", "H", "O"],
+    "product": "NaOH",
+    "productName": "氢氧化钠",
+    "equation": "2Na + 2H₂O → 2NaOH + H₂↑",
+    "condition": "常温",
+    "description": "钠与水剧烈反应生成氢氧化钠和氢气，钠浮在水面熔成小球四处游动。"
+  },
+  {
+    "id": "edu-h2so4-cuoh2",
+    "type": "复分解",
+    "reactants": ["H", "S", "O", "Cu"],
+    "product": "CuSO₄",
+    "productName": "硫酸铜",
+    "equation": "H₂SO₄ + Cu(OH)₂ → CuSO₄ + 2H₂O",
+    "condition": "常温",
+    "description": "稀硫酸与氢氧化铜发生中和反应，蓝色沉淀溶解生成蓝色硫酸铜溶液。"
+  },
+  {
+    "id": "edu-bacl2-h2so4",
+    "type": "复分解",
+    "reactants": ["Ba", "Cl", "H", "S", "O"],
+    "product": "BaSO₄",
+    "productName": "硫酸钡",
+    "equation": "BaCl₂ + H₂SO₄ → BaSO₄↓ + 2HCl",
+    "condition": "常温",
+    "description": "氯化钡与稀硫酸反应生成不溶于酸的白色硫酸钡沉淀，用于检验硫酸根离子。"
+  },
+  {
+    "id": "edu-naoh-fecl3",
+    "type": "复分解",
+    "reactants": ["Na", "O", "H", "Fe", "Cl"],
+    "product": "Fe(OH)₃",
+    "productName": "氢氧化铁",
+    "equation": "3NaOH + FeCl₃ → Fe(OH)₃↓ + 3NaCl",
+    "condition": "常温",
+    "description": "氢氧化钠与氯化铁反应生成红褐色氢氧化铁沉淀，用于检验铁离子。"
   }
 ]
