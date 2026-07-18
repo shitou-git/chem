@@ -36,10 +36,10 @@ export function findReactiveSymbols(selectedSymbols: string[]): string[] {
 }
 
 /**
- * 化合物链式高亮：找出能与已选元素形成的化合物再次反应的元素
+ * 化合物链式高亮：找出能与当前已选化合物继续反应的元素
  * - 0或1个元素：与 findReactiveSymbols 相同
- * - 2+个元素：找出所有包含已选元素的反应，高亮所有缺失的元素
- *   表示这些元素能与已形成的化合物继续反应
+ * - 2+个元素：找出所有包含已选元素的反应，且只差1个元素就能匹配
+ *   表示"选了这个元素，就能形成一个新的反应"
  */
 export function findCompoundReactiveSymbols(selectedSymbols: string[]): string[] {
   if (selectedSymbols.length < 2) {
@@ -54,9 +54,12 @@ export function findCompoundReactiveSymbols(selectedSymbols: string[]): string[]
     const hasSelected = selectedSymbols.every((s) => reactantSet.has(s));
     if (!hasSelected) return;
 
-    // 化合物模式：高亮所有缺失的元素，不限数量
+    // 链式模式：只高亮"差1个就能匹配"的元素
+    // 这样用户知道选了它就能发生反应，而不是高亮那些还需要更多元素的
     const missing = r.reactants.filter((s) => !set.has(s));
-    missing.forEach((m) => partners.add(m));
+    if (missing.length === 1) {
+      partners.add(missing[0]);
+    }
   });
 
   return Array.from(partners);
