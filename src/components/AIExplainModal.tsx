@@ -182,7 +182,7 @@ export default function AIExplainModal({
           )}
 
           {hasAnyContent && !error && (
-            <div className="space-y-4">
+            <div className="space-y-0">
               <ExplanationSection
                 icon={<Lightbulb className="h-4 w-4" />}
                 title="反应原理"
@@ -190,6 +190,8 @@ export default function AIExplainModal({
                 color="cyan"
                 isStreaming={currentKey === "principle"}
               />
+
+              <div className="border-t border-slate-700" />
 
               <ExplanationSection
                 icon={<Factory className="h-4 w-4" />}
@@ -199,6 +201,8 @@ export default function AIExplainModal({
                 isStreaming={currentKey === "application"}
               />
 
+              <div className="border-t border-slate-700" />
+
               <ExplanationSection
                 icon={<Shield className="h-4 w-4" />}
                 title="安全提示"
@@ -206,6 +210,8 @@ export default function AIExplainModal({
                 color="orange"
                 isStreaming={currentKey === "safety"}
               />
+
+              <div className="border-t border-slate-700" />
 
               {(explanation.extension || currentKey === "extension") && (
                 <ExplanationSection
@@ -244,39 +250,36 @@ function ExplanationSection({
   isStreaming?: boolean;
 }) {
   const colorMap = {
-    cyan: "border-cyan-500/30 bg-cyan-500/10 text-cyan-400",
-    emerald: "border-emerald-500/30 bg-emerald-500/10 text-emerald-400",
-    orange: "border-orange-500/30 bg-orange-500/10 text-orange-400",
-    purple: "border-purple-500/30 bg-purple-500/10 text-purple-400",
+    cyan: "text-cyan-400",
+    emerald: "text-emerald-400",
+    orange: "text-orange-400",
+    purple: "text-purple-400",
   };
 
   const isEmpty = !content || content.trim().length === 0;
 
   if (isEmpty && !isStreaming) {
     return (
-      <div className={cn(
-        "rounded-lg border border-dashed p-4 opacity-40",
-        colorMap[color].replace("bg-", "border-").split(" ")[0]
-      )}>
-        <div className="flex items-center gap-2 mb-2 font-semibold opacity-60">
+      <div className="py-4">
+        <div className={cn("flex items-center gap-2 font-semibold opacity-40", colorMap[color])}>
           {icon}
           {title}
         </div>
-        <p className="text-sm text-slate-500 italic">等待生成中...</p>
+        <p className="mt-2 text-sm text-slate-500 italic">等待生成中...</p>
       </div>
     );
   }
 
   return (
-    <div className={cn("rounded-lg border p-4 transition-all duration-300", colorMap[color], isStreaming && "ring-2 ring-offset-2 ring-offset-slate-900")}>
-      <div className="flex items-center gap-2 mb-2 font-semibold">
+    <div className="py-4">
+      <div className={cn("flex items-center gap-2 font-semibold", colorMap[color])}>
         {icon}
         {title}
         {isStreaming && (
           <span className="ml-1 inline-block h-3 w-0.5 bg-current animate-pulse" />
         )}
       </div>
-      <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-wrap">
+      <p className="mt-2 text-sm text-slate-300 leading-relaxed whitespace-pre-wrap text-justify">
         {content}
         {isStreaming && <span className="inline-block w-0.5 h-4 bg-current ml-0.5 align-middle animate-pulse" />}
       </p>
