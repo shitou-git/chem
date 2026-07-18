@@ -1,6 +1,6 @@
 import reactionsData from "./reactions.json";
 
-export type ReactionType = "化合" | "分解" | "置换" | "复分解" | "氧化还原";
+export type ReactionType = "化合" | "分解" | "置换" | "复分解" | "氧化还原" | "其他";
 
 export interface ChemicalReaction {
   id: string;
