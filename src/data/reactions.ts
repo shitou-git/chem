@@ -35,6 +35,33 @@ export function findReactiveSymbols(selectedSymbols: string[]): string[] {
   return Array.from(partners);
 }
 
+/**
+ * 化合物链式高亮：找出能与已选元素形成的化合物再次反应的元素
+ * - 0或1个元素：与 findReactiveSymbols 相同
+ * - 2+个元素：找出所有包含已选元素的反应，高亮所有缺失的元素
+ *   表示这些元素能与已形成的化合物继续反应
+ */
+export function findCompoundReactiveSymbols(selectedSymbols: string[]): string[] {
+  if (selectedSymbols.length < 2) {
+    return findReactiveSymbols(selectedSymbols);
+  }
+
+  const set = new Set(selectedSymbols);
+  const partners = new Set<string>();
+
+  REACTIONS.forEach((r) => {
+    const reactantSet = new Set(r.reactants);
+    const hasSelected = selectedSymbols.every((s) => reactantSet.has(s));
+    if (!hasSelected) return;
+
+    // 化合物模式：高亮所有缺失的元素，不限数量
+    const missing = r.reactants.filter((s) => !set.has(s));
+    missing.forEach((m) => partners.add(m));
+  });
+
+  return Array.from(partners);
+}
+
 export function findReactions(selectedSymbols: string[]): ChemicalReaction[] {
   const set = new Set(selectedSymbols);
   return REACTIONS.filter((r) =>

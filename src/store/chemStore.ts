@@ -10,12 +10,15 @@ export interface SavedReaction {
   savedAt: number;
 }
 
+export type HighlightMode = "element" | "compound";
+
 interface ChemState {
   selectedElements: ChemicalElement[];
   reactiveSymbols: string[];
   currentReactions: ChemicalReaction[];
   message: string;
   savedReactions: SavedReaction[];
+  highlightMode: HighlightMode;
   toggleElement: (el: ChemicalElement) => void;
   setReactiveSymbols: (symbols: string[]) => void;
   setCurrentReactions: (reactions: ChemicalReaction[]) => void;
@@ -24,6 +27,7 @@ interface ChemState {
   saveReaction: (reaction: ChemicalReaction) => void;
   removeSavedReaction: (id: string) => void;
   loadSavedReaction: (saved: SavedReaction) => void;
+  setHighlightMode: (mode: HighlightMode) => void;
 }
 
 const initialState = {
@@ -32,6 +36,7 @@ const initialState = {
   currentReactions: [],
   message: "点击元素周期表中的元素开始探索化学反应",
   savedReactions: [],
+  highlightMode: "element" as HighlightMode,
 };
 
 export const useChemStore = create<ChemState>()(
@@ -75,6 +80,7 @@ export const useChemStore = create<ChemState>()(
         set({
           message: `已载入收藏的方程式：${saved.equation}`,
         }),
+      setHighlightMode: (mode) => set({ highlightMode: mode }),
     }),
     {
       name: "chem-lab-favorites",

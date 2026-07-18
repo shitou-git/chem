@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Search, Sparkles } from "lucide-react";
+import { Search, Sparkles, Layers, GitBranch } from "lucide-react";
 import PeriodicTable from "@/components/PeriodicTable";
 import ReactionStage from "@/components/ReactionStage";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
 import { useChemStore } from "@/store/chemStore";
 import { ELEMENTS, GROUP_COLORS, GROUP_LABELS, type ElementGroup } from "@/data/elements";
-import { findReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions } from "@/data/reactions";
+import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions } from "@/data/reactions";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const {
@@ -15,6 +16,8 @@ export default function Home() {
     setCurrentReactions,
     setMessage,
     reset,
+    highlightMode,
+    setHighlightMode,
   } = useChemStore();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,8 +31,11 @@ export default function Home() {
 
   const reactiveSymbols = useMemo(() => {
     if (selectedElements.length === 0) return [];
+    if (highlightMode === "compound") {
+      return findCompoundReactiveSymbols(selectedSymbols);
+    }
     return findReactiveSymbols(selectedSymbols);
-  }, [selectedSymbols]);
+  }, [selectedSymbols, highlightMode]);
 
   const matchedReactions = useMemo(() => {
     if (selectedElements.length < 2) return [];
@@ -46,7 +52,11 @@ export default function Home() {
 
   useEffect(() => {
     if (selectedElements.length === 0) {
-      setMessage("点击元素周期表中的元素开始探索化学反应，支持二元和多元化合物");
+      setMessage(
+        highlightMode === "compound"
+          ? "【化合物链式】点击元素开始探索，选两个元素形成化合物后，高亮能与之继续反应的元素"
+          : "点击元素周期表中的元素开始探索化学反应，支持二元和多元化合物"
+      );
     } else if (selectedElements.length === 1) {
       const el = selectedElements[0];
       if (reactiveSymbols.length > 0) {
@@ -57,12 +67,16 @@ export default function Home() {
     } else {
       const names = selectedElements.map((e) => e.name).join("、");
       if (matchedReactions.length > 0) {
-        setMessage(`已选择 ${names}，共找到 ${matchedReactions.length} 个反应`);
+        if (highlightMode === "compound") {
+          setMessage(`已形成化合物（${names}），高亮的元素能与该化合物继续反应`);
+        } else {
+          setMessage(`已选择 ${names}，共找到 ${matchedReactions.length} 个反应`);
+        }
       } else {
         setMessage(`所选元素（${names}）之间暂无已知的化合反应，试试添加更多元素`);
       }
     }
-  }, [selectedElements, reactiveSymbols, matchedReactions, setMessage]);
+  }, [selectedElements, reactiveSymbols, matchedReactions, setMessage, highlightMode]);
 
   const handleElementClick = (symbol: string) => {
     const element = ELEMENTS.find((e) => e.symbol === symbol);
@@ -177,16 +191,47 @@ export default function Home() {
             onElementClick={handleElementClick}
           />
 
-          <div className="mt-4 flex flex-wrap items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/50 p-3 backdrop-blur">
-            {(Object.keys(GROUP_COLORS) as ElementGroup[]).map((group) => (
-              <div key={group} className="flex items-center gap-1.5">
-                <span
-                  className="h-3 w-3 rounded-full"
-                  style={{ backgroundColor: GROUP_COLORS[group] }}
-                />
-                <span className="text-xs text-slate-400">{GROUP_LABELS[group]}</span>
-              </div>
-            ))}
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900/50 p-3 backdrop-blur">
+            <div className="flex flex-wrap items-center gap-3">
+              {(Object.keys(GROUP_COLORS) as ElementGroup[]).map((group) => (
+                <div key={group} className="flex items-center gap-1.5">
+                  <span
+                    className="h-3 w-3 rounded-full"
+                    style={{ backgroundColor: GROUP_COLORS[group] }}
+                  />
+                  <span className="text-xs text-slate-400">{GROUP_LABELS[group]}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-950/50 p-0.5">
+              <button
+                type="button"
+                onClick={() => setHighlightMode("element")}
+                className={cn(
+                  "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition",
+                  highlightMode === "element"
+                    ? "bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.25)]"
+                    : "text-slate-400 hover:text-slate-200"
+                )}
+              >
+                <Layers className="h-3.5 w-3.5" />
+                元素高亮
+              </button>
+              <button
+                type="button"
+                onClick={() => setHighlightMode("compound")}
+                className={cn(
+                  "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition",
+                  highlightMode === "compound"
+                    ? "bg-fuchsia-500/20 text-fuchsia-400 shadow-[0_0_10px_rgba(232,121,249,0.25)]"
+                    : "text-slate-400 hover:text-slate-200"
+                )}
+              >
+                <GitBranch className="h-3.5 w-3.5" />
+                化合物链式
+              </button>
+            </div>
           </div>
         </div>
 
