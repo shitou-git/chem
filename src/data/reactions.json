@@ -4496,7 +4496,7 @@
     "product": "CH₃COOH + Cu₂O",
     "productName": "乙酸和氧化亚铜",
     "equation": "CH₃CHO + 2Cu(OH)₂ → CH₃COOH + Cu₂O↓ + 2H₂O",
-    "condition": "加热",
+    "condition": "水浴加热",
     "description": "乙醛与新制氢氧化铜反应生成红色氧化亚铜沉淀，检验醛基。"
   },
   {
@@ -4511,7 +4511,7 @@
     "product": "CH₃COONa + C₂H₅OH",
     "productName": "乙酸钠和乙醇",
     "equation": "CH₃COOC₂H₅ + NaOH → CH₃COONa + C₂H₅OH",
-    "condition": "加热",
+    "condition": "水浴加热",
     "description": "乙酸乙酯在氢氧化钠溶液中发生水解反应。"
   },
   {
