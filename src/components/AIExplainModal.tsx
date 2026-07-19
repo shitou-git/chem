@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { X, Loader2, AlertCircle, Lightbulb, Factory, Shield, BookOpen } from "lucide-react";
 import {
   streamExplanation,
+  replayCachedExplanation,
   getCachedExplanation,
   cacheExplanation,
   type AIExplanation,
@@ -50,10 +51,41 @@ export default function AIExplainModal({
 
     const cached = getCachedExplanation(equation, productName);
     if (cached) {
-      setExplanation(cached);
-      setIsComplete(true);
-      setLoading(false);
+      // 缓存命中：回放模拟流式输出效果
+      const controller = new AbortController();
+      abortRef.current = controller;
+      setLoading(true);
+      setError(null);
+      setExplanation({});
+      setCurrentKey(null);
+      setIsComplete(false);
+
+      replayCachedExplanation(
+        cached,
+        {
+          onUpdate: (partial, key) => {
+            setExplanation(partial);
+            setCurrentKey(key);
+            setLoading(false);
+          },
+          onDone: (result) => {
+            setExplanation(result);
+            setIsComplete(true);
+            setCurrentKey(null);
+            setLoading(false);
+          },
+          onError: () => {
+            // 回放不会出错，但兜底直接显示完整内容
+            setExplanation(cached);
+            setIsComplete(true);
+            setLoading(false);
+          },
+        },
+        controller.signal
+      );
+
       return () => {
+        controller.abort();
         document.body.style.overflow = originalOverflow;
         document.body.style.touchAction = originalTouchAction;
       };

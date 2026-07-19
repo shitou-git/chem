@@ -317,3 +317,85 @@ export function clearAllExplanationCache(): void {
     console.warn("清空缓存失败:", e);
   }
 }
+
+/**
+ * 回放已缓存的 AI 解释，模拟流式输出效果
+ * 按 principle → application → safety → extension 顺序逐段、逐字块推送
+ * 让用户从历史缓存加载时也有"正在生成"的视觉体验
+ *
+ * @param explanation 已缓存的完整解释
+ * @param callbacks 同 streamExplanation 的回调
+ * @param signal 可选的 AbortSignal，用于中止回放
+ */
+export function replayCachedExplanation(
+  explanation: AIExplanation,
+  callbacks: StreamCallbacks,
+  signal?: AbortSignal
+): void {
+  const { onUpdate, onDone } = callbacks;
+
+  // 段落顺序与字符块大小、间隔（兼顾流畅与快速）
+  const SECTIONS: { key: ExplanationKey; text: string }[] = [
+    { key: "principle", text: explanation.principle || "" },
+    { key: "application", text: explanation.application || "" },
+    { key: "safety", text: explanation.safety || "" },
+    { key: "extension", text: explanation.extension || "" },
+  ];
+
+  const CHUNK_SIZE = 4; // 每次推进 4 个字符
+  const INTERVAL_MS = 16; // 每 16ms 推进一次（约 250 字/秒）
+  const SECTION_GAP_MS = 280; // 段落切换间停顿
+
+  const timers: ReturnType<typeof setTimeout>[] = [];
+  let currentPartial: Partial<AIExplanation> = {};
+  let currentKey: ExplanationKey | null = null;
+  let totalScheduled = 0;
+
+  const schedule = (fn: () => void, delay: number) => {
+    totalScheduled += delay;
+    const t = setTimeout(fn, totalScheduled);
+    timers.push(t);
+  };
+
+  const checkAborted = (): boolean => {
+    if (signal?.aborted) {
+      timers.forEach(clearTimeout);
+      return true;
+    }
+    return false;
+  };
+
+  SECTIONS.forEach((section, sIdx) => {
+    if (!section.text) return;
+
+    // 进入该段落：设置 currentKey
+    schedule(() => {
+      if (checkAborted()) return;
+      currentKey = section.key;
+      if (!currentPartial[section.key]) {
+        currentPartial[section.key] = "";
+      }
+      onUpdate({ ...currentPartial }, currentKey);
+    }, sIdx === 0 ? 0 : SECTION_GAP_MS);
+
+    // 逐字符块推进
+    const text = section.text;
+    let pos = 0;
+    while (pos < text.length) {
+      const next = Math.min(pos + CHUNK_SIZE, text.length);
+      const slice = text.slice(pos, next);
+      schedule(() => {
+        if (checkAborted()) return;
+        currentPartial[section.key] = (currentPartial[section.key] || "") + slice;
+        onUpdate({ ...currentPartial }, currentKey);
+      }, INTERVAL_MS);
+      pos = next;
+    }
+  });
+
+  // 全部完成
+  schedule(() => {
+    if (checkAborted()) return;
+    onDone(explanation);
+  }, SECTION_GAP_MS);
+}
