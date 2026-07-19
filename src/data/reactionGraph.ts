@@ -26,6 +26,7 @@ export interface EdgeData extends Record<string, unknown> {
 }
 
 const MAX_CHAIN_DEPTH = 4;
+const MAX_CHAIN_REACTIONS = 6;
 
 const DIATOMIC_ELEMENTS = new Set([
   "H₂", "O₂", "N₂", "F₂", "Cl₂", "Br₂", "I₂", "O₃", "P₄", "S₈",
@@ -54,6 +55,25 @@ function isElementLike(symbol: string): boolean {
   return false;
 }
 
+function normalizeCompounds(compounds: string[]): string[] {
+  return compounds
+    .map((c) => c.replace(/[\d]+/g, "").replace(/[↑↓]/g, "").trim())
+    .sort();
+}
+
+function areReverseReactions(r1: ChemicalReaction, r2: ChemicalReaction): boolean {
+  const left1 = normalizeCompounds(parseEquationLeft(r1.equation));
+  const right1 = normalizeCompounds(parseEquationRight(r1.equation));
+  const left2 = normalizeCompounds(parseEquationLeft(r2.equation));
+  const right2 = normalizeCompounds(parseEquationRight(r2.equation));
+  return (
+    left1.length === right2.length &&
+    left1.every((c, i) => c === right2[i]) &&
+    right1.length === left2.length &&
+    right1.every((c, i) => c === left2[i])
+  );
+}
+
 function findReactionsProducing(compound: string): ChemicalReaction[] {
   return REACTIONS.filter((r) => {
     const products = parseEquationRight(r.equation);
@@ -62,40 +82,47 @@ function findReactionsProducing(compound: string): ChemicalReaction[] {
 }
 
 function selectBestPredecessor(
-  predecessors: ChemicalReaction[]
+  predecessors: ChemicalReaction[],
+  target: ChemicalReaction
 ): ChemicalReaction | null {
   if (predecessors.length === 0) return null;
 
-  const elementSynthesis = predecessors.find((r) => {
+  const filtered = predecessors.filter((r) => !areReverseReactions(r, target));
+  if (filtered.length === 0) return null;
+
+  const elementSynthesis = filtered.find((r) => {
     const left = parseEquationLeft(r.equation);
     return left.every(isElementLike);
   });
   if (elementSynthesis) return elementSynthesis;
 
-  const twoReactantSynthesis = predecessors.find((r) => {
+  const twoReactantSynthesis = filtered.find((r) => {
     const left = parseEquationLeft(r.equation);
     return left.length === 2 && r.type === "化合";
   });
   if (twoReactantSynthesis) return twoReactantSynthesis;
 
-  const synthesis = predecessors.find((r) => r.type === "化合");
+  const synthesis = filtered.find((r) => r.type === "化合");
   if (synthesis) return synthesis;
 
-  const decomp = predecessors.find((r) => r.type === "分解");
+  const decomp = filtered.find((r) => r.type === "分解");
   if (decomp) return decomp;
 
-  return predecessors[0];
+  return filtered[0];
 }
 
 function buildReactionChain(target: ChemicalReaction): ChemicalReaction[] {
   const reactionDepths = new Map<string, number>();
   const visitedReactions = new Set<string>();
+  const chainReactions = new Set<string>();
 
   function traverse(r: ChemicalReaction, depth: number) {
     if (visitedReactions.has(r.id)) return;
     if (depth > MAX_CHAIN_DEPTH) return;
+    if (chainReactions.size >= MAX_CHAIN_REACTIONS) return;
 
     visitedReactions.add(r.id);
+    chainReactions.add(r.id);
 
     const existing = reactionDepths.get(r.id);
     if (existing === undefined || depth < existing) {
@@ -106,7 +133,17 @@ function buildReactionChain(target: ChemicalReaction): ChemicalReaction[] {
     for (const reactant of reactants) {
       if (isElementLike(reactant)) continue;
       const producers = findReactionsProducing(reactant);
-      const best = selectBestPredecessor(producers);
+      const filtered = producers.filter((p) => {
+        if (chainReactions.has(p.id)) return false;
+        for (const chainId of chainReactions) {
+          const chainReaction = REACTIONS.find((rr) => rr.id === chainId);
+          if (chainReaction && areReverseReactions(p, chainReaction)) {
+            return false;
+          }
+        }
+        return true;
+      });
+      const best = selectBestPredecessor(filtered, r);
       if (best && !visitedReactions.has(best.id)) {
         traverse(best, depth + 1);
       }
@@ -114,6 +151,8 @@ function buildReactionChain(target: ChemicalReaction): ChemicalReaction[] {
   }
 
   traverse(target, 0);
+
+  if (reactionDepths.size === 0) return [target];
 
   const maxDepth = Math.max(...Array.from(reactionDepths.values()));
   const normalizedDepths = new Map<string, number>();
