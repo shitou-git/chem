@@ -207,8 +207,8 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex w-full flex-col items-end gap-2 md:w-96">
-            <div className="relative w-full">
+          <div className="flex w-full flex-col items-end gap-2">
+            <div className="relative w-full md:w-96">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
               <input
                 type="text"
@@ -219,7 +219,7 @@ export default function Home() {
               />
             </div>
 
-            <div className="w-full flex flex-wrap items-center gap-1.5">
+            <div className="flex flex-wrap items-center justify-end gap-1.5 md:justify-start">
               <span className="text-xs text-slate-500">按类型：</span>
               {REACTION_TYPES.map((t) => (
                 <button
