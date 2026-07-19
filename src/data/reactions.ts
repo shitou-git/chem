@@ -1,16 +1,28 @@
+import { z } from "zod";
 import reactionsData from "./reactions.json";
 
 export type ReactionType = "化合" | "分解" | "置换" | "复分解" | "氧化还原" | "其他";
 
-export interface ChemicalReaction {
-  id: string;
-  type?: ReactionType;
-  reactants: string[];
-  product: string;
-  productName: string;
-  equation: string;
-  condition: string;
-  description?: string;
+const ReactionTypeEnum = z.enum(["化合", "分解", "置换", "复分解", "氧化还原", "其他"]);
+
+const ChemicalReactionSchema = z.object({
+  id: z.string().min(1),
+  type: ReactionTypeEnum.optional(),
+  reactants: z.array(z.string().min(1)).min(1),
+  product: z.string().min(1),
+  productName: z.string().min(1),
+  equation: z.string().min(1),
+  condition: z.string().min(1),
+  description: z.string().optional(),
+});
+
+export type ChemicalReaction = z.infer<typeof ChemicalReactionSchema>;
+
+const reactionsValidation = z.array(ChemicalReactionSchema).safeParse(reactionsData);
+
+if (!reactionsValidation.success) {
+  console.error("Reactions data validation failed:", reactionsValidation.error);
+  throw new Error("Invalid reactions data");
 }
 
 /**
@@ -85,10 +97,10 @@ export function searchReactions(query: string): ChemicalReaction[] {
 }
 
 /** 按物质名称搜索，返回该物质涉及的所有元素符号 */
-export function getSymbolsFromReactions(reactions: ChemicalReaction[]): string[] {
+export function getSymbolsFromReactions(reactions: { reactants: string[] }[]): string[] {
   const symbols = new Set<string>();
   reactions.forEach((r) => r.reactants.forEach((s) => symbols.add(s)));
   return Array.from(symbols);
 }
 
-export const REACTIONS: ChemicalReaction[] = reactionsData as ChemicalReaction[];
+export const REACTIONS: ChemicalReaction[] = reactionsValidation.data;

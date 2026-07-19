@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { ChemicalElement } from "@/data/elements";
-import type { ChemicalReaction } from "@/data/reactions";
+import { ELEMENTS, type ChemicalElement } from "@/data/elements";
+import { REACTIONS, type ChemicalReaction } from "@/data/reactions";
 
 export interface SavedReaction {
   id: string;
@@ -77,8 +77,20 @@ export const useChemStore = create<ChemState>()(
           savedReactions: state.savedReactions.filter((r) => r.id !== id),
         })),
       loadSavedReaction: (saved) =>
-        set({
-          message: `已载入收藏的方程式：${saved.equation}`,
+        set(() => {
+          const reaction = REACTIONS.find((r) => r.id === saved.id);
+          if (!reaction) {
+            return { message: `未找到收藏的方程式：${saved.productName}` };
+          }
+          const elements = reaction.reactants
+            .map((s) => ELEMENTS.find((e) => e.symbol === s))
+            .filter(Boolean) as ChemicalElement[];
+          return {
+            selectedElements: elements,
+            currentReactions: [reaction],
+            reactiveSymbols: [],
+            message: `已载入收藏：${reaction.productName} — ${reaction.equation}`,
+          };
         }),
       setHighlightMode: (mode) => set({ highlightMode: mode }),
     }),

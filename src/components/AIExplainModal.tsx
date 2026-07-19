@@ -33,6 +33,9 @@ export default function AIExplainModal({
   const [currentKey, setCurrentKey] = useState<ExplanationKey | null>(null);
   const [isComplete, setIsComplete] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!isOpen) {
@@ -41,17 +44,43 @@ export default function AIExplainModal({
       setExplanation({});
       setCurrentKey(null);
       setIsComplete(false);
+      if (previousFocusRef.current) {
+        previousFocusRef.current.focus();
+        previousFocusRef.current = null;
+      }
       return;
     }
+
+    previousFocusRef.current = document.activeElement as HTMLElement;
 
     const originalOverflow = document.body.style.overflow;
     const originalTouchAction = document.body.style.touchAction;
     document.body.style.overflow = "hidden";
     document.body.style.touchAction = "none";
 
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    const handleFocusTrap = (e: FocusEvent) => {
+      if (!modalRef.current) return;
+      if (!modalRef.current.contains(e.target as Node)) {
+        e.stopPropagation();
+        closeButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    document.addEventListener("focus", handleFocusTrap, true);
+
+    setTimeout(() => {
+      closeButtonRef.current?.focus();
+    }, 50);
+
     const cached = getCachedExplanation(equation, productName);
     if (cached) {
-      // 缓存命中：回放模拟流式输出效果
       const controller = new AbortController();
       abortRef.current = controller;
       setLoading(true);
@@ -75,7 +104,6 @@ export default function AIExplainModal({
             setLoading(false);
           },
           onError: () => {
-            // 回放不会出错，但兜底直接显示完整内容
             setExplanation(cached);
             setIsComplete(true);
             setLoading(false);
@@ -88,6 +116,8 @@ export default function AIExplainModal({
         controller.abort();
         document.body.style.overflow = originalOverflow;
         document.body.style.touchAction = originalTouchAction;
+        document.removeEventListener("keydown", handleEscape);
+        document.removeEventListener("focus", handleFocusTrap, true);
       };
     }
 
@@ -123,6 +153,8 @@ export default function AIExplainModal({
       controller.abort();
       document.body.style.overflow = originalOverflow;
       document.body.style.touchAction = originalTouchAction;
+      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener("focus", handleFocusTrap, true);
     };
   }, [isOpen, equation, productName, condition, type]);
 
@@ -161,11 +193,18 @@ export default function AIExplainModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
-      <div className="relative z-10 w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl">
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="ai-modal-title"
+        className="relative z-10 w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl"
+        tabIndex={-1}
+      >
         <div className="sticky top-0 flex items-center justify-between border-b border-slate-700 bg-slate-900 p-4 z-20">
           <div className="flex items-center gap-2">
             <Lightbulb className="h-5 w-5 text-amber-400" />
-            <h3 className="text-lg font-bold text-slate-100">AI 反应解释</h3>
+            <h3 id="ai-modal-title" className="text-lg font-bold text-slate-100">AI 反应解释</h3>
             <span className="rounded bg-amber-500/20 px-2 py-0.5 text-xs text-amber-400">
               AI生成
             </span>
@@ -177,8 +216,10 @@ export default function AIExplainModal({
             )}
           </div>
           <button
+            ref={closeButtonRef}
             onClick={onClose}
             className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-800 hover:text-slate-200"
+            aria-label="关闭 AI 解释"
           >
             <X className="h-5 w-5" />
           </button>

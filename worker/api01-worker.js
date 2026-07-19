@@ -1,18 +1,61 @@
 const UPSTREAM_API = "https://apihub.agnes-ai.com/v1/chat/completions";
 
+const RATE_LIMIT = 30;
+const RATE_LIMIT_WINDOW = 60;
+
+const cache = new Map();
+
+function getClientKey(request) {
+  const ip = request.headers.get("CF-Connecting-IP");
+  const origin = request.headers.get("Origin") || request.headers.get("Referer") || "unknown";
+  return `${ip}:${origin}`;
+}
+
+function checkRateLimit(clientKey) {
+  const now = Date.now();
+  const windowStart = now - RATE_LIMIT_WINDOW * 1000;
+  
+  const entry = cache.get(clientKey) || { count: 0, windowStart };
+  
+  if (entry.windowStart < windowStart) {
+    entry.count = 0;
+    entry.windowStart = windowStart;
+  }
+  
+  if (entry.count >= RATE_LIMIT) {
+    return { allowed: false, remaining: 0, retryAfter: Math.ceil((windowStart + RATE_LIMIT_WINDOW * 1000 - now) / 1000) };
+  }
+  
+  entry.count++;
+  cache.set(clientKey, entry);
+  
+  return { allowed: true, remaining: RATE_LIMIT - entry.count, retryAfter: 0 };
+}
+
 async function handleRequest(request) {
   if (request.method === "OPTIONS") {
     return handleCors();
   }
 
-  try {
-    const apiKey = API_KEY;
-    if (!apiKey) {
-      return jsonResponse({ error: "API_KEY 未配置" }, 500);
-    }
+  const apiKey = API_KEY;
+  if (!apiKey) {
+    return jsonResponse({ error: "API_KEY 未配置" }, 500);
+  }
 
-    // 直接透传 request.body，不要 await request.text()
-    // 避免缓冲请求体导致的延迟
+  const clientKey = getClientKey(request);
+  const rateLimit = checkRateLimit(clientKey);
+  
+  if (!rateLimit.allowed) {
+    const headers = new Headers();
+    addCorsHeaders(headers);
+    headers.set("Retry-After", String(rateLimit.retryAfter));
+    return new Response(JSON.stringify({ error: "请求过于频繁，请稍后再试" }), {
+      status: 429,
+      headers,
+    });
+  }
+
+  try {
     const upstreamResponse = await fetch(UPSTREAM_API, {
       method: "POST",
       headers: {
@@ -20,7 +63,6 @@ async function handleRequest(request) {
         "Authorization": "Bearer " + apiKey,
       },
       body: request.body,
-      // 禁用 Cloudflare 响应缓冲，确保流式输出逐块传递
       cf: {
         cacheTtl: 0,
         cacheEverything: false,
@@ -30,11 +72,11 @@ async function handleRequest(request) {
     const newHeaders = new Headers(upstreamResponse.headers);
     addCorsHeaders(newHeaders);
     newHeaders.delete("content-encoding");
-    // 确保流式响应头正确
     newHeaders.set("X-Accel-Buffering", "no");
     newHeaders.set("Cache-Control", "no-cache");
+    newHeaders.set("X-RateLimit-Remaining", String(rateLimit.remaining));
+    newHeaders.set("X-RateLimit-Limit", String(RATE_LIMIT));
 
-    // 直接透传 response.body，实现真正的流式输出
     return new Response(upstreamResponse.body, {
       status: upstreamResponse.status,
       headers: newHeaders,

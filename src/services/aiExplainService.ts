@@ -4,7 +4,7 @@
  * 支持流式输出，提升用户体验
  */
 
-const API_BASE_URL = "https://api.chatlz.dpdns.org";
+const API_BASE_URL = import.meta.env.VITE_AGNES_API_URL || "https://api.chatlz.dpdns.org";
 const MODEL = "agnes-2.0-flash";
 
 export interface AIExplanation {
@@ -164,7 +164,7 @@ export async function streamExplanation(
           if (reasoningContent) {
             // 忽略思考过程
           }
-        } catch (e) {
+        } catch {
           // 解析失败跳过这一行
           console.warn("流式数据解析失败:", dataStr);
         }
@@ -183,7 +183,7 @@ export async function streamExplanation(
             if (content) {
               fullContent += content;
             }
-          } catch (e) {
+          } catch {
             // 忽略
           }
         }
@@ -203,21 +203,6 @@ export async function streamExplanation(
     console.error("AI 流式解释失败:", error);
     onError(error instanceof Error ? error : new Error(String(error)));
   }
-}
-
-export async function explainReaction(
-  equation: string,
-  productName: string,
-  condition: string,
-  type: string
-): Promise<AIExplanation> {
-  return new Promise((resolve, reject) => {
-    streamExplanation(equation, productName, condition, type, {
-      onUpdate: () => {},
-      onDone: resolve,
-      onError: reject,
-    });
-  });
 }
 
 // AI 解释持久化缓存（localStorage）
@@ -272,24 +257,6 @@ if (typeof window !== "undefined" && window.localStorage) {
   loadCacheFromStorage();
 }
 
-export async function getExplanation(
-  equation: string,
-  productName: string,
-  condition: string,
-  type: string
-): Promise<AIExplanation> {
-  const cacheKey = `${equation}|${productName}`;
-
-  if (explanationCache.has(cacheKey)) {
-    return explanationCache.get(cacheKey)!;
-  }
-
-  const explanation = await explainReaction(equation, productName, condition, type);
-  explanationCache.set(cacheKey, explanation);
-  saveCacheToStorage();
-  return explanation;
-}
-
 export function getCachedExplanation(
   equation: string,
   productName: string
@@ -306,16 +273,6 @@ export function cacheExplanation(
   const cacheKey = `${equation}|${productName}`;
   explanationCache.set(cacheKey, explanation);
   saveCacheToStorage();
-}
-
-/** 清空所有缓存的 AI 解释（设置页可调用） */
-export function clearAllExplanationCache(): void {
-  explanationCache.clear();
-  try {
-    localStorage.removeItem(CACHE_STORAGE_KEY);
-  } catch (e) {
-    console.warn("清空缓存失败:", e);
-  }
 }
 
 /**
@@ -347,7 +304,7 @@ export function replayCachedExplanation(
   const SECTION_GAP_MS = 280; // 段落切换间停顿
 
   const timers: ReturnType<typeof setTimeout>[] = [];
-  let currentPartial: Partial<AIExplanation> = {};
+  const currentPartial: Partial<AIExplanation> = {};
   let currentKey: ExplanationKey | null = null;
   let totalScheduled = 0;
 

@@ -12,7 +12,7 @@ export default defineConfig({
     '__APP_VERSION__': JSON.stringify(pkg.version),
   },
   build: {
-    sourcemap: 'hidden',
+    sourcemap: false,
   },
   plugins: [
     react({

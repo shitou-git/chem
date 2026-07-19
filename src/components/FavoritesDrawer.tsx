@@ -1,26 +1,59 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Bookmark, X, Trash2, ChevronUp } from "lucide-react";
-import { REACTIONS } from "@/data/reactions";
-import { ELEMENTS } from "@/data/elements";
 import { useChemStore, type SavedReaction } from "@/store/chemStore";
 import { cn } from "@/lib/utils";
 
 export default function FavoritesDrawer() {
-  const { savedReactions, removeSavedReaction, toggleElement, setCurrentReactions } = useChemStore();
+  const { savedReactions, removeSavedReaction, loadSavedReaction } = useChemStore();
   const [isOpen, setIsOpen] = useState(false);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
-  const loadReaction = (saved: SavedReaction) => {
-    const reaction = REACTIONS.find((r) => r.id === saved.id);
-    if (!reaction) return;
-    const elements = reaction.reactants
-      .map((s) => ELEMENTS.find((e) => e.symbol === s))
-      .filter(Boolean) as typeof ELEMENTS;
-    useChemStore.setState({
-      selectedElements: elements,
-      currentReactions: [reaction],
-      reactiveSymbols: [],
-      message: `已载入收藏：${reaction.productName} — ${reaction.equation}`,
-    });
+  useEffect(() => {
+    if (!isOpen) {
+      if (previousFocusRef.current) {
+        previousFocusRef.current.focus();
+        previousFocusRef.current = null;
+      }
+      return;
+    }
+
+    previousFocusRef.current = document.activeElement as HTMLElement;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    const handleFocusTrap = (e: FocusEvent) => {
+      if (!drawerRef.current) return;
+      if (!drawerRef.current.contains(e.target as Node)) {
+        e.stopPropagation();
+        closeButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    document.addEventListener("focus", handleFocusTrap, true);
+
+    setTimeout(() => {
+      closeButtonRef.current?.focus();
+    }, 50);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener("focus", handleFocusTrap, true);
+    };
+  }, [isOpen]);
+
+  const handleLoadReaction = (saved: SavedReaction) => {
+    loadSavedReaction(saved);
+    setIsOpen(false);
+  };
+
+  const handleClose = () => {
     setIsOpen(false);
   };
 
@@ -45,24 +78,31 @@ export default function FavoritesDrawer() {
           "fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity",
           isOpen ? "opacity-100" : "pointer-events-none opacity-0"
         )}
-        onClick={() => setIsOpen(false)}
+        onClick={handleClose}
       />
 
       <div
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="favorites-drawer-title"
         className={cn(
           "fixed bottom-0 left-0 right-0 z-50 rounded-t-2xl border-t border-slate-700 bg-slate-900/95 p-5 shadow-2xl backdrop-blur transition-transform duration-300 md:left-auto md:right-0 md:top-0 md:w-80 md:rounded-none md:border-l md:border-t-0 md:px-6 md:py-8",
           isOpen ? "translate-y-0" : "translate-y-full md:translate-x-full md:translate-y-0"
         )}
+        tabIndex={-1}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="flex items-center gap-2 text-lg font-bold text-slate-100">
+          <h3 id="favorites-drawer-title" className="flex items-center gap-2 text-lg font-bold text-slate-100">
             <Bookmark className="h-5 w-5 text-purple-400" />
             收藏夹
           </h3>
           <button
+            ref={closeButtonRef}
             type="button"
-            onClick={() => setIsOpen(false)}
+            onClick={handleClose}
             className="rounded-lg p-1 text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+            aria-label="关闭收藏夹"
           >
             <X className="h-5 w-5" />
           </button>
@@ -83,7 +123,7 @@ export default function FavoritesDrawer() {
               >
                 <button
                   type="button"
-                  onClick={() => loadReaction(saved)}
+                  onClick={() => handleLoadReaction(saved)}
                   className="w-full text-left"
                 >
                   <div className="mb-1 font-mono text-base font-semibold text-cyan-300">
@@ -99,6 +139,7 @@ export default function FavoritesDrawer() {
                     type="button"
                     onClick={() => removeSavedReaction(saved.id)}
                     className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-red-400 transition hover:bg-red-500/10"
+                    aria-label={`删除 ${saved.productName}`}
                   >
                     <Trash2 className="h-3 w-3" />
                     删除

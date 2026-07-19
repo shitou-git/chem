@@ -2,7 +2,6 @@ import { useState } from "react";
 import { RotateCcw, Bookmark, Check, Beaker, FlaskConical, X, Sparkles } from "lucide-react";
 import { useChemStore } from "@/store/chemStore";
 import { cn } from "@/lib/utils";
-import { ELEMENTS } from "@/data/elements";
 import type { ChemicalReaction } from "@/data/reactions";
 import AIExplainModal from "./AIExplainModal";
 
@@ -28,10 +27,6 @@ export default function ReactionStage() {
 
   const handleAIExplain = (reaction: ChemicalReaction) => {
     setAiModalReaction(reaction);
-  };
-
-  const getElementInfo = (symbol: string) => {
-    return ELEMENTS.find((e) => e.symbol === symbol);
   };
 
   return (
