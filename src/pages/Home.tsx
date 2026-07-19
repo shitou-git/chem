@@ -197,29 +197,29 @@ export default function Home() {
 
       <header className="relative z-10 flex flex-col gap-4 px-4 pb-2 pt-6 md:px-6 md:pt-8">
         <div className="flex flex-col items-center gap-3 text-center md:flex-row md:justify-between md:text-left">
-          <div>
-            <h1 className="bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-violet-400 bg-clip-text text-2xl font-bold text-transparent md:text-3xl">
-              <Sparkles className="mr-2 inline h-6 w-6 text-cyan-400" />
+          <div className="flex-shrink-0">
+            <h1 className="whitespace-nowrap bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-violet-400 bg-clip-text text-xl font-bold text-transparent md:text-2xl">
+              <Sparkles className="mr-1.5 inline h-5 w-5 text-cyan-400 md:mr-2 md:h-6 md:w-6" />
               化学方程式互动实验室
             </h1>
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-xs text-slate-400 md:text-sm">
               点击元素 → 探索化合物 → 配平化学方程式
             </p>
           </div>
 
           <div className="flex w-full flex-col items-end gap-2">
-            <div className="relative w-full md:w-96">
+            <div className="relative w-full md:w-80">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
-                placeholder="搜索元素、物质或反应类型（化合/分解/置换...）"
+                placeholder="搜索元素、物质或反应类型"
                 className="w-full rounded-lg border border-slate-700 bg-slate-900/70 py-2 pl-9 pr-3 text-sm text-slate-200 placeholder-slate-500 backdrop-blur focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
               />
             </div>
 
-            <div className="flex flex-wrap items-center justify-end gap-1.5 md:justify-start">
+            <div className="flex flex-nowrap items-center justify-end gap-1 md:justify-start">
               <span className="text-xs text-slate-500">按类型：</span>
               {REACTION_TYPES.map((t) => (
                 <button
@@ -227,7 +227,7 @@ export default function Home() {
                   type="button"
                   onClick={() => handleSearch(t)}
                   className={cn(
-                    "rounded-full border px-2.5 py-0.5 text-xs transition",
+                    "rounded-full border px-2 py-0.5 text-xs transition",
                     searchQuery.trim() === t
                       ? "border-cyan-500 bg-cyan-500/20 text-cyan-300"
                       : "border-slate-700 bg-slate-900/50 text-slate-400 hover:border-slate-500 hover:text-slate-200"
