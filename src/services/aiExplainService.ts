@@ -220,7 +220,57 @@ export async function explainReaction(
   });
 }
 
+// AI 解释持久化缓存（localStorage）
+// 刷新页面后仍可保留，避免重复调用 API
+const CACHE_STORAGE_KEY = "chem-lab:ai-explanations";
 const explanationCache = new Map<string, AIExplanation>();
+
+// 初始化时从 localStorage 加载历史缓存
+function loadCacheFromStorage(): void {
+  try {
+    const raw = localStorage.getItem(CACHE_STORAGE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw) as Record<string, AIExplanation>;
+    for (const [key, value] of Object.entries(parsed)) {
+      explanationCache.set(key, value);
+    }
+  } catch (e) {
+    console.warn("加载 AI 解释缓存失败:", e);
+  }
+}
+
+function saveCacheToStorage(): void {
+  try {
+    const obj: Record<string, AIExplanation> = {};
+    explanationCache.forEach((value, key) => {
+      obj[key] = value;
+    });
+    localStorage.setItem(CACHE_STORAGE_KEY, JSON.stringify(obj));
+  } catch (e) {
+    // localStorage 容量不足时，清理一半最旧的数据后重试
+    console.warn("保存 AI 解释缓存失败，尝试清理后重试:", e);
+    try {
+      const keys = Array.from(explanationCache.keys());
+      if (keys.length > 10) {
+        // 删除前一半（较旧）的缓存
+        const toRemove = keys.slice(0, Math.floor(keys.length / 2));
+        toRemove.forEach((k) => explanationCache.delete(k));
+        const obj: Record<string, AIExplanation> = {};
+        explanationCache.forEach((value, key) => {
+          obj[key] = value;
+        });
+        localStorage.setItem(CACHE_STORAGE_KEY, JSON.stringify(obj));
+      }
+    } catch (e2) {
+      console.warn("清理后仍保存失败，放弃持久化:", e2);
+    }
+  }
+}
+
+// 启动时加载历史缓存
+if (typeof window !== "undefined" && window.localStorage) {
+  loadCacheFromStorage();
+}
 
 export async function getExplanation(
   equation: string,
@@ -236,6 +286,7 @@ export async function getExplanation(
 
   const explanation = await explainReaction(equation, productName, condition, type);
   explanationCache.set(cacheKey, explanation);
+  saveCacheToStorage();
   return explanation;
 }
 
@@ -254,4 +305,15 @@ export function cacheExplanation(
 ): void {
   const cacheKey = `${equation}|${productName}`;
   explanationCache.set(cacheKey, explanation);
+  saveCacheToStorage();
+}
+
+/** 清空所有缓存的 AI 解释（设置页可调用） */
+export function clearAllExplanationCache(): void {
+  explanationCache.clear();
+  try {
+    localStorage.removeItem(CACHE_STORAGE_KEY);
+  } catch (e) {
+    console.warn("清空缓存失败:", e);
+  }
 }
