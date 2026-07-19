@@ -604,21 +604,6 @@
     "description": "碳酸氢铵在常温下即可分解。"
   },
   {
-    "id": "decomp-cabhco3",
-    "type": "分解",
-    "reactants": [
-      "Ca",
-      "H",
-      "C",
-      "O"
-    ],
-    "product": "CaCO₃ + H₂O + CO₂",
-    "productName": "碳酸钙、水和二氧化碳",
-    "equation": "Ca(HCO₃)₂ → CaCO₃ + H₂O + CO₂↑",
-    "condition": "加热",
-    "description": "碳酸氢钙受热分解，水垢的形成原理。"
-  },
-  {
     "id": "decomp-feoh3",
     "type": "分解",
     "reactants": [
@@ -1021,23 +1006,6 @@
     "ionicEquation": "H⁺ + OH⁻ → H₂O"
   },
   {
-    "id": "double-agno3-nacl",
-    "type": "复分解",
-    "reactants": [
-      "Ag",
-      "N",
-      "O",
-      "Na",
-      "Cl"
-    ],
-    "product": "AgCl + NaNO₃",
-    "productName": "氯化银和硝酸钠",
-    "equation": "AgNO₃ + NaCl → AgCl + NaNO₃",
-    "condition": "常温",
-    "description": "硝酸银与氯化钠反应生成白色氯化银沉淀。",
-    "ionicEquation": "Ag⁺ + Cl⁻ → AgCl"
-  },
-  {
     "id": "double-bacl2-na2so4",
     "type": "复分解",
     "reactants": [
@@ -1104,23 +1072,6 @@
     "condition": "常温",
     "description": "硫酸铜与氢氧化钠反应生成蓝色氢氧化铜沉淀。",
     "ionicEquation": "Cu²⁺ + 2OH⁻ → Cu(OH)₂"
-  },
-  {
-    "id": "double-fecl3-naoh",
-    "type": "复分解",
-    "reactants": [
-      "Fe",
-      "Cl",
-      "Na",
-      "O",
-      "H"
-    ],
-    "product": "Fe(OH)₃ + NaCl",
-    "productName": "氢氧化铁和氯化钠",
-    "equation": "FeCl₃ + 3NaOH → Fe(OH)₃ + 3NaCl",
-    "condition": "常温",
-    "description": "氯化铁与氢氧化钠反应生成红褐色氢氧化铁沉淀。",
-    "ionicEquation": "Fe³⁺ + 3OH⁻ → Fe(OH)₃"
   },
   {
     "id": "double-koh-hno3",
@@ -1202,23 +1153,6 @@
     "condition": "常温",
     "description": "硫酸铜与氯化钡反应生成硫酸钡沉淀。",
     "ionicEquation": "Ba²⁺ + SO₄²⁻ → BaSO₄"
-  },
-  {
-    "id": "double-agno3-hcl",
-    "type": "复分解",
-    "reactants": [
-      "Ag",
-      "N",
-      "O",
-      "H",
-      "Cl"
-    ],
-    "product": "AgCl + HNO₃",
-    "productName": "氯化银和硝酸",
-    "equation": "AgNO₃ + HCl → AgCl + HNO₃",
-    "condition": "常温",
-    "description": "硝酸银与盐酸反应生成白色氯化银沉淀。",
-    "ionicEquation": "Ag⁺ + Cl⁻ → AgCl"
   },
   {
     "id": "double-na2co3-cacl2",
@@ -1437,20 +1371,6 @@
     "description": "乙醇燃烧生成二氧化碳和水。"
   },
   {
-    "id": "redox-h2-cuo",
-    "type": "置换",
-    "reactants": [
-      "H",
-      "Cu",
-      "O"
-    ],
-    "product": "Cu + H₂O",
-    "productName": "铜和水",
-    "equation": "H₂ + CuO → Cu + H₂O",
-    "condition": "加热",
-    "description": "氢气还原氧化铜，生成红色铜和水。"
-  },
-  {
     "id": "redox-cu-h2so4",
     "type": "氧化还原",
     "reactants": [
@@ -1509,19 +1429,6 @@
     "equation": "MnO₂ + 4HCl(浓) → MnCl₂ + Cl₂↑ + 2H₂O",
     "condition": "加热",
     "description": "二氧化锰与浓盐酸加热制取氯气，实验室制氯气原理。"
-  },
-  {
-    "id": "redox-fe-cl2-fecl2",
-    "type": "氧化还原",
-    "reactants": [
-      "Fe",
-      "Cl"
-    ],
-    "product": "FeCl₃",
-    "productName": "氯化铁",
-    "equation": "2Fe + 3Cl₂ → 2FeCl₃",
-    "condition": "加热",
-    "description": "铁在氯气中燃烧生成三氯化铁。"
   },
   {
     "id": "na-o-na2o",
@@ -1910,20 +1817,6 @@
     "description": "三价铁氧化铜，用于制作印刷电路板。"
   },
   {
-    "id": "fe2o3-co-fe-co2",
-    "type": "氧化还原",
-    "reactants": [
-      "Fe",
-      "C",
-      "O"
-    ],
-    "product": "Fe + CO₂",
-    "productName": "铁和二氧化碳",
-    "equation": "Fe₂O₃ + 3CO → 2Fe + 3CO₂",
-    "condition": "高温",
-    "description": "高炉炼铁主要反应，一氧化碳还原氧化铁。"
-  },
-  {
     "id": "fe2o3-hcl-fecl3",
     "type": "复分解",
     "reactants": [
@@ -1985,20 +1878,6 @@
     "equation": "3Cu + 8HNO₃(稀) → 3Cu(NO₃)₂ + 2NO↑ + 4H₂O",
     "condition": "常温",
     "description": "铜与稀硝酸反应生成无色一氧化氮气体。"
-  },
-  {
-    "id": "cu-fecl3-cucl2-fecl2",
-    "type": "氧化还原",
-    "reactants": [
-      "Cu",
-      "Fe",
-      "Cl"
-    ],
-    "product": "CuCl₂ + FeCl₂",
-    "productName": "氯化铜和氯化亚铁",
-    "equation": "Cu + 2FeCl₃ → CuCl₂ + 2FeCl₂",
-    "condition": "常温",
-    "description": "铜与氯化铁溶液反应，三价铁被还原为二价铁。"
   },
   {
     "id": "cl2-h2o-hcl-hclo",
@@ -2176,20 +2055,6 @@
     "equation": "SO₂ + Cl₂ + 2H₂O → H₂SO₄ + 2HCl",
     "condition": "常温",
     "description": "二氧化硫与氯气等物质的量混合后通入水中，漂白性消失。"
-  },
-  {
-    "id": "h2s-so2-s-h2o",
-    "type": "氧化还原",
-    "reactants": [
-      "H",
-      "S",
-      "O"
-    ],
-    "product": "S + H₂O",
-    "productName": "硫和水",
-    "equation": "2H₂S + SO₂ → 3S + 2H₂O",
-    "condition": "常温",
-    "description": "硫化氢与二氧化硫反应生成淡黄色硫单质沉淀，归中反应。"
   },
   {
     "id": "c-h2so4-concentrated",
@@ -2466,37 +2331,6 @@
     "equation": "CaO + H₂O → Ca(OH)₂",
     "condition": "常温",
     "description": "生石灰与水反应生成熟石灰，放出大量热。"
-  },
-  {
-    "id": "caoh2-co2-caco3",
-    "type": "复分解",
-    "reactants": [
-      "Ca",
-      "H",
-      "C",
-      "O"
-    ],
-    "product": "CaCO₃ + H₂O",
-    "productName": "碳酸钙和水",
-    "equation": "Ca(OH)₂ + CO₂ → CaCO₃ + H₂O",
-    "condition": "常温",
-    "description": "二氧化碳使澄清石灰水变浑浊，检验二氧化碳的方法。",
-    "ionicEquation": "Ca²⁺ + 2OH⁻ + CO₂ → CaCO₃ + H₂O"
-  },
-  {
-    "id": "caco3-co2-h2o-cahco32",
-    "type": "化合",
-    "reactants": [
-      "Ca",
-      "H",
-      "C",
-      "O"
-    ],
-    "product": "Ca(HCO₃)₂",
-    "productName": "碳酸氢钙",
-    "equation": "CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂",
-    "condition": "常温",
-    "description": "继续通入过量二氧化碳，浑浊石灰水又变澄清。"
   },
   {
     "id": "ca-cl2-cacl2",
@@ -2828,23 +2662,6 @@
     "description": "氧化银加热分解生成银和氧气。"
   },
   {
-    "id": "agno3-nabr-agbr",
-    "type": "复分解",
-    "reactants": [
-      "Ag",
-      "N",
-      "O",
-      "Na",
-      "Br"
-    ],
-    "product": "AgBr + NaNO₃",
-    "productName": "溴化银和硝酸钠",
-    "equation": "AgNO₃ + NaBr → AgBr + NaNO₃",
-    "condition": "常温",
-    "description": "硝酸银与溴化钠反应生成淡黄色溴化银沉淀。",
-    "ionicEquation": "Ag⁺ + Br⁻ → AgBr"
-  },
-  {
     "id": "agno3-ki-agi",
     "type": "复分解",
     "reactants": [
@@ -3027,22 +2844,6 @@
     "equation": "4Cu + O₂ → 2Cu₂O",
     "condition": "高温",
     "description": "铜在高温下与氧气反应生成红色氧化亚铜。"
-  },
-  {
-    "id": "cuso4-h2s-cus",
-    "type": "复分解",
-    "reactants": [
-      "Cu",
-      "S",
-      "O",
-      "H"
-    ],
-    "product": "CuS + H₂SO₄",
-    "productName": "硫化铜和硫酸",
-    "equation": "CuSO₄ + H₂S → CuS + H₂SO₄",
-    "condition": "常温",
-    "description": "硫酸铜与硫化氢反应生成黑色硫化铜沉淀，检验H₂S。",
-    "ionicEquation": "Cu²⁺ + H₂S → CuS↓ + 2H⁺"
   },
   {
     "id": "mn-o-mn3o4",
@@ -3302,82 +3103,6 @@
     "ionicEquation": "Al³⁺ + 3NH₃·H₂O → Al(OH)₃↓ + 3NH₄⁺"
   },
   {
-    "id": "h2so4-bacl2-baso4",
-    "type": "复分解",
-    "reactants": [
-      "H",
-      "S",
-      "O",
-      "Ba",
-      "Cl"
-    ],
-    "product": "BaSO₄ + HCl",
-    "productName": "硫酸钡和盐酸",
-    "equation": "H₂SO₄ + BaCl₂ → BaSO₄ + 2HCl↑",
-    "condition": "常温",
-    "description": "硫酸与氯化钡反应生成白色硫酸钡沉淀，检验硫酸根。",
-    "ionicEquation": "Ba²⁺ + SO₄²⁻ → BaSO₄"
-  },
-  {
-    "id": "na2so4-bacl2-baso4",
-    "type": "复分解",
-    "reactants": [
-      "Na",
-      "S",
-      "O",
-      "Ba",
-      "Cl"
-    ],
-    "product": "BaSO₄ + NaCl",
-    "productName": "硫酸钡和氯化钠",
-    "equation": "Na₂SO₄ + BaCl₂ → BaSO₄ + 2NaCl",
-    "condition": "常温",
-    "description": "硫酸钠与氯化钡反应生成白色硫酸钡沉淀。",
-    "ionicEquation": "Ba²⁺ + SO₄²⁻ → BaSO₄"
-  },
-  {
-    "id": "h2-fe2o3-fe-h2o",
-    "type": "置换",
-    "reactants": [
-      "H",
-      "Fe",
-      "O"
-    ],
-    "product": "Fe + H₂O",
-    "productName": "铁和水",
-    "equation": "3H₂ + Fe₂O₃ → 2Fe + 3H₂O",
-    "condition": "高温",
-    "description": "氢气还原氧化铁。"
-  },
-  {
-    "id": "c-cuo-cu-co2",
-    "type": "置换",
-    "reactants": [
-      "C",
-      "Cu",
-      "O"
-    ],
-    "product": "Cu + CO₂",
-    "productName": "铜和二氧化碳",
-    "equation": "C + 2CuO → 2Cu + CO₂↑",
-    "condition": "高温",
-    "description": "碳还原氧化铜，黑色变红色。"
-  },
-  {
-    "id": "c-fe2o3-fe-co2",
-    "type": "置换",
-    "reactants": [
-      "C",
-      "Fe",
-      "O"
-    ],
-    "product": "Fe + CO₂",
-    "productName": "铁和二氧化碳",
-    "equation": "3C + 2Fe₂O₃ → 4Fe + 3CO₂↑",
-    "condition": "高温",
-    "description": "碳还原氧化铁，焦炭炼铁基本原理。"
-  },
-  {
     "id": "co-fe3o4-fe-co2",
     "type": "氧化还原",
     "reactants": [
@@ -3465,21 +3190,6 @@
     "equation": "Fe + 4HNO₃(稀) → Fe(NO₃)₃ + NO↑ + 2H₂O",
     "condition": "常温",
     "description": "铁与稀硝酸反应生成硝酸铁和一氧化氮。"
-  },
-  {
-    "id": "h2s-cl2-hcl-s",
-    "type": "置换",
-    "reactants": [
-      "H",
-      "S",
-      "Cl"
-    ],
-    "product": "HCl + S",
-    "productName": "氯化氢和硫",
-    "equation": "H₂S + Cl₂ → 2HCl + S",
-    "condition": "常温",
-    "description": "硫化氢与氯气反应生成淡黄色硫沉淀，证明氯非金属性强于硫。",
-    "ionicEquation": "H₂S + Cl₂ → 2H⁺ + 2Cl⁻ + S↓"
   },
   {
     "id": "fes-hcl-fecl2-h2s",
@@ -3613,37 +3323,6 @@
     "ionicEquation": "Br₂ + 2I⁻ → 2Br⁻ + I₂"
   },
   {
-    "id": "hcl-mno2-cl2",
-    "type": "氧化还原",
-    "reactants": [
-      "H",
-      "Cl",
-      "Mn",
-      "O"
-    ],
-    "product": "MnCl₂ + Cl₂ + H₂O",
-    "productName": "氯化锰、氯气和水",
-    "equation": "4HCl(浓) + MnO₂ → MnCl₂ + Cl₂↑ + 2H₂O",
-    "condition": "加热",
-    "description": "实验室用浓盐酸与二氧化锰加热制氯气。"
-  },
-  {
-    "id": "hcl-kmno4-cl2",
-    "type": "氧化还原",
-    "reactants": [
-      "H",
-      "Cl",
-      "K",
-      "Mn",
-      "O"
-    ],
-    "product": "KCl + MnCl₂ + Cl₂ + H₂O",
-    "productName": "氯化钾、氯化锰、氯气和水",
-    "equation": "16HCl + 2KMnO₄ → 2KCl + 2MnCl₂ + 5Cl₂↑ + 8H₂O",
-    "condition": "常温",
-    "description": "高锰酸钾氧化浓盐酸制氯气，不需加热。"
-  },
-  {
     "id": "hcl-kclo3-cl2",
     "type": "氧化还原",
     "reactants": [
@@ -3738,19 +3417,6 @@
     "condition": "常温",
     "description": "碘化钠与硝酸银生成黄色沉淀。",
     "ionicEquation": "Ag⁺ + I⁻ → AgI↓"
-  },
-  {
-    "id": "s-h2-h2s",
-    "type": "化合",
-    "reactants": [
-      "S",
-      "H"
-    ],
-    "product": "H₂S",
-    "productName": "硫化氢",
-    "equation": "S + H₂ → H₂S",
-    "condition": "加热(300℃)",
-    "description": "硫与氢气加热生成硫化氢，有臭鸡蛋气味，剧毒。"
   },
   {
     "id": "so2-h2s-s-h2o",
@@ -4176,38 +3842,6 @@
     "ionicEquation": "Cu²⁺ + 2OH⁻ → Cu(OH)₂↓"
   },
   {
-    "id": "cuso4-fe-feso4-cu",
-    "type": "置换",
-    "reactants": [
-      "Cu",
-      "S",
-      "O",
-      "Fe"
-    ],
-    "product": "FeSO₄ + Cu",
-    "productName": "硫酸亚铁和铜",
-    "equation": "CuSO₄ + Fe → FeSO₄ + Cu",
-    "condition": "常温",
-    "description": "铁置换硫酸铜中的铜，湿法炼铜的原理，溶液由蓝变浅绿。",
-    "ionicEquation": "Fe + Cu²⁺ → Fe²⁺ + Cu"
-  },
-  {
-    "id": "cuso4-zn-znso4-cu",
-    "type": "置换",
-    "reactants": [
-      "Cu",
-      "S",
-      "O",
-      "Zn"
-    ],
-    "product": "ZnSO₄ + Cu",
-    "productName": "硫酸锌和铜",
-    "equation": "CuSO₄ + Zn → ZnSO₄ + Cu",
-    "condition": "常温",
-    "description": "锌置换硫酸铜中的铜，锌表面析出红色铜。",
-    "ionicEquation": "Zn + Cu²⁺ → Zn²⁺ + Cu"
-  },
-  {
     "id": "cucl2-fe-fecl2-cu",
     "type": "置换",
     "reactants": [
@@ -4293,23 +3927,6 @@
     "equation": "PbO + CO → Pb + CO₂",
     "condition": "高温",
     "description": "一氧化碳还原氧化铅生成铅。"
-  },
-  {
-    "id": "pb-no3-h2s-pbs",
-    "type": "复分解",
-    "reactants": [
-      "Pb",
-      "N",
-      "O",
-      "H",
-      "S"
-    ],
-    "product": "PbS + HNO₃",
-    "productName": "硫化铅和硝酸",
-    "equation": "Pb(NO₃)₂ + H₂S → PbS↓ + 2HNO₃",
-    "condition": "常温",
-    "description": "硝酸铅与硫化氢生成黑色硫化铅沉淀。",
-    "ionicEquation": "Pb²⁺ + H₂S → PbS↓ + 2H⁺"
   },
   {
     "id": "pb-no3-na2s-pbs",
@@ -4735,23 +4352,6 @@
     "description": "二氧化碳与氧化钙反应生成碳酸钙。"
   },
   {
-    "id": "caco3-hcl-cacl2",
-    "type": "复分解",
-    "reactants": [
-      "Ca",
-      "C",
-      "O",
-      "H",
-      "Cl"
-    ],
-    "product": "CaCl₂ + CO₂ + H₂O",
-    "productName": "氯化钙、二氧化碳和水",
-    "equation": "CaCO₃ + 2HCl → CaCl₂ + CO₂↑ + H₂O",
-    "condition": "常温",
-    "description": "碳酸钙与盐酸反应，实验室制二氧化碳。",
-    "ionicEquation": "CaCO₃ + 2H⁺ → Ca²⁺ + CO₂↑ + H₂O"
-  },
-  {
     "id": "caco3-h2o-co2-ca-hco3",
     "type": "复分解",
     "reactants": [
@@ -4796,21 +4396,6 @@
     "condition": "加热",
     "description": "镁与热水反应生成氢氧化镁和氢气。",
     "ionicEquation": "Mg + 2H₂O → Mg(OH)₂ + H₂↑"
-  },
-  {
-    "id": "nahco3-heat-na2co3",
-    "type": "分解",
-    "reactants": [
-      "Na",
-      "H",
-      "C",
-      "O"
-    ],
-    "product": "Na₂CO₃ + CO₂ + H₂O",
-    "productName": "碳酸钠、二氧化碳和水",
-    "equation": "2NaHCO₃ → Na₂CO₃ + CO₂↑ + H₂O",
-    "condition": "加热",
-    "description": "碳酸氢钠受热分解，烘焙中作膨松剂。"
   },
   {
     "id": "na2co3-caoh2-caco3",
@@ -4904,22 +4489,6 @@
     "equation": "HClO + H₂O₂ → HCl↑ + O₂↑ + H₂O",
     "condition": "常温",
     "description": "次氯酸氧化双氧水，紫色石蕊先红后褪色。"
-  },
-  {
-    "id": "kmno4-hcl-kcl-mncl2",
-    "type": "氧化还原",
-    "reactants": [
-      "K",
-      "Mn",
-      "O",
-      "H",
-      "Cl"
-    ],
-    "product": "KCl + MnCl₂ + Cl₂ + H₂O",
-    "productName": "氯化钾、氯化锰、氯气和水",
-    "equation": "2KMnO₄ + 16HCl → 2KCl + 2MnCl₂ + 5Cl₂↑ + 8H₂O",
-    "condition": "常温",
-    "description": "高锰酸钾氧化浓盐酸制氯气，不需加热。"
   },
   {
     "id": "k2cr2o7-hcl-kcl-crcl3",
@@ -5101,21 +4670,6 @@
     "equation": "NH₃·H₂O → NH₃↑ + H₂O",
     "condition": "加热",
     "description": "一水合氨受热分解为氨气和水。"
-  },
-  {
-    "id": "nh4hco3-heat-nh3",
-    "type": "分解",
-    "reactants": [
-      "N",
-      "H",
-      "C",
-      "O"
-    ],
-    "product": "NH₃ + CO₂ + H₂O",
-    "productName": "氨气、二氧化碳和水",
-    "equation": "NH₄HCO₃ → NH₃↑ + CO₂↑ + H₂O",
-    "condition": "加热",
-    "description": "碳酸氢铵受热完全分解，用作氮肥。"
   },
   {
     "id": "nh4no3-heat-n2o",

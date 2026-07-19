@@ -56,7 +56,30 @@ export const useChemStore = create<ChemState>()(
           }
         }),
       setReactiveSymbols: (symbols) => set({ reactiveSymbols: symbols }),
-      setCurrentReactions: (reactions) => set({ currentReactions: reactions }),
+      setCurrentReactions: (reactions) =>
+        set(() => {
+          // 反应去重：同一反应（忽略反应物顺序和状态符号）只保留第一个
+          const normalize = (eq: string): string => {
+            const sep = eq.includes("→") ? "→" : eq.includes("⇌") ? "⇌" : "";
+            if (!sep) return eq;
+            const [left, right] = eq.split(sep);
+            const sortSide = (side: string) =>
+              side
+                .split("+")
+                .map((s) => s.trim().replace(/[↑↓]/g, ""))
+                .sort()
+                .join("+");
+            return `${sortSide(left)}${sep}${sortSide(right)}`;
+          };
+          const seen = new Set<string>();
+          const deduped = reactions.filter((r) => {
+            const key = normalize(r.equation);
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          });
+          return { currentReactions: deduped };
+        }),
       setMessage: (msg) => set({ message: msg }),
       reset: () =>
         set((state) => ({
