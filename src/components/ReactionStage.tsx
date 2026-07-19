@@ -132,6 +132,8 @@ export default function ReactionStage() {
                         const isSub = "₀₁₂₃₄₅₆₇₈₉".includes(char);
                         const isArrow = "→⇌".includes(char);
                         const isNumber = /[0-9]/.test(char);
+                        const isGas = char === "↑";
+                        const isPrecipitate = char === "↓";
                         return (
                           <span
                             key={i}
@@ -139,7 +141,9 @@ export default function ReactionStage() {
                               "inline-block animate-pop-in",
                               isSub && "text-emerald-400",
                               isArrow && "mx-1 text-cyan-400",
-                              isNumber && !isSub && "text-pink-400"
+                              isNumber && !isSub && "text-pink-400",
+                              isGas && "text-amber-400 align-super text-sm",
+                              isPrecipitate && "text-slate-400 align-super text-sm"
                             )}
                             style={{ animationDelay: `${i * 20}ms` }}
                           >
@@ -157,6 +161,8 @@ export default function ReactionStage() {
                             const isSup = "⁺⁻⁰¹²³⁴⁵⁶⁷⁸⁹".includes(char);
                             const isArrow = "→⇌".includes(char);
                             const isNumber = /[0-9]/.test(char);
+                            const isGas = char === "↑";
+                            const isPrecipitate = char === "↓";
                             return (
                               <span
                                 key={`ion-${i}`}
@@ -164,7 +170,9 @@ export default function ReactionStage() {
                                   "inline-block animate-pop-in",
                                   isSup && "text-amber-400 align-super text-sm",
                                   isArrow && "mx-1 text-cyan-400",
-                                  isNumber && !isSup && "text-pink-400"
+                                  isNumber && !isSup && "text-pink-400",
+                                  isGas && "text-amber-400 align-super text-sm",
+                                  isPrecipitate && "text-slate-400 align-super text-sm"
                                 )}
                                 style={{ animationDelay: `${i * 15 + 200}ms` }}
                               >
