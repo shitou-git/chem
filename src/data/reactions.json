@@ -21,7 +21,7 @@
     ],
     "product": "HCl",
     "productName": "氯化氢",
-    "equation": "H₂ + Cl₂ → 2HCl↑",
+    "equation": "H₂ + Cl₂ → 2HCl",
     "condition": "点燃或光照",
     "description": "氢气与氯气化合生成氯化氢气体。"
   },
@@ -60,7 +60,7 @@
     ],
     "product": "CO₂",
     "productName": "二氧化碳",
-    "equation": "C + O₂ → CO₂↑",
+    "equation": "C + O₂ → CO₂",
     "condition": "点燃",
     "description": "碳在氧气中充分燃烧生成二氧化碳。"
   },
@@ -86,7 +86,7 @@
     ],
     "product": "NO",
     "productName": "一氧化氮",
-    "equation": "N₂ + O₂ → 2NO↑",
+    "equation": "N₂ + O₂ → 2NO",
     "condition": "放电或高温",
     "description": "空气中氮气与氧气在放电条件下反应。"
   },
@@ -99,7 +99,7 @@
     ],
     "product": "NO₂",
     "productName": "二氧化氮",
-    "equation": "2NO + O₂ → 2NO₂↑",
+    "equation": "2NO + O₂ → 2NO₂",
     "condition": "常温",
     "description": "一氧化氮与氧气进一步化合。"
   },
@@ -112,7 +112,7 @@
     ],
     "product": "SO₂",
     "productName": "二氧化硫",
-    "equation": "S + O₂ → SO₂↑",
+    "equation": "S + O₂ → SO₂",
     "condition": "点燃",
     "description": "硫在空气中燃烧产生二氧化硫。"
   },
@@ -190,7 +190,7 @@
     ],
     "product": "H₂S",
     "productName": "硫化氢",
-    "equation": "H₂ + S → H₂S↑",
+    "equation": "H₂ + S → H₂S",
     "condition": "加热",
     "description": "氢气与硫蒸气化合生成硫化氢。"
   },
@@ -1364,7 +1364,7 @@
     ],
     "product": "Fe + CO₂",
     "productName": "铁和二氧化碳",
-    "equation": "3CO + Fe₂O₃ → 2Fe + 3CO₂↑",
+    "equation": "3CO + Fe₂O₃ → 2Fe + 3CO₂",
     "condition": "高温",
     "description": "一氧化碳还原氧化铁，工业高炉炼铁的主要反应。"
   },
@@ -1378,7 +1378,7 @@
     ],
     "product": "Cu + CO₂",
     "productName": "铜和二氧化碳",
-    "equation": "CO + CuO → Cu + CO₂↑",
+    "equation": "CO + CuO → Cu + CO₂",
     "condition": "加热",
     "description": "一氧化碳还原氧化铜生成铜和二氧化碳。"
   },
@@ -1404,7 +1404,7 @@
     ],
     "product": "CO₂",
     "productName": "二氧化碳",
-    "equation": "2CO + O₂ → 2CO₂↑",
+    "equation": "2CO + O₂ → 2CO₂",
     "condition": "点燃",
     "description": "一氧化碳燃烧生成二氧化碳，火焰呈蓝色。"
   },
@@ -1418,7 +1418,7 @@
     ],
     "product": "CO₂ + H₂O",
     "productName": "二氧化碳和水",
-    "equation": "CH₄ + 2O₂ → CO₂↑ + 2H₂O",
+    "equation": "CH₄ + 2O₂ → CO₂ + 2H₂O",
     "condition": "点燃",
     "description": "甲烷燃烧生成二氧化碳和水，天然气的主要成分。"
   },
@@ -1432,7 +1432,7 @@
     ],
     "product": "CO₂ + H₂O",
     "productName": "二氧化碳和水",
-    "equation": "C₂H₅OH + 3O₂ → 2CO₂↑ + 3H₂O",
+    "equation": "C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O",
     "condition": "点燃",
     "description": "乙醇燃烧生成二氧化碳和水。"
   },
@@ -1601,7 +1601,7 @@
     ],
     "product": "Na₂CO₃ + O₂",
     "productName": "碳酸钠和氧气",
-    "equation": "2Na₂O₂ + 2CO₂ → 2Na₂CO₃ + O₂↑",
+    "equation": "2Na₂O₂ + 2CO₂ → 2Na₂CO₃ + O₂",
     "condition": "常温",
     "description": "过氧化钠与二氧化碳反应放出氧气，用于呼吸面具。"
   },
@@ -1919,7 +1919,7 @@
     ],
     "product": "Fe + CO₂",
     "productName": "铁和二氧化碳",
-    "equation": "Fe₂O₃ + 3CO → 2Fe + 3CO₂↑",
+    "equation": "Fe₂O₃ + 3CO → 2Fe + 3CO₂",
     "condition": "高温",
     "description": "高炉炼铁主要反应，一氧化碳还原氧化铁。"
   },
@@ -2173,7 +2173,7 @@
     ],
     "product": "H₂SO₄ + HCl",
     "productName": "硫酸和盐酸",
-    "equation": "SO₂ + Cl₂ + 2H₂O → H₂SO₄ + 2HCl↑",
+    "equation": "SO₂ + Cl₂ + 2H₂O → H₂SO₄ + 2HCl",
     "condition": "常温",
     "description": "二氧化硫与氯气等物质的量混合后通入水中，漂白性消失。"
   },
@@ -2244,7 +2244,7 @@
     ],
     "product": "NO + H₂O",
     "productName": "一氧化氮和水",
-    "equation": "4NH₃ + 5O₂ → 4NO↑ + 6H₂O",
+    "equation": "4NH₃ + 5O₂ → 4NO + 6H₂O",
     "condition": "催化剂、加热",
     "description": "氨气的催化氧化，工业制硝酸的第一步。"
   },
@@ -2258,7 +2258,7 @@
     ],
     "product": "HNO₃ + NO",
     "productName": "硝酸和一氧化氮",
-    "equation": "3NO₂ + H₂O → 2HNO₃ + NO↑",
+    "equation": "3NO₂ + H₂O → 2HNO₃ + NO",
     "condition": "常温",
     "description": "二氧化氮与水反应，工业制硝酸的第三步，歧化反应。"
   },
@@ -2536,7 +2536,7 @@
     ],
     "product": "HF + O₂",
     "productName": "氟化氢和氧气",
-    "equation": "2F₂ + 2H₂O → 4HF + O₂↑",
+    "equation": "2F₂ + 2H₂O → 4HF + O₂",
     "condition": "常温",
     "description": "氟气与水剧烈反应置换出氧气，体现氟的强氧化性。",
     "ionicEquation": "2F₂ + 2H₂O → 4HF + O₂"
@@ -2581,7 +2581,7 @@
     ],
     "product": "SO₂ + H₂O",
     "productName": "二氧化硫和水",
-    "equation": "2H₂S + 3O₂ → 2SO₂↑ + 2H₂O",
+    "equation": "2H₂S + 3O₂ → 2SO₂ + 2H₂O",
     "condition": "充分燃烧",
     "description": "硫化氢在充足氧气中充分燃烧生成二氧化硫和水。"
   },
@@ -2665,7 +2665,7 @@
     ],
     "product": "K₂CO₃ + O₂",
     "productName": "碳酸钾和氧气",
-    "equation": "4KO₂ + 2CO₂ → 2K₂CO₃ + 3O₂↑",
+    "equation": "4KO₂ + 2CO₂ → 2K₂CO₃ + 3O₂",
     "condition": "常温",
     "description": "超氧化钾与二氧化碳反应放出氧气，用于呼吸面具。"
   },
@@ -3195,7 +3195,7 @@
     ],
     "product": "CH₃Cl + HCl",
     "productName": "一氯甲烷和氯化氢",
-    "equation": "CH₄ + Cl₂ → CH₃Cl + HCl↑",
+    "equation": "CH₄ + Cl₂ → CH₃Cl + HCl",
     "condition": "光照",
     "description": "甲烷与氯气光照下发生取代反应。"
   },
@@ -3209,7 +3209,7 @@
     ],
     "product": "CO₂ + H₂O",
     "productName": "二氧化碳和水",
-    "equation": "C₂H₄ + 3O₂ → 2CO₂↑ + 2H₂O",
+    "equation": "C₂H₄ + 3O₂ → 2CO₂ + 2H₂O",
     "condition": "点燃",
     "description": "乙烯完全燃烧，火焰明亮并伴有黑烟。"
   },
@@ -3251,7 +3251,7 @@
     ],
     "product": "CO₂ + H₂O",
     "productName": "二氧化碳和水",
-    "equation": "2C₆H₆ + 15O₂ → 12CO₂↑ + 6H₂O",
+    "equation": "2C₆H₆ + 15O₂ → 12CO₂ + 6H₂O",
     "condition": "点燃",
     "description": "苯完全燃烧，火焰明亮有浓烈黑烟。"
   },
@@ -3387,7 +3387,7 @@
     ],
     "product": "Fe + CO₂",
     "productName": "铁和二氧化碳",
-    "equation": "4CO + Fe₃O₄ → 3Fe + 4CO₂↑",
+    "equation": "4CO + Fe₃O₄ → 3Fe + 4CO₂",
     "condition": "高温",
     "description": "一氧化碳还原四氧化三铁。"
   },
@@ -3476,7 +3476,7 @@
     ],
     "product": "HCl + S",
     "productName": "氯化氢和硫",
-    "equation": "H₂S + Cl₂ → 2HCl↑ + S",
+    "equation": "H₂S + Cl₂ → 2HCl + S",
     "condition": "常温",
     "description": "硫化氢与氯气反应生成淡黄色硫沉淀，证明氯非金属性强于硫。",
     "ionicEquation": "H₂S + Cl₂ → 2H⁺ + 2Cl⁻ + S↓"
@@ -3549,7 +3549,7 @@
     ],
     "product": "Si + HCl",
     "productName": "硅和氯化氢",
-    "equation": "SiCl₄ + 2H₂ → Si + 4HCl↑",
+    "equation": "SiCl₄ + 2H₂ → Si + 4HCl",
     "condition": "高温",
     "description": "氢气还原四氯化硅得到高纯硅，半导体工业提纯硅。"
   },
@@ -3578,7 +3578,7 @@
     ],
     "product": "HCl + S",
     "productName": "氯化氢和硫",
-    "equation": "Cl₂ + H₂S → 2HCl↑ + S↓",
+    "equation": "Cl₂ + H₂S → 2HCl + S↓",
     "condition": "常温",
     "description": "氯气氧化硫化氢，生成盐酸和单质硫沉淀，氯的氧化性强于硫。"
   },
@@ -3748,7 +3748,7 @@
     ],
     "product": "H₂S",
     "productName": "硫化氢",
-    "equation": "S + H₂ → H₂S↑",
+    "equation": "S + H₂ → H₂S",
     "condition": "加热(300℃)",
     "description": "硫与氢气加热生成硫化氢，有臭鸡蛋气味，剧毒。"
   },
@@ -4057,7 +4057,7 @@
     ],
     "product": "FeCl₂ + S + HCl",
     "productName": "氯化亚铁、硫和盐酸",
-    "equation": "2FeCl₃ + H₂S → 2FeCl₂ + S↓ + 2HCl↑",
+    "equation": "2FeCl₃ + H₂S → 2FeCl₂ + S↓ + 2HCl",
     "condition": "常温",
     "description": "氯化铁氧化硫化氢生成硫沉淀，用于去除硫化氢。"
   },
@@ -4262,7 +4262,7 @@
     ],
     "product": "PbO + SO₂",
     "productName": "氧化铅和二氧化硫",
-    "equation": "2PbS + 3O₂ → 2PbO + 2SO₂↑",
+    "equation": "2PbS + 3O₂ → 2PbO + 2SO₂",
     "condition": "高温(焙烧)",
     "description": "硫化铅焙烧生成氧化铅和二氧化硫，火法炼铅的第一步。"
   },
@@ -4290,7 +4290,7 @@
     ],
     "product": "Pb + CO₂",
     "productName": "铅和二氧化碳",
-    "equation": "PbO + CO → Pb + CO₂↑",
+    "equation": "PbO + CO → Pb + CO₂",
     "condition": "高温",
     "description": "一氧化碳还原氧化铅生成铅。"
   },
@@ -4421,7 +4421,7 @@
     ],
     "product": "CH₂Cl₂ + HCl",
     "productName": "二氯甲烷和氯化氢",
-    "equation": "CH₃Cl + Cl₂ → CH₂Cl₂ + HCl↑",
+    "equation": "CH₃Cl + Cl₂ → CH₂Cl₂ + HCl",
     "condition": "光照",
     "description": "一氯甲烷继续与氯气取代生成二氯甲烷。"
   },
@@ -4435,7 +4435,7 @@
     ],
     "product": "CHCl₃ + HCl",
     "productName": "三氯甲烷(氯仿)和氯化氢",
-    "equation": "CH₂Cl₂ + Cl₂ → CHCl₃ + HCl↑",
+    "equation": "CH₂Cl₂ + Cl₂ → CHCl₃ + HCl",
     "condition": "光照",
     "description": "二氯甲烷继续取代生成三氯甲烷(氯仿)。"
   },
@@ -4449,7 +4449,7 @@
     ],
     "product": "CCl₄ + HCl",
     "productName": "四氯化碳和氯化氢",
-    "equation": "CHCl₃ + Cl₂ → CCl₄ + HCl↑",
+    "equation": "CHCl₃ + Cl₂ → CCl₄ + HCl",
     "condition": "光照",
     "description": "三氯甲烷继续取代生成四氯化碳。"
   },
@@ -4480,7 +4480,7 @@
     ],
     "product": "CH₃COOH + Ag + NH₃",
     "productName": "乙酸、银和氨",
-    "equation": "CH₃CHO + 2Ag(NH₃)₂OH → CH₃COOH + 2Ag↓ + 4NH₃↑ + H₂O",
+    "equation": "CH₃CHO + 2Ag(NH₃)₂OH → CH₃COOH + 2Ag↓ + 4NH₃ + H₂O",
     "condition": "水浴加热",
     "description": "乙醛的银镜反应，生成光亮银镜，检验醛基。"
   },
@@ -4584,7 +4584,7 @@
     ],
     "product": "CO₂ + H₂O",
     "productName": "二氧化碳和水",
-    "equation": "C₆H₁₂O₆ + 6O₂ → 6CO₂↑ + 6H₂O",
+    "equation": "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O",
     "condition": "点燃",
     "description": "葡萄糖完全燃烧生成二氧化碳和水。"
   },
@@ -4646,7 +4646,7 @@
     ],
     "product": "(NH₄)₂CO₃ + Ag + NH₃",
     "productName": "碳酸铵、银和氨",
-    "equation": "HCHO + 4Ag(NH₃)₂OH → (NH₄)₂CO₃ + 4Ag↓ + 6NH₃↑ + 2H₂O",
+    "equation": "HCHO + 4Ag(NH₃)₂OH → (NH₄)₂CO₃ + 4Ag↓ + 6NH₃ + 2H₂O",
     "condition": "水浴加热",
     "description": "甲醛的银镜反应，1mol甲醛可还原4mol银氨溶液。"
   },
@@ -4660,7 +4660,7 @@
     ],
     "product": "CO₂ + H₂O",
     "productName": "二氧化碳和水",
-    "equation": "2C₂H₂ + 5O₂ → 4CO₂↑ + 2H₂O",
+    "equation": "2C₂H₂ + 5O₂ → 4CO₂ + 2H₂O",
     "condition": "点燃",
     "description": "乙炔燃烧，火焰温度极高，可达3000℃以上，用于氧炔焰焊接。"
   },
@@ -5288,7 +5288,7 @@
     ],
     "product": "N₂O",
     "productName": "一氧化二氮",
-    "equation": "2N₂ + O₂ → 2N₂O↑",
+    "equation": "2N₂ + O₂ → 2N₂O",
     "condition": "高温",
     "description": "氮气与氧气在高温下化合生成一氧化二氮（笑气）。"
   },
@@ -5341,7 +5341,7 @@
     ],
     "product": "NO + O₂",
     "productName": "一氧化氮和氧气",
-    "equation": "2NO₂ → 2NO↑ + O₂↑",
+    "equation": "2NO₂ → 2NO + O₂",
     "condition": "高温",
     "description": "二氧化氮高温分解为一氧化氮和氧气。"
   },
@@ -5393,7 +5393,7 @@
     ],
     "product": "C₂H₄ + H₂",
     "productName": "乙烯和氢气",
-    "equation": "C₂H₆ → C₂H₄ + H₂↑",
+    "equation": "C₂H₆ → C₂H₄ + H₂",
     "condition": "催化裂解",
     "description": "乙烷催化裂解生成乙烯和氢气。"
   },
@@ -5406,7 +5406,7 @@
     ],
     "product": "CO + O₂",
     "productName": "一氧化碳和氧气",
-    "equation": "2CO₂ → 2CO + O₂↑",
+    "equation": "2CO₂ → 2CO + O₂",
     "condition": "高温",
     "description": "二氧化碳高温分解为一氧化碳和氧气。"
   },
@@ -5419,7 +5419,7 @@
     ],
     "product": "N₂ + H₂",
     "productName": "氮气和氢气",
-    "equation": "2NH₃ → N₂↑ + 3H₂↑",
+    "equation": "2NH₃ → N₂ + 3H₂",
     "condition": "催化加热",
     "description": "氨催化加热分解为氮气和氢气（合成氨逆反应）。"
   },
@@ -5432,7 +5432,7 @@
     ],
     "product": "N₂ + O₂",
     "productName": "氮气和氧气",
-    "equation": "2NO → N₂↑ + O₂↑",
+    "equation": "2NO → N₂ + O₂",
     "condition": "常温（缓慢）",
     "description": "一氧化氮常温下缓慢分解为氮气和氧气。"
   },
@@ -5445,7 +5445,7 @@
     ],
     "product": "SO₂ + O₂",
     "productName": "二氧化硫和氧气",
-    "equation": "2SO₃ → 2SO₂↑ + O₂↑",
+    "equation": "2SO₃ → 2SO₂ + O₂",
     "condition": "催化加热",
     "description": "三氧化硫催化加热分解为二氧化硫和氧气。"
   },
@@ -5459,7 +5459,7 @@
     ],
     "product": "CO₂ + H₂O",
     "productName": "二氧化碳和水",
-    "equation": "2CH₃OH + 3O₂ → 2CO₂↑ + 4H₂O",
+    "equation": "2CH₃OH + 3O₂ → 2CO₂ + 4H₂O",
     "condition": "点燃",
     "description": "甲醇在氧气中燃烧生成二氧化碳和水。"
   },
@@ -5473,7 +5473,7 @@
     ],
     "product": "CO₂ + H₂O",
     "productName": "二氧化碳和水",
-    "equation": "2C₂H₆ + 7O₂ → 4CO₂↑ + 6H₂O",
+    "equation": "2C₂H₆ + 7O₂ → 4CO₂ + 6H₂O",
     "condition": "点燃",
     "description": "乙烷在氧气中燃烧生成二氧化碳和水。"
   },
@@ -5487,7 +5487,7 @@
     ],
     "product": "CO₂ + SO₂",
     "productName": "二氧化碳和二氧化硫",
-    "equation": "CS₂ + 3O₂ → CO₂↑ + 2SO₂↑",
+    "equation": "CS₂ + 3O₂ → CO₂ + 2SO₂",
     "condition": "点燃",
     "description": "二硫化碳在氧气中燃烧生成二氧化碳和二氧化硫。"
   },
@@ -5515,7 +5515,7 @@
     ],
     "product": "H₂ + CO",
     "productName": "氢气和一氧化碳",
-    "equation": "CH₄ + H₂O → 3H₂↑ + CO",
+    "equation": "CH₄ + H₂O → 3H₂ + CO",
     "condition": "催化高温",
     "description": "甲烷水蒸气重整制合成气，工业制氢重要方法。"
   },
@@ -5529,7 +5529,7 @@
     ],
     "product": "C₂H₅Cl + HCl",
     "productName": "氯乙烷和氯化氢",
-    "equation": "C₂H₆ + Cl₂ → C₂H₅Cl + HCl↑",
+    "equation": "C₂H₆ + Cl₂ → C₂H₅Cl + HCl",
     "condition": "光照",
     "description": "乙烷在光照下与氯气发生取代反应生成氯乙烷。"
   },
@@ -5543,7 +5543,7 @@
     ],
     "product": "CS₂ + H₂S",
     "productName": "二硫化碳和硫化氢",
-    "equation": "CH₄ + 4S → CS₂ + 2H₂S↑",
+    "equation": "CH₄ + 4S → CS₂ + 2H₂S",
     "condition": "催化高温",
     "description": "甲烷与硫在催化高温下反应生成二硫化碳和硫化氢。"
   },
@@ -5556,7 +5556,7 @@
     ],
     "product": "C + CO₂",
     "productName": "碳和二氧化碳",
-    "equation": "2CO → C + CO₂↑",
+    "equation": "2CO → C + CO₂",
     "condition": "高温",
     "description": "一氧化碳歧化反应（Boudouard反应），高炉煤气反应之一。"
   },
@@ -5584,7 +5584,7 @@
     ],
     "product": "H₂S + H₂O",
     "productName": "硫化氢和水",
-    "equation": "SO₂ + 3H₂ → H₂S↑ + 2H₂O",
+    "equation": "SO₂ + 3H₂ → H₂S + 2H₂O",
     "condition": "催化高温",
     "description": "二氧化硫被氢气深度还原生成硫化氢。"
   },
@@ -5626,7 +5626,7 @@
     ],
     "product": "N₂ + H₂O",
     "productName": "氮气和水",
-    "equation": "4NH₃ + 3O₂ → 2N₂↑ + 6H₂O",
+    "equation": "4NH₃ + 3O₂ → 2N₂ + 6H₂O",
     "condition": "点燃",
     "description": "氨气在氧气中燃烧生成氮气和水。"
   },
@@ -5640,7 +5640,7 @@
     ],
     "product": "NO₂ + H₂O",
     "productName": "二氧化氮和水",
-    "equation": "4NH₃ + 7O₂ → 4NO₂↑ + 6H₂O",
+    "equation": "4NH₃ + 7O₂ → 4NO₂ + 6H₂O",
     "condition": "催化高温",
     "description": "氨气在过量氧气和催化条件下氧化为二氧化氮。"
   },
@@ -5654,7 +5654,7 @@
     ],
     "product": "N₂ + H₂O",
     "productName": "氮气和水",
-    "equation": "4NH₃ + 6NO → 5N₂↑ + 6H₂O",
+    "equation": "4NH₃ + 6NO → 5N₂ + 6H₂O",
     "condition": "催化加热",
     "description": "氨气还原一氧化氮生成氮气和水，工业尾气处理反应。"
   },
