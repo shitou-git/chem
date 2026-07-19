@@ -7,12 +7,13 @@ interface ElementCardProps {
   isSelected: boolean;
   isReactive: boolean;
   isDimmed: boolean;
+  disabled?: boolean;
   onClick: () => void;
   size?: "sm" | "md";
 }
 
 const ElementCard = forwardRef<HTMLButtonElement, ElementCardProps>(
-  ({ element, isSelected, isReactive, isDimmed, onClick, size = "md" }, ref) => {
+  ({ element, isSelected, isReactive, isDimmed, disabled = false, onClick, size = "md" }, ref) => {
     const accent = GROUP_COLORS[element.group];
 
     return (
@@ -20,6 +21,7 @@ const ElementCard = forwardRef<HTMLButtonElement, ElementCardProps>(
         ref={ref}
       type="button"
       onClick={onClick}
+      disabled={disabled}
       className={cn(
         "relative flex flex-col items-center justify-center rounded-lg border transition-all duration-200 select-none touch-manipulation",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
@@ -27,7 +29,8 @@ const ElementCard = forwardRef<HTMLButtonElement, ElementCardProps>(
         isSelected && "scale-110 z-10",
         isReactive && !isSelected && "animate-pulse-glow z-10",
         isDimmed && "opacity-25",
-        !isSelected && !isReactive && !isDimmed && "hover:scale-105 hover:z-10"
+        disabled && "cursor-not-allowed",
+        !isSelected && !isReactive && !isDimmed && !disabled && "hover:scale-105 hover:z-10"
       )}
       style={{
         backgroundColor: `${accent}20`,

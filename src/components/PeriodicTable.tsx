@@ -51,6 +51,9 @@ export default function PeriodicTable({ highlightSymbol, onElementClick }: Perio
             !isSelected &&
             !isReactive &&
             !isProduct;
+          // 已有元素被选中时，未选中且不高亮的元素禁用点击
+          const isDisabled =
+            selectedSymbols.length > 0 && !isSelected && !isReactive;
 
           return (
             <div key={element.symbol} className="relative flex items-center justify-center">
@@ -59,6 +62,7 @@ export default function PeriodicTable({ highlightSymbol, onElementClick }: Perio
                 isSelected={isSelected || (currentReactions.length > 0 && isProduct) || isHighlighted}
                 isReactive={isReactive}
                 isDimmed={isDimmed}
+                disabled={isDisabled}
                 onClick={() => onElementClick?.(element.symbol)}
                 size="md"
                 ref={(el) => {

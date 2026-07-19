@@ -85,6 +85,18 @@ export default function Home() {
   const handleElementClick = (symbol: string) => {
     const element = ELEMENTS.find((e) => e.symbol === symbol);
     if (!element) return;
+
+    // 已有元素被选中时，只允许：
+    // 1. 取消已选元素（点击已选元素）
+    // 2. 点击高亮（reactive）元素继续选择
+    // 其他元素一律禁用，避免选了无反应的元素
+    if (selectedElements.length > 0) {
+      const isSelected = selectedSymbols.includes(symbol);
+      if (!isSelected && !reactiveSymbols.includes(symbol)) {
+        return;
+      }
+    }
+
     toggleElement(element);
   };
 
