@@ -219,7 +219,7 @@ export default function Home() {
               />
             </div>
 
-            <div className="flex flex-wrap items-center justify-end gap-1.5">
+            <div className="w-full flex flex-wrap items-center gap-1.5">
               <span className="text-xs text-slate-500">按类型：</span>
               {REACTION_TYPES.map((t) => (
                 <button
