@@ -102,6 +102,30 @@ describe("searchReactions", () => {
     const upper = searchReactions("H2O");
     expect(lower.length).toBe(upper.length);
   });
+
+  it("should search by reaction type: 化合", () => {
+    const result = searchReactions("化合");
+    expect(result.length).toBeGreaterThan(0);
+    expect(result.every((r) => (r.type ?? "化合") === "化合")).toBe(true);
+  });
+
+  it("should search by reaction type: 复分解", () => {
+    const result = searchReactions("复分解");
+    expect(result.length).toBeGreaterThan(0);
+    expect(result.every((r) => r.type === "复分解")).toBe(true);
+  });
+
+  it("should search by reaction type: 氧化还原", () => {
+    const result = searchReactions("氧化还原");
+    expect(result.length).toBeGreaterThan(0);
+    expect(result.every((r) => r.type === "氧化还原")).toBe(true);
+  });
+
+  it("should map 氧化/还原 to 氧化还原", () => {
+    const result = searchReactions("氧化");
+    expect(result.length).toBeGreaterThan(0);
+    expect(result.every((r) => r.type === "氧化还原")).toBe(true);
+  });
 });
 
 describe("getSymbolsFromReactions", () => {

@@ -19,6 +19,7 @@ interface ChemState {
   message: string;
   savedReactions: SavedReaction[];
   highlightMode: HighlightMode;
+  searchOverride: boolean;
   toggleElement: (el: ChemicalElement) => void;
   setReactiveSymbols: (symbols: string[]) => void;
   setCurrentReactions: (reactions: ChemicalReaction[]) => void;
@@ -28,6 +29,7 @@ interface ChemState {
   removeSavedReaction: (id: string) => void;
   loadSavedReaction: (saved: SavedReaction) => void;
   setHighlightMode: (mode: HighlightMode) => void;
+  setSearchOverride: (on: boolean) => void;
 }
 
 const initialState = {
@@ -37,6 +39,7 @@ const initialState = {
   message: "点击元素周期表中的元素开始探索化学反应",
   savedReactions: [],
   highlightMode: "element" as HighlightMode,
+  searchOverride: false,
 };
 
 export const useChemStore = create<ChemState>()(
@@ -93,6 +96,7 @@ export const useChemStore = create<ChemState>()(
           };
         }),
       setHighlightMode: (mode) => set({ highlightMode: mode }),
+      setSearchOverride: (on) => set({ searchOverride: on }),
     }),
     {
       name: "chem-lab-favorites",

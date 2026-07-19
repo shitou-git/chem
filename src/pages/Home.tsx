@@ -5,7 +5,7 @@ import ReactionStage from "@/components/ReactionStage";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
 import { useChemStore } from "@/store/chemStore";
 import { ELEMENTS, GROUP_COLORS, GROUP_LABELS, type ElementGroup } from "@/data/elements";
-import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions } from "@/data/reactions";
+import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions, REACTION_TYPES } from "@/data/reactions";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
@@ -18,6 +18,8 @@ export default function Home() {
     reset,
     highlightMode,
     setHighlightMode,
+    searchOverride,
+    setSearchOverride,
   } = useChemStore();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -51,10 +53,12 @@ export default function Home() {
   }, [reactiveSymbols, setReactiveSymbols]);
 
   useEffect(() => {
+    if (searchOverride) return;
     setCurrentReactions(matchedReactions);
-  }, [matchedReactions, setCurrentReactions]);
+  }, [matchedReactions, setCurrentReactions, searchOverride]);
 
   useEffect(() => {
+    if (searchOverride) return;
     if (selectedElements.length === 0) {
       setMessage(
         highlightMode === "compound"
@@ -80,9 +84,13 @@ export default function Home() {
         setMessage(`所选元素（${names}）之间暂无已知的化合反应，试试添加更多元素`);
       }
     }
-  }, [selectedElements, reactiveSymbols, matchedReactions, setMessage, highlightMode]);
+  }, [selectedElements, reactiveSymbols, matchedReactions, setMessage, highlightMode, searchOverride]);
 
   const handleElementClick = (symbol: string) => {
+    // 点击元素时清除搜索覆盖模式，恢复正常联动
+    if (searchOverride) {
+      setSearchOverride(false);
+    }
     const element = ELEMENTS.find((e) => e.symbol === symbol);
     if (!element) return;
 
@@ -104,6 +112,7 @@ export default function Home() {
     setSearchQuery(query);
     if (!query.trim()) {
       setSearchResult(null);
+      setSearchOverride(false);
       reset();
       return;
     }
@@ -121,6 +130,7 @@ export default function Home() {
 
     if (foundElement) {
       setSearchResult(foundElement.symbol);
+      setSearchOverride(false);
       setTimeout(() => {
         const el = document.getElementById(`element-${foundElement.symbol}`);
         if (el) {
@@ -130,11 +140,23 @@ export default function Home() {
       return;
     }
 
-    // 再尝试搜索物质名称（如"四氧化三铁"）
+    // 再尝试搜索物质名称或反应类型
     const foundReactions = searchReactions(query.trim());
     if (foundReactions.length > 0) {
       setSearchResult(null);
-      // 获取所有涉及的元素并自动选中
+
+      // 按反应类型搜索时，直接展示反应列表（不自动选中元素）
+      const isTypeSearch = ["化合", "分解", "置换", "复分解", "氧化还原", "其他", "氧化", "还原"].includes(query.trim());
+      if (isTypeSearch) {
+        reset();
+        setSearchOverride(true);
+        setCurrentReactions(foundReactions);
+        setMessage(`搜索"${query.trim()}"类反应，共找到 ${foundReactions.length} 个`);
+        return;
+      }
+
+      // 按物质搜索：获取所有涉及的元素并自动选中
+      setSearchOverride(false);
       const symbols = getSymbolsFromReactions(foundReactions);
       const elements = symbols
         .map((s) => ELEMENTS.find((e) => e.symbol === s))
@@ -192,11 +214,30 @@ export default function Home() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
-                placeholder="搜索元素或物质名称（如：四氧化三铁）..."
+                placeholder="搜索元素、物质或反应类型（化合/分解/置换...）"
                 className="w-full rounded-lg border border-slate-700 bg-slate-900/70 py-2 pl-9 pr-3 text-sm text-slate-200 placeholder-slate-500 backdrop-blur focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
               />
             </div>
           </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-xs text-slate-500">按类型：</span>
+          {REACTION_TYPES.map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => handleSearch(t)}
+              className={cn(
+                "rounded-full border px-2.5 py-0.5 text-xs transition",
+                searchQuery.trim() === t
+                  ? "border-cyan-500 bg-cyan-500/20 text-cyan-300"
+                  : "border-slate-700 bg-slate-900/50 text-slate-400 hover:border-slate-500 hover:text-slate-200"
+              )}
+            >
+              {t}
+            </button>
+          ))}
         </div>
       </header>
 

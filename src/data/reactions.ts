@@ -86,17 +86,41 @@ export function findReactions(selectedSymbols: string[]): ChemicalReaction[] {
   );
 }
 
-/** 按物质名称搜索反应（匹配产物名称或产物化学式） */
+/** 按物质名称或反应类型搜索反应
+ *  支持匹配产物名称、产物化学式、方程式、反应类型
+ *  特殊关键词：化合/分解/置换/复分解/氧化还原/其他
+ */
 export function searchReactions(query: string): ChemicalReaction[] {
   const q = query.trim().toLowerCase();
   if (!q) return [];
+
+  // 优先按反应类型搜索
+  const typeKeywords: Record<string, ReactionType> = {
+    "化合": "化合",
+    "分解": "分解",
+    "置换": "置换",
+    "复分解": "复分解",
+    "氧化还原": "氧化还原",
+    "氧化": "氧化还原",
+    "还原": "氧化还原",
+    "其他": "其他",
+  };
+  const trimmed = query.trim();
+  if (trimmed in typeKeywords) {
+    return REACTIONS.filter((r) => (r.type ?? "化合") === typeKeywords[trimmed]);
+  }
+
   return REACTIONS.filter(
     (r) =>
-      r.productName.includes(query.trim()) ||
+      r.productName.includes(trimmed) ||
       r.product.toLowerCase().includes(q) ||
-      r.equation.toLowerCase().includes(q)
+      r.equation.toLowerCase().includes(q) ||
+      (r.type ?? "").toLowerCase().includes(q)
   );
 }
+
+/** 支持的反应类型列表（用于 UI 快捷按钮） */
+export const REACTION_TYPES: ReactionType[] = ["化合", "分解", "置换", "复分解", "氧化还原", "其他"];
 
 /** 按物质名称搜索，返回该物质涉及的所有元素符号 */
 export function getSymbolsFromReactions(reactions: { reactants: string[] }[]): string[] {
