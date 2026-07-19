@@ -5411,5 +5411,330 @@
     "condition": "常温",
     "description": "二氧化碳通入澄清石灰水变浑浊，生成碳酸钙沉淀和水，用于检验二氧化碳。",
     "ionicEquation": "Ca²⁺ + 2OH⁻ + CO₂ → CaCO₃↓ + H₂O"
+  },
+  {
+    "id": "pb-s",
+    "type": "化合",
+    "reactants": [
+      "Pb",
+      "S"
+    ],
+    "product": "PbS",
+    "productName": "硫化铅",
+    "equation": "Pb + S → PbS",
+    "condition": "加热",
+    "description": "铅与硫共热化合生成硫化铅。"
+  },
+  {
+    "id": "n-o2-no2",
+    "type": "化合",
+    "reactants": [
+      "N",
+      "O"
+    ],
+    "product": "NO₂",
+    "productName": "二氧化氮",
+    "equation": "2NO + O₂ → 2NO₂",
+    "condition": "常温",
+    "description": "一氧化氮与氧气化合生成红棕色二氧化氮气体。"
+  },
+  {
+    "id": "fe-cl2-fecl2",
+    "type": "化合",
+    "reactants": [
+      "Fe",
+      "Cl"
+    ],
+    "product": "FeCl₂",
+    "productName": "氯化亚铁",
+    "equation": "Fe + 2HCl → FeCl₂ + H₂↑",
+    "condition": "常温",
+    "description": "铁与稀盐酸反应生成氯化亚铁和氢气。"
+  },
+  {
+    "id": "fe-o2-fe2o3",
+    "type": "化合",
+    "reactants": [
+      "Fe",
+      "O"
+    ],
+    "product": "Fe₂O₃",
+    "productName": "氧化铁",
+    "equation": "4Fe + 3O₂ → 2Fe₂O₃",
+    "condition": "常温/缓慢氧化",
+    "description": "铁在空气中缓慢氧化生成氧化铁（铁锈）。"
+  },
+  {
+    "id": "zn-cl2",
+    "type": "化合",
+    "reactants": [
+      "Zn",
+      "Cl"
+    ],
+    "product": "ZnCl₂",
+    "productName": "氯化锌",
+    "equation": "Zn + Cl₂ → ZnCl₂",
+    "condition": "点燃",
+    "description": "锌在氯气中燃烧生成氯化锌。"
+  },
+  {
+    "id": "mn-o2",
+    "type": "化合",
+    "reactants": [
+      "Mn",
+      "O"
+    ],
+    "product": "MnO₂",
+    "productName": "二氧化锰",
+    "equation": "Mn + O₂ → MnO₂",
+    "condition": "加热",
+    "description": "锰与氧气在加热条件下化合生成二氧化锰。"
+  },
+  {
+    "id": "k-i",
+    "type": "化合",
+    "reactants": [
+      "K",
+      "I"
+    ],
+    "product": "KI",
+    "productName": "碘化钾",
+    "equation": "2K + I₂ → 2KI",
+    "condition": "加热",
+    "description": "钾与碘化合生成碘化钾。"
+  },
+  {
+    "id": "ba-cl2",
+    "type": "化合",
+    "reactants": [
+      "Ba",
+      "Cl"
+    ],
+    "product": "BaCl₂",
+    "productName": "氯化钡",
+    "equation": "Ba + Cl₂ → BaCl₂",
+    "condition": "点燃",
+    "description": "钡在氯气中燃烧生成氯化钡。"
+  },
+  {
+    "id": "mg-cl2",
+    "type": "化合",
+    "reactants": [
+      "Mg",
+      "Cl"
+    ],
+    "product": "MgCl₂",
+    "productName": "氯化镁",
+    "equation": "Mg + Cl₂ → MgCl₂",
+    "condition": "点燃",
+    "description": "镁在氯气中燃烧生成氯化镁。"
+  },
+  {
+    "id": "s-o2-so3",
+    "type": "化合",
+    "reactants": [
+      "S",
+      "O"
+    ],
+    "product": "SO₃",
+    "productName": "三氧化硫",
+    "equation": "2SO₂ + O₂ ⇌ 2SO₃",
+    "condition": "催化剂/加热",
+    "description": "二氧化硫在催化剂和加热条件下与氧气化合生成三氧化硫。"
+  },
+  {
+    "id": "ag-i",
+    "type": "化合",
+    "reactants": [
+      "Ag",
+      "I"
+    ],
+    "product": "AgI",
+    "productName": "碘化银",
+    "equation": "2Ag + I₂ → 2AgI",
+    "condition": "光照/加热",
+    "description": "银与碘在光照或加热条件下化合生成碘化银。"
+  },
+  {
+    "id": "na-i",
+    "type": "化合",
+    "reactants": [
+      "Na",
+      "I"
+    ],
+    "product": "NaI",
+    "productName": "碘化钠",
+    "equation": "2Na + I₂ → 2NaI",
+    "condition": "加热",
+    "description": "钠与碘化合生成碘化钠。"
+  },
+  {
+    "id": "ag-br",
+    "type": "化合",
+    "reactants": [
+      "Ag",
+      "Br"
+    ],
+    "product": "AgBr",
+    "productName": "溴化银",
+    "equation": "2Ag + Br₂ → 2AgBr",
+    "condition": "光照/加热",
+    "description": "银与溴在光照或加热条件下化合生成溴化银。"
+  },
+  {
+    "id": "ag-cl",
+    "type": "化合",
+    "reactants": [
+      "Ag",
+      "Cl"
+    ],
+    "product": "AgCl",
+    "productName": "氯化银",
+    "equation": "2Ag + Cl₂ → 2AgCl",
+    "condition": "光照/加热",
+    "description": "银与氯气在光照或加热条件下化合生成氯化银。"
+  },
+  {
+    "id": "fe-o2-feo",
+    "type": "化合",
+    "reactants": [
+      "Fe",
+      "O"
+    ],
+    "product": "FeO",
+    "productName": "氧化亚铁",
+    "equation": "2Fe + O₂ → 2FeO",
+    "condition": "高温/缺氧",
+    "description": "铁在高温缺氧条件下与氧气化合生成氧化亚铁。"
+  },
+  {
+    "id": "cr-o2",
+    "type": "化合",
+    "reactants": [
+      "Cr",
+      "O"
+    ],
+    "product": "Cr₂O₃",
+    "productName": "三氧化二铬",
+    "equation": "4Cr + 3O₂ → 2Cr₂O₃",
+    "condition": "高温",
+    "description": "铬在高温下与氧气化合生成三氧化二铬。"
+  },
+  {
+    "id": "k-br",
+    "type": "化合",
+    "reactants": [
+      "K",
+      "Br"
+    ],
+    "product": "KBr",
+    "productName": "溴化钾",
+    "equation": "2K + Br₂ → 2KBr",
+    "condition": "加热",
+    "description": "钾与溴化合生成溴化钾。"
+  },
+  {
+    "id": "mn-cl2",
+    "type": "化合",
+    "reactants": [
+      "Mn",
+      "Cl"
+    ],
+    "product": "MnCl₂",
+    "productName": "氯化锰",
+    "equation": "Mn + Cl₂ → MnCl₂",
+    "condition": "加热",
+    "description": "锰与氯气在加热条件下化合生成氯化锰。"
+  },
+  {
+    "id": "pb-o2-pbo2",
+    "type": "化合",
+    "reactants": [
+      "Pb",
+      "O"
+    ],
+    "product": "PbO₂",
+    "productName": "二氧化铅",
+    "equation": "PbO + O₂ → PbO₂",
+    "condition": "熔融/碱性",
+    "description": "氧化铅在熔融碱性条件下进一步被氧化生成二氧化铅。"
+  },
+  {
+    "id": "w-o2",
+    "type": "化合",
+    "reactants": [
+      "W",
+      "O"
+    ],
+    "product": "WO₃",
+    "productName": "三氧化钨",
+    "equation": "2W + 3O₂ → 2WO₃",
+    "condition": "高温",
+    "description": "钨在高温下与氧气化合生成三氧化钨。"
+  },
+  {
+    "id": "mo-o2",
+    "type": "化合",
+    "reactants": [
+      "Mo",
+      "O"
+    ],
+    "product": "MoO₃",
+    "productName": "三氧化钼",
+    "equation": "2Mo + 3O₂ → 2MoO₃",
+    "condition": "高温",
+    "description": "钼在高温下与氧气化合生成三氧化钼。"
+  },
+  {
+    "id": "ca-p",
+    "type": "化合",
+    "reactants": [
+      "Ca",
+      "P"
+    ],
+    "product": "Ca₃P₂",
+    "productName": "磷化钙",
+    "equation": "3Ca + 2P → Ca₃P₂",
+    "condition": "加热",
+    "description": "钙与磷共热化合生成磷化钙。"
+  },
+  {
+    "id": "ba-s",
+    "type": "化合",
+    "reactants": [
+      "Ba",
+      "S"
+    ],
+    "product": "BaS",
+    "productName": "硫化钡",
+    "equation": "Ba + S → BaS",
+    "condition": "加热",
+    "description": "钡与硫共热化合生成硫化钡。"
+  },
+  {
+    "id": "cu-s-cus",
+    "type": "化合",
+    "reactants": [
+      "Cu",
+      "S"
+    ],
+    "product": "CuS",
+    "productName": "硫化铜",
+    "equation": "Cu + S → CuS",
+    "condition": "加热",
+    "description": "铜与硫共热生成硫化铜。"
+  },
+  {
+    "id": "pb-cl2",
+    "type": "化合",
+    "reactants": [
+      "Pb",
+      "Cl"
+    ],
+    "product": "PbCl₂",
+    "productName": "氯化铅",
+    "equation": "Pb + Cl₂ → PbCl₂",
+    "condition": "点燃",
+    "description": "铅在氯气中燃烧生成氯化铅。"
   }
 ]

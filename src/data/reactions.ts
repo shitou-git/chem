@@ -129,4 +129,66 @@ export function getSymbolsFromReactions(reactions: { reactants: string[] }[]): s
   return Array.from(symbols);
 }
 
+export function parseCompound(formula: string): string[] {
+  const symbols: string[] = [];
+  let i = 0;
+  const f = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
+  while (i < f.length) {
+    if (f[i] === "(") {
+      let depth = 1;
+      let j = i + 1;
+      while (j < f.length && depth > 0) {
+        if (f[j] === "(") depth++;
+        if (f[j] === ")") depth--;
+        j++;
+      }
+      i = j;
+      while (j < f.length && /[0-9]/.test(f[j])) j++;
+      i = j;
+    } else if (/[A-Z]/.test(f[i])) {
+      let j = i + 1;
+      while (j < f.length && /[a-z]/.test(f[j])) j++;
+      symbols.push(f.slice(i, j));
+      i = j;
+      while (j < f.length && /[0-9]/.test(f[j])) j++;
+      i = j;
+    } else {
+      i++;
+    }
+  }
+  return symbols;
+}
+
+export function parseEquationLeft(equation: string): string[] {
+  const arrow = equation.includes("→") ? "→" : equation.includes("⇌") ? "⇌" : "=";
+  const leftSide = equation.split(arrow)[0].trim();
+  return leftSide
+    .split("+")
+    .map((p) =>
+      p
+        .trim()
+        .replace(/^[\d]+/, "")
+        .replace(/\(浓\)|\(稀\)|\(熔融\)/g, "")
+        .replace(/[↑↓]/g, "")
+        .trim()
+    )
+    .filter(Boolean);
+}
+
+export function parseEquationRight(equation: string): string[] {
+  const arrow = equation.includes("→") ? "→" : equation.includes("⇌") ? "⇌" : "=";
+  const rightSide = equation.split(arrow)[1].trim();
+  return rightSide
+    .split("+")
+    .map((p) =>
+      p
+        .trim()
+        .replace(/^[\d]+/, "")
+        .replace(/\(浓\)|\(稀\)|\(熔融\)/g, "")
+        .replace(/[↑↓]/g, "")
+        .trim()
+    )
+    .filter(Boolean);
+}
+
 export const REACTIONS: ChemicalReaction[] = reactionsValidation.data;

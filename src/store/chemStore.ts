@@ -20,6 +20,8 @@ interface ChemState {
   savedReactions: SavedReaction[];
   highlightMode: HighlightMode;
   searchOverride: boolean;
+  networkViewOpen: boolean;
+  networkReactionId?: string;
   toggleElement: (el: ChemicalElement) => void;
   setReactiveSymbols: (symbols: string[]) => void;
   setCurrentReactions: (reactions: ChemicalReaction[]) => void;
@@ -30,6 +32,8 @@ interface ChemState {
   loadSavedReaction: (saved: SavedReaction) => void;
   setHighlightMode: (mode: HighlightMode) => void;
   setSearchOverride: (on: boolean) => void;
+  openNetworkForReaction: (reactionId: string) => void;
+  closeNetwork: () => void;
 }
 
 const initialState = {
@@ -40,6 +44,8 @@ const initialState = {
   savedReactions: [],
   highlightMode: "element" as HighlightMode,
   searchOverride: false,
+  networkViewOpen: false,
+  networkReactionId: undefined as string | undefined,
 };
 
 export const useChemStore = create<ChemState>()(
@@ -120,6 +126,10 @@ export const useChemStore = create<ChemState>()(
         }),
       setHighlightMode: (mode) => set({ highlightMode: mode }),
       setSearchOverride: (on) => set({ searchOverride: on }),
+      openNetworkForReaction: (reactionId) =>
+        set({ networkViewOpen: true, networkReactionId: reactionId }),
+      closeNetwork: () =>
+        set({ networkViewOpen: false, networkReactionId: undefined }),
     }),
     {
       name: "chem-lab-favorites",

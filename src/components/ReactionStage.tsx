@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { RotateCcw, Bookmark, Check, Beaker, FlaskConical, X, Sparkles } from "lucide-react";
+import { RotateCcw, Bookmark, Check, Beaker, FlaskConical, X, Sparkles, Network } from "lucide-react";
 import { useChemStore } from "@/store/chemStore";
 import { cn } from "@/lib/utils";
 import type { ChemicalReaction } from "@/data/reactions";
 import AIExplainModal from "./AIExplainModal";
+import ReactionNetworkGraph from "./ReactionNetworkGraph";
 
 export default function ReactionStage() {
   const {
@@ -14,6 +15,10 @@ export default function ReactionStage() {
     reset,
     saveReaction,
     toggleElement,
+    openNetworkForReaction,
+    networkViewOpen,
+    networkReactionId,
+    closeNetwork,
   } = useChemStore();
 
   const [savedFlashId, setSavedFlashId] = useState<string | null>(null);
@@ -220,6 +225,15 @@ export default function ReactionStage() {
 
                       <button
                         type="button"
+                        onClick={() => openNetworkForReaction(reaction.id)}
+                        className="flex items-center justify-center gap-2 rounded-lg bg-fuchsia-500/15 px-3 py-2 text-sm font-semibold text-fuchsia-400 transition hover:bg-fuchsia-500/25 hover:shadow-[0_0_14px_rgba(232,121,249,0.25)]"
+                      >
+                        <Network className="h-4 w-4" />
+                        网络图
+                      </button>
+
+                      <button
+                        type="button"
                         onClick={() => handleAIExplain(reaction)}
                         className="flex items-center justify-center gap-2 rounded-lg bg-amber-500/15 px-3 py-2 text-sm font-semibold text-amber-400 transition hover:bg-amber-500/25 hover:shadow-[0_0_14px_rgba(251,191,36,0.25)]"
                       >
@@ -260,6 +274,15 @@ export default function ReactionStage() {
           condition={aiModalReaction.condition}
           type={aiModalReaction.type ?? "化合"}
           ionicEquation={aiModalReaction.ionicEquation}
+        />
+      )}
+
+      {/* 网络图弹窗 */}
+      {networkViewOpen && networkReactionId && (
+        <ReactionNetworkGraph
+          isOpen={networkViewOpen}
+          onClose={closeNetwork}
+          reactionId={networkReactionId}
         />
       )}
     </>
