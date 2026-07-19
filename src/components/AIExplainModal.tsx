@@ -17,6 +17,7 @@ interface AIExplainModalProps {
   productName: string;
   condition: string;
   type: string;
+  ionicEquation?: string;
 }
 
 export default function AIExplainModal({
@@ -26,6 +27,7 @@ export default function AIExplainModal({
   productName,
   condition,
   type,
+  ionicEquation,
 }: AIExplainModalProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -147,7 +149,7 @@ export default function AIExplainModal({
         setError(err.message || "AI 解释请求失败");
         setLoading(false);
       },
-    });
+    }, ionicEquation);
 
     return () => {
       controller.abort();
@@ -156,7 +158,7 @@ export default function AIExplainModal({
       document.removeEventListener("keydown", handleEscape);
       document.removeEventListener("focus", handleFocusTrap, true);
     };
-  }, [isOpen, equation, productName, condition, type]);
+  }, [isOpen, equation, productName, condition, type, ionicEquation]);
 
   const handleRetry = () => {
     setError(null);
@@ -182,7 +184,7 @@ export default function AIExplainModal({
         setError(err.message || "AI 解释请求失败");
         setLoading(false);
       },
-    });
+    }, ionicEquation);
   };
 
   if (!isOpen) return null;
@@ -226,8 +228,14 @@ export default function AIExplainModal({
         </div>
 
         <div className="border-b border-slate-800 bg-slate-950/50 p-4">
-          <div className="mb-2 text-xs text-slate-500">当前方程式</div>
+          <div className="mb-2 text-xs text-slate-500">化学方程式</div>
           <div className="font-mono text-xl text-emerald-400">{equation}</div>
+          {ionicEquation && (
+            <>
+              <div className="mt-3 mb-1 text-xs text-slate-500">离子方程式</div>
+              <div className="font-mono text-lg text-sky-300">{ionicEquation}</div>
+            </>
+          )}
           <div className="mt-2 text-sm text-slate-400">
             {type} · {condition} · 生成 {productName}
           </div>

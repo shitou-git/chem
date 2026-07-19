@@ -5,6 +5,7 @@ import {
   findReactions,
   searchReactions,
   getSymbolsFromReactions,
+  REACTIONS,
 } from "@/data/reactions";
 
 describe("findReactiveSymbols", () => {
@@ -116,5 +117,59 @@ describe("getSymbolsFromReactions", () => {
     ] as { reactants: string[] }[];
     const result = getSymbolsFromReactions(mockReactions);
     expect(result.sort()).toEqual(["C", "Cl", "H", "O"].sort());
+  });
+});
+
+describe("ionic equation support", () => {
+  it("should have ionicEquation field on double replacement reactions", () => {
+    const doubleRep = REACTIONS.filter((r) => r.type === "复分解");
+    expect(doubleRep.length).toBeGreaterThan(0);
+    const withIonic = doubleRep.filter((r) => r.ionicEquation);
+    expect(withIonic.length).toBeGreaterThan(doubleRep.length * 0.8);
+  });
+
+  it("should have correct ionic equation for BaSO4 precipitation", () => {
+    const reaction = REACTIONS.find((r) => r.id === "double-bacl2-na2so4");
+    expect(reaction).toBeDefined();
+    expect(reaction?.ionicEquation).toBe("Ba²⁺ + SO₄²⁻ → BaSO₄");
+  });
+
+  it("should have correct ionic equation for neutralization", () => {
+    const reaction = REACTIONS.find((r) => r.id === "double-naoh-hcl");
+    expect(reaction).toBeDefined();
+    expect(reaction?.ionicEquation).toBe("H⁺ + OH⁻ → H₂O");
+  });
+
+  it("should have correct ionic equation for metal + acid displacement", () => {
+    const reaction = REACTIONS.find((r) => r.id === "replace-zn-h");
+    expect(reaction).toBeDefined();
+    expect(reaction?.ionicEquation).toContain("Zn");
+    expect(reaction?.ionicEquation).toContain("2H⁺");
+    expect(reaction?.ionicEquation).toContain("Zn²⁺");
+    expect(reaction?.ionicEquation).toContain("H₂");
+  });
+
+  it("should have correct ionic equation for metal + salt displacement", () => {
+    const reaction = REACTIONS.find((r) => r.id === "replace-fe-cu");
+    expect(reaction).toBeDefined();
+    expect(reaction?.ionicEquation).toBe("Fe + Cu²⁺ → Fe²⁺ + Cu");
+  });
+
+  it("should have state symbols (↓↑) in ionic equations where appropriate", () => {
+    const reactionsWithPrecipitate = REACTIONS.filter(
+      (r) => r.ionicEquation && r.ionicEquation.includes("↓")
+    );
+    expect(reactionsWithPrecipitate.length).toBeGreaterThan(0);
+
+    const reactionsWithGas = REACTIONS.filter(
+      (r) => r.ionicEquation && r.ionicEquation.includes("↑")
+    );
+    expect(reactionsWithGas.length).toBeGreaterThan(0);
+  });
+
+  it("should not have ionicEquation on synthesis reactions (mostly gas/solid)", () => {
+    const synthesisReactions = REACTIONS.filter((r) => r.type === "化合");
+    const withIonic = synthesisReactions.filter((r) => r.ionicEquation);
+    expect(withIonic.length).toBe(0);
   });
 });

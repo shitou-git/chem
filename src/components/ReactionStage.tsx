@@ -127,7 +127,7 @@ export default function ReactionStage() {
                     </div>
 
                     <div className="mb-3 text-xs text-slate-500">配平方程式</div>
-                    <div className="mb-3 break-words font-mono text-lg leading-relaxed tracking-wide text-slate-100 md:text-xl">
+                    <div className="mb-2 break-words font-mono text-lg leading-relaxed tracking-wide text-slate-100 md:text-xl">
                       {reaction.equation.split("").map((char, i) => {
                         const isSub = "₀₁₂₃₄₅₆₇₈₉".includes(char);
                         const isArrow = "→⇌".includes(char);
@@ -148,6 +148,33 @@ export default function ReactionStage() {
                         );
                       })}
                     </div>
+
+                    {reaction.ionicEquation && (
+                      <>
+                        <div className="mb-3 text-xs text-slate-500">离子方程式</div>
+                        <div className="mb-3 break-words font-mono text-base leading-relaxed tracking-wide text-sky-300 md:text-lg">
+                          {reaction.ionicEquation.split("").map((char, i) => {
+                            const isSup = "⁺⁻⁰¹²³⁴⁵⁶⁷⁸⁹".includes(char);
+                            const isArrow = "→⇌".includes(char);
+                            const isNumber = /[0-9]/.test(char);
+                            return (
+                              <span
+                                key={`ion-${i}`}
+                                className={cn(
+                                  "inline-block animate-pop-in",
+                                  isSup && "text-amber-400 align-super text-sm",
+                                  isArrow && "mx-1 text-cyan-400",
+                                  isNumber && !isSup && "text-pink-400"
+                                )}
+                                style={{ animationDelay: `${i * 15 + 200}ms` }}
+                              >
+                                {char}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </>
+                    )}
 
                     <div className="mb-3 text-sm text-slate-400">
                       {(reaction.type ?? "化合") === "分解" ? "分解为" : "生成"} <span className="font-semibold text-emerald-400">{reaction.productName}</span>
@@ -224,6 +251,7 @@ export default function ReactionStage() {
           productName={aiModalReaction.productName}
           condition={aiModalReaction.condition}
           type={aiModalReaction.type ?? "化合"}
+          ionicEquation={aiModalReaction.ionicEquation}
         />
       )}
     </>

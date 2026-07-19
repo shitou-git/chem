@@ -14,6 +14,8 @@ const ChemicalReactionSchema = z.object({
   equation: z.string().min(1),
   condition: z.string().min(1),
   description: z.string().optional(),
+  ionicEquation: z.string().min(1).optional(),
+  ionicReactants: z.array(z.string().min(1)).optional(),
 });
 
 export type ChemicalReaction = z.infer<typeof ChemicalReactionSchema>;

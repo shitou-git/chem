@@ -49,13 +49,18 @@ function buildUserPrompt(
   equation: string,
   productName: string,
   condition: string,
-  type: string
+  type: string,
+  ionicEquation?: string
 ): string {
-  return `请解释以下化学反应：
+  let prompt = `请解释以下化学反应：
 - 方程式：${equation}
 - 产物：${productName}
 - 反应条件：${condition}
 - 反应类型：${type}`;
+  if (ionicEquation) {
+    prompt += `\n- 离子方程式：${ionicEquation}`;
+  }
+  return prompt;
 }
 
 function parseStreamContent(
@@ -96,7 +101,8 @@ export async function streamExplanation(
   productName: string,
   condition: string,
   type: string,
-  callbacks: StreamCallbacks
+  callbacks: StreamCallbacks,
+  ionicEquation?: string
 ): Promise<void> {
   const { onUpdate, onDone, onError } = callbacks;
 
@@ -110,7 +116,7 @@ export async function streamExplanation(
         model: MODEL,
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: buildUserPrompt(equation, productName, condition, type) },
+          { role: "user", content: buildUserPrompt(equation, productName, condition, type, ionicEquation) },
         ],
         temperature: 0.7,
         stream: true,
