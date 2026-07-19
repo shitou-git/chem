@@ -207,8 +207,8 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex w-full items-center gap-2 md:w-96">
-            <div className="relative flex-1">
+          <div className="flex w-full flex-col items-end gap-2 md:w-96">
+            <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
               <input
                 type="text"
@@ -218,26 +218,26 @@ export default function Home() {
                 className="w-full rounded-lg border border-slate-700 bg-slate-900/70 py-2 pl-9 pr-3 text-sm text-slate-200 placeholder-slate-500 backdrop-blur focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
               />
             </div>
-          </div>
-        </div>
 
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-xs text-slate-500">按类型：</span>
-          {REACTION_TYPES.map((t) => (
-            <button
-              key={t}
-              type="button"
-              onClick={() => handleSearch(t)}
-              className={cn(
-                "rounded-full border px-2.5 py-0.5 text-xs transition",
-                searchQuery.trim() === t
-                  ? "border-cyan-500 bg-cyan-500/20 text-cyan-300"
-                  : "border-slate-700 bg-slate-900/50 text-slate-400 hover:border-slate-500 hover:text-slate-200"
-              )}
-            >
-              {t}
-            </button>
-          ))}
+            <div className="flex flex-wrap items-center justify-end gap-1.5">
+              <span className="text-xs text-slate-500">按类型：</span>
+              {REACTION_TYPES.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => handleSearch(t)}
+                  className={cn(
+                    "rounded-full border px-2.5 py-0.5 text-xs transition",
+                    searchQuery.trim() === t
+                      ? "border-cyan-500 bg-cyan-500/20 text-cyan-300"
+                      : "border-slate-700 bg-slate-900/50 text-slate-400 hover:border-slate-500 hover:text-slate-200"
+                  )}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </header>
 
