@@ -173,8 +173,4 @@ npm install && npm run build
 
 ## 许可证
 
-MIT License
-
-MIT 许可证是一种宽松的开源软件许可证，允许任何人自由使用、复制、修改、合并、发布、分发、再许可和/或销售本软件的副本，只需保留原始版权声明和许可声明。
-
-**注意**：MIT 许可证名称源自麻省理工学院（Massachusetts Institute of Technology），但使用该许可证并不代表与麻省理工学院有任何关联。
+MIT
