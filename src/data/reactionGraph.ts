@@ -174,128 +174,126 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
   const edgeMap = new Map<string, Edge<EdgeData>>();
 
   const reactionChain = buildReactionChain(targetReaction);
+  const numReactions = reactionChain.length;
 
-  const reactionLayerMap = new Map<string, number>();
-  reactionChain.forEach((r, idx) => {
-    reactionLayerMap.set(r.id, idx);
-  });
+  const colWidth = 200;
+  const verticalGap = 90;
+  const startX = 80;
 
-  const layers: Map<
-    number,
-    { elements: string[]; compounds: string[]; reactions: string[] }
-  > = new Map();
-
-  function ensureLayer(idx: number) {
-    if (!layers.has(idx)) {
-      layers.set(idx, { elements: [], compounds: [], reactions: [] });
-    }
-    return layers.get(idx)!;
+  interface LayoutItem {
+    key: string;
+    type: "element" | "compound" | "reaction";
+    label: string;
+    color: string;
+    element?: ChemicalElement;
   }
 
-  reactionChain.forEach((r) => {
-    const layerIdx = reactionLayerMap.get(r.id)!;
-    const leftCompounds = parseEquationLeft(r.equation);
-    const rightCompounds = parseEquationRight(r.equation);
+  const columns: LayoutItem[][] = [];
+  for (let i = 0; i < numReactions * 2 + 1; i++) {
+    columns.push([]);
+  }
 
-    const layer = ensureLayer(layerIdx);
-    if (!layer.reactions.includes(`rxn:${r.id}`)) {
-      layer.reactions.push(`rxn:${r.id}`);
+  function getItemKey(name: string, type: "element" | "compound"): string {
+    return type === "element" ? `el:${name}` : `cpd:${name}`;
+  }
+
+  function addToColumn(colIdx: number, item: LayoutItem) {
+    const col = columns[colIdx];
+    if (!col.some((it) => it.key === item.key)) {
+      col.push(item);
     }
+  }
 
-    leftCompounds.forEach((c) => {
-      if (isElementLike(c)) {
-        if (!layer.elements.includes(c)) layer.elements.push(c);
-      } else {
-        if (!layer.compounds.includes(c)) layer.compounds.push(c);
-      }
-    });
-
-    const rightLayer = ensureLayer(layerIdx + 1);
-    rightCompounds.forEach((c) => {
-      if (!rightLayer.compounds.includes(c)) rightLayer.compounds.push(c);
-    });
-  });
-
-  const layerWidth = 260;
-  const nodeVerticalGap = 100;
-  const sortedLayers = Array.from(layers.keys()).sort((a, b) => a - b);
-
-  sortedLayers.forEach((layerIdx) => {
-    const layer = layers.get(layerIdx)!;
-    const x = layerIdx * layerWidth + 60;
-
-    const allItems = [...layer.elements, ...layer.compounds];
-    const maxItems = Math.max(allItems.length, layer.reactions.length);
-    const baseY = 100 + (maxItems - 1) * nodeVerticalGap / 2;
-
-    allItems.forEach((item, idx) => {
-      const isEl = isElementLike(item);
-      const key = isEl ? `el:${item}` : `cpd:${item}`;
-      if (!nodeMap.has(key)) {
-        const baseSymbol = item.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
-        const element = isEl && ELEMENTS.some((e) => e.symbol === baseSymbol)
-          ? ELEMENTS.find((e) => e.symbol === baseSymbol)
-          : undefined;
-        const typeColor = getTypeColor(targetReaction.type ?? "其他");
-        nodeMap.set(key, {
-          id: key,
-          type: isEl ? "element" : "compound",
-          data: {
-            label: item,
-            nodeType: isEl ? "element" : "compound",
-            color: isEl ? getElementColor(baseSymbol) : typeColor,
-            element,
-          },
-          position: {
-            x,
-            y: baseY + (idx - (allItems.length - 1) / 2) * nodeVerticalGap,
-          },
-        });
-      }
-    });
-
-    layer.reactions.forEach((reactionKey, idx) => {
-      const rId = reactionKey.replace("rxn:", "");
-      const r = REACTIONS.find((rr) => rr.id === rId);
-      const typeColor = getTypeColor(r?.type ?? "其他");
-      if (nodeMap.has(reactionKey)) {
-        const node = nodeMap.get(reactionKey)!;
-        node.position = {
-          x: x + layerWidth / 2,
-          y: baseY + (idx - (layer.reactions.length - 1) / 2) * nodeVerticalGap,
-        };
-      } else {
-        nodeMap.set(reactionKey, {
-          id: reactionKey,
-          type: "reaction",
-          data: {
-            label: `${r?.type ?? "反应"} / ${r?.condition ?? ""}`,
-            nodeType: "reaction",
-            color: typeColor,
-          },
-          position: {
-            x: x + layerWidth / 2,
-            y: baseY + (idx - (layer.reactions.length - 1) / 2) * nodeVerticalGap,
-          },
-        });
-      }
-    });
-  });
-
-  reactionChain.forEach((r) => {
+  for (let ri = 0; ri < numReactions; ri++) {
+    const r = reactionChain[ri];
     const leftCompounds = parseEquationLeft(r.equation);
     const rightCompounds = parseEquationRight(r.equation);
     const typeColor = getTypeColor(r.type ?? "其他");
     const reactionKey = `rxn:${r.id}`;
 
-    leftCompounds.forEach((reactant) => {
-      const isEl = isElementLike(reactant);
-      const reactantKey = isEl ? `el:${reactant}` : `cpd:${reactant}`;
-      const edgeId = `${reactantKey}-${reactionKey}`;
+    const reactantCol = ri * 2;
+    const reactionCol = ri * 2 + 1;
+    const productCol = ri * 2 + 2;
+
+    leftCompounds.forEach((c) => {
+      const isEl = isElementLike(c);
+      const baseSymbol = c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
+      const element = isEl && ELEMENTS.some((e) => e.symbol === baseSymbol)
+        ? ELEMENTS.find((e) => e.symbol === baseSymbol)
+        : undefined;
+      addToColumn(reactantCol, {
+        key: getItemKey(c, isEl ? "element" : "compound"),
+        type: isEl ? "element" : "compound",
+        label: c,
+        color: isEl ? getElementColor(baseSymbol) : typeColor,
+        element,
+      });
+    });
+
+    addToColumn(reactionCol, {
+      key: reactionKey,
+      type: "reaction",
+      label: `${r.type ?? "反应"} / ${r.condition ?? ""}`,
+      color: typeColor,
+    });
+
+    rightCompounds.forEach((c) => {
+      const isEl = isElementLike(c);
+      const baseSymbol = c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
+      const element = isEl && ELEMENTS.some((e) => e.symbol === baseSymbol)
+        ? ELEMENTS.find((e) => e.symbol === baseSymbol)
+        : undefined;
+      addToColumn(productCol, {
+        key: getItemKey(c, isEl ? "element" : "compound"),
+        type: isEl ? "element" : "compound",
+        label: c,
+        color: isEl ? getElementColor(baseSymbol) : typeColor,
+        element,
+      });
+    });
+  }
+
+  const maxColHeight = Math.max(...columns.map((c) => c.length));
+  const totalHeight = (maxColHeight - 1) * verticalGap;
+  const centerY = 100 + totalHeight / 2;
+
+  columns.forEach((col, colIdx) => {
+    const x = startX + colIdx * colWidth;
+    const colHeight = (col.length - 1) * verticalGap;
+    const baseY = centerY - colHeight / 2;
+
+    col.forEach((item, idx) => {
+      const y = baseY + idx * verticalGap;
+      nodeMap.set(item.key, {
+        id: item.key,
+        type: item.type,
+        data: {
+          label: item.label,
+          nodeType: item.type,
+          color: item.color,
+          element: item.element,
+        },
+        position: { x, y },
+      });
+    });
+  });
+
+  for (let ri = 0; ri < numReactions; ri++) {
+    const r = reactionChain[ri];
+    const leftCompounds = parseEquationLeft(r.equation);
+    const rightCompounds = parseEquationRight(r.equation);
+    const typeColor = getTypeColor(r.type ?? "其他");
+    const reactionKey = `rxn:${r.id}`;
+    const isTarget = r.id === targetReaction.id;
+
+    leftCompounds.forEach((c) => {
+      const isEl = isElementLike(c);
+      const key = getItemKey(c, isEl ? "element" : "compound");
+      const edgeId = `${key}-${reactionKey}`;
       if (!edgeMap.has(edgeId)) {
         edgeMap.set(edgeId, {
           id: edgeId,
-          source: reactantKey,
+          source: key,
           target: reactionKey,
           data: {
             condition: r.condition,
@@ -306,23 +304,21 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
             ionicEquation: r.ionicEquation,
             productName: r.productName,
           },
-          style: {
-            stroke: typeColor,
-            strokeWidth: 2,
-          },
-          animated: r.id === targetReaction.id,
+          style: { stroke: typeColor, strokeWidth: 2 },
+          animated: isTarget,
         });
       }
     });
 
-    rightCompounds.forEach((product) => {
-      const productKey = `cpd:${product}`;
-      const edgeId = `${reactionKey}-${productKey}`;
+    rightCompounds.forEach((c) => {
+      const isEl = isElementLike(c);
+      const key = getItemKey(c, isEl ? "element" : "compound");
+      const edgeId = `${reactionKey}-${key}`;
       if (!edgeMap.has(edgeId)) {
         edgeMap.set(edgeId, {
           id: edgeId,
           source: reactionKey,
-          target: productKey,
+          target: key,
           data: {
             condition: r.condition,
             reactionType: r.type ?? "其他",
@@ -332,15 +328,12 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
             ionicEquation: r.ionicEquation,
             productName: r.productName,
           },
-          style: {
-            stroke: typeColor,
-            strokeWidth: 2,
-          },
-          animated: r.id === targetReaction.id,
+          style: { stroke: typeColor, strokeWidth: 2 },
+          animated: isTarget,
         });
       }
     });
-  });
+  }
 
   return {
     nodes: Array.from(nodeMap.values()),
