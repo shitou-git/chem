@@ -1017,7 +1017,7 @@
     ],
     "product": "BaSO₄ + NaCl",
     "productName": "硫酸钡和氯化钠",
-    "equation": "BaCl₂ + Na₂SO₄ → BaSO₄ + 2NaCl",
+    "equation": "BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl",
     "condition": "常温",
     "description": "氯化钡与硫酸钠反应生成不溶于酸的硫酸钡沉淀。",
     "ionicEquation": "Ba²⁺ + SO₄²⁻ → BaSO₄"
@@ -1068,7 +1068,7 @@
     ],
     "product": "Cu(OH)₂ + Na₂SO₄",
     "productName": "氢氧化铜和硫酸钠",
-    "equation": "CuSO₄ + 2NaOH → Cu(OH)₂ + Na₂SO₄",
+    "equation": "CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄",
     "condition": "常温",
     "description": "硫酸铜与氢氧化钠反应生成蓝色氢氧化铜沉淀。",
     "ionicEquation": "Cu²⁺ + 2OH⁻ → Cu(OH)₂"
@@ -1149,7 +1149,7 @@
     ],
     "product": "BaSO₄ + CuCl₂",
     "productName": "硫酸钡和氯化铜",
-    "equation": "CuSO₄ + BaCl₂ → BaSO₄ + CuCl₂",
+    "equation": "CuSO₄ + BaCl₂ → BaSO₄↓ + CuCl₂",
     "condition": "常温",
     "description": "硫酸铜与氯化钡反应生成硫酸钡沉淀。",
     "ionicEquation": "Ba²⁺ + SO₄²⁻ → BaSO₄"
@@ -1166,7 +1166,7 @@
     ],
     "product": "CaCO₃ + NaCl",
     "productName": "碳酸钙和氯化钠",
-    "equation": "Na₂CO₃ + CaCl₂ → CaCO₃ + 2NaCl",
+    "equation": "Na₂CO₃ + CaCl₂ → CaCO₃↓ + 2NaCl",
     "condition": "常温",
     "description": "碳酸钠与氯化钙反应生成碳酸钙沉淀。",
     "ionicEquation": "Ca²⁺ + CO₃²⁻ → CaCO₃"
@@ -2673,7 +2673,7 @@
     ],
     "product": "AgI + KNO₃",
     "productName": "碘化银和硝酸钾",
-    "equation": "AgNO₃ + KI → AgI + KNO₃",
+    "equation": "AgNO₃ + KI → AgI↓ + KNO₃",
     "condition": "常温",
     "description": "硝酸银与碘化钾反应生成黄色碘化银沉淀。",
     "ionicEquation": "Ag⁺ + I⁻ → AgI"
@@ -2964,7 +2964,7 @@
     ],
     "product": "AgBr + HNO₃",
     "productName": "溴化银和硝酸",
-    "equation": "HBr + AgNO₃ → AgBr + HNO₃",
+    "equation": "HBr + AgNO₃ → AgBr↓ + HNO₃",
     "condition": "常温",
     "description": "氢溴酸与硝酸银反应生成淡黄色溴化银沉淀。",
     "ionicEquation": "Ag⁺ + Br⁻ → AgBr"
@@ -2981,7 +2981,7 @@
     ],
     "product": "AgI + HNO₃",
     "productName": "碘化银和硝酸",
-    "equation": "HI + AgNO₃ → AgI + HNO₃",
+    "equation": "HI + AgNO₃ → AgI↓ + HNO₃",
     "condition": "常温",
     "description": "氢碘酸与硝酸银反应生成黄色碘化银沉淀。",
     "ionicEquation": "Ag⁺ + I⁻ → AgI"
@@ -4347,7 +4347,7 @@
     ],
     "product": "CaCO₃",
     "productName": "碳酸钙",
-    "equation": "CO₂ + CaO → CaCO₃",
+    "equation": "CO₂ + CaO → CaCO₃↓",
     "condition": "常温",
     "description": "二氧化碳与氧化钙反应生成碳酸钙。"
   },
@@ -5551,7 +5551,7 @@
     ],
     "product": "AgI",
     "productName": "碘化银",
-    "equation": "2Ag + I₂ → 2AgI",
+    "equation": "2Ag + I₂ → 2AgI↓",
     "condition": "光照/加热",
     "description": "银与碘在光照或加热条件下化合生成碘化银。"
   },
@@ -5577,7 +5577,7 @@
     ],
     "product": "AgBr",
     "productName": "溴化银",
-    "equation": "2Ag + Br₂ → 2AgBr",
+    "equation": "2Ag + Br₂ → 2AgBr↓",
     "condition": "光照/加热",
     "description": "银与溴在光照或加热条件下化合生成溴化银。"
   },
@@ -5590,7 +5590,7 @@
     ],
     "product": "AgCl",
     "productName": "氯化银",
-    "equation": "2Ag + Cl₂ → 2AgCl",
+    "equation": "2Ag + Cl₂ → 2AgCl↓",
     "condition": "光照/加热",
     "description": "银与氯气在光照或加热条件下化合生成氯化银。"
   },
