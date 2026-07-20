@@ -8,6 +8,8 @@ import {
   parseEquationRight,
 } from "./reactions";
 
+export { parseEquationLeft, parseEquationRight } from "./reactions";
+
 export interface NodeData extends Record<string, unknown> {
   label: string;
   nodeType: "element" | "compound" | "reaction";
