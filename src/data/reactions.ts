@@ -32,6 +32,10 @@ if (!reactionsValidation.success) {
  * 即：已选元素都是某反应的部分反应物，且该反应只差一个元素就能完全匹配
  */
 export function findReactiveSymbols(selectedSymbols: string[]): string[] {
+  if (selectedSymbols.length === 0) {
+    return [];
+  }
+  
   const set = new Set(selectedSymbols);
   const partners = new Set<string>();
 
