@@ -71,12 +71,10 @@ export default function ReactionNetworkGraph({
   const [, setSelectedNodeId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      setNodes(initialNodes);
-      setEdges(initialEdges);
-      setSelectedNodeId(null);
-    }
-  }, [isOpen, initialNodes, initialEdges, setNodes, setEdges]);
+    setNodes(initialNodes);
+    setEdges(initialEdges);
+    setSelectedNodeId(null);
+  }, [initialNodes, initialEdges, setNodes, setEdges]);
 
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node<NodeData>) => {
