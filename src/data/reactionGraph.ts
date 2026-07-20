@@ -331,7 +331,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
 
   layers.forEach((layer) => {
     const nodeCount = layer.length;
-    let startY = centerY - ((nodeCount - 1) * NODE_HEIGHT) / 2;
+    const startY = centerY - ((nodeCount - 1) * NODE_HEIGHT) / 2;
 
     layer.forEach((node, ni) => {
       nodeYPositions.set(node.key, startY + ni * NODE_HEIGHT);
