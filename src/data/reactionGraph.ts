@@ -112,30 +112,41 @@ function selectBestPredecessor(
 }
 
 function buildReactionChain(target: ChemicalReaction): ChemicalReaction[] {
-  const reactionDepths = new Map<string, number>();
-  const visitedReactions = new Set<string>();
-  const chainReactions = new Set<string>();
+  const reactionChain = new Set<string>();
+  const visited = new Set<string>();
+
+  const NON_TRACING_TYPES = new Set(["复分解", "置换"]);
+
+  function shouldStopTracing(r: ChemicalReaction): boolean {
+    const reactants = parseEquationLeft(r.equation);
+    if (reactants.length === 0) return true;
+    if (reactants.length === 1 && reactants[0] === r.product) return true;
+    if (NON_TRACING_TYPES.has(r.type ?? "")) return true;
+    return reactants.every(isElementLike);
+  }
 
   function traverse(r: ChemicalReaction, depth: number) {
-    if (visitedReactions.has(r.id)) return;
+    if (visited.has(r.id)) return;
     if (depth > MAX_CHAIN_DEPTH) return;
-    if (chainReactions.size >= MAX_CHAIN_REACTIONS) return;
+    if (reactionChain.size >= MAX_CHAIN_REACTIONS) return;
 
-    visitedReactions.add(r.id);
-    chainReactions.add(r.id);
+    visited.add(r.id);
+    reactionChain.add(r.id);
 
-    const existing = reactionDepths.get(r.id);
-    if (existing === undefined || depth < existing) {
-      reactionDepths.set(r.id, depth);
-    }
+    if (shouldStopTracing(r)) return;
 
     const reactants = parseEquationLeft(r.equation);
-    for (const reactant of reactants) {
-      if (isElementLike(reactant)) continue;
-      const producers = findReactionsProducing(reactant);
+    const compoundReactants = reactants.filter((r) => !isElementLike(r));
+
+    if (compoundReactants.length === 0) return;
+
+    for (const targetCompound of compoundReactants) {
+      if (reactionChain.size >= MAX_CHAIN_REACTIONS) break;
+
+      const producers = findReactionsProducing(targetCompound);
       const filtered = producers.filter((p) => {
-        if (chainReactions.has(p.id)) return false;
-        for (const chainId of chainReactions) {
+        if (reactionChain.has(p.id)) return false;
+        for (const chainId of reactionChain) {
           const chainReaction = REACTIONS.find((rr) => rr.id === chainId);
           if (chainReaction && areReverseReactions(p, chainReaction)) {
             return false;
@@ -143,8 +154,9 @@ function buildReactionChain(target: ChemicalReaction): ChemicalReaction[] {
         }
         return true;
       });
+
       const best = selectBestPredecessor(filtered, r);
-      if (best && !visitedReactions.has(best.id)) {
+      if (best && !visited.has(best.id)) {
         traverse(best, depth + 1);
       }
     }
@@ -152,11 +164,36 @@ function buildReactionChain(target: ChemicalReaction): ChemicalReaction[] {
 
   traverse(target, 0);
 
-  if (reactionDepths.size === 0) return [target];
+  if (reactionChain.size === 0) return [target];
 
-  const maxDepth = Math.max(...Array.from(reactionDepths.values()));
+  const reactionDepthMap = new Map<string, number>();
+  const visitedForDepth = new Set<string>();
+
+  function computeDepth(r: ChemicalReaction, depth: number) {
+    if (visitedForDepth.has(r.id)) return;
+    visitedForDepth.add(r.id);
+
+    const existing = reactionDepthMap.get(r.id);
+    if (existing === undefined || depth < existing) {
+      reactionDepthMap.set(r.id, depth);
+    }
+
+    const reactants = parseEquationLeft(r.equation);
+    for (const reactant of reactants) {
+      if (isElementLike(reactant)) continue;
+      const producers = findReactionsProducing(reactant);
+      const inChain = producers.find((p) => reactionChain.has(p.id));
+      if (inChain) {
+        computeDepth(inChain, depth + 1);
+      }
+    }
+  }
+
+  computeDepth(target, 0);
+
+  const maxDepth = Math.max(...Array.from(reactionDepthMap.values()), 0);
   const normalizedDepths = new Map<string, number>();
-  reactionDepths.forEach((depth, id) => {
+  reactionDepthMap.forEach((depth, id) => {
     normalizedDepths.set(id, maxDepth - depth);
   });
 
