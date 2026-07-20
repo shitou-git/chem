@@ -540,6 +540,26 @@ export function expandCompoundPredecessors(
     return undefined;
   };
   
+  const hasReactantStateSymbol = leftParts.some((part) => part.label.includes("↑") || part.label.includes("↓"));
+  
+  const updateNodeStateSymbol = (
+    existingNode: Node<NodeData>,
+    newLabel: string
+  ): Node<NodeData> | null => {
+    if (hasReactantStateSymbol) return null;
+    
+    const newStateSymbol = newLabel.match(/([↑↓])$/);
+    if (!newStateSymbol) return null;
+    
+    if (existingNode.data.label.includes(newStateSymbol[1])) return null;
+    
+    const baseLabel = existingNode.data.label.replace(/[↑↓]$/g, "");
+    return {
+      ...existingNode,
+      data: { ...existingNode.data, label: baseLabel + newStateSymbol[1] },
+    };
+  };
+  
   const reactantElements = leftParts.filter((p) => isElementLike(p.formula));
   const reactantCompounds = leftParts.filter((p) => !isElementLike(p.formula));
   
@@ -558,7 +578,13 @@ export function expandCompoundPredecessors(
         : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`
     );
     
-    if (!existingNodeMap.has(key)) {
+    if (existingSameNode) {
+      const updatedNode = updateNodeStateSymbol(existingSameNode, label);
+      if (updatedNode) {
+        updatedNodes.push(updatedNode);
+        existingNodeMap.set(key, updatedNode);
+      }
+    } else if (!existingNodeMap.has(key)) {
       const x = reactantLayerX;
       const y = startY + idx * NODE_HEIGHT;
       
@@ -651,7 +677,13 @@ export function expandCompoundPredecessors(
     const x = compoundLayerX;
     const y = compoundPosition.y;
     
-    if (!existingNodeMap.has(targetKey)) {
+    if (existingSameNode) {
+      const updatedNode = updateNodeStateSymbol(existingSameNode, label);
+      if (updatedNode) {
+        updatedNodes.push(updatedNode);
+        existingNodeMap.set(targetKey, updatedNode);
+      }
+    } else if (!existingNodeMap.has(targetKey)) {
       if (isEl) {
         const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
         const element = ELEMENTS.some((e) => e.symbol === baseSymbol)
