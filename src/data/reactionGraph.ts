@@ -527,7 +527,7 @@ export function expandCompoundPredecessors(
   leftParts.forEach((part, idx) => {
     const { formula, label } = part;
     const isEl = isElementLike(formula);
-    const key = isEl ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}` : getItemKey(formula, "compound");
+    const key = isEl ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}` : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
     
     if (!existingNodeMap.has(key)) {
       const x = reactionX - LAYER_WIDTH;
@@ -657,7 +657,7 @@ export function expandCompoundPredecessors(
           },
           position: { x, y },
         });
-      } else if (targetKey !== compoundKey) {
+      } else {
         newNodes.push({
           id: targetKey,
           type: "compound",
@@ -717,29 +717,6 @@ export function expandCompoundPredecessors(
     });
   }
   
-  // When the product of the predecessor reaction matches the expanded compound
-  // and has a state symbol (↑↓), update the existing compound node's label
-  rightParts.forEach((part) => {
-    const { formula, label } = part;
-    if (isElementLike(formula)) return;
-    
-    const cleanProduct = cleanCompoundLabel(formula);
-    const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
-    
-    if (cleanProduct === cleanCompoundLabelValue) {
-      const stateSymbol = label.match(/([↑↓])$/);
-      if (stateSymbol) {
-        const existingNode = existingNodes.find((n) => n.id === compoundKey);
-        if (existingNode && !existingNode.data.label.match(/[↑↓]$/)) {
-          updatedNodes.push({
-            ...existingNode,
-            data: { ...existingNode.data, label: existingNode.data.label + stateSymbol[1] },
-          });
-        }
-      }
-    }
-  });
-  
   return { nodes: newNodes, edges: newEdges, updatedNodes };
 }
 
@@ -784,7 +761,7 @@ export function collapseCompoundPredecessors(
     const isEl = isElementLike(formula);
     const key = isEl
       ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
-      : getItemKey(formula, "compound");
+      : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
 
     if (key !== compoundKey) {
       nodeIdsToRemove.add(key);
