@@ -482,7 +482,7 @@ export function expandCompoundPredecessors(
   
   left.forEach((c, idx) => {
     const isEl = isElementLike(c);
-    const key = isEl ? getItemKey(c, "element") : getItemKey(c, "compound");
+    const key = isEl ? `${getItemKey(c, "element")}_pred_${bestProducer.id}_${idx}` : getItemKey(c, "compound");
     
     if (!existingNodeMap.has(key)) {
       const x = reactionX - LAYER_WIDTH;
