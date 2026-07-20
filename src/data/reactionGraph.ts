@@ -75,22 +75,27 @@ function parseEquationSide(side: string): EquationPart[] {
   return side
     .split("+")
     .map((p) => {
-      const cleaned = p
-        .trim()
+      const trimmed = p.trim();
+      const stateMatch = trimmed.match(/([↑↓])$/);
+      const stateSymbol = stateMatch ? stateMatch[1] : "";
+      
+      const cleaned = trimmed
         .replace(/\(浓\)|\(稀\)|\(熔融\)/g, "")
-        .replace(/[↑↓]/g, "")
+        .replace(/[↑↓]$/g, "")
         .trim();
+        
       const match = cleaned.match(/^([\d]*)(.+)$/);
       if (match) {
         const coefficient = match[1] ? parseInt(match[1], 10) : 1;
         const formula = match[2].trim();
+        const label = coefficient > 1 ? `${coefficient} ${formula}${stateSymbol}` : `${formula}${stateSymbol}`;
         return {
           formula,
           coefficient,
-          label: coefficient > 1 ? `${coefficient} ${formula}` : formula,
+          label,
         };
       }
-      return { formula: cleaned, coefficient: 1, label: cleaned };
+      return { formula: cleaned, coefficient: 1, label: `${cleaned}${stateSymbol}` };
     })
     .filter((p) => p.formula);
 }
