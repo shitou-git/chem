@@ -140,7 +140,18 @@ export default function Home() {
       return;
     }
 
-    // 再尝试搜索物质名称或反应类型
+    // 再尝试精确匹配产物名称（用户搜索"氧化钙"只显示氧化钙为产物的反应）
+    const exactProductReactions = searchReactions(query.trim(), true);
+    if (exactProductReactions.length > 0) {
+      setSearchResult(null);
+      reset();
+      setSearchOverride(true);
+      setCurrentReactions(exactProductReactions);
+      setMessage(`搜索产物"${query.trim()}"，找到 ${exactProductReactions.length} 个反应`);
+      return;
+    }
+
+    // 再尝试搜索物质名称或反应类型（模糊匹配）
     const foundReactions = searchReactions(query.trim());
     if (foundReactions.length > 0) {
       setSearchResult(null);

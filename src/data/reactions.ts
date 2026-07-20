@@ -93,12 +93,12 @@ export function findReactions(selectedSymbols: string[]): ChemicalReaction[] {
 /** 按物质名称或反应类型搜索反应
  *  支持匹配产物名称、产物化学式、方程式、反应类型
  *  特殊关键词：化合/分解/置换/复分解/氧化还原/其他
+ *  @param strictProductOnly - 如果为true，只搜索产物名称精确匹配
  */
-export function searchReactions(query: string): ChemicalReaction[] {
+export function searchReactions(query: string, strictProductOnly: boolean = false): ChemicalReaction[] {
   const q = query.trim().toLowerCase();
   if (!q) return [];
 
-  // 优先按反应类型搜索
   const typeKeywords: Record<string, ReactionType> = {
     "化合": "化合",
     "分解": "分解",
@@ -112,6 +112,14 @@ export function searchReactions(query: string): ChemicalReaction[] {
   const trimmed = query.trim();
   if (trimmed in typeKeywords) {
     return REACTIONS.filter((r) => (r.type ?? "化合") === typeKeywords[trimmed]);
+  }
+
+  if (strictProductOnly) {
+    return REACTIONS.filter(
+      (r) =>
+        r.productName === trimmed ||
+        r.product === trimmed
+    );
   }
 
   return REACTIONS.filter(
