@@ -204,3 +204,36 @@ export function parseEquationRight(equation: string): string[] {
 }
 
 export const REACTIONS: ChemicalReaction[] = reactionsValidation.data;
+
+export const chemicalAliasMap: Record<string, string> = {
+  "生石灰": "氧化钙",
+  "CaO": "氧化钙",
+  "熟石灰": "氢氧化钙",
+  "消石灰": "氢氧化钙",
+  "Ca(OH)2": "氢氧化钙",
+  "烧碱": "氢氧化钠",
+  "火碱": "氢氧化钠",
+  "苛性钠": "氢氧化钠",
+  "NaOH": "氢氧化钠",
+  "纯碱": "碳酸钠",
+  "苏打": "碳酸钠",
+  "Na2CO3": "碳酸钠",
+  "小苏打": "碳酸氢钠",
+  "NaHCO3": "碳酸氢钠",
+  "食盐": "氯化钠",
+  "NaCl": "氯化钠",
+  "盐酸": "盐酸",
+  "HCl": "盐酸",
+  "硫酸": "硫酸",
+  "H2SO4": "硫酸",
+  "酒精": "乙醇",
+  "C2H5OH": "乙醇",
+  "沼气": "甲烷",
+  "CH4": "甲烷",
+  "双氧水": "过氧化氢",
+  "H2O2": "过氧化氢",
+};
+
+export function resolveChemicalAlias(query: string): string {
+  return chemicalAliasMap[query.trim()] || query.trim();
+}
