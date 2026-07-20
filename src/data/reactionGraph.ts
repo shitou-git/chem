@@ -707,6 +707,38 @@ export function expandCompoundPredecessors(
   
   const updatedNodes: Node<NodeData>[] = [];
   
+  rightParts.forEach((part) => {
+    const { formula, label } = part;
+    const isEl = isElementLike(formula);
+    let targetKey: string;
+    
+    if (isEl) {
+      targetKey = `${getItemKey(formula, "element")}_pred_${bestProducer.id}`;
+    } else {
+      const cleanProduct = cleanCompoundLabel(formula);
+      const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
+      
+      if (cleanProduct === cleanCompoundLabelValue) {
+        targetKey = compoundKey;
+      } else {
+        targetKey = `${getItemKey(formula, "compound")}_pred_${bestProducer.id}`;
+      }
+    }
+    
+    if (targetKey === compoundKey) {
+      const stateSymbol = label.match(/([↑↓])$/);
+      if (stateSymbol) {
+        const existingNode = existingNodeMap.get(compoundKey);
+        if (existingNode && !existingNode.data.label.includes(stateSymbol[1])) {
+          updatedNodes.push({
+            ...existingNode,
+            data: { ...existingNode.data, label: existingNode.data.label + stateSymbol[1] },
+          });
+        }
+      }
+    }
+  });
+  
   if (newNodes.length > 0) {
     const allNodes = [...existingNodes, ...newNodes];
     const shiftX = 0;
@@ -714,7 +746,10 @@ export function expandCompoundPredecessors(
     allNodes.forEach((n) => {
       const existing = existingNodeMap.get(n.id);
       if (existing && existing.position.x !== n.position.x + shiftX) {
-        updatedNodes.push({ ...n, position: { ...n.position, x: n.position.x + shiftX } });
+        const nodeToUpdate = updatedNodes.find((un) => un.id === n.id);
+        if (!nodeToUpdate) {
+          updatedNodes.push({ ...n, position: { ...n.position, x: n.position.x + shiftX } });
+        }
       }
     });
   }
