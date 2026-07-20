@@ -311,7 +311,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
     const isEl = isElementLike(c);
     const key = isEl
       ? `${getItemKey(c, "element")}_prod_${targetReaction.id}`
-      : getItemKey(c, "compound");
+      : `${getItemKey(c, "compound")}_prod_${targetReaction.id}`;
     const y = getY(idx, totalProducts);
 
     if (isEl) {
@@ -569,16 +569,27 @@ export function expandCompoundPredecessors(
     let targetKey: string;
     
     if (isEl) {
-      targetKey = `${getItemKey(c, "element")}_prod_${bestProducer.id}`;
+      targetKey = `${getItemKey(c, "element")}_pred_${bestProducer.id}`;
+    } else {
+      const cleanProduct = cleanCompoundLabel(c);
+      const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
       
-      if (!existingNodeMap.has(targetKey)) {
+      if (cleanProduct === cleanCompoundLabelValue) {
+        targetKey = compoundKey;
+      } else {
+        targetKey = `${getItemKey(c, "compound")}_pred_${bestProducer.id}`;
+      }
+    }
+    
+    if (!existingNodeMap.has(targetKey)) {
+      const x = compoundLayerX;
+      const y = compoundPosition.y;
+      
+      if (isEl) {
         const baseSymbol = c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
         const element = ELEMENTS.some((e) => e.symbol === baseSymbol)
           ? ELEMENTS.find((e) => e.symbol === baseSymbol)
           : undefined;
-        
-        const x = compoundLayerX;
-        const y = compoundPosition.y;
         
         newNodes.push({
           id: targetKey,
@@ -591,28 +602,38 @@ export function expandCompoundPredecessors(
           },
           position: { x, y },
         });
-      }
-    } else {
-      const cleanProduct = cleanCompoundLabel(c);
-      const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
-      
-      if (cleanProduct === cleanCompoundLabelValue) {
-        targetKey = compoundKey;
-      } else {
-        targetKey = getItemKey(c, "compound");
-        
-        if (!existingNodeMap.has(targetKey)) {
-          newNodes.push({
-            id: targetKey,
-            type: "compound",
-            data: {
-              label: c,
-              nodeType: "compound",
-              color: "#64748b",
-            },
-            position: { x: compoundLayerX, y: compoundPosition.y + 60 },
-          });
-        }
+        existingNodeMap.set(targetKey, {
+          id: targetKey,
+          type: "element",
+          data: {
+            label: c,
+            nodeType: "element",
+            color: getElementColor(baseSymbol),
+            element,
+          },
+          position: { x, y },
+        });
+      } else if (targetKey !== compoundKey) {
+        newNodes.push({
+          id: targetKey,
+          type: "compound",
+          data: {
+            label: c,
+            nodeType: "compound",
+            color: "#64748b",
+          },
+          position: { x, y },
+        });
+        existingNodeMap.set(targetKey, {
+          id: targetKey,
+          type: "compound",
+          data: {
+            label: c,
+            nodeType: "compound",
+            color: "#64748b",
+          },
+          position: { x, y },
+        });
       }
     }
     
