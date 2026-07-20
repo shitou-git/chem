@@ -22,11 +22,6 @@ function ElementNodeComponent({ data, selected }: NodeProps<ElementNodeType>) {
     >
       <Handle
         type="target"
-        position={Position.Top}
-        className="!h-2 !w-2 !border-slate-700 !bg-slate-800"
-      />
-      <Handle
-        type="target"
         position={Position.Left}
         className="!h-2 !w-2 !border-slate-700 !bg-slate-800"
       />
@@ -39,11 +34,6 @@ function ElementNodeComponent({ data, selected }: NodeProps<ElementNodeType>) {
       <Handle
         type="source"
         position={Position.Right}
-        className="!h-2 !w-2 !border-slate-700 !bg-slate-800"
-      />
-      <Handle
-        type="source"
-        position={Position.Bottom}
         className="!h-2 !w-2 !border-slate-700 !bg-slate-800"
       />
     </div>
