@@ -22,6 +22,7 @@ import {
   getNeighborNodes,
   getEdgesForNode,
   expandCompoundPredecessors,
+  collapseCompoundPredecessors,
   hasPredecessorReaction,
   parseEquationLeft,
 } from "@/data/reactionGraph";
@@ -78,7 +79,7 @@ export default function ReactionNetworkGraph({
         const canExpand = isReactant && hasPredecessorReaction(formula, reactionId);
         return {
           ...node,
-          data: { ...node.data, canExpand },
+          data: { ...node.data, canExpand, isExpanded: false },
         };
       }
       return node;
@@ -104,43 +105,77 @@ export default function ReactionNetworkGraph({
 
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node<NodeData>) => {
-      if (node.data.nodeType === "compound" && node.data.canExpand && !expandedNodes.has(node.id)) {
-        const result = expandCompoundPredecessors(node.id, nodes, edges, reactionId);
-        
-        if (result.nodes.length > 0) {
-          const nodesWithExpandInfo = result.nodes.map((n) => {
-            if (n.data.nodeType === "compound") {
-              const formula = n.data.label.replace(/^\d+\s+/, "").replace(/[↑↓]$/g, "");
-              const canExpand = hasPredecessorReaction(formula, reactionId);
-              return { ...n, data: { ...n.data, canExpand } };
+      if (node.data.nodeType === "compound" && node.data.canExpand) {
+        if (!expandedNodes.has(node.id)) {
+          const result = expandCompoundPredecessors(node.id, nodes, edges, reactionId);
+          
+          if (result.nodes.length > 0) {
+            const nodesWithExpandInfo = result.nodes.map((n) => {
+              if (n.data.nodeType === "compound") {
+                const formula = n.data.label.replace(/^\d+\s+/, "").replace(/[↑↓]$/g, "");
+                const canExpand = hasPredecessorReaction(formula, reactionId);
+                return { ...n, data: { ...n.data, canExpand, isExpanded: false } };
+              }
+              return n;
+            });
+            
+            setNodes((nds) => [...nds, ...nodesWithExpandInfo]);
+            setEdges((eds) => [...eds, ...result.edges]);
+            
+            if (result.updatedNodes.length > 0) {
+              const updateMap = new Map(result.updatedNodes.map((n) => [n.id, n]));
+              setNodes((nds) =>
+                nds.map((n) => {
+                  const update = updateMap.get(n.id);
+                  return update ? { ...n, data: update.data } : n;
+                })
+              );
             }
-            return n;
-          });
-          
-          setNodes((nds) => [...nds, ...nodesWithExpandInfo]);
-          setEdges((eds) => [...eds, ...result.edges]);
-          
-          // Apply label updates (e.g., adding state symbols ↑↓ to existing nodes)
-          if (result.updatedNodes.length > 0) {
-            const updateMap = new Map(result.updatedNodes.map((n) => [n.id, n]));
+            
+            setExpandedNodes((prev) => new Set([...prev, node.id]));
+            
             setNodes((nds) =>
               nds.map((n) => {
-                const update = updateMap.get(n.id);
-                return update ? { ...n, data: update.data } : n;
+                if (n.id === node.id) {
+                  return { ...n, data: { ...n.data, isExpanded: true } };
+                }
+                return n;
+              })
+            );
+            
+            return;
+          }
+        } else {
+          const result = collapseCompoundPredecessors(node.id, nodes, edges, reactionId);
+          
+          setNodes(() => result.remainingNodes);
+          setEdges(() => result.remainingEdges);
+          
+          if (result.updatedNode) {
+            setNodes((nds) =>
+              nds.map((n) => {
+                if (n.id === result.updatedNode!.id) {
+                  return { ...n, data: { ...n.data, ...result.updatedNode!.data, isExpanded: false } };
+                }
+                return n;
+              })
+            );
+          } else {
+            setNodes((nds) =>
+              nds.map((n) => {
+                if (n.id === node.id) {
+                  return { ...n, data: { ...n.data, isExpanded: false, canExpand: true } };
+                }
+                return n;
               })
             );
           }
           
-          setExpandedNodes((prev) => new Set([...prev, node.id]));
-          
-          setNodes((nds) =>
-            nds.map((n) => {
-              if (n.id === node.id) {
-                return { ...n, data: { ...n.data, canExpand: false } };
-              }
-              return n;
-            })
-          );
+          setExpandedNodes((prev) => {
+            const next = new Set(prev);
+            next.delete(node.id);
+            return next;
+          });
           
           return;
         }

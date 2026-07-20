@@ -743,6 +743,102 @@ export function expandCompoundPredecessors(
   return { nodes: newNodes, edges: newEdges, updatedNodes };
 }
 
+export function collapseCompoundPredecessors(
+  compoundKey: string,
+  existingNodes: Node<NodeData>[],
+  existingEdges: Edge<EdgeData>[],
+  currentReactionId: string
+): {
+  remainingNodes: Node<NodeData>[];
+  remainingEdges: Edge<EdgeData>[];
+  updatedNode: Node<NodeData> | null;
+} {
+  const labelMatch = compoundKey.match(/^cpd:(.+)$/);
+  if (!labelMatch) {
+    return { remainingNodes: existingNodes, remainingEdges: existingEdges, updatedNode: null };
+  }
+
+  const compoundLabel = labelMatch[1];
+  const producers = findReactionsProducing(compoundLabel);
+  const currentReaction = REACTIONS.find((r) => r.id === currentReactionId);
+  if (!currentReaction) {
+    return { remainingNodes: existingNodes, remainingEdges: existingEdges, updatedNode: null };
+  }
+
+  const validProducers = producers.filter((p) => !areReverseReactions(p, currentReaction));
+  if (validProducers.length === 0) {
+    return { remainingNodes: existingNodes, remainingEdges: existingEdges, updatedNode: null };
+  }
+
+  const bestProducer = validProducers[0];
+
+  const nodeIdsToRemove = new Set<string>();
+  const edgeIdsToRemove = new Set<string>();
+
+  const reactionKey = `rxn:${bestProducer.id}`;
+  nodeIdsToRemove.add(reactionKey);
+
+  const leftParts = parseEquationLeftWithCoef(bestProducer.equation);
+  leftParts.forEach((part, idx) => {
+    const { formula } = part;
+    const isEl = isElementLike(formula);
+    const key = isEl
+      ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
+      : getItemKey(formula, "compound");
+
+    if (key !== compoundKey) {
+      nodeIdsToRemove.add(key);
+    }
+  });
+
+  const rightParts = parseEquationRightWithCoef(bestProducer.equation);
+  rightParts.forEach((part) => {
+    const { formula } = part;
+    const isEl = isElementLike(formula);
+    let key: string;
+    if (isEl) {
+      key = `${getItemKey(formula, "element")}_pred_${bestProducer.id}`;
+    } else {
+      const cleanProduct = cleanCompoundLabel(formula);
+      const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
+      if (cleanProduct === cleanCompoundLabelValue) {
+        key = compoundKey;
+      } else {
+        key = `${getItemKey(formula, "compound")}_pred_${bestProducer.id}`;
+      }
+    }
+    if (key !== compoundKey) {
+      nodeIdsToRemove.add(key);
+    }
+  });
+
+  existingEdges.forEach((e) => {
+    if (e.source === reactionKey || e.target === reactionKey) {
+      edgeIdsToRemove.add(e.id);
+    }
+  });
+
+  const remainingNodes = existingNodes.filter((n) => !nodeIdsToRemove.has(n.id));
+  const remainingEdges = existingEdges.filter((e) => !edgeIdsToRemove.has(e.id));
+
+  let updatedNode: Node<NodeData> | null = null;
+  const compoundNode = existingNodes.find((n) => n.id === compoundKey);
+  if (compoundNode && compoundNode.data.label.match(/[↑↓]$/)) {
+    const newLabel = compoundNode.data.label.replace(/[↑↓]$/g, "");
+    updatedNode = {
+      ...compoundNode,
+      data: { ...compoundNode.data, label: newLabel, canExpand: true },
+    };
+  } else if (compoundNode) {
+    updatedNode = {
+      ...compoundNode,
+      data: { ...compoundNode.data, canExpand: true },
+    };
+  }
+
+  return { remainingNodes, remainingEdges, updatedNode };
+}
+
 export function hasPredecessorReaction(compoundLabel: string, currentReactionId: string): boolean {
   const producers = findReactionsProducing(compoundLabel);
   const currentReaction = REACTIONS.find((r) => r.id === currentReactionId);

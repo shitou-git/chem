@@ -1,12 +1,12 @@
 import { memo } from "react";
 import { Handle, Position, type NodeProps, type Node } from "@xyflow/react";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { NodeData } from "@/data/reactionGraph";
 
 type CompoundNodeType = Node<NodeData, "compound">;
 
 function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) {
-  const { label, color, canExpand } = data;
+  const { label, color, canExpand, isExpanded } = data;
 
   return (
     <div
@@ -26,7 +26,11 @@ function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) 
     >
       {canExpand && (
         <div className="absolute -left-6 top-1/2 -translate-y-1/2 flex items-center justify-center">
-          <ChevronLeft className="h-4 w-4 text-cyan-400 opacity-60 hover:opacity-100 transition-opacity" />
+          {isExpanded ? (
+            <ChevronRight className="h-4 w-4 text-cyan-400 opacity-60 hover:opacity-100 transition-opacity" />
+          ) : (
+            <ChevronLeft className="h-4 w-4 text-cyan-400 opacity-60 hover:opacity-100 transition-opacity" />
+          )}
         </div>
       )}
       <Handle
