@@ -103,7 +103,7 @@ function selectBestPredecessor(
   });
   if (elementSynthesis) return elementSynthesis;
 
-  return null;
+  return filtered[0];
 }
 
 function buildReactionChain(target: ChemicalReaction): ChemicalReaction[] {
