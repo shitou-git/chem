@@ -66,7 +66,6 @@ export default function ReactionNetworkGraph({
     }
     const result = buildSingleReactionGraph(reaction);
     
-    // 获取当前反应的反应物（左侧），只有反应物侧的化合物才能扩展
     const reactants = parseEquationLeft(reaction.equation);
     const reactantCompounds = new Set(
       reactants.filter((c: string) => !/^[A-Z][a-z]?$/.test(c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "")))
@@ -74,9 +73,9 @@ export default function ReactionNetworkGraph({
     
     const nodesWithExpandInfo = result.nodes.map((node) => {
       if (node.data.nodeType === "compound") {
-        // 只有当前反应的反应物侧化合物才能扩展前驱
-        const isReactant = reactantCompounds.has(node.data.label);
-        const canExpand = isReactant && hasPredecessorReaction(node.data.label, reactionId);
+        const formula = node.data.label.replace(/^\d+\s+/, "");
+        const isReactant = reactantCompounds.has(formula);
+        const canExpand = isReactant && hasPredecessorReaction(formula, reactionId);
         return {
           ...node,
           data: { ...node.data, canExpand },
@@ -111,7 +110,8 @@ export default function ReactionNetworkGraph({
         if (result.nodes.length > 0) {
           const nodesWithExpandInfo = result.nodes.map((n) => {
             if (n.data.nodeType === "compound") {
-              const canExpand = hasPredecessorReaction(n.data.label, reactionId);
+              const formula = n.data.label.replace(/^\d+\s+/, "");
+              const canExpand = hasPredecessorReaction(formula, reactionId);
               return { ...n, data: { ...n.data, canExpand } };
             }
             return n;

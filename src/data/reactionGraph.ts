@@ -55,13 +55,56 @@ function getTypeColor(type: ReactionType): string {
 }
 
 function isElementLike(symbol: string): boolean {
-  if (ELEMENTS.some((e) => e.symbol === symbol)) return true;
-  if (DIATOMIC_ELEMENTS.has(symbol)) return true;
+  const cleaned = symbol.replace(/^[\d]+/, "").replace(/[↑↓]/g, "").trim();
+  if (ELEMENTS.some((e) => e.symbol === cleaned)) return true;
+  if (DIATOMIC_ELEMENTS.has(cleaned)) return true;
   return false;
 }
 
 function getItemKey(name: string, type: "element" | "compound"): string {
   return type === "element" ? `el:${name}` : `cpd:${name}`;
+}
+
+interface EquationPart {
+  formula: string;
+  coefficient: number;
+  label: string;
+}
+
+function parseEquationSide(side: string): EquationPart[] {
+  return side
+    .split("+")
+    .map((p) => {
+      const cleaned = p
+        .trim()
+        .replace(/\(浓\)|\(稀\)|\(熔融\)/g, "")
+        .replace(/[↑↓]/g, "")
+        .trim();
+      const match = cleaned.match(/^([\d]*)(.+)$/);
+      if (match) {
+        const coefficient = match[1] ? parseInt(match[1], 10) : 1;
+        const formula = match[2].trim();
+        return {
+          formula,
+          coefficient,
+          label: coefficient > 1 ? `${coefficient} ${formula}` : formula,
+        };
+      }
+      return { formula: cleaned, coefficient: 1, label: cleaned };
+    })
+    .filter((p) => p.formula);
+}
+
+function parseEquationLeftWithCoef(equation: string): EquationPart[] {
+  const arrow = equation.includes("→") ? "→" : equation.includes("⇌") ? "⇌" : "=";
+  const leftSide = equation.split(arrow)[0].trim();
+  return parseEquationSide(leftSide);
+}
+
+function parseEquationRightWithCoef(equation: string): EquationPart[] {
+  const arrow = equation.includes("→") ? "→" : equation.includes("⇌") ? "⇌" : "=";
+  const rightSide = equation.split(arrow)[1].trim();
+  return parseEquationSide(rightSide);
 }
 
 function normalizeCompounds(compounds: string[]): string[] {
@@ -215,19 +258,17 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
   const START_X = 80;
   const START_Y = 100;
 
-  const left = parseEquationLeft(targetReaction.equation);
-  const right = parseEquationRight(targetReaction.equation);
+  const leftParts = parseEquationLeftWithCoef(targetReaction.equation);
+  const rightParts = parseEquationRightWithCoef(targetReaction.equation);
   const typeColor = getTypeColor(targetReaction.type ?? "其他");
   const reactionKey = `rxn:${targetReaction.id}`;
 
-  // Separate reactants into elements and compounds
-  const reactantElements = left.filter(isElementLike);
-  const reactantCompounds = left.filter((c) => !isElementLike(c));
+  const reactantElements = leftParts.filter((p) => isElementLike(p.formula));
+  const reactantCompounds = leftParts.filter((p) => !isElementLike(p.formula));
   const allReactants = [...reactantElements, ...reactantCompounds];
 
-  // Separate products into elements and compounds
-  const productElements = right.filter(isElementLike);
-  const productCompounds = right.filter((c) => !isElementLike(c));
+  const productElements = rightParts.filter((p) => isElementLike(p.formula));
+  const productCompounds = rightParts.filter((p) => !isElementLike(p.formula));
   const allProducts = [...productCompounds, ...productElements];
 
   const totalReactants = allReactants.length;
@@ -237,24 +278,23 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
   const totalHeight = (maxCount - 1) * NODE_HEIGHT;
   const centerY = START_Y + totalHeight / 2;
 
-  // Helper to create Y position
   const getY = (index: number, count: number) =>
     centerY - ((count - 1) * NODE_HEIGHT) / 2 + index * NODE_HEIGHT;
 
-  // Layer 0: Reactants (elements and compounds on the left)
-  allReactants.forEach((c, idx) => {
-    const isEl = isElementLike(c);
-    const key = isEl ? getItemKey(c, "element") : getItemKey(c, "compound");
+  allReactants.forEach((part, idx) => {
+    const { formula, label } = part;
+    const isEl = isElementLike(formula);
+    const key = isEl ? getItemKey(formula, "element") : getItemKey(formula, "compound");
     const y = getY(idx, totalReactants);
 
     if (isEl) {
-      const baseSymbol = c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
+      const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
       const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
       nodes.push({
         id: key,
         type: "element",
         data: {
-          label: c,
+          label,
           nodeType: "element",
           color: getElementColor(baseSymbol),
           element,
@@ -266,7 +306,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
         id: key,
         type: "compound",
         data: {
-          label: c,
+          label,
           nodeType: "compound",
           color: typeColor,
         },
@@ -274,7 +314,6 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
       });
     }
 
-    // Edge: reactant -> reaction
     edges.push({
       id: `${key}-${reactionKey}`,
       source: key,
@@ -293,7 +332,6 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
     });
   });
 
-  // Layer 1: Reaction node (center)
   const reactionY = centerY;
   nodes.push({
     id: reactionKey,
@@ -306,22 +344,22 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
     position: { x: START_X + LAYER_WIDTH, y: reactionY },
   });
 
-  // Layer 2: Products (compounds and elements on the right)
-  allProducts.forEach((c, idx) => {
-    const isEl = isElementLike(c);
+  allProducts.forEach((part, idx) => {
+    const { formula, label } = part;
+    const isEl = isElementLike(formula);
     const key = isEl
-      ? `${getItemKey(c, "element")}_prod_${targetReaction.id}`
-      : `${getItemKey(c, "compound")}_prod_${targetReaction.id}`;
+      ? `${getItemKey(formula, "element")}_prod_${targetReaction.id}`
+      : `${getItemKey(formula, "compound")}_prod_${targetReaction.id}`;
     const y = getY(idx, totalProducts);
 
     if (isEl) {
-      const baseSymbol = c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
+      const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
       const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
       nodes.push({
         id: key,
         type: "element",
         data: {
-          label: c,
+          label,
           nodeType: "element",
           color: getElementColor(baseSymbol),
           element,
@@ -333,7 +371,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
         id: key,
         type: "compound",
         data: {
-          label: c,
+          label,
           nodeType: "compound",
           color: typeColor,
         },
@@ -341,7 +379,6 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
       });
     }
 
-    // Edge: reaction -> product
     edges.push({
       id: `${reactionKey}-${key}`,
       source: reactionKey,
@@ -445,8 +482,8 @@ export function expandCompoundPredecessors(
   const newNodes: Node<NodeData>[] = [];
   const newEdges: Edge<EdgeData>[] = [];
   
-  const left = parseEquationLeft(bestProducer.equation);
-  const right = parseEquationRight(bestProducer.equation);
+  const leftParts = parseEquationLeftWithCoef(bestProducer.equation);
+  const rightParts = parseEquationRightWithCoef(bestProducer.equation);
   const typeColor = getTypeColor(bestProducer.type ?? "其他");
   
   const reactionKey = `rxn:${bestProducer.id}`;
@@ -476,22 +513,23 @@ export function expandCompoundPredecessors(
     });
   }
   
-  const reactantElements = left.filter(isElementLike);
-  const reactantCompounds = left.filter((c) => !isElementLike(c));
+  const reactantElements = leftParts.filter((p) => isElementLike(p.formula));
+  const reactantCompounds = leftParts.filter((p) => !isElementLike(p.formula));
   
   const totalReactants = reactantElements.length + reactantCompounds.length;
   const startY = reactionY - ((totalReactants - 1) * NODE_HEIGHT) / 2;
   
-  left.forEach((c, idx) => {
-    const isEl = isElementLike(c);
-    const key = isEl ? `${getItemKey(c, "element")}_pred_${bestProducer.id}_${idx}` : getItemKey(c, "compound");
+  leftParts.forEach((part, idx) => {
+    const { formula, label } = part;
+    const isEl = isElementLike(formula);
+    const key = isEl ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}` : getItemKey(formula, "compound");
     
     if (!existingNodeMap.has(key)) {
       const x = reactionX - LAYER_WIDTH;
       const y = startY + idx * NODE_HEIGHT;
       
       if (isEl) {
-        const baseSymbol = c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
+        const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
         const element = ELEMENTS.some((e) => e.symbol === baseSymbol)
           ? ELEMENTS.find((e) => e.symbol === baseSymbol)
           : undefined;
@@ -500,7 +538,7 @@ export function expandCompoundPredecessors(
           id: key,
           type: "element",
           data: {
-            label: c,
+            label,
             nodeType: "element",
             color: getElementColor(baseSymbol),
             element,
@@ -511,7 +549,7 @@ export function expandCompoundPredecessors(
           id: key,
           type: "element",
           data: {
-            label: c,
+            label,
             nodeType: "element",
             color: getElementColor(baseSymbol),
             element,
@@ -523,7 +561,7 @@ export function expandCompoundPredecessors(
           id: key,
           type: "compound",
           data: {
-            label: c,
+            label,
             nodeType: "compound",
             color: "#64748b",
           },
@@ -533,7 +571,7 @@ export function expandCompoundPredecessors(
           id: key,
           type: "compound",
           data: {
-            label: c,
+            label,
             nodeType: "compound",
             color: "#64748b",
           },
@@ -564,20 +602,21 @@ export function expandCompoundPredecessors(
     }
   });
   
-  right.forEach((c) => {
-    const isEl = isElementLike(c);
+  rightParts.forEach((part) => {
+    const { formula, label } = part;
+    const isEl = isElementLike(formula);
     let targetKey: string;
     
     if (isEl) {
-      targetKey = `${getItemKey(c, "element")}_pred_${bestProducer.id}`;
+      targetKey = `${getItemKey(formula, "element")}_pred_${bestProducer.id}`;
     } else {
-      const cleanProduct = cleanCompoundLabel(c);
+      const cleanProduct = cleanCompoundLabel(formula);
       const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
       
       if (cleanProduct === cleanCompoundLabelValue) {
         targetKey = compoundKey;
       } else {
-        targetKey = `${getItemKey(c, "compound")}_pred_${bestProducer.id}`;
+        targetKey = `${getItemKey(formula, "compound")}_pred_${bestProducer.id}`;
       }
     }
     
@@ -586,7 +625,7 @@ export function expandCompoundPredecessors(
       const y = compoundPosition.y;
       
       if (isEl) {
-        const baseSymbol = c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
+        const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
         const element = ELEMENTS.some((e) => e.symbol === baseSymbol)
           ? ELEMENTS.find((e) => e.symbol === baseSymbol)
           : undefined;
@@ -595,7 +634,7 @@ export function expandCompoundPredecessors(
           id: targetKey,
           type: "element",
           data: {
-            label: c,
+            label,
             nodeType: "element",
             color: getElementColor(baseSymbol),
             element,
@@ -606,7 +645,7 @@ export function expandCompoundPredecessors(
           id: targetKey,
           type: "element",
           data: {
-            label: c,
+            label,
             nodeType: "element",
             color: getElementColor(baseSymbol),
             element,
@@ -618,7 +657,7 @@ export function expandCompoundPredecessors(
           id: targetKey,
           type: "compound",
           data: {
-            label: c,
+            label,
             nodeType: "compound",
             color: "#64748b",
           },
@@ -628,7 +667,7 @@ export function expandCompoundPredecessors(
           id: targetKey,
           type: "compound",
           data: {
-            label: c,
+            label,
             nodeType: "compound",
             color: "#64748b",
           },
