@@ -74,7 +74,7 @@ export default function ReactionNetworkGraph({
     
     const nodesWithExpandInfo = result.nodes.map((node) => {
       if (node.data.nodeType === "compound") {
-        const formula = node.data.label.replace(/^\d+\s+/, "");
+        const formula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
         const isReactant = reactantCompounds.has(formula);
         const canExpand = isReactant && hasPredecessorReaction(formula, reactionId);
         return {

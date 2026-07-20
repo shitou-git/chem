@@ -452,7 +452,9 @@ export function expandCompoundPredecessors(
     return { nodes: [], edges: [], updatedNodes: [] };
   }
   
-  const compoundLabel = labelMatch[1];
+  let compoundLabel = labelMatch[1];
+  compoundLabel = compoundLabel.replace(/_prod_[\w]+$/, "").replace(/_pred_[\w]+_\d+$/, "");
+  compoundLabel = compoundLabel.replace(/[↑↓]$/g, "");
   const producers = findReactionsProducing(compoundLabel);
   
   const currentReaction = REACTIONS.find((r) => r.id === currentReactionId);
@@ -735,7 +737,9 @@ export function collapseCompoundPredecessors(
     return { remainingNodes: existingNodes, remainingEdges: existingEdges, updatedNode: null };
   }
 
-  const compoundLabel = labelMatch[1];
+  let compoundLabel = labelMatch[1];
+  compoundLabel = compoundLabel.replace(/_prod_[\w]+$/, "").replace(/_pred_[\w]+_\d+$/, "");
+  compoundLabel = compoundLabel.replace(/[↑↓]$/g, "");
   const producers = findReactionsProducing(compoundLabel);
   const currentReaction = REACTIONS.find((r) => r.id === currentReactionId);
   if (!currentReaction) {
