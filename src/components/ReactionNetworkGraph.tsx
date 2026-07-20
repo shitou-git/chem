@@ -109,7 +109,7 @@ export default function ReactionNetworkGraph({
         if (!expandedNodes.has(node.id)) {
           const result = expandCompoundPredecessors(node.id, nodes, edges, reactionId);
           
-          if (result.nodes.length > 0) {
+          if (result.nodes.length > 0 || result.edges.length > 0 || result.updatedNodes.length > 0) {
             const nodesWithExpandInfo = result.nodes.map((n) => {
               if (n.data.nodeType === "compound") {
                 const formula = n.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
@@ -119,8 +119,13 @@ export default function ReactionNetworkGraph({
               return n;
             });
             
-            setNodes((nds) => [...nds, ...nodesWithExpandInfo]);
-            setEdges((eds) => [...eds, ...result.edges]);
+            if (result.nodes.length > 0) {
+              setNodes((nds) => [...nds, ...nodesWithExpandInfo]);
+            }
+            
+            if (result.edges.length > 0) {
+              setEdges((eds) => [...eds, ...result.edges]);
+            }
             
             if (result.updatedNodes.length > 0) {
               const updateMap = new Map(result.updatedNodes.map((n) => [n.id, n]));
