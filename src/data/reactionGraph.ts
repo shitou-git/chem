@@ -84,7 +84,7 @@ function areReverseReactions(r1: ChemicalReaction, r2: ChemicalReaction): boolea
 }
 
 function cleanCompoundLabel(label: string): string {
-  return label.replace(/\([^\)]*(?:[\u4e00-\u9fa5]|\s)[^\)]*\)/g, "").trim();
+  return label.replace(/\([^)]*(?:[\u4e00-\u9fa5]|\s)[^)]*\)/g, "").trim();
 }
 
 function findReactionsProducing(compound: string): ChemicalReaction[] {
