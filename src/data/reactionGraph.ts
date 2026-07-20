@@ -488,6 +488,7 @@ export function expandCompoundPredecessors(
   
   const newNodes: Node<NodeData>[] = [];
   const newEdges: Edge<EdgeData>[] = [];
+  const updatedNodes: Node<NodeData>[] = [];
   
   const leftParts = parseEquationLeftWithCoef(bestProducer.equation);
   const rightParts = parseEquationRightWithCoef(bestProducer.equation);
@@ -757,8 +758,6 @@ export function expandCompoundPredecessors(
       existingEdgeIds.add(edgeId);
     }
   });
-  
-  const updatedNodes: Node<NodeData>[] = [];
   
   if (newNodes.length > 0) {
     const allNodes = [...existingNodes, ...newNodes];
