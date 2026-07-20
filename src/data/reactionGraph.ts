@@ -717,6 +717,29 @@ export function expandCompoundPredecessors(
     });
   }
   
+  // When the product of the predecessor reaction matches the expanded compound
+  // and has a state symbol (↑↓), update the existing compound node's label
+  rightParts.forEach((part) => {
+    const { formula, label } = part;
+    if (isElementLike(formula)) return;
+    
+    const cleanProduct = cleanCompoundLabel(formula);
+    const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
+    
+    if (cleanProduct === cleanCompoundLabelValue) {
+      const stateSymbol = label.match(/([↑↓])$/);
+      if (stateSymbol) {
+        const existingNode = existingNodes.find((n) => n.id === compoundKey);
+        if (existingNode && !existingNode.data.label.match(/[↑↓]$/)) {
+          updatedNodes.push({
+            ...existingNode,
+            data: { ...existingNode.data, label: existingNode.data.label + stateSymbol[1] },
+          });
+        }
+      }
+    }
+  });
+  
   return { nodes: newNodes, edges: newEdges, updatedNodes };
 }
 
