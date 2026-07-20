@@ -13,6 +13,7 @@ export interface NodeData extends Record<string, unknown> {
   nodeType: "element" | "compound" | "reaction";
   color: string;
   element?: ChemicalElement;
+  canExpand?: boolean;
 }
 
 export interface EdgeData extends Record<string, unknown> {
@@ -27,6 +28,8 @@ export interface EdgeData extends Record<string, unknown> {
 
 const MAX_CHAIN_DEPTH = 5;
 const MAX_CHAIN_REACTIONS = 8;
+const LAYER_WIDTH = 220;
+const NODE_HEIGHT = 90;
 
 const DIATOMIC_ELEMENTS = new Set([
   "H₂", "O₂", "N₂", "F₂", "Cl₂", "Br₂", "I₂", "O₃", "P₄", "S₈",
@@ -53,6 +56,10 @@ function isElementLike(symbol: string): boolean {
   if (ELEMENTS.some((e) => e.symbol === symbol)) return true;
   if (DIATOMIC_ELEMENTS.has(symbol)) return true;
   return false;
+}
+
+function getItemKey(name: string, type: "element" | "compound"): string {
+  return type === "element" ? `el:${name}` : `cpd:${name}`;
 }
 
 function normalizeCompounds(compounds: string[]): string[] {
@@ -198,14 +205,8 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
   const reactionChain = buildReactionChain(targetReaction);
   const numReactions = reactionChain.length;
 
-  const LAYER_WIDTH = 220;
-  const NODE_HEIGHT = 90;
   const START_X = 80;
   const START_Y = 100;
-
-  function getItemKey(name: string, type: "element" | "compound"): string {
-    return type === "element" ? `el:${name}` : `cpd:${name}`;
-  }
 
   // Step 1: Identify all nodes and their relationships
   const elements = new Set<string>();
@@ -515,4 +516,255 @@ export function getReactionFromEdge(
 ): ChemicalReaction | null {
   if (!edge.data?.reactionId) return null;
   return REACTIONS.find((r) => r.id === edge.data!.reactionId) || null;
+}
+
+export interface ExpandResult {
+  nodes: Node<NodeData>[];
+  edges: Edge<EdgeData>[];
+  updatedNodes: Node<NodeData>[];
+}
+
+export function expandCompoundPredecessors(
+  compoundKey: string,
+  existingNodes: Node<NodeData>[],
+  existingEdges: Edge<EdgeData>[],
+  currentReactionId: string
+): ExpandResult {
+  const labelMatch = compoundKey.match(/^cpd:(.+)$/);
+  if (!labelMatch) {
+    return { nodes: [], edges: [], updatedNodes: [] };
+  }
+  
+  const compoundLabel = labelMatch[1];
+  const producers = findReactionsProducing(compoundLabel);
+  
+  const currentReaction = REACTIONS.find((r) => r.id === currentReactionId);
+  if (!currentReaction) {
+    return { nodes: [], edges: [], updatedNodes: [] };
+  }
+  
+  const validProducers = producers.filter((p) => !areReverseReactions(p, currentReaction));
+  
+  if (validProducers.length === 0) {
+    return { nodes: [], edges: [], updatedNodes: [] };
+  }
+  
+  const bestProducer = selectBestPredecessor(validProducers, currentReaction);
+  if (!bestProducer) {
+    return { nodes: [], edges: [], updatedNodes: [] };
+  }
+  
+  const existingNodeMap = new Map<string, Node<NodeData>>();
+  existingNodes.forEach((n) => existingNodeMap.set(n.id, n));
+  
+  const existingEdgeIds = new Set(existingEdges.map((e) => e.id));
+  
+  const compoundNode = existingNodeMap.get(compoundKey);
+  if (!compoundNode) {
+    return { nodes: [], edges: [], updatedNodes: [] };
+  }
+  
+  const compoundPosition = compoundNode.position;
+  const compoundLayerX = compoundPosition.x;
+  
+  const newNodes: Node<NodeData>[] = [];
+  const newEdges: Edge<EdgeData>[] = [];
+  
+  const left = parseEquationLeft(bestProducer.equation);
+  const right = parseEquationRight(bestProducer.equation);
+  const typeColor = getTypeColor(bestProducer.type ?? "其他");
+  
+  const reactionKey = `rxn:${bestProducer.id}`;
+  const reactionX = compoundLayerX - LAYER_WIDTH;
+  const reactionY = compoundPosition.y;
+  
+  if (!existingNodeMap.has(reactionKey)) {
+    newNodes.push({
+      id: reactionKey,
+      type: "reaction",
+      data: {
+        label: `${bestProducer.type ?? "反应"} / ${bestProducer.condition ?? ""}`,
+        nodeType: "reaction",
+        color: typeColor,
+      },
+      position: { x: reactionX, y: reactionY },
+    });
+    existingNodeMap.set(reactionKey, {
+      id: reactionKey,
+      type: "reaction",
+      data: {
+        label: `${bestProducer.type ?? "反应"} / ${bestProducer.condition ?? ""}`,
+        nodeType: "reaction",
+        color: typeColor,
+      },
+      position: { x: reactionX, y: reactionY },
+    });
+  }
+  
+  const reactantElements = left.filter(isElementLike);
+  const reactantCompounds = left.filter((c) => !isElementLike(c));
+  
+  const totalReactants = reactantElements.length + reactantCompounds.length;
+  const startY = reactionY - ((totalReactants - 1) * NODE_HEIGHT) / 2;
+  
+  left.forEach((c, idx) => {
+    const isEl = isElementLike(c);
+    const key = isEl ? getItemKey(c, "element") : getItemKey(c, "compound");
+    
+    if (!existingNodeMap.has(key)) {
+      const x = reactionX - LAYER_WIDTH;
+      const y = startY + idx * NODE_HEIGHT;
+      
+      if (isEl) {
+        const baseSymbol = c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
+        const element = ELEMENTS.some((e) => e.symbol === baseSymbol)
+          ? ELEMENTS.find((e) => e.symbol === baseSymbol)
+          : undefined;
+        
+        newNodes.push({
+          id: key,
+          type: "element",
+          data: {
+            label: c,
+            nodeType: "element",
+            color: getElementColor(baseSymbol),
+            element,
+          },
+          position: { x, y },
+        });
+        existingNodeMap.set(key, {
+          id: key,
+          type: "element",
+          data: {
+            label: c,
+            nodeType: "element",
+            color: getElementColor(baseSymbol),
+            element,
+          },
+          position: { x, y },
+        });
+      } else {
+        newNodes.push({
+          id: key,
+          type: "compound",
+          data: {
+            label: c,
+            nodeType: "compound",
+            color: "#64748b",
+          },
+          position: { x, y },
+        });
+        existingNodeMap.set(key, {
+          id: key,
+          type: "compound",
+          data: {
+            label: c,
+            nodeType: "compound",
+            color: "#64748b",
+          },
+          position: { x, y },
+        });
+      }
+    }
+    
+    const edgeId = `${key}-${reactionKey}`;
+    if (!existingEdgeIds.has(edgeId)) {
+      newEdges.push({
+        id: edgeId,
+        source: key,
+        target: reactionKey,
+        data: {
+          condition: bestProducer.condition,
+          reactionType: bestProducer.type ?? "其他",
+          reactionId: bestProducer.id,
+          equation: bestProducer.equation,
+          description: bestProducer.description,
+          ionicEquation: bestProducer.ionicEquation,
+          productName: bestProducer.productName,
+        },
+        style: { stroke: typeColor, strokeWidth: 2 },
+        animated: false,
+      });
+      existingEdgeIds.add(edgeId);
+    }
+  });
+  
+  right.forEach((c) => {
+    const isEl = isElementLike(c);
+    let targetKey: string;
+    
+    if (isEl) {
+      targetKey = `${getItemKey(c, "element")}_prod_${bestProducer.id}`;
+      
+      if (!existingNodeMap.has(targetKey)) {
+        const baseSymbol = c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
+        const element = ELEMENTS.some((e) => e.symbol === baseSymbol)
+          ? ELEMENTS.find((e) => e.symbol === baseSymbol)
+          : undefined;
+        
+        const x = compoundLayerX;
+        const y = compoundPosition.y;
+        
+        newNodes.push({
+          id: targetKey,
+          type: "element",
+          data: {
+            label: c,
+            nodeType: "element",
+            color: getElementColor(baseSymbol),
+            element,
+          },
+          position: { x, y },
+        });
+      }
+    } else {
+      targetKey = getItemKey(c, "compound");
+    }
+    
+    const edgeId = `${reactionKey}-${targetKey}`;
+    if (!existingEdgeIds.has(edgeId)) {
+      newEdges.push({
+        id: edgeId,
+        source: reactionKey,
+        target: targetKey,
+        data: {
+          condition: bestProducer.condition,
+          reactionType: bestProducer.type ?? "其他",
+          reactionId: bestProducer.id,
+          equation: bestProducer.equation,
+          description: bestProducer.description,
+          ionicEquation: bestProducer.ionicEquation,
+          productName: bestProducer.productName,
+        },
+        style: { stroke: typeColor, strokeWidth: 2 },
+        animated: false,
+      });
+      existingEdgeIds.add(edgeId);
+    }
+  });
+  
+  const updatedNodes: Node<NodeData>[] = [];
+  
+  if (newNodes.length > 0) {
+    const allNodes = [...existingNodes, ...newNodes];
+    const shiftX = 0;
+    
+    allNodes.forEach((n) => {
+      const existing = existingNodeMap.get(n.id);
+      if (existing && existing.position.x !== n.position.x + shiftX) {
+        updatedNodes.push({ ...n, position: { ...n.position, x: n.position.x + shiftX } });
+      }
+    });
+  }
+  
+  return { nodes: newNodes, edges: newEdges, updatedNodes };
+}
+
+export function hasPredecessorReaction(compoundLabel: string, currentReactionId: string): boolean {
+  const producers = findReactionsProducing(compoundLabel);
+  const currentReaction = REACTIONS.find((r) => r.id === currentReactionId);
+  if (!currentReaction) return false;
+  
+  const validProducers = producers.filter((p) => !areReverseReactions(p, currentReaction));
+  return validProducers.length > 0;
 }
