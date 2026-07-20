@@ -5,7 +5,7 @@ import ReactionStage from "@/components/ReactionStage";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
 import { useChemStore } from "@/store/chemStore";
 import { ELEMENTS, GROUP_COLORS, GROUP_LABELS, type ElementGroup } from "@/data/elements";
-import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions, REACTION_TYPES } from "@/data/reactions";
+import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions, REACTION_TYPES, resolveChemicalAlias } from "@/data/reactions";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
@@ -140,8 +140,22 @@ export default function Home() {
       return;
     }
 
-    // 再尝试搜索物质名称或反应类型
-    const foundReactions = searchReactions(query.trim());
+    // 解析化学别名（如生石灰 → 氧化钙）
+    const resolvedQuery = resolveChemicalAlias(query.trim());
+
+    // 再尝试精确匹配产物名称（用户搜索"氧化钙"只显示氧化钙为产物的反应）
+    const exactProductReactions = searchReactions(resolvedQuery, true);
+    if (exactProductReactions.length > 0) {
+      setSearchResult(null);
+      reset();
+      setSearchOverride(true);
+      setCurrentReactions(exactProductReactions);
+      setMessage(`搜索产物"${query.trim()}"（${resolvedQuery}），找到 ${exactProductReactions.length} 个反应`);
+      return;
+    }
+
+    // 再尝试搜索物质名称或反应类型（模糊匹配）
+    const foundReactions = searchReactions(resolvedQuery);
     if (foundReactions.length > 0) {
       setSearchResult(null);
 

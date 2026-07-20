@@ -32,6 +32,10 @@ if (!reactionsValidation.success) {
  * 即：已选元素都是某反应的部分反应物，且该反应只差一个元素就能完全匹配
  */
 export function findReactiveSymbols(selectedSymbols: string[]): string[] {
+  if (selectedSymbols.length === 0) {
+    return [];
+  }
+  
   const set = new Set(selectedSymbols);
   const partners = new Set<string>();
 
@@ -89,12 +93,12 @@ export function findReactions(selectedSymbols: string[]): ChemicalReaction[] {
 /** 按物质名称或反应类型搜索反应
  *  支持匹配产物名称、产物化学式、方程式、反应类型
  *  特殊关键词：化合/分解/置换/复分解/氧化还原/其他
+ *  @param strictProductOnly - 如果为true，只搜索产物名称精确匹配
  */
-export function searchReactions(query: string): ChemicalReaction[] {
+export function searchReactions(query: string, strictProductOnly: boolean = false): ChemicalReaction[] {
   const q = query.trim().toLowerCase();
   if (!q) return [];
 
-  // 优先按反应类型搜索
   const typeKeywords: Record<string, ReactionType> = {
     "化合": "化合",
     "分解": "分解",
@@ -108,6 +112,14 @@ export function searchReactions(query: string): ChemicalReaction[] {
   const trimmed = query.trim();
   if (trimmed in typeKeywords) {
     return REACTIONS.filter((r) => (r.type ?? "化合") === typeKeywords[trimmed]);
+  }
+
+  if (strictProductOnly) {
+    return REACTIONS.filter(
+      (r) =>
+        r.productName === trimmed ||
+        r.product === trimmed
+    );
   }
 
   return REACTIONS.filter(
@@ -192,3 +204,100 @@ export function parseEquationRight(equation: string): string[] {
 }
 
 export const REACTIONS: ChemicalReaction[] = reactionsValidation.data;
+
+export const chemicalAliasMap: Record<string, string> = {
+  // --- 氧化物与碱 ---
+  "生石灰": "氧化钙",
+  "CaO": "氧化钙",
+  "熟石灰": "氢氧化钙",
+  "消石灰": "氢氧化钙",
+  "Ca(OH)2": "氢氧化钙",
+  "烧碱": "氢氧化钠",
+  "火碱": "氢氧化钠",
+  "苛性钠": "氢氧化钠",
+  "NaOH": "氢氧化钠",
+  "干冰": "二氧化碳",
+  "CO2": "二氧化碳",
+  "石英": "二氧化硅",
+  "硅石": "二氧化硅",
+  "SiO2": "二氧化硅",
+  "砒霜": "三氧化二砷",
+  "As2O3": "三氧化二砷",
+  "赤铁矿": "氧化铁",
+  "Fe2O3": "氧化铁",
+  "磁铁矿": "四氧化三铁",
+  "Fe3O4": "四氧化三铁",
+
+  // --- 盐类 ---
+  "纯碱": "碳酸钠",
+  "苏打": "碳酸钠",
+  "Na2CO3": "碳酸钠",
+  "小苏打": "碳酸氢钠",
+  "NaHCO3": "碳酸氢钠",
+  "食盐": "氯化钠",
+  "NaCl": "氯化钠",
+  "胆矾": "硫酸铜",
+  "蓝矾": "硫酸铜",
+  "CuSO4": "硫酸铜",
+  "石膏": "硫酸钙",
+  "CaSO4": "硫酸钙",
+  "明矾": "硫酸铝钾",
+  "绿矾": "硫酸亚铁",
+  "FeSO4": "硫酸亚铁",
+  "芒硝": "硫酸钠",
+  "Na2SO4": "硫酸钠",
+  "大苏打": "硫代硫酸钠",
+  "海波": "硫代硫酸钠",
+  "Na2S2O3": "硫代硫酸钠",
+  "石灰石": "碳酸钙",
+  "大理石": "碳酸钙",
+  "CaCO3": "碳酸钙",
+  "草木灰": "碳酸钾",
+  "钾碱": "碳酸钾",
+  "K2CO3": "碳酸钾",
+  "水玻璃": "硅酸钠",
+  "Na2SiO3": "硅酸钠",
+  "泻盐": "硫酸镁",
+  "MgSO4": "硫酸镁",
+
+  // --- 酸类 ---
+  "盐酸": "盐酸",
+  "HCl": "盐酸",
+  "硫酸": "硫酸",
+  "H2SO4": "硫酸",
+  "醋酸": "乙酸",
+  "冰醋酸": "乙酸",
+  "CH3COOH": "乙酸",
+  "蚁酸": "甲酸",
+  "HCOOH": "甲酸",
+  "草酸": "乙二酸",
+  "H2C2O4": "乙二酸",
+
+  // --- 有机物 ---
+  "酒精": "乙醇",
+  "C2H5OH": "乙醇",
+  "沼气": "甲烷",
+  "CH4": "甲烷",
+  "双氧水": "过氧化氢",
+  "H2O2": "过氧化氢",
+  "电石": "碳化钙",
+  "CaC2": "碳化钙",
+  "电石气": "乙炔",
+  "C2H2": "乙炔",
+  "甘油": "丙三醇",
+  "C3H8O3": "丙三醇",
+  "氯仿": "三氯甲烷",
+  "CHCl3": "三氯甲烷",
+  "福尔马林": "甲醛",
+  "HCHO": "甲醛",
+
+  // --- 气体 ---
+  "笑气": "一氧化二氮",
+  "N2O": "一氧化二氮",
+  "光气": "碳酰氯",
+  "COCl2": "碳酰氯",
+};
+
+export function resolveChemicalAlias(query: string): string {
+  return chemicalAliasMap[query.trim()] || query.trim();
+}

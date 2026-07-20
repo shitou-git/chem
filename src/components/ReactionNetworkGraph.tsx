@@ -21,6 +21,10 @@ import {
   type EdgeData,
   getNeighborNodes,
   getEdgesForNode,
+  expandCompoundPredecessors,
+  collapseCompoundPredecessors,
+  hasPredecessorReaction,
+  parseEquationLeft,
 } from "@/data/reactionGraph";
 import { REACTIONS } from "@/data/reactions";
 import AIExplainModal from "./AIExplainModal";
@@ -50,6 +54,8 @@ export default function ReactionNetworkGraph({
     ionicEquation?: string;
   } | null>(null);
 
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
+
   const reaction = useMemo(
     () => REACTIONS.find((r) => r.id === reactionId),
     [reactionId]
@@ -59,8 +65,28 @@ export default function ReactionNetworkGraph({
     if (!isOpen || !reaction) {
       return { nodes: [], edges: [] };
     }
-    return buildSingleReactionGraph(reaction);
-  }, [isOpen, reaction]);
+    const result = buildSingleReactionGraph(reaction);
+    
+    const reactants = parseEquationLeft(reaction.equation);
+    const reactantCompounds = new Set(
+      reactants.filter((c: string) => !/^[A-Z][a-z]?$/.test(c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "")))
+    );
+    
+    const nodesWithExpandInfo = result.nodes.map((node) => {
+      if (node.data.nodeType === "compound") {
+        const formula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
+        const isReactant = reactantCompounds.has(formula);
+        const canExpand = isReactant && hasPredecessorReaction(formula, reactionId);
+        return {
+          ...node,
+          data: { ...node.data, canExpand, isExpanded: false },
+        };
+      }
+      return node;
+    });
+    
+    return { nodes: nodesWithExpandInfo, edges: result.edges };
+  }, [isOpen, reaction, reactionId]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<Node<NodeData>>(
     initialNodes
@@ -74,10 +100,92 @@ export default function ReactionNetworkGraph({
     setNodes(initialNodes);
     setEdges(initialEdges);
     setSelectedNodeId(null);
+    setExpandedNodes(new Set());
   }, [initialNodes, initialEdges, setNodes, setEdges]);
 
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node<NodeData>) => {
+      if (node.data.nodeType === "compound" && node.data.canExpand) {
+        if (!expandedNodes.has(node.id)) {
+          const result = expandCompoundPredecessors(node.id, nodes, edges, reactionId);
+          
+          if (result.nodes.length > 0 || result.edges.length > 0 || result.updatedNodes.length > 0) {
+            const nodesWithExpandInfo = result.nodes.map((n) => {
+              if (n.data.nodeType === "compound") {
+                const formula = n.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
+                const canExpand = hasPredecessorReaction(formula, reactionId);
+                return { ...n, data: { ...n.data, canExpand, isExpanded: false } };
+              }
+              return n;
+            });
+            
+            if (result.nodes.length > 0) {
+              setNodes((nds) => [...nds, ...nodesWithExpandInfo]);
+            }
+            
+            if (result.edges.length > 0) {
+              setEdges((eds) => [...eds, ...result.edges]);
+            }
+            
+            if (result.updatedNodes.length > 0) {
+              const updateMap = new Map(result.updatedNodes.map((n) => [n.id, n]));
+              setNodes((nds) =>
+                nds.map((n) => {
+                  const update = updateMap.get(n.id);
+                  return update ? { ...n, data: update.data } : n;
+                })
+              );
+            }
+            
+            setExpandedNodes((prev) => new Set([...prev, node.id]));
+            
+            setNodes((nds) =>
+              nds.map((n) => {
+                if (n.id === node.id) {
+                  return { ...n, data: { ...n.data, isExpanded: true } };
+                }
+                return n;
+              })
+            );
+            
+            return;
+          }
+        } else {
+          const result = collapseCompoundPredecessors(node.id, nodes, edges, reactionId);
+          
+          setNodes(() => result.remainingNodes);
+          setEdges(() => result.remainingEdges);
+          
+          if (result.updatedNode) {
+            setNodes((nds) =>
+              nds.map((n) => {
+                if (n.id === result.updatedNode!.id) {
+                  return { ...n, data: { ...n.data, ...result.updatedNode!.data, isExpanded: false } };
+                }
+                return n;
+              })
+            );
+          } else {
+            setNodes((nds) =>
+              nds.map((n) => {
+                if (n.id === node.id) {
+                  return { ...n, data: { ...n.data, isExpanded: false, canExpand: true } };
+                }
+                return n;
+              })
+            );
+          }
+          
+          setExpandedNodes((prev) => {
+            const next = new Set(prev);
+            next.delete(node.id);
+            return next;
+          });
+          
+          return;
+        }
+      }
+
       setSelectedNodeId(node.id);
 
       const neighborIds = getNeighborNodes(node.id, edges);
@@ -109,7 +217,7 @@ export default function ReactionNetworkGraph({
         }))
       );
     },
-    [edges, setNodes, setEdges]
+    [edges, setNodes, setEdges, expandedNodes, reactionId, nodes]
   );
 
   const handlePaneClick = useCallback(() => {
@@ -226,7 +334,7 @@ export default function ReactionNetworkGraph({
               {reaction.productName}
             </div>
             <div className="text-xs text-slate-500">
-              点击节点高亮路径 · 点击连线查看 AI 解释
+              点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释
             </div>
           </div>
         </div>

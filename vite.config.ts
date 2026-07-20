@@ -24,7 +24,7 @@ function versionJsonPlugin(): Plugin {
 }
 
 export default defineConfig({
-  base: './',
+  base: '/chem/',
   define: {
     '__APP_VERSION__': JSON.stringify(pkg.version),
   },
