@@ -609,28 +609,17 @@ export function expandCompoundPredecessors(
     }
   });
   
-  rightParts.forEach((part) => {
+  rightParts.forEach((part, idx) => {
     const { formula, label } = part;
     const isEl = isElementLike(formula);
-    let targetKey: string;
+    const targetKey = isEl
+      ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
+      : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
     
-    if (isEl) {
-      targetKey = `${getItemKey(formula, "element")}_pred_${bestProducer.id}`;
-    } else {
-      const cleanProduct = cleanCompoundLabel(formula);
-      const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
-      
-      if (cleanProduct === cleanCompoundLabelValue) {
-        targetKey = compoundKey;
-      } else {
-        targetKey = `${getItemKey(formula, "compound")}_pred_${bestProducer.id}`;
-      }
-    }
+    const x = compoundLayerX;
+    const y = compoundPosition.y;
     
     if (!existingNodeMap.has(targetKey)) {
-      const x = compoundLayerX;
-      const y = compoundPosition.y;
-      
       if (isEl) {
         const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
         const element = ELEMENTS.some((e) => e.symbol === baseSymbol)
@@ -707,38 +696,6 @@ export function expandCompoundPredecessors(
   
   const updatedNodes: Node<NodeData>[] = [];
   
-  rightParts.forEach((part) => {
-    const { formula, label } = part;
-    const isEl = isElementLike(formula);
-    let targetKey: string;
-    
-    if (isEl) {
-      targetKey = `${getItemKey(formula, "element")}_pred_${bestProducer.id}`;
-    } else {
-      const cleanProduct = cleanCompoundLabel(formula);
-      const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
-      
-      if (cleanProduct === cleanCompoundLabelValue) {
-        targetKey = compoundKey;
-      } else {
-        targetKey = `${getItemKey(formula, "compound")}_pred_${bestProducer.id}`;
-      }
-    }
-    
-    if (targetKey === compoundKey) {
-      const stateSymbol = label.match(/([↑↓])$/);
-      if (stateSymbol) {
-        const existingNode = existingNodeMap.get(compoundKey);
-        if (existingNode && !existingNode.data.label.includes(stateSymbol[1])) {
-          updatedNodes.push({
-            ...existingNode,
-            data: { ...existingNode.data, label: existingNode.data.label + stateSymbol[1] },
-          });
-        }
-      }
-    }
-  });
-  
   if (newNodes.length > 0) {
     const allNodes = [...existingNodes, ...newNodes];
     const shiftX = 0;
@@ -808,21 +765,12 @@ export function collapseCompoundPredecessors(
   });
 
   const rightParts = parseEquationRightWithCoef(bestProducer.equation);
-  rightParts.forEach((part) => {
+  rightParts.forEach((part, idx) => {
     const { formula } = part;
     const isEl = isElementLike(formula);
-    let key: string;
-    if (isEl) {
-      key = `${getItemKey(formula, "element")}_pred_${bestProducer.id}`;
-    } else {
-      const cleanProduct = cleanCompoundLabel(formula);
-      const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
-      if (cleanProduct === cleanCompoundLabelValue) {
-        key = compoundKey;
-      } else {
-        key = `${getItemKey(formula, "compound")}_pred_${bestProducer.id}`;
-      }
-    }
+    const key = isEl
+      ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
+      : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
     if (key !== compoundKey) {
       nodeIdsToRemove.add(key);
     }
