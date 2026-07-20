@@ -520,6 +520,26 @@ export function expandCompoundPredecessors(
     });
   }
   
+  const reactantLayerX = reactionX - LAYER_WIDTH;
+  
+  const findSameNodeInLayer = (
+    formula: string,
+    targetX: number,
+    nodeType: "element" | "compound"
+  ): Node<NodeData> | undefined => {
+    const cleanFormula = cleanCompoundLabel(formula);
+    for (const node of existingNodeMap.values()) {
+      if (node.data.nodeType !== nodeType) continue;
+      if (Math.abs(node.position.x - targetX) > 1) continue;
+      const nodeFormula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
+      const cleanNodeFormula = cleanCompoundLabel(nodeFormula);
+      if (cleanNodeFormula === cleanFormula) {
+        return node;
+      }
+    }
+    return undefined;
+  };
+  
   const reactantElements = leftParts.filter((p) => isElementLike(p.formula));
   const reactantCompounds = leftParts.filter((p) => !isElementLike(p.formula));
   
@@ -529,10 +549,17 @@ export function expandCompoundPredecessors(
   leftParts.forEach((part, idx) => {
     const { formula, label } = part;
     const isEl = isElementLike(formula);
-    const key = isEl ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}` : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
+    const nodeType: "element" | "compound" = isEl ? "element" : "compound";
+    
+    const existingSameNode = findSameNodeInLayer(formula, reactantLayerX, nodeType);
+    const key = existingSameNode ? existingSameNode.id : (
+      isEl 
+        ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}` 
+        : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`
+    );
     
     if (!existingNodeMap.has(key)) {
-      const x = reactionX - LAYER_WIDTH;
+      const x = reactantLayerX;
       const y = startY + idx * NODE_HEIGHT;
       
       if (isEl) {
@@ -612,9 +639,14 @@ export function expandCompoundPredecessors(
   rightParts.forEach((part, idx) => {
     const { formula, label } = part;
     const isEl = isElementLike(formula);
-    const targetKey = isEl
-      ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
-      : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
+    const nodeType: "element" | "compound" = isEl ? "element" : "compound";
+    
+    const existingSameNode = findSameNodeInLayer(formula, compoundLayerX, nodeType);
+    const targetKey = existingSameNode ? existingSameNode.id : (
+      isEl
+        ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
+        : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`
+    );
     
     const x = compoundLayerX;
     const y = compoundPosition.y;
@@ -745,45 +777,39 @@ export function collapseCompoundPredecessors(
 
   const bestProducer = validProducers[0];
 
-  const nodeIdsToRemove = new Set<string>();
-  const edgeIdsToRemove = new Set<string>();
-
   const reactionKey = `rxn:${bestProducer.id}`;
-  nodeIdsToRemove.add(reactionKey);
 
-  const leftParts = parseEquationLeftWithCoef(bestProducer.equation);
-  leftParts.forEach((part, idx) => {
-    const { formula } = part;
-    const isEl = isElementLike(formula);
-    const key = isEl
-      ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
-      : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
-
-    if (key !== compoundKey) {
-      nodeIdsToRemove.add(key);
-    }
-  });
-
-  const rightParts = parseEquationRightWithCoef(bestProducer.equation);
-  rightParts.forEach((part, idx) => {
-    const { formula } = part;
-    const isEl = isElementLike(formula);
-    const key = isEl
-      ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
-      : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
-    if (key !== compoundKey) {
-      nodeIdsToRemove.add(key);
-    }
-  });
-
+  const edgeIdsToRemove = new Set<string>();
   existingEdges.forEach((e) => {
     if (e.source === reactionKey || e.target === reactionKey) {
       edgeIdsToRemove.add(e.id);
     }
   });
 
-  const remainingNodes = existingNodes.filter((n) => !nodeIdsToRemove.has(n.id));
   const remainingEdges = existingEdges.filter((e) => !edgeIdsToRemove.has(e.id));
+
+  const remainingEdgeNodeIds = new Set<string>();
+  remainingEdges.forEach((e) => {
+    remainingEdgeNodeIds.add(e.source);
+    remainingEdgeNodeIds.add(e.target);
+  });
+
+  const nodeIdsToRemove = new Set<string>();
+  nodeIdsToRemove.add(reactionKey);
+
+  const candidateNodeIds = new Set<string>();
+  existingEdges.forEach((e) => {
+    if (e.source === reactionKey) candidateNodeIds.add(e.target);
+    if (e.target === reactionKey) candidateNodeIds.add(e.source);
+  });
+
+  candidateNodeIds.forEach((nodeId) => {
+    if (!remainingEdgeNodeIds.has(nodeId) && nodeId !== compoundKey) {
+      nodeIdsToRemove.add(nodeId);
+    }
+  });
+
+  const remainingNodes = existingNodes.filter((n) => !nodeIdsToRemove.has(n.id));
 
   let updatedNode: Node<NodeData> | null = null;
   const compoundNode = existingNodes.find((n) => n.id === compoundKey);
