@@ -81,10 +81,18 @@ function areReverseReactions(r1: ChemicalReaction, r2: ChemicalReaction): boolea
   );
 }
 
+function cleanCompoundLabel(label: string): string {
+  return label.replace(/\([^)]*\)/g, "").trim();
+}
+
 function findReactionsProducing(compound: string): ChemicalReaction[] {
+  const cleanCompound = cleanCompoundLabel(compound);
   return REACTIONS.filter((r) => {
     const products = parseEquationRight(r.equation);
-    return products.includes(compound);
+    return products.some((p) => {
+      const cleanProduct = cleanCompoundLabel(p);
+      return cleanProduct === cleanCompound;
+    });
   });
 }
 
@@ -583,7 +591,27 @@ export function expandCompoundPredecessors(
         });
       }
     } else {
-      targetKey = getItemKey(c, "compound");
+      const cleanProduct = cleanCompoundLabel(c);
+      const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
+      
+      if (cleanProduct === cleanCompoundLabelValue) {
+        targetKey = compoundKey;
+      } else {
+        targetKey = getItemKey(c, "compound");
+        
+        if (!existingNodeMap.has(targetKey)) {
+          newNodes.push({
+            id: targetKey,
+            type: "compound",
+            data: {
+              label: c,
+              nodeType: "compound",
+              color: "#64748b",
+            },
+            position: { x: compoundLayerX, y: compoundPosition.y + 60 },
+          });
+        }
+      }
     }
     
     const edgeId = `${reactionKey}-${targetKey}`;
