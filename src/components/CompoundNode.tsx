@@ -1,12 +1,23 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { Handle, Position, type NodeProps, type Node } from "@xyflow/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Info } from "lucide-react";
 import type { NodeData } from "@/data/reactionGraph";
 
 type CompoundNodeType = Node<NodeData, "compound">;
 
-function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) {
-  const { label, color, canExpand, isExpanded } = data;
+interface CompoundNodeComponentProps extends NodeProps<CompoundNodeType> {
+  onPrecipitateClick?: (info: string) => void;
+}
+
+function CompoundNodeComponent({ data, selected, ...props }: CompoundNodeComponentProps) {
+  const { label, color, canExpand, isExpanded, hasPrecipitate, precipitateInfo } = data;
+
+  const handlePrecipitateClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (precipitateInfo && props.onPrecipitateClick) {
+      props.onPrecipitateClick(precipitateInfo);
+    }
+  }, [precipitateInfo, props]);
 
   return (
     <div
@@ -31,6 +42,15 @@ function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) 
           ) : (
             <ChevronLeft className="h-4 w-4 text-cyan-400 opacity-60 hover:opacity-100 transition-opacity" />
           )}
+        </div>
+      )}
+      {hasPrecipitate && precipitateInfo && (
+        <div
+          className="absolute -right-2 -top-2 z-20 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-white cursor-pointer hover:bg-blue-400 transition-colors shadow-lg"
+          onClick={handlePrecipitateClick}
+          title="查看沉淀信息"
+        >
+          <Info className="h-3 w-3" />
         </div>
       )}
       <Handle

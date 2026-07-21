@@ -28,6 +28,8 @@ export interface NodeData extends Record<string, unknown> {
   canExpand?: boolean;
   productName?: string;
   equation?: string;
+  hasPrecipitate?: boolean;
+  precipitateInfo?: string;
 }
 
 export interface EdgeData extends Record<string, unknown> {
@@ -193,6 +195,30 @@ function areReverseReactions(r1: ChemicalReaction, r2: ChemicalReaction): boolea
 
 function cleanCompoundLabel(label: string): string {
   return label.replace(/\([^)]*(?:[\u4e00-\u9fa5]|\s)[^)]*\)/g, "").trim();
+}
+
+function extractPrecipitateInfo(
+  formula: string,
+  reaction: ChemicalReaction
+): string | null {
+  const cleanFormula = cleanCompoundLabel(formula);
+  const rightParts = parseEquationRight(reaction.equation);
+  const hasPrecipitate = rightParts.some((p) => p.includes("↓"));
+  
+  if (!hasPrecipitate) return null;
+  
+  const productHasPrecipitate = rightParts.some((p) => {
+    const clean = cleanCompoundLabel(p.replace(/↓$/g, ""));
+    return clean === cleanFormula && p.includes("↓");
+  });
+  
+  if (!productHasPrecipitate) return null;
+  
+  if (reaction.description) {
+    return reaction.description;
+  }
+  
+  return null;
 }
 
 function findReactionsProducing(compound: string): ChemicalReaction[] {
@@ -429,6 +455,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
         position: { x: START_X + LAYER_WIDTH * 2, y },
       });
     } else {
+      const precipitateInfo = extractPrecipitateInfo(formula, targetReaction);
       nodes.push({
         id: key,
         type: "compound",
@@ -436,6 +463,8 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
           label,
           nodeType: "compound",
           color: typeColor,
+          hasPrecipitate: !!precipitateInfo,
+          precipitateInfo: precipitateInfo || undefined,
         },
         position: { x: START_X + LAYER_WIDTH * 2, y },
       });
@@ -836,6 +865,7 @@ export function expandCompoundPredecessors(
           position: { x, y },
         });
       } else {
+        const precipitateInfo = extractPrecipitateInfo(formula, bestProducer);
         newNodes.push({
           id: targetKey,
           type: "compound",
@@ -843,6 +873,8 @@ export function expandCompoundPredecessors(
             label,
             nodeType: "compound",
             color: "#64748b",
+            hasPrecipitate: !!precipitateInfo,
+            precipitateInfo: precipitateInfo || undefined,
           },
           position: { x, y },
         });
@@ -853,6 +885,8 @@ export function expandCompoundPredecessors(
             label,
             nodeType: "compound",
             color: "#64748b",
+            hasPrecipitate: !!precipitateInfo,
+            precipitateInfo: precipitateInfo || undefined,
           },
           position: { x, y },
         });

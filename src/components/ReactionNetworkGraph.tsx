@@ -7,6 +7,7 @@ import {
   useEdgesState,
   type Edge,
   type Node,
+  type NodeProps,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { X, ZoomIn, Maximize2, Network } from "lucide-react";
@@ -29,10 +30,27 @@ import {
 } from "@/data/reactionGraph";
 import { REACTIONS } from "@/data/reactions";
 import AIExplainModal from "./AIExplainModal";
+import PrecipitateModal from "./PrecipitateModal";
+import { createContext, useContext } from "react";
+
+interface PrecipitateContextType {
+  onPrecipitateClick: (info: string) => void;
+}
+
+const PrecipitateContext = createContext<PrecipitateContextType>({
+  onPrecipitateClick: () => {},
+});
+
+const usePrecipitate = () => useContext(PrecipitateContext);
+
+function CompoundNodeWrapper(props: NodeProps<Node<NodeData, "compound">>) {
+  const { onPrecipitateClick } = usePrecipitate();
+  return <CompoundNode {...props} onPrecipitateClick={onPrecipitateClick} />;
+}
 
 const nodeTypes = {
   element: ElementNode,
-  compound: CompoundNode,
+  compound: CompoundNodeWrapper,
   reaction: ReactionNode,
 };
 
@@ -75,6 +93,12 @@ export default function ReactionNetworkGraph({
   } | null>(null);
 
   const [expandedFormulas, setExpandedFormulas] = useState<Set<string>>(new Set());
+
+  const [precipitateModalData, setPrecipitateModalData] = useState<string | null>(null);
+
+  const handlePrecipitateClick = useCallback((info: string) => {
+    setPrecipitateModalData(info);
+  }, []);
 
   const reaction = useMemo(
     () => REACTIONS.find((r) => r.id === reactionId),
@@ -326,30 +350,32 @@ export default function ReactionNetworkGraph({
         </div>
 
         <div className="relative flex-1 overflow-hidden">
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onNodeClick={handleNodeClick}
-            onPaneClick={handlePaneClick}
-            onEdgeClick={handleEdgeClick}
-            nodeTypes={nodeTypes}
-            fitView
-            fitViewOptions={{ padding: 0.2 }}
-            minZoom={0.2}
-            maxZoom={2}
-            onlyRenderVisibleElements
-            colorMode="dark"
-            proOptions={{ hideAttribution: true }}
-          >
-            <Background color="#1e293b" gap={20} size={1} />
-            <Controls
-              className="!border-slate-700 !bg-slate-900"
-              position="bottom-right"
-            />
+          <PrecipitateContext.Provider value={{ onPrecipitateClick: handlePrecipitateClick }}>
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              onNodeClick={handleNodeClick}
+              onPaneClick={handlePaneClick}
+              onEdgeClick={handleEdgeClick}
+              nodeTypes={nodeTypes}
+              fitView
+              fitViewOptions={{ padding: 0.2 }}
+              minZoom={0.2}
+              maxZoom={2}
+              onlyRenderVisibleElements
+              colorMode="dark"
+              proOptions={{ hideAttribution: true }}
+            >
+              <Background color="#1e293b" gap={20} size={1} />
+              <Controls
+                className="!border-slate-700 !bg-slate-900"
+                position="bottom-right"
+              />
 
-          </ReactFlow>
+            </ReactFlow>
+          </PrecipitateContext.Provider>
 
           <div className="absolute left-3 top-3 rounded-lg border border-slate-700 bg-slate-900/90 px-2.5 py-2 backdrop-blur">
             <div className="flex flex-wrap items-center gap-2">
@@ -374,6 +400,12 @@ export default function ReactionNetworkGraph({
           ionicEquation={aiModalData.ionicEquation}
         />
       )}
+
+      <PrecipitateModal
+        isOpen={!!precipitateModalData}
+        onClose={() => setPrecipitateModalData(null)}
+        info={precipitateModalData || ""}
+      />
     </div>
   );
 }
