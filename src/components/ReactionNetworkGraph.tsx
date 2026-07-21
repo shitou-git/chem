@@ -345,11 +345,9 @@ export default function ReactionNetworkGraph({
           </ReactFlow>
 
           <div className="absolute left-4 top-4 rounded-lg border border-slate-700 bg-slate-900/90 p-3 backdrop-blur">
-            <div className="mb-1 text-xs font-medium text-slate-300">
-              {currentProductName}
-            </div>
-            <div className="mb-1 text-xs text-slate-400">
-              {currentEquation}
+            <div className="mb-1 flex items-center gap-3">
+              <span className="text-xs font-medium text-slate-300">{currentProductName}</span>
+              <span className="text-xs text-slate-400">{currentEquation}</span>
             </div>
             <div className="text-xs text-slate-500">
               点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释
