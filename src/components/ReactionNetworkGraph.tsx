@@ -95,13 +95,15 @@ export default function ReactionNetworkGraph({
     initialEdges
   );
   const [, setSelectedNodeId] = useState<string | null>(null);
+  const [currentProductName, setCurrentProductName] = useState<string>(reaction?.productName || "");
 
   useEffect(() => {
     setNodes(initialNodes);
     setEdges(initialEdges);
     setSelectedNodeId(null);
     setExpandedFormulas(new Set());
-  }, [initialNodes, initialEdges, setNodes, setEdges]);
+    setCurrentProductName(reaction?.productName || "");
+  }, [initialNodes, initialEdges, setNodes, setEdges, reaction]);
 
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node<NodeData>) => {
@@ -186,6 +188,10 @@ export default function ReactionNetworkGraph({
           
           return;
         }
+      }
+
+      if (node.data.nodeType === "reaction" && node.data.productName) {
+        setCurrentProductName(node.data.productName);
       }
 
       setSelectedNodeId(node.id);
@@ -333,7 +339,7 @@ export default function ReactionNetworkGraph({
 
           <div className="absolute left-4 top-4 rounded-lg border border-slate-700 bg-slate-900/90 p-3 backdrop-blur">
             <div className="mb-1 text-xs font-medium text-slate-300">
-              {reaction.productName}
+              {currentProductName}
             </div>
             <div className="text-xs text-slate-500">
               点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释
