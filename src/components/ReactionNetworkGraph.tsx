@@ -271,39 +271,40 @@ export default function ReactionNetworkGraph({
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur">
       <div className="flex h-full flex-col">
-        <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4">
-          <div className="flex items-center gap-3">
-            <Network className="h-6 w-6 text-fuchsia-400" />
-            <h2 className="text-xl font-bold text-slate-100">反应网络图</h2>
-            <span className="rounded-full bg-slate-800 px-3 py-1 text-xs text-slate-400">
+        <div className="flex flex-col border-b border-slate-800 px-4 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Network className="h-5 w-5 text-fuchsia-400" />
+              <h2 className="text-base font-bold text-slate-100">反应网络图</h2>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="hidden items-center gap-2 text-xs text-slate-500 sm:flex">
+                <ZoomIn className="h-3 w-3" />
+                <span>滚轮缩放</span>
+                <Maximize2 className="ml-2 h-3 w-3" />
+                <span>拖拽平移</span>
+              </div>
+              <button
+                onClick={onClose}
+                className="rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-800 hover:text-slate-200"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <span className="rounded bg-slate-800/80 px-2 py-0.5 text-xs text-slate-400">
               {reaction.equation}
             </span>
-          </div>
-          <button
-            onClick={onClose}
-            className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-800 hover:text-slate-200"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-
-        <div className="flex items-center gap-4 border-b border-slate-800 px-6 py-3">
-          <div className="flex items-center gap-2 text-xs text-slate-400">
-            <span className="rounded bg-slate-800 px-2 py-1">
-              反应类型：{reaction.type ?? "其他"}
+            <span className="rounded bg-slate-800/80 px-2 py-0.5 text-xs text-slate-400">
+              {reaction.type ?? "其他"}
             </span>
-            <span className="rounded bg-slate-800 px-2 py-1">
-              条件：{reaction.condition}
+            <span className="rounded bg-slate-800/80 px-2 py-0.5 text-xs text-slate-400">
+              {reaction.condition}
             </span>
-            <span className="rounded bg-slate-800 px-2 py-1">
-              {nodes.length} 个节点 · {edges.length} 条连线
+            <span className="rounded bg-slate-800/80 px-2 py-0.5 text-xs text-slate-400">
+              {nodes.length}节点 · {edges.length}连线
             </span>
-          </div>
-          <div className="ml-auto flex items-center gap-2 text-xs text-slate-500">
-            <ZoomIn className="h-4 w-4" />
-            <span>滚轮缩放</span>
-            <Maximize2 className="ml-2 h-4 w-4" />
-            <span>拖拽平移</span>
           </div>
         </div>
 
@@ -333,12 +334,12 @@ export default function ReactionNetworkGraph({
 
           </ReactFlow>
 
-          <div className="absolute left-4 top-4 rounded-lg border border-slate-700 bg-slate-900/90 p-3 backdrop-blur">
-            <div className="mb-1 flex items-center gap-3">
+          <div className="absolute left-3 top-3 rounded-lg border border-slate-700 bg-slate-900/90 px-2.5 py-2 backdrop-blur">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-medium text-slate-300">{currentProductName}</span>
               <span className="text-xs text-slate-400">{currentEquation}</span>
             </div>
-            <div className="text-xs text-slate-500">
+            <div className="mt-1 text-xs text-slate-500">
               点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释
             </div>
           </div>
