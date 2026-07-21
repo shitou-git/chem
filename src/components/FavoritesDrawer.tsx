@@ -4,7 +4,7 @@ import { useChemStore, type SavedReaction } from "@/store/chemStore";
 import { cn } from "@/lib/utils";
 
 export default function FavoritesDrawer() {
-  const { savedReactions, removeSavedReaction, loadSavedReaction } = useChemStore();
+  const { savedReactions, removeSavedReaction, loadSavedReaction, networkViewOpen } = useChemStore();
   const [isOpen, setIsOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -59,19 +59,21 @@ export default function FavoritesDrawer() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-purple-500/40 bg-slate-900/90 text-purple-400 shadow-lg backdrop-blur transition hover:scale-110 hover:bg-purple-500/15 md:bottom-8 md:right-8"
-        aria-label="打开收藏夹"
-      >
-        <Bookmark className="h-5 w-5" />
-        {savedReactions.length > 0 && (
-          <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-purple-500 text-[10px] font-bold text-white">
-            {savedReactions.length}
-          </span>
-        )}
-      </button>
+      {!networkViewOpen && (
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className="fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-purple-500/40 bg-slate-900/90 text-purple-400 shadow-lg backdrop-blur transition hover:scale-110 hover:bg-purple-500/15 md:bottom-8 md:right-8"
+          aria-label="打开收藏夹"
+        >
+          <Bookmark className="h-5 w-5" />
+          {savedReactions.length > 0 && (
+            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-purple-500 text-[10px] font-bold text-white">
+              {savedReactions.length}
+            </span>
+          )}
+        </button>
+      )}
 
       <div
         className={cn(
