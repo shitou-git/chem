@@ -87,7 +87,7 @@ function normalizeEquation(eq: string): string {
     .replace(/[₀-₉]/g, (ch) => SUBSCRIPT_MAP[ch] ?? ch)
     .replace(/[⁰-⁹⁺⁻]/g, (ch) => SUPERSCRIPT_MAP[ch] ?? ch)
     .replace(/[↑↓]/g, "")
-    .replace(/[\[\]]/g, "")
+    .replace(/[[\]]/g, "")
     .replace(/\(浓\)|\(稀\)|\(熔融\)/g, "")
     .toLowerCase();
 }
