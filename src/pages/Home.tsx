@@ -24,6 +24,7 @@ export default function Home() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState<string | null>(null);
+  const [showTypeDropdown, setShowTypeDropdown] = useState(false);
   const tableRef = useRef<HTMLDivElement>(null);
 
   const selectedSymbols = useMemo(
@@ -85,6 +86,20 @@ export default function Home() {
       }
     }
   }, [selectedElements, reactiveSymbols, matchedReactions, setMessage, highlightMode, searchOverride]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".relative")) {
+        setShowTypeDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleElementClick = (symbol: string) => {
     // 点击元素时清除搜索覆盖模式，恢复正常联动
@@ -256,23 +271,61 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="flex w-full flex-nowrap items-center justify-end gap-1 md:w-96 md:justify-start">
+            <div className="relative">
               <span className="text-xs text-slate-500">按类型：</span>
-              {REACTION_TYPES.map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => handleSearch(t)}
+              <button
+                type="button"
+                onClick={() => setShowTypeDropdown(!showTypeDropdown)}
+                className={cn(
+                  "ml-1 inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-900/80 px-3 py-1 text-xs text-slate-300 transition hover:border-slate-500",
+                  showTypeDropdown && "border-cyan-500 bg-cyan-500/10"
+                )}
+              >
+                {searchQuery.trim() && REACTION_TYPES.includes(searchQuery as any)
+                  ? searchQuery
+                  : "选择类型"}
+                <svg
                   className={cn(
-                    "rounded-full border px-2 py-0.5 text-xs transition",
-                    searchQuery.trim() === t
-                      ? "border-cyan-500 bg-cyan-500/20 text-cyan-300"
-                      : "border-slate-700 bg-slate-900/50 text-slate-400 hover:border-slate-500 hover:text-slate-200"
+                    "h-3 w-3 transition-transform",
+                    showTypeDropdown && "rotate-180"
                   )}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  {t}
-                </button>
-              ))}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {showTypeDropdown && (
+                <div className="absolute right-0 top-full z-50 mt-1 min-w-[120px] rounded-lg border border-slate-700 bg-slate-900/95 shadow-xl backdrop-blur">
+                  <div className="p-1">
+                    {REACTION_TYPES.map((t) => (
+                      <button
+                        key={t}
+                        type="button"
+                        onClick={() => {
+                          handleSearch(t);
+                          setShowTypeDropdown(false);
+                        }}
+                        className={cn(
+                          "w-full rounded-md px-3 py-1.5 text-left text-xs transition",
+                          searchQuery.trim() === t
+                            ? "bg-cyan-500/20 text-cyan-300"
+                            : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                        )}
+                      >
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
