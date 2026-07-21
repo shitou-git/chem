@@ -37,12 +37,14 @@ function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) 
         type="target"
         position={Position.Left}
         className="!h-2 !w-2 !border-slate-700 !bg-slate-800"
+        isConnectable={false}
       />
       <span className="z-10 whitespace-nowrap">{label}</span>
       <Handle
         type="source"
         position={Position.Right}
         className="!h-2 !w-2 !border-slate-700 !bg-slate-800"
+        isConnectable={false}
       />
     </div>
   );

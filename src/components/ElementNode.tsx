@@ -24,6 +24,7 @@ function ElementNodeComponent({ data, selected }: NodeProps<ElementNodeType>) {
         type="target"
         position={Position.Left}
         className="!h-2 !w-2 !border-slate-700 !bg-slate-800"
+        isConnectable={false}
       />
       <span className="z-10">{label}</span>
       {element && (
@@ -35,6 +36,7 @@ function ElementNodeComponent({ data, selected }: NodeProps<ElementNodeType>) {
         type="source"
         position={Position.Right}
         className="!h-2 !w-2 !border-slate-700 !bg-slate-800"
+        isConnectable={false}
       />
     </div>
   );
