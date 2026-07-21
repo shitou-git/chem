@@ -54,7 +54,7 @@ export default function ReactionNetworkGraph({
     ionicEquation?: string;
   } | null>(null);
 
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
+  const [expandedFormulas, setExpandedFormulas] = useState<Set<string>>(new Set());
 
   const reaction = useMemo(
     () => REACTIONS.find((r) => r.id === reactionId),
@@ -95,25 +95,30 @@ export default function ReactionNetworkGraph({
     initialEdges
   );
   const [, setSelectedNodeId] = useState<string | null>(null);
+  const [currentProductName, setCurrentProductName] = useState<string>(reaction?.productName || "");
+  const [currentEquation, setCurrentEquation] = useState<string>(reaction?.equation || "");
 
   useEffect(() => {
     setNodes(initialNodes);
     setEdges(initialEdges);
     setSelectedNodeId(null);
-    setExpandedNodes(new Set());
-  }, [initialNodes, initialEdges, setNodes, setEdges]);
+    setExpandedFormulas(new Set());
+    setCurrentProductName(reaction?.productName || "");
+    setCurrentEquation(reaction?.equation || "");
+  }, [initialNodes, initialEdges, setNodes, setEdges, reaction]);
 
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node<NodeData>) => {
       if (node.data.nodeType === "compound" && node.data.canExpand) {
-        if (!expandedNodes.has(node.id)) {
+        const formula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
+        if (!expandedFormulas.has(formula)) {
           const result = expandCompoundPredecessors(node.id, nodes, edges, reactionId);
           
           if (result.nodes.length > 0 || result.edges.length > 0 || result.updatedNodes.length > 0) {
             const nodesWithExpandInfo = result.nodes.map((n) => {
               if (n.data.nodeType === "compound") {
                 const formula = n.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
-                const canExpand = hasPredecessorReaction(formula, reactionId);
+                const canExpand = !expandedFormulas.has(formula) && hasPredecessorReaction(formula, reactionId);
                 return { ...n, data: { ...n.data, canExpand, isExpanded: false } };
               }
               return n;
@@ -137,7 +142,7 @@ export default function ReactionNetworkGraph({
               );
             }
             
-            setExpandedNodes((prev) => new Set([...prev, node.id]));
+            setExpandedFormulas((prev) => new Set([...prev, formula]));
             
             setNodes((nds) =>
               nds.map((n) => {
@@ -151,6 +156,7 @@ export default function ReactionNetworkGraph({
             return;
           }
         } else {
+          const formula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
           const result = collapseCompoundPredecessors(node.id, nodes, edges, reactionId);
           
           setNodes(() => result.remainingNodes);
@@ -176,13 +182,22 @@ export default function ReactionNetworkGraph({
             );
           }
           
-          setExpandedNodes((prev) => {
+          setExpandedFormulas((prev) => {
             const next = new Set(prev);
-            next.delete(node.id);
+            next.delete(formula);
             return next;
           });
           
           return;
+        }
+      }
+
+      if (node.data.nodeType === "reaction") {
+        if (node.data.productName) {
+          setCurrentProductName(node.data.productName);
+        }
+        if (node.data.equation) {
+          setCurrentEquation(node.data.equation);
         }
       }
 
@@ -217,7 +232,7 @@ export default function ReactionNetworkGraph({
         }))
       );
     },
-    [edges, setNodes, setEdges, expandedNodes, reactionId, nodes]
+    [edges, setNodes, setEdges, expandedFormulas, reactionId, nodes]
   );
 
   const handlePaneClick = useCallback(() => {
@@ -330,8 +345,9 @@ export default function ReactionNetworkGraph({
           </ReactFlow>
 
           <div className="absolute left-4 top-4 rounded-lg border border-slate-700 bg-slate-900/90 p-3 backdrop-blur">
-            <div className="mb-1 text-xs font-medium text-slate-300">
-              {reaction.productName}
+            <div className="mb-1 flex items-center gap-3">
+              <span className="text-xs font-medium text-slate-300">{currentProductName}</span>
+              <span className="text-xs text-slate-400">{currentEquation}</span>
             </div>
             <div className="text-xs text-slate-500">
               点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释

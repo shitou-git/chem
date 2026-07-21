@@ -16,6 +16,8 @@ export interface NodeData extends Record<string, unknown> {
   color: string;
   element?: ChemicalElement;
   canExpand?: boolean;
+  productName?: string;
+  equation?: string;
 }
 
 export interface EdgeData extends Record<string, unknown> {
@@ -30,8 +32,12 @@ export interface EdgeData extends Record<string, unknown> {
 
 const MAX_CHAIN_DEPTH = 5;
 const MAX_CHAIN_REACTIONS = 8;
-const LAYER_WIDTH = 220;
+const LAYER_WIDTH = 160;
 const NODE_HEIGHT = 90;
+const NODE_MIN_WIDTH = 80;
+const NODE_REACTION_MIN_WIDTH = 120;
+const NODE_CHAR_WIDTH = 12;
+const NODE_PADDING = 32;
 
 const DIATOMIC_ELEMENTS = new Set([
   "H₂", "O₂", "N₂", "F₂", "Cl₂", "Br₂", "I₂", "O₃", "P₄", "S₈",
@@ -59,6 +65,56 @@ function isElementLike(symbol: string): boolean {
   if (ELEMENTS.some((e) => e.symbol === cleaned)) return true;
   if (DIATOMIC_ELEMENTS.has(cleaned)) return true;
   return false;
+}
+
+function estimateNodeWidth(label: string, nodeType: "element" | "compound" | "reaction"): number {
+  if (nodeType === "element") {
+    return 56;
+  }
+  if (nodeType === "reaction") {
+    return Math.max(NODE_REACTION_MIN_WIDTH, label.length * NODE_CHAR_WIDTH + NODE_PADDING);
+  }
+  return Math.max(NODE_MIN_WIDTH, label.length * NODE_CHAR_WIDTH + NODE_PADDING);
+}
+
+function applyCollisionResolution(nodes: Node<NodeData>[]): Node<NodeData>[] {
+  if (nodes.length === 0) return nodes;
+  
+  const resolved: Node<NodeData>[] = [...nodes];
+  
+  for (let i = 0; i < resolved.length; i++) {
+    let nodeA = resolved[i];
+    const widthA = estimateNodeWidth(nodeA.data.label, nodeA.data.nodeType as "element" | "compound" | "reaction");
+    const heightA = nodeA.data.nodeType === "element" ? 56 : NODE_HEIGHT;
+
+    for (let j = i + 1; j < resolved.length; j++) {
+      let nodeB = resolved[j];
+      
+      if (Math.abs(nodeA.position.x - nodeB.position.x) > LAYER_WIDTH) continue;
+      
+      const widthB = estimateNodeWidth(nodeB.data.label, nodeB.data.nodeType as "element" | "compound" | "reaction");
+      const heightB = nodeB.data.nodeType === "element" ? 56 : NODE_HEIGHT;
+      
+      const halfWidthA = widthA / 2;
+      const halfWidthB = widthB / 2;
+      const halfHeightA = heightA / 2;
+      const halfHeightB = heightB / 2;
+      
+      const xOverlap = halfWidthA + halfWidthB - Math.abs(nodeA.position.x - nodeB.position.x);
+      const yOverlap = halfHeightA + halfHeightB - Math.abs(nodeA.position.y - nodeB.position.y);
+      
+      if (xOverlap > 0 && yOverlap > 0) {
+        const shift = Math.ceil(yOverlap / 2) + 5;
+        const center = (nodeA.position.y + nodeB.position.y) / 2;
+        nodeA = { ...nodeA, position: { ...nodeA.position, y: center - shift - halfHeightA } };
+        nodeB = { ...nodeB, position: { ...nodeB.position, y: center + shift + halfHeightB } };
+        resolved[i] = nodeA;
+        resolved[j] = nodeB;
+      }
+    }
+  }
+  
+  return resolved;
 }
 
 function getItemKey(name: string, type: "element" | "compound"): string {
@@ -345,6 +401,8 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
       label: `${targetReaction.type ?? "反应"} / ${targetReaction.condition ?? ""}`,
       nodeType: "reaction",
       color: typeColor,
+      productName: targetReaction.productName,
+      equation: targetReaction.equation,
     },
     position: { x: START_X + LAYER_WIDTH, y: reactionY },
   });
@@ -402,7 +460,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
     });
   });
 
-  return { nodes, edges };
+  return { nodes: applyCollisionResolution(nodes), edges };
 }
 
 export function getNeighborNodes(
@@ -506,6 +564,8 @@ export function expandCompoundPredecessors(
         label: `${bestProducer.type ?? "反应"} / ${bestProducer.condition ?? ""}`,
         nodeType: "reaction",
         color: typeColor,
+        productName: bestProducer.productName,
+        equation: bestProducer.equation,
       },
       position: { x: reactionX, y: reactionY },
     });
@@ -516,6 +576,8 @@ export function expandCompoundPredecessors(
         label: `${bestProducer.type ?? "反应"} / ${bestProducer.condition ?? ""}`,
         nodeType: "reaction",
         color: typeColor,
+        productName: bestProducer.productName,
+        equation: bestProducer.equation,
       },
       position: { x: reactionX, y: reactionY },
     });
@@ -529,9 +591,10 @@ export function expandCompoundPredecessors(
     nodeType: "element" | "compound"
   ): Node<NodeData> | undefined => {
     const cleanFormula = cleanCompoundLabel(formula);
+    const layerTolerance = LAYER_WIDTH / 2;
     for (const node of existingNodeMap.values()) {
       if (node.data.nodeType !== nodeType) continue;
-      if (Math.abs(node.position.x - targetX) > 1) continue;
+      if (Math.abs(node.position.x - targetX) > layerTolerance) continue;
       const nodeFormula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
       const cleanNodeFormula = cleanCompoundLabel(nodeFormula);
       if (cleanNodeFormula === cleanFormula) {
@@ -543,21 +606,37 @@ export function expandCompoundPredecessors(
   
   const hasReactantStateSymbol = leftParts.some((part) => part.label.includes("↑") || part.label.includes("↓"));
   
-  const updateNodeStateSymbol = (
+  const updateNodeLabel = (
     existingNode: Node<NodeData>,
     newLabel: string
   ): Node<NodeData> | null => {
-    if (hasReactantStateSymbol) return null;
+    let updated = false;
+    let finalLabel = existingNode.data.label;
     
-    const newStateSymbol = newLabel.match(/([↑↓])$/);
-    if (!newStateSymbol) return null;
+    const newCoefMatch = newLabel.match(/^(\d+)\s+/);
+    const newCoef = newCoefMatch ? parseInt(newCoefMatch[1], 10) : 1;
+    const oldCoefMatch = existingNode.data.label.match(/^(\d+)\s+/);
+    const oldCoef = oldCoefMatch ? parseInt(oldCoefMatch[1], 10) : 1;
     
-    if (existingNode.data.label.includes(newStateSymbol[1])) return null;
+    if (newCoef > oldCoef) {
+      const baseLabel = existingNode.data.label.replace(/^\d+\s*/, "");
+      finalLabel = `${newCoef} ${baseLabel}`;
+      updated = true;
+    }
     
-    const baseLabel = existingNode.data.label.replace(/[↑↓]$/g, "");
+    if (!hasReactantStateSymbol) {
+      const newStateSymbol = newLabel.match(/([↑↓])$/);
+      if (newStateSymbol && !finalLabel.includes(newStateSymbol[1])) {
+        finalLabel = finalLabel.replace(/[↑↓]$/g, "") + newStateSymbol[1];
+        updated = true;
+      }
+    }
+    
+    if (!updated) return null;
+    
     return {
       ...existingNode,
-      data: { ...existingNode.data, label: baseLabel + newStateSymbol[1] },
+      data: { ...existingNode.data, label: finalLabel },
     };
   };
   
@@ -566,6 +645,32 @@ export function expandCompoundPredecessors(
   
   const totalReactants = reactantElements.length + reactantCompounds.length;
   const startY = reactionY - ((totalReactants - 1) * NODE_HEIGHT) / 2;
+  
+  const findAvailableY = (
+    targetX: number,
+    preferredY: number,
+    nodeType: string
+  ): number => {
+    const occupiedYs: number[] = [];
+    for (const node of existingNodeMap.values()) {
+      if (node.data.nodeType !== nodeType) continue;
+      if (Math.abs(node.position.x - targetX) > LAYER_WIDTH / 2) continue;
+      occupiedYs.push(node.position.y);
+    }
+    
+    if (occupiedYs.length === 0) return preferredY;
+    
+    let y = preferredY;
+    const minSpacing = NODE_HEIGHT;
+    let attempts = 0;
+    while (attempts < 20) {
+      const hasConflict = occupiedYs.some((oy) => Math.abs(oy - y) < minSpacing);
+      if (!hasConflict) return y;
+      y += minSpacing;
+      attempts++;
+    }
+    return y;
+  };
   
   leftParts.forEach((part, idx) => {
     const { formula, label } = part;
@@ -580,14 +685,15 @@ export function expandCompoundPredecessors(
     );
     
     if (existingSameNode) {
-      const updatedNode = updateNodeStateSymbol(existingSameNode, label);
+      const updatedNode = updateNodeLabel(existingSameNode, label);
       if (updatedNode) {
         updatedNodes.push(updatedNode);
         existingNodeMap.set(key, updatedNode);
       }
     } else if (!existingNodeMap.has(key)) {
       const x = reactantLayerX;
-      const y = startY + idx * NODE_HEIGHT;
+      const preferredY = startY + idx * NODE_HEIGHT;
+      const y = findAvailableY(x, preferredY, nodeType);
       
       if (isEl) {
         const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
@@ -666,23 +772,30 @@ export function expandCompoundPredecessors(
   rightParts.forEach((part, idx) => {
     const { formula, label } = part;
     const isEl = isElementLike(formula);
-    const nodeType: "element" | "compound" = isEl ? "element" : "compound";
     
-    const existingSameNode = findSameNodeInLayer(formula, compoundLayerX, nodeType);
-    const targetKey = existingSameNode ? existingSameNode.id : (
-      isEl
+    const cleanProduct = cleanCompoundLabel(formula);
+    const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
+    const isTargetCompound = !isEl && cleanProduct === cleanCompoundLabelValue;
+    
+    let targetKey: string;
+    if (isTargetCompound) {
+      targetKey = compoundKey;
+    } else {
+      targetKey = isEl
         ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
-        : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`
-    );
+        : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
+    }
     
-    const x = compoundLayerX;
-    const y = compoundPosition.y;
+    const x = isTargetCompound ? compoundPosition.x : compoundLayerX;
+    const preferredY = isTargetCompound ? compoundPosition.y : compoundPosition.y;
+    const nodeType: "element" | "compound" = isEl ? "element" : "compound";
+    const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY, nodeType);
     
-    if (existingSameNode) {
-      const updatedNode = updateNodeStateSymbol(existingSameNode, label);
+    if (isTargetCompound) {
+      const updatedNode = updateNodeLabel(existingNodeMap.get(compoundKey)!, label);
       if (updatedNode) {
         updatedNodes.push(updatedNode);
-        existingNodeMap.set(targetKey, updatedNode);
+        existingNodeMap.set(compoundKey, updatedNode);
       }
     } else if (!existingNodeMap.has(targetKey)) {
       if (isEl) {
@@ -774,7 +887,7 @@ export function expandCompoundPredecessors(
     });
   }
   
-  return { nodes: newNodes, edges: newEdges, updatedNodes };
+  return { nodes: applyCollisionResolution(newNodes), edges: newEdges, updatedNodes };
 }
 
 export function collapseCompoundPredecessors(
