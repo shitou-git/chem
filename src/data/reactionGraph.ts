@@ -616,20 +616,19 @@ export function expandCompoundPredecessors(
     const oldCoef = oldCoefMatch ? parseInt(oldCoefMatch[1], 10) : 1;
     
     const newStateSymbol = newLabel.match(/([↑↓])$/);
-    const oldStateSymbol = existingNode.data.label.match(/([↑↓])$/);
+    
+    const baseLabel = existingNode.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/, "");
     
     if (newCoef !== oldCoef) {
-      const baseLabel = existingNode.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/, "");
       finalLabel = newCoef > 1 ? `${newCoef} ${baseLabel}` : baseLabel;
       updated = true;
     }
     
     if (!hasReactantStateSymbol) {
-      if (newStateSymbol && (!oldStateSymbol || oldStateSymbol[1] !== newStateSymbol[1])) {
-        finalLabel = finalLabel.replace(/[↑↓]$/, "") + newStateSymbol[1];
-        updated = true;
-      } else if (!newStateSymbol && oldStateSymbol) {
-        finalLabel = finalLabel.replace(/[↑↓]$/, "");
+      const stateSymbolPart = newStateSymbol ? newStateSymbol[1] : "";
+      const currentLabelWithoutState = finalLabel.replace(/[↑↓]$/, "");
+      if (currentLabelWithoutState + stateSymbolPart !== finalLabel) {
+        finalLabel = currentLabelWithoutState + stateSymbolPart;
         updated = true;
       }
     }
@@ -792,10 +791,20 @@ export function expandCompoundPredecessors(
     const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY, nodeType);
     
     if (isTargetCompound) {
-      const updatedNode = updateNodeLabel(existingNodeMap.get(compoundKey)!, label);
-      if (updatedNode) {
-        updatedNodes.push(updatedNode);
-        existingNodeMap.set(compoundKey, updatedNode);
+      const existingNode = existingNodeMap.get(compoundKey)!;
+      const newStateSymbol = label.match(/([↑↓])$/);
+      
+      if (!hasReactantStateSymbol) {
+        const stateSymbolPart = newStateSymbol ? newStateSymbol[1] : "";
+        const currentLabelWithoutState = existingNode.data.label.replace(/[↑↓]$/, "");
+        if (currentLabelWithoutState + stateSymbolPart !== existingNode.data.label) {
+          const updatedNode = {
+            ...existingNode,
+            data: { ...existingNode.data, label: currentLabelWithoutState + stateSymbolPart },
+          };
+          updatedNodes.push(updatedNode);
+          existingNodeMap.set(compoundKey, updatedNode);
+        }
       }
     } else if (!existingNodeMap.has(targetKey)) {
       if (isEl) {
