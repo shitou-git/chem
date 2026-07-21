@@ -13,11 +13,33 @@ function extractShortInfo(fullInfo: string): string {
   return fullInfo;
 }
 
+const colorMap: Record<string, string> = {
+  黄: "#f59e0b",
+  金: "#f59e0b",
+  蓝: "#3b82f6",
+  红: "#ef4444",
+  白: "#e2e8f0",
+  黑: "#334155",
+  绿: "#22c55e",
+  棕: "#a0522d",
+  褐: "#a0522d",
+};
+
+function extractPrecipitateColor(info: string): string | null {
+  for (const [key, value] of Object.entries(colorMap)) {
+    if (info.includes(key)) {
+      return value;
+    }
+  }
+  return null;
+}
+
 function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) {
   const { label, color, canExpand, isExpanded, hasPrecipitate, precipitateInfo } = data;
   const [showInfo, setShowInfo] = useState(false);
 
   const shortInfo = precipitateInfo ? extractShortInfo(precipitateInfo) : "";
+  const dotColor = precipitateInfo ? extractPrecipitateColor(precipitateInfo) : null;
 
   const handlePrecipitateClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -57,7 +79,8 @@ function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) 
         )}
         {hasPrecipitate && (
           <div
-            className="absolute -right-2 -top-2 z-20 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-white cursor-pointer hover:bg-blue-400 transition-colors shadow-lg"
+            className="absolute -right-2 -top-2 z-20 flex h-5 w-5 items-center justify-center rounded-full text-white cursor-pointer hover:opacity-80 transition-opacity shadow-lg"
+            style={{ backgroundColor: dotColor || "#3b82f6" }}
             onClick={handlePrecipitateClick}
             title="查看沉淀信息"
           >
