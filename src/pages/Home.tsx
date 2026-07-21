@@ -236,7 +236,7 @@ export default function Home() {
         <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-violet-500/10 blur-3xl" />
       </div>
 
-      <header className="relative z-10 flex flex-col gap-4 px-4 pb-2 pt-6 md:px-6 md:pt-8">
+      <header className="relative z-20 flex flex-col gap-4 px-4 pb-2 pt-6 md:px-6 md:pt-8">
         <div className="flex flex-col items-center gap-3 text-center md:flex-row md:justify-between md:text-left">
           <div className="flex-shrink-0">
             <h1 className="whitespace-nowrap bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-violet-400 bg-clip-text text-xl font-bold text-transparent md:text-2xl">
