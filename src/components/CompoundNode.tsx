@@ -37,7 +37,7 @@ function extractPrecipitateColor(info: string): string {
 }
 
 function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) {
-  const { label, color, canExpand, isExpanded, hasPrecipitate, precipitateInfo } = data;
+  const { label, color, canExpand, isExpanded, hasPrecipitate, precipitateInfo, compoundName } = data;
   const [showInfo, setShowInfo] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -107,6 +107,11 @@ function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) 
           isConnectable={false}
         />
         <span className="z-10 whitespace-nowrap">{label}</span>
+        {compoundName && (
+          <span className="absolute -bottom-4 text-[10px] font-normal text-slate-500">
+            {compoundName}
+          </span>
+        )}
         <Handle
           type="source"
           position={Position.Right}

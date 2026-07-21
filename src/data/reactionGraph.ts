@@ -2,6 +2,7 @@ import type { Edge, Node } from "@xyflow/react";
 import { ELEMENTS, GROUP_COLORS, type ChemicalElement, type ElementGroup } from "./elements";
 import {
   REACTIONS,
+  COMPOUND_NAMES,
   type ChemicalReaction,
   type ReactionType,
   parseEquationLeft,
@@ -27,6 +28,7 @@ export interface NodeData extends Record<string, unknown> {
   element?: ChemicalElement;
   canExpand?: boolean;
   productName?: string;
+  compoundName?: string;
   equation?: string;
   hasPrecipitate?: boolean;
   precipitateInfo?: string;
@@ -77,6 +79,11 @@ function isElementLike(symbol: string): boolean {
   if (ELEMENTS.some((e) => e.symbol === cleaned)) return true;
   if (DIATOMIC_ELEMENTS.has(cleaned)) return true;
   return false;
+}
+
+function getCompoundName(label: string): string | undefined {
+  const formula = label.replace(/^\d+\s*/, "").replace(/[↑↓]$/, "").trim();
+  return COMPOUND_NAMES[formula];
 }
 
 function estimateNodeWidth(label: string, nodeType: "element" | "compound" | "reaction"): number {
@@ -397,6 +404,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
           label,
           nodeType: "compound",
           color: typeColor,
+          compoundName: getCompoundName(label),
         },
         position: { x: START_X, y },
       });
@@ -465,6 +473,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
           label,
           nodeType: "compound",
           color: typeColor,
+          compoundName: getCompoundName(label),
           hasPrecipitate: !!precipitateInfo,
           precipitateInfo: precipitateInfo || undefined,
         },
@@ -763,6 +772,7 @@ export function expandCompoundPredecessors(
             label,
             nodeType: "compound",
             color: "#64748b",
+            compoundName: getCompoundName(label),
           },
           position: { x, y },
         });
@@ -773,6 +783,7 @@ export function expandCompoundPredecessors(
             label,
             nodeType: "compound",
             color: "#64748b",
+            compoundName: getCompoundName(label),
           },
           position: { x, y },
         });
@@ -875,6 +886,7 @@ export function expandCompoundPredecessors(
             label,
             nodeType: "compound",
             color: "#64748b",
+            compoundName: getCompoundName(label),
             hasPrecipitate: !!precipitateInfo,
             precipitateInfo: precipitateInfo || undefined,
           },
@@ -887,6 +899,7 @@ export function expandCompoundPredecessors(
             label,
             nodeType: "compound",
             color: "#64748b",
+            compoundName: getCompoundName(label),
             hasPrecipitate: !!precipitateInfo,
             precipitateInfo: precipitateInfo || undefined,
           },
