@@ -202,22 +202,24 @@ function extractPrecipitateInfo(
   reaction: ChemicalReaction
 ): string | null {
   const cleanFormula = cleanCompoundLabel(formula);
-  const rightParts = parseEquationRight(reaction.equation);
+  const arrow = getEquationArrow(reaction.equation);
+  const rightSide = reaction.equation.split(arrow)[1].trim();
+  const rightParts = rightSide.split("+").map((p) => p.trim());
   const hasPrecipitate = rightParts.some((p) => p.includes("↓"));
-  
+
   if (!hasPrecipitate) return null;
-  
+
   const productHasPrecipitate = rightParts.some((p) => {
-    const clean = cleanCompoundLabel(p.replace(/↓$/g, ""));
+    const clean = cleanCompoundLabel(p.replace(/[↑↓]$/, "").replace(/^\d+/, "").replace(/\(浓\)|\(稀\)|\(熔融\)/g, "").trim());
     return clean === cleanFormula && p.includes("↓");
   });
-  
+
   if (!productHasPrecipitate) return null;
-  
+
   if (reaction.description) {
     return reaction.description;
   }
-  
+
   return null;
 }
 
