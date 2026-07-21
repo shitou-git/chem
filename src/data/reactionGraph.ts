@@ -568,6 +568,32 @@ export function expandCompoundPredecessors(
   const totalReactants = reactantElements.length + reactantCompounds.length;
   const startY = reactionY - ((totalReactants - 1) * NODE_HEIGHT) / 2;
   
+  const findAvailableY = (
+    targetX: number,
+    preferredY: number,
+    nodeType: string
+  ): number => {
+    const occupiedYs: number[] = [];
+    for (const node of existingNodeMap.values()) {
+      if (node.data.nodeType !== nodeType) continue;
+      if (Math.abs(node.position.x - targetX) > LAYER_WIDTH / 2) continue;
+      occupiedYs.push(node.position.y);
+    }
+    
+    if (occupiedYs.length === 0) return preferredY;
+    
+    let y = preferredY;
+    const minSpacing = NODE_HEIGHT;
+    let attempts = 0;
+    while (attempts < 20) {
+      const hasConflict = occupiedYs.some((oy) => Math.abs(oy - y) < minSpacing);
+      if (!hasConflict) return y;
+      y += minSpacing;
+      attempts++;
+    }
+    return y;
+  };
+  
   leftParts.forEach((part, idx) => {
     const { formula, label } = part;
     const isEl = isElementLike(formula);
@@ -588,7 +614,8 @@ export function expandCompoundPredecessors(
       }
     } else if (!existingNodeMap.has(key)) {
       const x = reactantLayerX;
-      const y = startY + idx * NODE_HEIGHT;
+      const preferredY = startY + idx * NODE_HEIGHT;
+      const y = findAvailableY(x, preferredY, nodeType);
       
       if (isEl) {
         const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
@@ -682,7 +709,9 @@ export function expandCompoundPredecessors(
     }
     
     const x = isTargetCompound ? compoundPosition.x : compoundLayerX;
-    const y = isTargetCompound ? compoundPosition.y : compoundPosition.y;
+    const preferredY = isTargetCompound ? compoundPosition.y : compoundPosition.y;
+    const nodeType: "element" | "compound" = isEl ? "element" : "compound";
+    const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY, nodeType);
     
     if (isTargetCompound) {
       const updatedNode = updateNodeStateSymbol(existingNodeMap.get(compoundKey)!, label);
