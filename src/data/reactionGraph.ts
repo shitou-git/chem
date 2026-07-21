@@ -544,21 +544,37 @@ export function expandCompoundPredecessors(
   
   const hasReactantStateSymbol = leftParts.some((part) => part.label.includes("↑") || part.label.includes("↓"));
   
-  const updateNodeStateSymbol = (
+  const updateNodeLabel = (
     existingNode: Node<NodeData>,
     newLabel: string
   ): Node<NodeData> | null => {
-    if (hasReactantStateSymbol) return null;
+    let updated = false;
+    let finalLabel = existingNode.data.label;
     
-    const newStateSymbol = newLabel.match(/([↑↓])$/);
-    if (!newStateSymbol) return null;
+    const newCoefMatch = newLabel.match(/^(\d+)\s+/);
+    const newCoef = newCoefMatch ? parseInt(newCoefMatch[1], 10) : 1;
+    const oldCoefMatch = existingNode.data.label.match(/^(\d+)\s+/);
+    const oldCoef = oldCoefMatch ? parseInt(oldCoefMatch[1], 10) : 1;
     
-    if (existingNode.data.label.includes(newStateSymbol[1])) return null;
+    if (newCoef > oldCoef) {
+      const baseLabel = existingNode.data.label.replace(/^\d+\s*/, "");
+      finalLabel = `${newCoef} ${baseLabel}`;
+      updated = true;
+    }
     
-    const baseLabel = existingNode.data.label.replace(/[↑↓]$/g, "");
+    if (!hasReactantStateSymbol) {
+      const newStateSymbol = newLabel.match(/([↑↓])$/);
+      if (newStateSymbol && !finalLabel.includes(newStateSymbol[1])) {
+        finalLabel = finalLabel.replace(/[↑↓]$/g, "") + newStateSymbol[1];
+        updated = true;
+      }
+    }
+    
+    if (!updated) return null;
+    
     return {
       ...existingNode,
-      data: { ...existingNode.data, label: baseLabel + newStateSymbol[1] },
+      data: { ...existingNode.data, label: finalLabel },
     };
   };
   
@@ -607,7 +623,7 @@ export function expandCompoundPredecessors(
     );
     
     if (existingSameNode) {
-      const updatedNode = updateNodeStateSymbol(existingSameNode, label);
+      const updatedNode = updateNodeLabel(existingSameNode, label);
       if (updatedNode) {
         updatedNodes.push(updatedNode);
         existingNodeMap.set(key, updatedNode);
@@ -714,7 +730,7 @@ export function expandCompoundPredecessors(
     const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY, nodeType);
     
     if (isTargetCompound) {
-      const updatedNode = updateNodeStateSymbol(existingNodeMap.get(compoundKey)!, label);
+      const updatedNode = updateNodeLabel(existingNodeMap.get(compoundKey)!, label);
       if (updatedNode) {
         updatedNodes.push(updatedNode);
         existingNodeMap.set(compoundKey, updatedNode);
