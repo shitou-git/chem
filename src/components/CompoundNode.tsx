@@ -25,13 +25,15 @@ const colorMap: Record<string, string> = {
   褐: "#a0522d",
 };
 
-function extractPrecipitateColor(info: string): string | null {
+const DEFAULT_PRECIPITATE_COLOR = "#9ca3af";
+
+function extractPrecipitateColor(info: string): string {
   for (const [key, value] of Object.entries(colorMap)) {
     if (info.includes(key)) {
       return value;
     }
   }
-  return null;
+  return DEFAULT_PRECIPITATE_COLOR;
 }
 
 function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) {
@@ -40,7 +42,7 @@ function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) 
   const containerRef = useRef<HTMLDivElement>(null);
 
   const shortInfo = precipitateInfo ? extractShortInfo(precipitateInfo) : "";
-  const dotColor = precipitateInfo ? extractPrecipitateColor(precipitateInfo) : null;
+  const dotColor = precipitateInfo ? extractPrecipitateColor(precipitateInfo) : DEFAULT_PRECIPITATE_COLOR;
 
   const handlePrecipitateClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -91,7 +93,7 @@ function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) 
         {hasPrecipitate && (
           <div
             className="absolute -right-2 -top-2 z-20 flex h-5 w-5 items-center justify-center rounded-full text-white cursor-pointer hover:opacity-80 transition-opacity shadow-lg"
-            style={{ backgroundColor: dotColor || "#3b82f6" }}
+            style={{ backgroundColor: dotColor }}
             onClick={handlePrecipitateClick}
             title="查看沉淀信息"
           >
