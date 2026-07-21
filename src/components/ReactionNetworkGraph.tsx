@@ -294,12 +294,6 @@ export default function ReactionNetworkGraph({
           </div>
           <div className="mt-2 flex flex-wrap items-center gap-1.5">
             <span className="rounded bg-slate-800/80 px-2 py-0.5 text-xs text-slate-400">
-              {reaction.equation}
-            </span>
-            <span className="rounded bg-slate-800/80 px-2 py-0.5 text-xs text-slate-400">
-              {reaction.type ?? "其他"}
-            </span>
-            <span className="rounded bg-slate-800/80 px-2 py-0.5 text-xs text-slate-400">
               {reaction.condition}
             </span>
             <span className="rounded bg-slate-800/80 px-2 py-0.5 text-xs text-slate-400">
