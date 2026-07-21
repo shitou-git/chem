@@ -3,7 +3,6 @@ import {
   ReactFlow,
   Background,
   Controls,
-  MiniMap,
   useNodesState,
   useEdgesState,
   type Edge,
@@ -336,12 +335,7 @@ export default function ReactionNetworkGraph({
               className="!border-slate-700 !bg-slate-900"
               position="bottom-right"
             />
-            <MiniMap
-              className="!border-slate-700 !bg-slate-900"
-              nodeColor={(node) => (node.data as NodeData).color || "#64748b"}
-              maskColor="rgba(15, 23, 42, 0.7)"
-              position="bottom-left"
-            />
+
           </ReactFlow>
 
           <div className="absolute left-4 top-4 rounded-lg border border-slate-700 bg-slate-900/90 p-3 backdrop-blur">
