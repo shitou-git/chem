@@ -69,7 +69,7 @@ function isElementLike(symbol: string): boolean {
 
 function estimateNodeWidth(label: string, nodeType: "element" | "compound" | "reaction"): number {
   if (nodeType === "element") {
-    return 56;
+    return Math.max(56, label.length * NODE_CHAR_WIDTH + NODE_PADDING);
   }
   if (nodeType === "reaction") {
     return Math.max(NODE_REACTION_MIN_WIDTH, label.length * NODE_CHAR_WIDTH + NODE_PADDING);

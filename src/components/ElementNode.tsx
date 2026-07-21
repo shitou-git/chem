@@ -10,9 +10,9 @@ function ElementNodeComponent({ data, selected }: NodeProps<ElementNodeType>) {
   return (
     <div
       className={`
-        relative flex h-14 w-14 items-center justify-center
+        relative flex h-14 min-w-[56px] items-center justify-center
         rounded-lg border-2 bg-slate-900/95 font-bold text-lg
-        transition-all duration-200
+        px-3 transition-all duration-200 whitespace-nowrap
         ${selected ? "border-cyan-400 ring-2 ring-cyan-400/50 scale-110" : "border-slate-700"}
       `}
       style={{
