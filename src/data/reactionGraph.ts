@@ -30,7 +30,7 @@ export interface EdgeData extends Record<string, unknown> {
 
 const MAX_CHAIN_DEPTH = 5;
 const MAX_CHAIN_REACTIONS = 8;
-const LAYER_WIDTH = 220;
+const LAYER_WIDTH = 110;
 const NODE_HEIGHT = 90;
 
 const DIATOMIC_ELEMENTS = new Set([
