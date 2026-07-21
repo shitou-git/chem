@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Handle, Position, type NodeProps, type Node } from "@xyflow/react";
 import { ChevronLeft, ChevronRight, Info } from "lucide-react";
 import type { NodeData } from "@/data/reactionGraph";
@@ -37,6 +37,7 @@ function extractPrecipitateColor(info: string): string | null {
 function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) {
   const { label, color, canExpand, isExpanded, hasPrecipitate, precipitateInfo } = data;
   const [showInfo, setShowInfo] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const shortInfo = precipitateInfo ? extractShortInfo(precipitateInfo) : "";
   const dotColor = precipitateInfo ? extractPrecipitateColor(precipitateInfo) : null;
@@ -46,12 +47,23 @@ function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) 
     setShowInfo((prev) => !prev);
   }, []);
 
-  const handleNodeClick = useCallback(() => {
-    setShowInfo(false);
-  }, []);
+  useEffect(() => {
+    if (!showInfo) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as globalThis.Node)) {
+        setShowInfo(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, [showInfo]);
 
   return (
-    <div className="relative" onClick={handleNodeClick}>
+    <div className="relative" ref={containerRef}>
       <div
         className={`
           relative flex items-center justify-center
