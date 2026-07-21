@@ -96,6 +96,7 @@ export default function ReactionNetworkGraph({
   );
   const [, setSelectedNodeId] = useState<string | null>(null);
   const [currentProductName, setCurrentProductName] = useState<string>(reaction?.productName || "");
+  const [currentEquation, setCurrentEquation] = useState<string>(reaction?.equation || "");
 
   useEffect(() => {
     setNodes(initialNodes);
@@ -103,6 +104,7 @@ export default function ReactionNetworkGraph({
     setSelectedNodeId(null);
     setExpandedFormulas(new Set());
     setCurrentProductName(reaction?.productName || "");
+    setCurrentEquation(reaction?.equation || "");
   }, [initialNodes, initialEdges, setNodes, setEdges, reaction]);
 
   const handleNodeClick = useCallback(
@@ -190,8 +192,13 @@ export default function ReactionNetworkGraph({
         }
       }
 
-      if (node.data.nodeType === "reaction" && node.data.productName) {
-        setCurrentProductName(node.data.productName);
+      if (node.data.nodeType === "reaction") {
+        if (node.data.productName) {
+          setCurrentProductName(node.data.productName);
+        }
+        if (node.data.equation) {
+          setCurrentEquation(node.data.equation);
+        }
       }
 
       setSelectedNodeId(node.id);
@@ -340,6 +347,9 @@ export default function ReactionNetworkGraph({
           <div className="absolute left-4 top-4 rounded-lg border border-slate-700 bg-slate-900/90 p-3 backdrop-blur">
             <div className="mb-1 text-xs font-medium text-slate-300">
               {currentProductName}
+            </div>
+            <div className="mb-1 text-xs text-slate-400">
+              {currentEquation}
             </div>
             <div className="text-xs text-slate-500">
               点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释

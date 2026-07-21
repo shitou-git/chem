@@ -17,6 +17,7 @@ export interface NodeData extends Record<string, unknown> {
   element?: ChemicalElement;
   canExpand?: boolean;
   productName?: string;
+  equation?: string;
 }
 
 export interface EdgeData extends Record<string, unknown> {
@@ -401,6 +402,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
       nodeType: "reaction",
       color: typeColor,
       productName: targetReaction.productName,
+      equation: targetReaction.equation,
     },
     position: { x: START_X + LAYER_WIDTH, y: reactionY },
   });
@@ -563,6 +565,7 @@ export function expandCompoundPredecessors(
         nodeType: "reaction",
         color: typeColor,
         productName: bestProducer.productName,
+        equation: bestProducer.equation,
       },
       position: { x: reactionX, y: reactionY },
     });
@@ -574,6 +577,7 @@ export function expandCompoundPredecessors(
         nodeType: "reaction",
         color: typeColor,
         productName: bestProducer.productName,
+        equation: bestProducer.equation,
       },
       position: { x: reactionX, y: reactionY },
     });
