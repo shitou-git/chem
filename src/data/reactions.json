@@ -1130,12 +1130,12 @@
       "H",
       "S"
     ],
-    "product": "CaSO₄↓ + H₂O",
+    "product": "CaSO₄ + H₂O",
     "productName": "硫酸钙和水",
-    "equation": "Ca(OH)₂ + H₂SO₄ → CaSO₄↓ + 2H₂O",
+    "equation": "Ca(OH)₂ + H₂SO₄ → CaSO₄ + 2H₂O",
     "condition": "常温",
-    "description": "氢氧化钙与硫酸发生中和反应。",
-    "ionicEquation": "Ca(OH)₂ + 2H⁺ + SO₄²⁻ → CaSO₄↓ + 2H₂O"
+    "description": "氢氧化钙与硫酸发生中和反应，生成硫酸钙和水。",
+    "ionicEquation": "Ca(OH)₂ + 2H⁺ + SO₄²⁻ → CaSO₄ + 2H₂O"
   },
   {
     "id": "double-cuso4-bacl2",
@@ -4709,11 +4709,11 @@
       "O",
       "Ca"
     ],
-    "product": "CaSO₄↓ + NH₃ + H₂O",
+    "product": "CaSO₄ + NH₃ + H₂O",
     "productName": "硫酸钙、氨气和水",
-    "equation": "(NH₄)₂SO₄ + Ca(OH)₂ → CaSO₄↓ + 2NH₃↑ + 2H₂O",
+    "equation": "(NH₄)₂SO₄ + Ca(OH)₂ → CaSO₄ + 2NH₃↑ + 2H₂O",
     "condition": "加热",
-    "description": "硫酸铵与氢氧化钙加热制氨气，实验室制法。",
+    "description": "硫酸铵与氢氧化钙混合加热制氨气，实验室常用制法，固体混合物加热反应。",
     "ionicEquation": "NH₄⁺ + OH⁻ → NH₃↑ + H₂O"
   },
   {
@@ -6318,11 +6318,11 @@
     "reactants": [
       "Pb"
     ],
-    "product": "PbCl₂↓",
-    "productName": "氯化铅",
-    "equation": "Pb+2HCl → PbCl₂↓ + H₂↑",
+    "product": "PbCl₂ + H₂↑",
+    "productName": "氯化铅和氢气",
+    "equation": "Pb + 2HCl → PbCl₂ + H₂↑",
     "condition": "常温",
-    "description": "Pb+HCl反应生成PbCl2。"
+    "description": "铅与盐酸反应生成氯化铅和氢气，反应速率较慢，因氯化铅微溶会附着在铅表面。"
   },
   {
     "id": "cl-cu",
@@ -6467,13 +6467,14 @@
     "reactants": [
       "Ca",
       "O",
-      "S"
+      "S",
+      "H"
     ],
-    "product": "CaSO₄↓",
-    "productName": "硫酸钙",
-    "equation": "Ca(OH)₂+SO₃ → CaSO₄↓ + H₂O",
+    "product": "CaSO₄ + H₂O",
+    "productName": "硫酸钙和水",
+    "equation": "Ca(OH)₂ + SO₃ → CaSO₄ + H₂O",
     "condition": "常温",
-    "description": "Ca(OH)2+SO3反应生成CaSO4。"
+    "description": "氢氧化钙与三氧化硫反应生成硫酸钙和水。"
   },
   {
     "id": "ca-n-o",
@@ -6851,11 +6852,11 @@
       "H",
       "O"
     ],
-    "product": "Ag₂O↓",
-    "productName": "氧化银",
-    "equation": "2AgOH → Ag₂O↓ + H₂O（AgNO₃ 溶液中加入少量氨水）",
+    "product": "Ag₂O + H₂O",
+    "productName": "氧化银和水",
+    "equation": "2AgOH → Ag₂O + H₂O",
     "condition": "常温",
-    "description": "AgOH反应生成Ag2O。"
+    "description": "氢氧化银不稳定，常温下迅速分解为棕褐色的氧化银和水。"
   },
   {
     "id": "h-o-zn",
