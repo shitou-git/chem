@@ -742,12 +742,12 @@
       "H",
       "Cl"
     ],
-    "product": "ZnCl₂ + H₂",
+    "product": "ZnCl₂ + H₂↑",
     "productName": "氯化锌和氢气",
-    "equation": "Zn + 2HCl → ZnCl₂ + H₂",
+    "equation": "Zn + 2HCl → ZnCl₂ + H₂↑",
     "condition": "常温",
     "description": "锌与盐酸反应生成氯化锌和氢气。",
-    "ionicEquation": "Zn + 2H⁺ → Zn²⁺ + H₂"
+    "ionicEquation": "Zn + 2H⁺ → Zn²⁺ + H₂↑"
   },
   {
     "id": "replace-fe-h",
@@ -757,12 +757,12 @@
       "H",
       "Cl"
     ],
-    "product": "FeCl₂ + H₂",
+    "product": "FeCl₂ + H₂↑",
     "productName": "氯化亚铁和氢气",
-    "equation": "Fe + 2HCl → FeCl₂ + H₂",
+    "equation": "Fe + 2HCl → FeCl₂ + H₂↑",
     "condition": "常温",
     "description": "铁与盐酸反应生成氯化亚铁和氢气。",
-    "ionicEquation": "Fe + 2H⁺ → Fe²⁺ + H₂"
+    "ionicEquation": "Fe + 2H⁺ → Fe²⁺ + H₂↑"
   },
   {
     "id": "replace-mg-h",
@@ -772,12 +772,12 @@
       "H",
       "Cl"
     ],
-    "product": "MgCl₂ + H₂",
+    "product": "MgCl₂ + H₂↑",
     "productName": "氯化镁和氢气",
-    "equation": "Mg + 2HCl → MgCl₂ + H₂",
+    "equation": "Mg + 2HCl → MgCl₂ + H₂↑",
     "condition": "常温",
     "description": "镁与盐酸反应生成氯化镁和氢气。",
-    "ionicEquation": "Mg + 2H⁺ → Mg²⁺ + H₂"
+    "ionicEquation": "Mg + 2H⁺ → Mg²⁺ + H₂↑"
   },
   {
     "id": "replace-al-h",
@@ -1032,12 +1032,12 @@
       "H",
       "Cl"
     ],
-    "product": "NaCl + H₂O + CO₂",
+    "product": "NaCl + H₂O + CO₂↑",
     "productName": "氯化钠、水和二氧化碳",
-    "equation": "Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂",
+    "equation": "Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂↑",
     "condition": "常温",
     "description": "碳酸钠与盐酸反应产生二氧化碳气体。",
-    "ionicEquation": "CO₃²⁻ + 2H⁺ → H₂O + CO₂"
+    "ionicEquation": "CO₃²⁻ + 2H⁺ → H₂O + CO₂↑"
   },
   {
     "id": "double-caco3-hcl",
@@ -1049,12 +1049,12 @@
       "H",
       "Cl"
     ],
-    "product": "CaCl₂ + H₂O + CO₂",
+    "product": "CaCl₂ + H₂O + CO₂↑",
     "productName": "氯化钙、水和二氧化碳",
-    "equation": "CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂",
+    "equation": "CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂↑",
     "condition": "常温",
     "description": "碳酸钙与盐酸反应产生二氧化碳气体。",
-    "ionicEquation": "CaCO₃ + 2H⁺ → Ca²⁺ + H₂O + CO₂"
+    "ionicEquation": "CaCO₃ + 2H⁺ → Ca²⁺ + H₂O + CO₂↑"
   },
   {
     "id": "double-cuso4-naoh",
@@ -1130,12 +1130,12 @@
       "H",
       "S"
     ],
-    "product": "CaSO₄ + H₂O",
+    "product": "CaSO₄↓ + H₂O",
     "productName": "硫酸钙和水",
-    "equation": "Ca(OH)₂ + H₂SO₄ → CaSO₄ + 2H₂O",
+    "equation": "Ca(OH)₂ + H₂SO₄ → CaSO₄↓ + 2H₂O",
     "condition": "常温",
     "description": "氢氧化钙与硫酸发生中和反应。",
-    "ionicEquation": "Ca(OH)₂ + 2H⁺ + SO₄²⁻ → CaSO₄ + 2H₂O"
+    "ionicEquation": "Ca(OH)₂ + 2H⁺ + SO₄²⁻ → CaSO₄↓ + 2H₂O"
   },
   {
     "id": "double-cuso4-bacl2",
@@ -1181,12 +1181,12 @@
       "Ba",
       "Cl"
     ],
-    "product": "BaCO₃ + NaCl",
+    "product": "BaCO₃↓ + NaCl",
     "productName": "碳酸钡和氯化钠",
-    "equation": "Na₂CO₃ + BaCl₂ → BaCO₃ + 2NaCl",
+    "equation": "Na₂CO₃ + BaCl₂ → BaCO₃↓ + 2NaCl",
     "condition": "常温",
     "description": "碳酸钠与氯化钡反应生成碳酸钡沉淀。",
-    "ionicEquation": "Ba²⁺ + CO₃²⁻ → BaCO₃"
+    "ionicEquation": "Ba²⁺ + CO₃²⁻ → BaCO₃↓"
   },
   {
     "id": "double-mgcl2-naoh",
@@ -1198,12 +1198,12 @@
       "O",
       "H"
     ],
-    "product": "Mg(OH)₂ + NaCl",
+    "product": "Mg(OH)₂↓ + NaCl",
     "productName": "氢氧化镁和氯化钠",
-    "equation": "MgCl₂ + 2NaOH → Mg(OH)₂ + 2NaCl",
+    "equation": "MgCl₂ + 2NaOH → Mg(OH)₂↓ + 2NaCl",
     "condition": "常温",
     "description": "氯化镁与氢氧化钠反应生成白色氢氧化镁沉淀。",
-    "ionicEquation": "Mg²⁺ + 2OH⁻ → Mg(OH)₂"
+    "ionicEquation": "Mg²⁺ + 2OH⁻ → Mg(OH)₂↓"
   },
   {
     "id": "double-cuso4-na2co3",
@@ -1520,9 +1520,9 @@
       "H",
       "Cl"
     ],
-    "product": "NaCl + H₂",
+    "product": "NaCl + H₂↑",
     "productName": "氯化钠和氢气",
-    "equation": "2Na + 2HCl → 2NaCl + H₂",
+    "equation": "2Na + 2HCl → 2NaCl + H₂↑",
     "condition": "常温",
     "description": "钠与盐酸剧烈反应生成氯化钠和氢气。",
     "ionicEquation": "2Na + 2H⁺ → 2Na⁺ + H₂↑"
@@ -1707,9 +1707,9 @@
       "H",
       "O"
     ],
-    "product": "Al(OH)₃ + NH₄Cl",
+    "product": "Al(OH)₃↓ + NH₄Cl",
     "productName": "氢氧化铝和氯化铵",
-    "equation": "AlCl₃ + 3NH₃·H₂O → Al(OH)₃ + 3NH₄Cl",
+    "equation": "AlCl₃ + 3NH₃·H₂O → Al(OH)₃↓ + 3NH₄Cl",
     "condition": "常温",
     "description": "实验室制备氢氧化铝，用氨水而不用强碱，防止氢氧化铝溶解。",
     "ionicEquation": "Al³⁺ + 3NH₃·H₂O → Al(OH)₃↓ + 3NH₄⁺"
@@ -1724,9 +1724,9 @@
       "H",
       "Cl"
     ],
-    "product": "Al(OH)₃ + NaCl",
+    "product": "Al(OH)₃↓ + NaCl",
     "productName": "氢氧化铝和氯化钠",
-    "equation": "NaAlO₂ + HCl + H₂O → Al(OH)₃ + NaCl",
+    "equation": "NaAlO₂ + HCl + H₂O → Al(OH)₃↓ + NaCl",
     "condition": "常温",
     "description": "向偏铝酸钠溶液中滴加少量盐酸生成氢氧化铝沉淀。",
     "ionicEquation": "AlO₂⁻ + H⁺ + H₂O → Al(OH)₃↓"
@@ -1741,9 +1741,9 @@
       "C",
       "H"
     ],
-    "product": "Al(OH)₃ + NaHCO₃",
+    "product": "Al(OH)₃↓ + NaHCO₃",
     "productName": "氢氧化铝和碳酸氢钠",
-    "equation": "NaAlO₂ + CO₂ + 2H₂O → Al(OH)₃ + NaHCO₃",
+    "equation": "NaAlO₂ + CO₂ + 2H₂O → Al(OH)₃↓ + NaHCO₃",
     "condition": "常温",
     "description": "向偏铝酸钠溶液中通入过量二氧化碳生成氢氧化铝沉淀。",
     "ionicEquation": "AlO₂⁻ + CO₂ + 2H₂O → Al(OH)₃↓ + HCO₃⁻"
@@ -2034,9 +2034,9 @@
       "O",
       "H"
     ],
-    "product": "CaSO₃ + H₂O",
+    "product": "CaSO₃↓ + H₂O",
     "productName": "亚硫酸钙和水",
-    "equation": "SO₂ + Ca(OH)₂ → CaSO₃ + H₂O",
+    "equation": "SO₂ + Ca(OH)₂ → CaSO₃↓ + H₂O",
     "condition": "常温",
     "description": "二氧化硫使澄清石灰水变浑浊，与二氧化碳现象类似。",
     "ionicEquation": "Ca²⁺ + 2OH⁻ + SO₂ → CaSO₃↓ + H₂O"
@@ -2628,12 +2628,12 @@
       "C",
       "O"
     ],
-    "product": "BaCO₃ + H₂O",
+    "product": "BaCO₃↓ + H₂O",
     "productName": "碳酸钡和水",
-    "equation": "Ba(OH)₂ + CO₂ → BaCO₃ + H₂O",
+    "equation": "Ba(OH)₂ + CO₂ → BaCO₃↓ + H₂O",
     "condition": "常温",
     "description": "氢氧化钡与二氧化碳反应生成白色碳酸钡沉淀。",
-    "ionicEquation": "Ba²⁺ + 2OH⁻ + CO₂ → BaCO₃ + H₂O"
+    "ionicEquation": "Ba²⁺ + 2OH⁻ + CO₂ → BaCO₃↓ + H₂O"
   },
   {
     "id": "ag-o-ag2o",
@@ -3200,9 +3200,9 @@
       "H",
       "Cl"
     ],
-    "product": "FeCl₂ + H₂S",
+    "product": "FeCl₂ + H₂S↑",
     "productName": "氯化亚铁和硫化氢",
-    "equation": "FeS + 2HCl → FeCl₂ + H₂S",
+    "equation": "FeS + 2HCl → FeCl₂ + H₂S↑",
     "condition": "常温",
     "description": "实验室常用硫化亚铁与稀盐酸反应制取硫化氢。",
     "ionicEquation": "FeS + 2H⁺ → Fe²⁺ + H₂S↑"
@@ -3488,9 +3488,9 @@
       "S",
       "O"
     ],
-    "product": "CuS + H₂SO₄",
+    "product": "CuS↓ + H₂SO₄",
     "productName": "硫化铜和硫酸",
-    "equation": "H₂S + CuSO₄ → CuS + H₂SO₄",
+    "equation": "H₂S + CuSO₄ → CuS↓ + H₂SO₄",
     "condition": "常温",
     "description": "硫化氢通入硫酸铜溶液生成黑色硫化铜沉淀，极难溶于酸。",
     "ionicEquation": "H₂S + Cu²⁺ → CuS↓ + 2H⁺"
@@ -3505,9 +3505,9 @@
       "N",
       "O"
     ],
-    "product": "PbS + 2HNO₃",
+    "product": "PbS↓ + 2HNO₃",
     "productName": "硫化铅和硝酸",
-    "equation": "H₂S + Pb(NO₃)₂ → PbS + 2HNO₃",
+    "equation": "H₂S + Pb(NO₃)₂ → PbS↓ + 2HNO₃",
     "condition": "常温",
     "description": "硫化氢与硝酸铅反应生成黑色硫化铅沉淀。",
     "ionicEquation": "H₂S + Pb²⁺ → PbS↓ + 2H⁺"
@@ -3522,9 +3522,9 @@
       "O",
       "H"
     ],
-    "product": "Al(OH)₃ + NaCl",
+    "product": "Al(OH)₃↓ + NaCl",
     "productName": "氢氧化铝和氯化钠",
-    "equation": "AlCl₃ + 3NaOH → Al(OH)₃ + 3NaCl",
+    "equation": "AlCl₃ + 3NaOH → Al(OH)₃↓ + 3NaCl",
     "condition": "常温",
     "description": "氯化铝与少量氢氧化钠反应生成白色氢氧化铝沉淀。",
     "ionicEquation": "Al³⁺ + 3OH⁻ → Al(OH)₃↓"
@@ -3646,9 +3646,9 @@
       "O",
       "Zn"
     ],
-    "product": "Zn(NO₃)₂ + N₂O + H₂O",
+    "product": "Zn(NO₃)₂ + N₂O↑ + H₂O",
     "productName": "硝酸锌、一氧化二氮和水",
-    "equation": "4Zn + 10HNO₃(很稀) → 4Zn(NO₃)₂ + N₂O + 5H₂O",
+    "equation": "4Zn + 10HNO₃(很稀) → 4Zn(NO₃)₂ + N₂O↑ + 5H₂O",
     "condition": "常温",
     "description": "锌与极稀硝酸反应生成一氧化二氮(笑气)。"
   },
@@ -3785,9 +3785,9 @@
       "Na",
       "H"
     ],
-    "product": "Fe(OH)₂ + Na₂SO₄",
+    "product": "Fe(OH)₂↓ + Na₂SO₄",
     "productName": "氢氧化亚铁和硫酸钠",
-    "equation": "FeSO₄ + 2NaOH → Fe(OH)₂ + Na₂SO₄",
+    "equation": "FeSO₄ + 2NaOH → Fe(OH)₂↓ + Na₂SO₄",
     "condition": "常温",
     "description": "硫酸亚铁与氢氧化钠生成白色氢氧化亚铁沉淀，迅速氧化变色。",
     "ionicEquation": "Fe²⁺ + 2OH⁻ → Fe(OH)₂↓"
@@ -3938,9 +3938,9 @@
       "Na",
       "S"
     ],
-    "product": "PbS + NaNO₃",
+    "product": "PbS↓ + NaNO₃",
     "productName": "硫化铅和硝酸钠",
-    "equation": "Pb(NO₃)₂ + Na₂S → PbS + 2NaNO₃",
+    "equation": "Pb(NO₃)₂ + Na₂S → PbS↓ + 2NaNO₃",
     "condition": "常温",
     "description": "硝酸铅与硫化钠生成黑色沉淀。",
     "ionicEquation": "Pb²⁺ + S²⁻ → PbS↓"
@@ -4559,9 +4559,9 @@
       "H",
       "Cl"
     ],
-    "product": "CrCl₂ + H₂",
+    "product": "CrCl₂ + H₂↑",
     "productName": "氯化亚铬和氢气",
-    "equation": "Cr + 2HCl → CrCl₂ + H₂",
+    "equation": "Cr + 2HCl → CrCl₂ + H₂↑",
     "condition": "常温",
     "description": "铬与稀盐酸反应生成氯化亚铬和氢气。",
     "ionicEquation": "Cr + 2H⁺ → Cr²⁺ + H₂↑"
@@ -4608,9 +4608,9 @@
       "O",
       "H"
     ],
-    "product": "Zn(OH)₂ + NaCl",
+    "product": "Zn(OH)₂↓ + NaCl",
     "productName": "氢氧化锌和氯化钠",
-    "equation": "ZnCl₂ + 2NaOH → Zn(OH)₂ + 2NaCl",
+    "equation": "ZnCl₂ + 2NaOH → Zn(OH)₂↓ + 2NaCl",
     "condition": "常温",
     "description": "氯化锌与氢氧化钠生成白色氢氧化锌沉淀。",
     "ionicEquation": "Zn²⁺ + 2OH⁻ → Zn(OH)₂↓"
@@ -4709,9 +4709,9 @@
       "O",
       "Ca"
     ],
-    "product": "CaSO₄ + NH₃ + H₂O",
+    "product": "CaSO₄↓ + NH₃ + H₂O",
     "productName": "硫酸钙、氨气和水",
-    "equation": "(NH₄)₂SO₄ + Ca(OH)₂ → CaSO₄ + 2NH₃↑ + 2H₂O",
+    "equation": "(NH₄)₂SO₄ + Ca(OH)₂ → CaSO₄↓ + 2NH₃↑ + 2H₂O",
     "condition": "加热",
     "description": "硫酸铵与氢氧化钙加热制氨气，实验室制法。",
     "ionicEquation": "NH₄⁺ + OH⁻ → NH₃↑ + H₂O"
@@ -5447,7 +5447,7 @@
     ],
     "product": "FeCl₂",
     "productName": "氯化亚铁",
-    "equation": "Fe + 2HCl → FeCl₂ + H₂",
+    "equation": "Fe + 2HCl → FeCl₂ + H₂↑",
     "condition": "常温",
     "description": "铁与稀盐酸反应生成氯化亚铁和氢气。"
   },
@@ -5809,9 +5809,9 @@
     "reactants": [
       "Na"
     ],
-    "product": "NaNH₂",
-    "productName": "氨基钠",
-    "equation": "2Na+2NH₃ → 2NaNH₂ + H₂",
+    "product": "NaNH₂ + H₂↑",
+    "productName": "氨基钠和氢气",
+    "equation": "2Na+2NH₃ → 2NaNH₂ + H₂↑",
     "condition": "常温",
     "description": "Na+NH3反应生成NaNH2。"
   },
@@ -5864,9 +5864,9 @@
       "Na",
       "O"
     ],
-    "product": "Al(OH)₃",
+    "product": "Al(OH)₃↓",
     "productName": "氢氧化铝",
-    "equation": "3NaOH+AlCl₃ → Al(OH)₃ + 3NaCl",
+    "equation": "3NaOH+AlCl₃ → Al(OH)₃↓ + 3NaCl",
     "condition": "常温",
     "description": "NaOH+AlCl3反应生成Al(OH)3。",
     "ionicEquation": "Al³⁺ + 3OH⁻ → Al(OH)₃↓"
@@ -5928,7 +5928,7 @@
     ],
     "product": "NaH₂PO₄",
     "productName": "磷酸二氢钠",
-    "equation": "NaBr+H₃PO₄(浓) → NaH₂PO₄ + HBr",
+    "equation": "NaBr+H₃PO₄(浓) → NaH₂PO₄ + HBr↑",
     "condition": "浓",
     "description": "NaBr+H3PO4反应生成NaH2PO4。"
   },
@@ -5975,7 +5975,7 @@
     ],
     "product": "KCl",
     "productName": "氯化钾",
-    "equation": "K₂CO₃+2HCl → 2KCl + CO₂ + H₂O",
+    "equation": "K₂CO₃+2HCl → 2KCl + CO₂↑ + H₂O",
     "condition": "常温",
     "description": "K2CO3+HCl反应生成KCl。"
   },
@@ -5989,9 +5989,9 @@
       "N",
       "O"
     ],
-    "product": "Ag₂CO₃",
+    "product": "Ag₂CO₃↓",
     "productName": "碳酸银",
-    "equation": "K₂CO₃+2AgNO₃ → Ag₂CO₃ + 2KNO₃",
+    "equation": "K₂CO₃+2AgNO₃ → Ag₂CO₃↓ + 2KNO₃",
     "condition": "常温",
     "description": "K2CO3+AgNO3反应生成Ag2CO3。"
   },
@@ -6066,7 +6066,7 @@
     ],
     "product": "LiCl",
     "productName": "氯化锂",
-    "equation": "Li₂CO₃+2HCl → 2LiCl + CO₂ + H₂O",
+    "equation": "Li₂CO₃+2HCl → 2LiCl + CO₂↑ + H₂O",
     "condition": "常温",
     "description": "Li2CO3+HCl反应生成LiCl。"
   },
@@ -6204,7 +6204,7 @@
     ],
     "product": "FeCl₂",
     "productName": "氯化亚铁",
-    "equation": "Fe+2HCl → FeCl₂ + H₂",
+    "equation": "Fe+2HCl → FeCl₂ + H₂↑",
     "condition": "常温",
     "description": "Fe+HCl反应生成FeCl2。"
   },
@@ -6292,7 +6292,7 @@
     ],
     "product": "BaCl₂",
     "productName": "氯化钡",
-    "equation": "BaCO₃+2HCl → BaCl₂ + CO₂ + H₂O",
+    "equation": "BaCO₃+2HCl → BaCl₂ + CO₂↑ + H₂O",
     "condition": "常温",
     "description": "BaCO3+HCl反应生成BaCl2。"
   },
@@ -6318,9 +6318,9 @@
     "reactants": [
       "Pb"
     ],
-    "product": "PbCl₂",
+    "product": "PbCl₂↓",
     "productName": "氯化铅",
-    "equation": "Pb+2HCl → PbCl₂ + H₂",
+    "equation": "Pb+2HCl → PbCl₂↓ + H₂↑",
     "condition": "常温",
     "description": "Pb+HCl反应生成PbCl2。"
   },
@@ -6363,9 +6363,9 @@
       "H",
       "S"
     ],
-    "product": "CuS",
+    "product": "CuS↓",
     "productName": "硫化铜",
-    "equation": "CuCl₂+H₂S → CuS + 2HCl",
+    "equation": "CuCl₂+H₂S → CuS↓ + 2HCl",
     "condition": "常温",
     "description": "CuCl2+H2S反应生成CuS。",
     "ionicEquation": "Cu²⁺ + H₂S → CuS↓ + 2H⁺"
@@ -6395,7 +6395,7 @@
     ],
     "product": "ZnCl₂",
     "productName": "氯化锌",
-    "equation": "Zn+2HCl → ZnCl₂ + H₂",
+    "equation": "Zn+2HCl → ZnCl₂ + H₂↑",
     "condition": "常温",
     "description": "Zn+HCl反应生成ZnCl2。"
   },
@@ -6469,15 +6469,15 @@
       "O",
       "S"
     ],
-    "product": "CaSO₄",
+    "product": "CaSO₄↓",
     "productName": "硫酸钙",
-    "equation": "Ca(OH)₂+SO₃ → CaSO₄ + H₂O",
+    "equation": "Ca(OH)₂+SO₃ → CaSO₄↓ + H₂O",
     "condition": "常温",
     "description": "Ca(OH)2+SO3反应生成CaSO4。"
   },
   {
     "id": "ca-n-o",
-    "type": "氧化还原",
+    "type": "复分解",
     "reactants": [
       "C",
       "Ca",
@@ -6485,11 +6485,11 @@
       "N",
       "O"
     ],
-    "product": "Ca(NO₃)₂",
-    "productName": "硝酸钙",
-    "equation": "CaCO₃+2HNO₃ → Ca(NO₃)₂ + H₂O + CO₂  （ 用 HNO₃ 和 浓",
+    "product": "Ca(NO₃)₂ + H₂O + CO₂↑",
+    "productName": "硝酸钙、水和二氧化碳",
+    "equation": "CaCO₃ + 2HNO₃ → Ca(NO₃)₂ + H₂O + CO₂↑",
     "condition": "常温",
-    "description": "CaCO3+HNO3反应生成Ca(NO3)2。"
+    "description": "碳酸钙与硝酸反应生成硝酸钙、水和二氧化碳。"
   },
   {
     "id": "ca-h-o-p",
@@ -6528,9 +6528,9 @@
       "C",
       "O"
     ],
-    "product": "BaCO₃",
+    "product": "BaCO₃↓",
     "productName": "碳酸钡",
-    "equation": "Ba(OH)₂+CO₂ → BaCO₃ + H₂O",
+    "equation": "Ba(OH)₂+CO₂ → BaCO₃↓ + H₂O",
     "condition": "常温",
     "description": "Ba(OH)2+CO2反应生成BaCO3。"
   },
@@ -6851,9 +6851,9 @@
       "H",
       "O"
     ],
-    "product": "Ag₂O",
+    "product": "Ag₂O↓",
     "productName": "氧化银",
-    "equation": "2AgOH → Ag₂O + H₂O（AgNO₃ 溶液中加入少量氨水）",
+    "equation": "2AgOH → Ag₂O↓ + H₂O（AgNO₃ 溶液中加入少量氨水）",
     "condition": "常温",
     "description": "AgOH反应生成Ag2O。"
   },
