@@ -615,16 +615,21 @@ export function expandCompoundPredecessors(
     const oldCoefMatch = existingNode.data.label.match(/^(\d+)\s+/);
     const oldCoef = oldCoefMatch ? parseInt(oldCoefMatch[1], 10) : 1;
     
-    if (newCoef > oldCoef) {
-      const baseLabel = existingNode.data.label.replace(/^\d+\s*/, "");
-      finalLabel = `${newCoef} ${baseLabel}`;
+    const newStateSymbol = newLabel.match(/([↑↓])$/);
+    const oldStateSymbol = existingNode.data.label.match(/([↑↓])$/);
+    
+    if (newCoef !== oldCoef) {
+      const baseLabel = existingNode.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/, "");
+      finalLabel = newCoef > 1 ? `${newCoef} ${baseLabel}` : baseLabel;
       updated = true;
     }
     
     if (!hasReactantStateSymbol) {
-      const newStateSymbol = newLabel.match(/([↑↓])$/);
-      if (newStateSymbol && !finalLabel.includes(newStateSymbol[1])) {
+      if (newStateSymbol && (!oldStateSymbol || oldStateSymbol[1] !== newStateSymbol[1])) {
         finalLabel = finalLabel.replace(/[↑↓]$/, "") + newStateSymbol[1];
+        updated = true;
+      } else if (!newStateSymbol && oldStateSymbol) {
+        finalLabel = finalLabel.replace(/[↑↓]$/, "");
         updated = true;
       }
     }
