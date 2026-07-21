@@ -1,6 +1,6 @@
 import { memo, useCallback, useState } from "react";
 import { Handle, Position, type NodeProps, type Node } from "@xyflow/react";
-import { ChevronLeft, ChevronRight, Info, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Info } from "lucide-react";
 import type { NodeData } from "@/data/reactionGraph";
 
 type CompoundNodeType = Node<NodeData, "compound">;
@@ -46,13 +46,12 @@ function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) 
     setShowInfo((prev) => !prev);
   }, []);
 
-  const handleCloseInfo = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleNodeClick = useCallback(() => {
     setShowInfo(false);
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative" onClick={handleNodeClick}>
       <div
         className={`
           relative flex items-center justify-center
@@ -104,14 +103,10 @@ function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) 
 
       {showInfo && shortInfo && (
         <div
-          className="absolute left-1/2 -translate-x-1/2 -top-9 z-30 flex items-center gap-1.5 rounded-md border border-blue-500/40 bg-slate-800/95 px-2.5 py-1 text-xs text-blue-300 whitespace-nowrap shadow-lg backdrop-blur"
+          className="absolute left-1/2 -translate-x-1/2 -top-8 z-30 rounded-md border border-slate-600 bg-slate-800/95 px-2 py-0.5 text-xs text-slate-200 whitespace-nowrap shadow-lg"
           onClick={(e) => e.stopPropagation()}
         >
-          <span>{shortInfo}</span>
-          <X
-            className="h-3 w-3 cursor-pointer text-slate-400 hover:text-slate-200 shrink-0"
-            onClick={handleCloseInfo}
-          />
+          {shortInfo}
         </div>
       )}
     </div>
