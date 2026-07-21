@@ -103,12 +103,16 @@ export default function ReactionStage() {
         {currentReactions.length > 0 ? (
           <div className="flex flex-1 flex-col gap-4">
             <div className="grid gap-4 md:grid-cols-2">
-              {currentReactions.map((reaction) => {
+              {currentReactions.map((reaction, index) => {
                 const isSaved = savedReactions.some((r) => r.id === reaction.id);
                 return (
                   <div
                     key={reaction.id}
-                    className="flex flex-col rounded-xl p-4"
+                    className={cn(
+                      "flex flex-col rounded-xl p-4",
+                      index % 2 !== 0 && "md:border-l md:border-slate-800",
+                      index < currentReactions.length - 1 && "border-b border-slate-800"
+                    )}
                   >
                     <div className="mb-3 flex items-center gap-2">
                       <Beaker className="h-4 w-4 text-purple-400" />
