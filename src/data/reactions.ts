@@ -1,9 +1,32 @@
 import { z } from "zod";
 import reactionsData from "./reactions.json";
 
-export type ReactionType = "化合" | "分解" | "置换" | "复分解" | "氧化还原" | "其他";
+export type ReactionType =
+  | "化合"
+  | "分解"
+  | "置换"
+  | "复分解"
+  | "氧化还原"
+  | "水解"
+  | "电解"
+  | "取代"
+  | "消去"
+  | "加聚"
+  | "其他";
 
-const ReactionTypeEnum = z.enum(["化合", "分解", "置换", "复分解", "氧化还原", "其他"]);
+const ReactionTypeEnum = z.enum([
+  "化合",
+  "分解",
+  "置换",
+  "复分解",
+  "氧化还原",
+  "水解",
+  "电解",
+  "取代",
+  "消去",
+  "加聚",
+  "其他",
+]);
 
 const ChemicalReactionSchema = z.object({
   id: z.string().min(1),
@@ -151,6 +174,13 @@ export function searchReactions(query: string, strictProductOnly: boolean = fals
     "氧化还原": "氧化还原",
     "氧化": "氧化还原",
     "还原": "氧化还原",
+    "水解": "水解",
+    "电解": "电解",
+    "取代": "取代",
+    "消去": "消去",
+    "消除": "消去",
+    "加聚": "加聚",
+    "聚合": "加聚",
     "其他": "其他",
   };
   if (trimmed in typeKeywords) {
@@ -176,7 +206,19 @@ export function searchReactions(query: string, strictProductOnly: boolean = fals
 }
 
 /** 支持的反应类型列表（用于 UI 快捷按钮） */
-export const REACTION_TYPES: ReactionType[] = ["化合", "分解", "置换", "复分解", "氧化还原", "其他"];
+export const REACTION_TYPES: ReactionType[] = [
+  "化合",
+  "分解",
+  "置换",
+  "复分解",
+  "氧化还原",
+  "水解",
+  "电解",
+  "取代",
+  "消去",
+  "加聚",
+  "其他",
+];
 
 /** 按物质名称搜索，返回该物质涉及的所有元素符号 */
 export function getSymbolsFromReactions(reactions: { reactants: string[] }[]): string[] {

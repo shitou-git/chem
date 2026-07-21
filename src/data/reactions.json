@@ -6868,5 +6868,420 @@
     "equation": "Zn +2OH → Zn(OH)₂",
     "condition": "常温",
     "description": "Zn+OH反应生成Zn(OH)2。"
+  },
+  {
+    "id": "hydrolysis-nh4cl",
+    "type": "水解",
+    "reactants": [
+      "N",
+      "H",
+      "Cl",
+      "O"
+    ],
+    "product": "NH₃·H₂O + HCl",
+    "productName": "一水合氨和氯化氢",
+    "equation": "NH₄Cl + H₂O ⇌ NH₃·H₂O + HCl",
+    "condition": "常温",
+    "description": "氯化铵水解，溶液呈酸性，因为铵根离子与水电离出的氢氧根结合生成弱电解质一水合氨。",
+    "ionicEquation": "NH₄⁺ + H₂O ⇌ NH₃·H₂O + H⁺"
+  },
+  {
+    "id": "hydrolysis-ch3coona",
+    "type": "水解",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "Na"
+    ],
+    "product": "CH₃COOH + NaOH",
+    "productName": "乙酸和氢氧化钠",
+    "equation": "CH₃COONa + H₂O ⇌ CH₃COOH + NaOH",
+    "condition": "常温",
+    "description": "醋酸钠水解，溶液呈碱性，因为醋酸根离子与水电离出的氢离子结合生成弱电解质醋酸。",
+    "ionicEquation": "CH₃COO⁻ + H₂O ⇌ CH₃COOH + OH⁻"
+  },
+  {
+    "id": "hydrolysis-na2co3",
+    "type": "水解",
+    "reactants": [
+      "Na",
+      "C",
+      "O",
+      "H"
+    ],
+    "product": "NaHCO₃ + NaOH",
+    "productName": "碳酸氢钠和氢氧化钠",
+    "equation": "Na₂CO₃ + H₂O ⇌ NaHCO₃ + NaOH",
+    "condition": "常温",
+    "description": "碳酸钠第一步水解，碳酸根与水结合生成碳酸氢根和氢氧根，溶液呈碱性。",
+    "ionicEquation": "CO₃²⁻ + H₂O ⇌ HCO₃⁻ + OH⁻"
+  },
+  {
+    "id": "hydrolysis-nahco3",
+    "type": "水解",
+    "reactants": [
+      "Na",
+      "H",
+      "C",
+      "O"
+    ],
+    "product": "H₂CO₃ + NaOH",
+    "productName": "碳酸和氢氧化钠",
+    "equation": "NaHCO₃ + H₂O ⇌ H₂CO₃ + NaOH",
+    "condition": "常温",
+    "description": "碳酸钠第二步水解，碳酸氢根继续水解生成碳酸和氢氧根，程度比第一步弱得多。",
+    "ionicEquation": "HCO₃⁻ + H₂O ⇌ H₂CO₃ + OH⁻"
+  },
+  {
+    "id": "hydrolysis-fecl3-colloid",
+    "type": "水解",
+    "reactants": [
+      "Fe",
+      "Cl",
+      "H",
+      "O"
+    ],
+    "product": "Fe(OH)₃(胶体) + HCl",
+    "productName": "氢氧化铁胶体和氯化氢",
+    "equation": "FeCl₃ + 3H₂O ⇌ Fe(OH)₃(胶体) + 3HCl",
+    "condition": "加热",
+    "description": "向沸水中滴加饱和氯化铁溶液制备氢氧化铁胶体，利用加热促进三价铁离子水解。",
+    "ionicEquation": "Fe³⁺ + 3H₂O ⇌ Fe(OH)₃(胶体) + 3H⁺"
+  },
+  {
+    "id": "hydrolysis-al2so43-colloid",
+    "type": "水解",
+    "reactants": [
+      "Al",
+      "S",
+      "O",
+      "H"
+    ],
+    "product": "Al(OH)₃(胶体) + H₂SO₄",
+    "productName": "氢氧化铝胶体和硫酸",
+    "equation": "Al₂(SO₄)₃ + 6H₂O ⇌ 2Al(OH)₃(胶体) + 3H₂SO₄",
+    "condition": "常温",
+    "description": "明矾净水原理，铝离子水解生成氢氧化铝胶体，具有强吸附性，可吸附水中悬浮杂质。",
+    "ionicEquation": "Al³⁺ + 3H₂O ⇌ Al(OH)₃(胶体) + 3H⁺"
+  },
+  {
+    "id": "hydrolysis-na2s",
+    "type": "水解",
+    "reactants": [
+      "Na",
+      "S",
+      "H",
+      "O"
+    ],
+    "product": "NaHS + NaOH",
+    "productName": "硫氢化钠和氢氧化钠",
+    "equation": "Na₂S + H₂O ⇌ NaHS + NaOH",
+    "condition": "常温",
+    "description": "硫化钠第一步水解，硫离子与水结合生成硫氢根和氢氧根，溶液呈强碱性。",
+    "ionicEquation": "S²⁻ + H₂O ⇌ HS⁻ + OH⁻"
+  },
+  {
+    "id": "electrolysis-cucl2",
+    "type": "电解",
+    "reactants": [
+      "Cu",
+      "Cl",
+      "H",
+      "O"
+    ],
+    "product": "Cu + Cl₂",
+    "productName": "铜和氯气",
+    "equation": "CuCl₂ → Cu + Cl₂↑",
+    "condition": "通电(电解)",
+    "description": "电解氯化铜溶液，阳极生成氯气，阴极生成铜。"
+  },
+  {
+    "id": "electrolysis-cuso4",
+    "type": "电解",
+    "reactants": [
+      "Cu",
+      "S",
+      "O",
+      "H"
+    ],
+    "product": "Cu + O₂ + H₂SO₄",
+    "productName": "铜、氧气和硫酸",
+    "equation": "2CuSO₄ + 2H₂O → 2Cu + O₂↑ + 2H₂SO₄",
+    "condition": "通电(电解)",
+    "description": "电解硫酸铜溶液，阳极生成氧气，阴极生成铜，溶液酸性增强。"
+  },
+  {
+    "id": "electrolysis-agno3",
+    "type": "电解",
+    "reactants": [
+      "Ag",
+      "N",
+      "O",
+      "H"
+    ],
+    "product": "Ag + O₂ + HNO₃",
+    "productName": "银、氧气和硝酸",
+    "equation": "4AgNO₃ + 2H₂O → 4Ag + O₂↑ + 4HNO₃",
+    "condition": "通电(电解)",
+    "description": "电解硝酸银溶液，阳极生成氧气，阴极析出银。"
+  },
+  {
+    "id": "electrolysis-nacl-molten",
+    "type": "电解",
+    "reactants": [
+      "Na",
+      "Cl"
+    ],
+    "product": "Na + Cl₂",
+    "productName": "钠和氯气",
+    "equation": "2NaCl(熔融) → 2Na + Cl₂↑",
+    "condition": "通电(电解)",
+    "description": "电解熔融氯化钠制取金属钠和氯气，工业制钠的方法。"
+  },
+  {
+    "id": "electrolysis-al2o3-molten",
+    "type": "电解",
+    "reactants": [
+      "Al",
+      "O"
+    ],
+    "product": "Al + O₂",
+    "productName": "铝和氧气",
+    "equation": "2Al₂O₃(熔融) → 4Al + 3O₂↑",
+    "condition": "通电、冰晶石",
+    "description": "电解熔融氧化铝制取金属铝，冰晶石作助熔剂降低氧化铝熔点，工业炼铝方法。"
+  },
+  {
+    "id": "organic-bromoethane-elimination",
+    "type": "消去",
+    "reactants": [
+      "C",
+      "H",
+      "Br",
+      "Na",
+      "O"
+    ],
+    "product": "C₂H₄ + NaBr + H₂O",
+    "productName": "乙烯、溴化钠和水",
+    "equation": "C₂H₅Br + NaOH → C₂H₄↑ + NaBr + H₂O",
+    "condition": "醇、加热",
+    "description": "溴乙烷在氢氧化钠醇溶液中加热发生消去反应生成乙烯，卤代烃发生消去反应的条件是强碱的醇溶液。"
+  },
+  {
+    "id": "organic-ethanol-elimination",
+    "type": "消去",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "C₂H₄ + H₂O",
+    "productName": "乙烯和水",
+    "equation": "C₂H₅OH → C₂H₄↑ + H₂O",
+    "condition": "浓硫酸、170℃",
+    "description": "乙醇在浓硫酸催化下加热至170℃发生消去反应生成乙烯，实验室制乙烯的方法。"
+  },
+  {
+    "id": "organic-ethanol-ether",
+    "type": "取代",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "C₂H₅OC₂H₅ + H₂O",
+    "productName": "乙醚和水",
+    "equation": "2C₂H₅OH → C₂H₅OC₂H₅ + H₂O",
+    "condition": "浓硫酸、140℃",
+    "description": "乙醇在浓硫酸催化下加热至140℃发生分子间脱水生成乙醚，属于取代反应。"
+  },
+  {
+    "id": "organic-bromoethane-hydrolysis",
+    "type": "取代",
+    "reactants": [
+      "C",
+      "H",
+      "Br",
+      "Na",
+      "O"
+    ],
+    "product": "C₂H₅OH + NaBr",
+    "productName": "乙醇和溴化钠",
+    "equation": "C₂H₅Br + NaOH → C₂H₅OH + NaBr",
+    "condition": "水、加热",
+    "description": "溴乙烷在氢氧化钠水溶液中加热发生水解反应（取代反应）生成乙醇。",
+    "ionicEquation": "C₂H₅Br + OH⁻ → C₂H₅OH + Br⁻"
+  },
+  {
+    "id": "organic-ethylene-polymerization",
+    "type": "加聚",
+    "reactants": [
+      "C",
+      "H"
+    ],
+    "product": "-(CH₂-CH₂)ₙ-",
+    "productName": "聚乙烯",
+    "equation": "nCH₂=CH₂ → -(CH₂-CH₂)ₙ-",
+    "condition": "催化剂",
+    "description": "乙烯发生加聚反应生成聚乙烯，乙烯是单体，-CH₂-CH₂-是链节，n是聚合度。"
+  },
+  {
+    "id": "organic-vinyl-chloride-polymerization",
+    "type": "加聚",
+    "reactants": [
+      "C",
+      "H",
+      "Cl"
+    ],
+    "product": "-(CH₂-CHCl)ₙ-",
+    "productName": "聚氯乙烯",
+    "equation": "nCH₂=CHCl → -(CH₂-CHCl)ₙ-",
+    "condition": "催化剂",
+    "description": "氯乙烯发生加聚反应生成聚氯乙烯（PVC），常用塑料之一。"
+  },
+  {
+    "id": "organic-styrene-polymerization",
+    "type": "加聚",
+    "reactants": [
+      "C",
+      "H"
+    ],
+    "product": "-(CH₂-CH(C₆H₅))ₙ-",
+    "productName": "聚苯乙烯",
+    "equation": "nC₆H₅CH=CH₂ → -(CH₂-CH(C₆H₅))ₙ-",
+    "condition": "催化剂",
+    "description": "苯乙烯发生加聚反应生成聚苯乙烯，用于制作泡沫塑料等。"
+  },
+  {
+    "id": "organic-sucrose-hydrolysis",
+    "type": "水解",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "C₆H₁₂O₆ + C₆H₁₂O₆",
+    "productName": "葡萄糖和果糖",
+    "equation": "C₁₂H₂₂O₁₁ + H₂O → C₆H₁₂O₆ + C₆H₁₂O₆",
+    "condition": "稀硫酸或酶",
+    "description": "蔗糖水解生成一分子葡萄糖和一分子果糖，蔗糖是非还原性糖，水解产物有还原性。"
+  },
+  {
+    "id": "organic-starch-hydrolysis",
+    "type": "水解",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "C₆H₁₂O₆",
+    "productName": "葡萄糖",
+    "equation": "(C₆H₁₀O₅)ₙ + nH₂O → nC₆H₁₂O₆",
+    "condition": "酸或酶",
+    "description": "淀粉在酸或酶催化下水解，最终生成葡萄糖，淀粉遇碘变蓝，水解完全后不变蓝。"
+  },
+  {
+    "id": "organic-dipeptide",
+    "type": "取代",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "N"
+    ],
+    "product": "NH₂CH₂CONHCH₂COOH + H₂O",
+    "productName": "二肽和水",
+    "equation": "2NH₂CH₂COOH → NH₂CH₂CONHCH₂COOH + H₂O",
+    "condition": "酶",
+    "description": "两分子甘氨酸脱水缩合生成二肽，肽键为-CO-NH-，是蛋白质的基本结构单元。"
+  },
+  {
+    "id": "chromate-dichromate-conversion",
+    "type": "其他",
+    "reactants": [
+      "Cr",
+      "O",
+      "H"
+    ],
+    "product": "Cr₂O₇²⁻ + H₂O",
+    "productName": "重铬酸根和水",
+    "equation": "2CrO₄²⁻ + 2H⁺ ⇌ Cr₂O₇²⁻ + H₂O",
+    "condition": "常温",
+    "description": "铬酸根与重铬酸根在不同酸碱性下相互转化，酸性条件下主要以重铬酸根（橙红色）形式存在，碱性条件下以铬酸根（黄色）形式存在。",
+    "ionicEquation": "2CrO₄²⁻ + 2H⁺ ⇌ Cr₂O₇²⁻ + H₂O"
+  },
+  {
+    "id": "dichromate-fe2-redox",
+    "type": "氧化还原",
+    "reactants": [
+      "Cr",
+      "O",
+      "Fe",
+      "S",
+      "H"
+    ],
+    "product": "Cr₂(SO₄)₃ + Fe₂(SO₄)₃ + H₂O + K₂SO₄",
+    "productName": "硫酸铬、硫酸铁、水和硫酸钾",
+    "equation": "K₂Cr₂O₇ + 6FeSO₄ + 7H₂SO₄ → Cr₂(SO₄)₃ + 3Fe₂(SO₄)₃ + K₂SO₄ + 7H₂O",
+    "condition": "常温",
+    "description": "重铬酸钾在酸性条件下氧化亚铁离子，橙红色的重铬酸根被还原为绿色的三价铬离子，用于氧化还原滴定和酒驾检测。",
+    "ionicEquation": "Cr₂O₇²⁻ + 6Fe²⁺ + 14H⁺ → 2Cr³⁺ + 6Fe³⁺ + 7H₂O"
+  },
+  {
+    "id": "k2mno4-disproportionation",
+    "type": "氧化还原",
+    "reactants": [
+      "K",
+      "Mn",
+      "O",
+      "H"
+    ],
+    "product": "KMnO₄ + MnO₂ + KOH",
+    "productName": "高锰酸钾、二氧化锰和氢氧化钾",
+    "equation": "3K₂MnO₄ + 2H₂O → 2KMnO₄ + MnO₂↓ + 4KOH",
+    "condition": "常温",
+    "description": "锰酸钾在酸性或中性条件下发生歧化反应，生成高锰酸钾和二氧化锰，绿色溶液变为紫红色并有黑色沉淀。",
+    "ionicEquation": "3MnO₄²⁻ + 2H₂O → 2MnO₄⁻ + MnO₂↓ + 4OH⁻"
+  },
+  {
+    "id": "industrial-petroleum-cracking",
+    "type": "分解",
+    "reactants": [
+      "C",
+      "H"
+    ],
+    "product": "C₈H₁₈ + C₈H₁₆",
+    "productName": "辛烷和辛烯",
+    "equation": "C₁₆H₃₄ → C₈H₁₈ + C₈H₁₆",
+    "condition": "催化剂、加热加压",
+    "description": "石油裂化，将相对分子质量大、沸点高的烃断裂为相对分子质量小、沸点低的烃，提高汽油的产量和质量。"
+  },
+  {
+    "id": "industrial-petroleum-pyrolysis",
+    "type": "分解",
+    "reactants": [
+      "C",
+      "H"
+    ],
+    "product": "C₂H₄ + C₂H₆",
+    "productName": "乙烯和乙烷",
+    "equation": "C₄H₁₀ → C₂H₄ + C₂H₆",
+    "condition": "高温(700-1000℃)",
+    "description": "石油裂解（深度裂化），以获得乙烯、丙烯等短链不饱和烃为目的，是石油化工的基础。"
+  },
+  {
+    "id": "industrial-blast-furnace-iron",
+    "type": "氧化还原",
+    "reactants": [
+      "Fe",
+      "O",
+      "C"
+    ],
+    "product": "Fe + CO₂",
+    "productName": "铁和二氧化碳",
+    "equation": "Fe₂O₃ + 3CO → 2Fe + 3CO₂",
+    "condition": "高温",
+    "description": "高炉炼铁的主要反应，一氧化碳在高温下还原氧化铁，工业上冶炼铁的核心原理。"
   }
 ]

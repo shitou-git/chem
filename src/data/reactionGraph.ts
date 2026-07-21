@@ -69,6 +69,11 @@ function getTypeColor(type: ReactionType): string {
     "置换": "#fbbf24",
     "复分解": "#fb7185",
     "氧化还原": "#a78bfa",
+    "水解": "#34d399",
+    "电解": "#60a5fa",
+    "取代": "#f472b6",
+    "消去": "#fb7185",
+    "加聚": "#c084fc",
     "其他": "#94a3b8",
   };
   return colors[type] || "#94a3b8";
