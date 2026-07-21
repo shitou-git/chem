@@ -666,23 +666,28 @@ export function expandCompoundPredecessors(
   rightParts.forEach((part, idx) => {
     const { formula, label } = part;
     const isEl = isElementLike(formula);
-    const nodeType: "element" | "compound" = isEl ? "element" : "compound";
     
-    const existingSameNode = findSameNodeInLayer(formula, compoundLayerX, nodeType);
-    const targetKey = existingSameNode ? existingSameNode.id : (
-      isEl
+    const cleanProduct = cleanCompoundLabel(formula);
+    const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
+    const isTargetCompound = !isEl && cleanProduct === cleanCompoundLabelValue;
+    
+    let targetKey: string;
+    if (isTargetCompound) {
+      targetKey = compoundKey;
+    } else {
+      targetKey = isEl
         ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
-        : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`
-    );
+        : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
+    }
     
-    const x = compoundLayerX;
-    const y = compoundPosition.y;
+    const x = isTargetCompound ? compoundPosition.x : compoundLayerX;
+    const y = isTargetCompound ? compoundPosition.y : compoundPosition.y;
     
-    if (existingSameNode) {
-      const updatedNode = updateNodeStateSymbol(existingSameNode, label);
+    if (isTargetCompound) {
+      const updatedNode = updateNodeStateSymbol(existingNodeMap.get(compoundKey)!, label);
       if (updatedNode) {
         updatedNodes.push(updatedNode);
-        existingNodeMap.set(targetKey, updatedNode);
+        existingNodeMap.set(compoundKey, updatedNode);
       }
     } else if (!existingNodeMap.has(targetKey)) {
       if (isEl) {

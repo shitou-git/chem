@@ -54,7 +54,7 @@ export default function ReactionNetworkGraph({
     ionicEquation?: string;
   } | null>(null);
 
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
+  const [expandedFormulas, setExpandedFormulas] = useState<Set<string>>(new Set());
 
   const reaction = useMemo(
     () => REACTIONS.find((r) => r.id === reactionId),
@@ -100,20 +100,21 @@ export default function ReactionNetworkGraph({
     setNodes(initialNodes);
     setEdges(initialEdges);
     setSelectedNodeId(null);
-    setExpandedNodes(new Set());
+    setExpandedFormulas(new Set());
   }, [initialNodes, initialEdges, setNodes, setEdges]);
 
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node<NodeData>) => {
       if (node.data.nodeType === "compound" && node.data.canExpand) {
-        if (!expandedNodes.has(node.id)) {
+        const formula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
+        if (!expandedFormulas.has(formula)) {
           const result = expandCompoundPredecessors(node.id, nodes, edges, reactionId);
           
           if (result.nodes.length > 0 || result.edges.length > 0 || result.updatedNodes.length > 0) {
             const nodesWithExpandInfo = result.nodes.map((n) => {
               if (n.data.nodeType === "compound") {
                 const formula = n.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
-                const canExpand = hasPredecessorReaction(formula, reactionId);
+                const canExpand = !expandedFormulas.has(formula) && hasPredecessorReaction(formula, reactionId);
                 return { ...n, data: { ...n.data, canExpand, isExpanded: false } };
               }
               return n;
@@ -137,7 +138,7 @@ export default function ReactionNetworkGraph({
               );
             }
             
-            setExpandedNodes((prev) => new Set([...prev, node.id]));
+            setExpandedFormulas((prev) => new Set([...prev, formula]));
             
             setNodes((nds) =>
               nds.map((n) => {
@@ -151,6 +152,7 @@ export default function ReactionNetworkGraph({
             return;
           }
         } else {
+          const formula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
           const result = collapseCompoundPredecessors(node.id, nodes, edges, reactionId);
           
           setNodes(() => result.remainingNodes);
@@ -176,9 +178,9 @@ export default function ReactionNetworkGraph({
             );
           }
           
-          setExpandedNodes((prev) => {
+          setExpandedFormulas((prev) => {
             const next = new Set(prev);
-            next.delete(node.id);
+            next.delete(formula);
             return next;
           });
           
@@ -217,7 +219,7 @@ export default function ReactionNetworkGraph({
         }))
       );
     },
-    [edges, setNodes, setEdges, expandedNodes, reactionId, nodes]
+    [edges, setNodes, setEdges, expandedFormulas, reactionId, nodes]
   );
 
   const handlePaneClick = useCallback(() => {
