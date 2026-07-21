@@ -96,6 +96,8 @@ export default function ReactionNetworkGraph({
 
   const [precipitateModalData, setPrecipitateModalData] = useState<string | null>(null);
 
+  const [currentDescription, setCurrentDescription] = useState<string>("");
+
   const handlePrecipitateClick = useCallback((info: string) => {
     setPrecipitateModalData(info);
   }, []);
@@ -148,6 +150,7 @@ export default function ReactionNetworkGraph({
     setExpandedFormulas(new Set());
     setCurrentProductName(reaction?.productName || "");
     setCurrentEquation(reaction?.equation || "");
+    setCurrentDescription(reaction?.description || "");
   }, [initialNodes, initialEdges, setNodes, setEdges, reaction]);
 
   const handleNodeClick = useCallback(
@@ -221,6 +224,9 @@ export default function ReactionNetworkGraph({
         }
         if (node.data.equation) {
           setCurrentEquation(node.data.equation);
+
+          const reactionData = REACTIONS.find((r) => r.equation === node.data.equation);
+          setCurrentDescription(reactionData?.description || "");
           
           const leftParts = parseEquationLeftWithCoef(node.data.equation);
           const rightParts = parseEquationRightWithCoef(node.data.equation);
@@ -377,13 +383,13 @@ export default function ReactionNetworkGraph({
             </ReactFlow>
           </PrecipitateContext.Provider>
 
-          <div className="absolute left-3 top-3 rounded-lg border border-slate-700 bg-slate-900/90 px-2.5 py-2 backdrop-blur">
+          <div className="absolute left-3 top-3 rounded-lg border border-slate-700 bg-slate-900/90 px-2.5 py-2 backdrop-blur max-w-[calc(100%-24px)]">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-medium text-slate-300">{currentProductName}</span>
               <span className="text-xs text-slate-400">{currentEquation}</span>
             </div>
-            <div className="mt-1 text-xs text-slate-500">
-              点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释
+            <div className="mt-1 text-xs text-slate-400 leading-relaxed">
+              {currentDescription || "点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释"}
             </div>
           </div>
         </div>
