@@ -70,6 +70,68 @@ export function findReactions(selectedSymbols: string[]): ChemicalReaction[] {
   );
 }
 
+const SUBSCRIPT_MAP: Record<string, string> = {
+  "₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4",
+  "₅": "5", "₆": "6", "₇": "7", "₈": "8", "₉": "9",
+};
+
+const SUPERSCRIPT_MAP: Record<string, string> = {
+  "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4",
+  "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9",
+  "⁺": "+", "⁻": "-",
+};
+
+function normalizeEquation(eq: string): string {
+  return eq
+    .replace(/\s+/g, "")
+    .replace(/[₀-₉]/g, (ch) => SUBSCRIPT_MAP[ch] ?? ch)
+    .replace(/[⁰-⁹⁺⁻]/g, (ch) => SUPERSCRIPT_MAP[ch] ?? ch)
+    .replace(/[↑↓]/g, "")
+    .replace(/[\[\]]/g, "")
+    .replace(/\(浓\)|\(稀\)|\(熔融\)/g, "")
+    .toLowerCase();
+}
+
+function normalizeSide(side: string): string {
+  return side
+    .split("+")
+    .map((s) => normalizeEquation(s).replace(/[()]/g, ""))
+    .sort()
+    .join("+");
+}
+
+function equationMatch(eq: string, query: string): boolean {
+  const normalizedEq = normalizeEquation(eq);
+  const normalizedQuery = normalizeEquation(query);
+
+  if (normalizedEq.includes(normalizedQuery)) return true;
+
+  const sepEq = eq.includes("→") ? "→" : eq.includes("⇌") ? "⇌" : "";
+  const sepQuery = query.includes("→") ? "→" : query.includes("⇌") ? "⇌" : "";
+
+  if (sepEq && sepQuery) {
+    const [leftEq, rightEq] = eq.split(sepEq);
+    const [leftQuery, rightQuery] = query.split(sepQuery);
+    return (
+      normalizeSide(leftEq) === normalizeSide(leftQuery) &&
+      normalizeSide(rightEq) === normalizeSide(rightQuery)
+    );
+  }
+
+  if (sepEq && !sepQuery) {
+    const [leftEq, rightEq] = eq.split(sepEq);
+    const sortedQuery = normalizeSide(normalizedQuery);
+    return (
+      sortedQuery === normalizeSide(leftEq) ||
+      sortedQuery === normalizeSide(rightEq) ||
+      normalizeSide(leftEq).includes(sortedQuery) ||
+      normalizeSide(rightEq).includes(sortedQuery)
+    );
+  }
+
+  return false;
+}
+
 /** 按物质名称或反应类型搜索反应
  *  支持匹配产物名称、产物化学式、方程式、反应类型
  *  特殊关键词：化合/分解/置换/复分解/氧化还原/其他
@@ -107,6 +169,7 @@ export function searchReactions(query: string, strictProductOnly: boolean = fals
       r.productName.includes(trimmed) ||
       r.product.toLowerCase().includes(q) ||
       r.equation.toLowerCase().includes(q) ||
+      equationMatch(r.equation, trimmed) ||
       (r.type ?? "").toLowerCase().includes(q)
   );
 }
