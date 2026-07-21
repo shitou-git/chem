@@ -239,10 +239,21 @@ export default function Home() {
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearch(searchQuery);
+                  }
+                }}
                 placeholder="搜索元素、物质或反应类型"
-                className="w-full rounded-lg border border-slate-700 bg-slate-900/70 py-2 pl-9 pr-3 text-sm text-slate-200 placeholder-slate-500 backdrop-blur focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                className="w-full rounded-lg border border-slate-700 bg-slate-900/70 py-2 pl-9 pr-20 text-sm text-slate-200 placeholder-slate-500 backdrop-blur focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
               />
+              <button
+                onClick={() => handleSearch(searchQuery)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md bg-cyan-600 px-3 py-1 text-xs font-medium text-white transition hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+              >
+                搜索
+              </button>
             </div>
 
             <div className="flex w-full flex-nowrap items-center justify-end gap-1 md:w-96 md:justify-start">
