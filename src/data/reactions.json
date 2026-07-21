@@ -2988,7 +2988,7 @@
   },
   {
     "id": "ch4-cl2-ch3cl-hcl",
-    "type": "置换",
+    "type": "取代",
     "reactants": [
       "C",
       "H",
@@ -3635,7 +3635,7 @@
     "productName": "硝酸锌、二氧化氮和水",
     "equation": "Zn + 4HNO₃(浓) → Zn(NO₃)₂ + 2NO₂↑ + 2H₂O",
     "condition": "常温",
-    "description": "锌与浓硝酸反应，锌活泼金属但被浓硝酸钝化表面。"
+    "description": "锌与浓硝酸反应，生成二氧化氮气体。"
   },
   {
     "id": "hno3-zn-dilute",
@@ -4030,7 +4030,7 @@
   },
   {
     "id": "ch3cl-cl2-ch2cl2",
-    "type": "置换",
+    "type": "取代",
     "reactants": [
       "C",
       "H",
@@ -4044,7 +4044,7 @@
   },
   {
     "id": "ch2cl2-cl2-chcl3",
-    "type": "置换",
+    "type": "取代",
     "reactants": [
       "C",
       "H",
@@ -4058,7 +4058,7 @@
   },
   {
     "id": "chcl3-cl2-ccl4",
-    "type": "置换",
+    "type": "取代",
     "reactants": [
       "C",
       "H",
@@ -4133,7 +4133,7 @@
   },
   {
     "id": "c6h6-br2-c6h5br",
-    "type": "置换",
+    "type": "取代",
     "reactants": [
       "C",
       "H",
@@ -4170,11 +4170,11 @@
       "O",
       "Fe"
     ],
-    "product": "C₆H₅NH₂ + Fe₃O₄ + H₂O",
-    "productName": "苯胺、四氧化三铁和水",
-    "equation": "C₆H₅NO₂ + 3Fe + 4H₂O → C₆H₅NH₂ + Fe₃O₄ + 4H₂O",
+    "product": "C₆H₅NH₂ + Fe₃O₄",
+    "productName": "苯胺和四氧化三铁",
+    "equation": "4C₆H₅NO₂ + 9Fe + 4H₂O → 4C₆H₅NH₂ + 3Fe₃O₄",
     "condition": "加热",
-    "description": "硝基苯被铁和盐酸还原为苯胺，简化方程式。"
+    "description": "硝基苯被铁和盐酸还原为苯胺。"
   },
   {
     "id": "c6h5oh-br2-c6h3br3oh",
