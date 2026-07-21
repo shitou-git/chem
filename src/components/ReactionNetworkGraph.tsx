@@ -34,6 +34,25 @@ const nodeTypes = {
   reaction: ReactionNode,
 };
 
+function extractFormula(label: string): string {
+  return label.replace(/^\d+\s*/, "").replace(/[↑↓]$/, "");
+}
+
+function markExpandableNodes(
+  nodes: Node<NodeData>[],
+  expandedFormulas: Set<string>,
+  reactionId: string
+): Node<NodeData>[] {
+  return nodes.map((n) => {
+    if (n.data.nodeType === "compound") {
+      const formula = extractFormula(n.data.label);
+      const canExpand = !expandedFormulas.has(formula) && hasPredecessorReaction(formula, reactionId);
+      return { ...n, data: { ...n.data, canExpand, isExpanded: false } };
+    }
+    return n;
+  });
+}
+
 interface ReactionNetworkGraphProps {
   isOpen: boolean;
   onClose: () => void;
@@ -68,21 +87,22 @@ export default function ReactionNetworkGraph({
     
     const reactants = parseEquationLeft(reaction.equation);
     const reactantCompounds = new Set(
-      reactants.filter((c: string) => !/^[A-Z][a-z]?$/.test(c.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "")))
+      reactants.filter((c: string) => !/^[A-Z][a-z]?$/.test(c.replace(/[₀-₉]/g, "")))
     );
-    
-    const nodesWithExpandInfo = result.nodes.map((node) => {
-      if (node.data.nodeType === "compound") {
-        const formula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
-        const isReactant = reactantCompounds.has(formula);
-        const canExpand = isReactant && hasPredecessorReaction(formula, reactionId);
-        return {
-          ...node,
-          data: { ...node.data, canExpand, isExpanded: false },
-        };
-      }
-      return node;
-    });
+
+    const nodesWithExpandInfo = markExpandableNodes(
+      result.nodes.map((node) => {
+        if (node.data.nodeType === "compound") {
+          const formula = extractFormula(node.data.label);
+          const isReactant = reactantCompounds.has(formula);
+          const canExpand = isReactant && hasPredecessorReaction(formula, reactionId);
+          return { ...node, data: { ...node.data, canExpand, isExpanded: false } };
+        }
+        return node;
+      }),
+      new Set(),
+      reactionId
+    );
     
     return { nodes: nodesWithExpandInfo, edges: result.edges };
   }, [isOpen, reaction, reactionId]);
@@ -93,14 +113,12 @@ export default function ReactionNetworkGraph({
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge<EdgeData>>(
     initialEdges
   );
-  const [, setSelectedNodeId] = useState<string | null>(null);
   const [currentProductName, setCurrentProductName] = useState<string>(reaction?.productName || "");
   const [currentEquation, setCurrentEquation] = useState<string>(reaction?.equation || "");
 
   useEffect(() => {
     setNodes(initialNodes);
     setEdges(initialEdges);
-    setSelectedNodeId(null);
     setExpandedFormulas(new Set());
     setCurrentProductName(reaction?.productName || "");
     setCurrentEquation(reaction?.equation || "");
@@ -109,84 +127,64 @@ export default function ReactionNetworkGraph({
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node<NodeData>) => {
       if (node.data.nodeType === "compound" && node.data.canExpand) {
-        const formula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
+        const formula = extractFormula(node.data.label);
         if (!expandedFormulas.has(formula)) {
           const result = expandCompoundPredecessors(node.id, nodes, edges, reactionId);
-          
+
           if (result.nodes.length > 0 || result.edges.length > 0 || result.updatedNodes.length > 0) {
-            const nodesWithExpandInfo = result.nodes.map((n) => {
-              if (n.data.nodeType === "compound") {
-                const formula = n.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
-                const canExpand = !expandedFormulas.has(formula) && hasPredecessorReaction(formula, reactionId);
-                return { ...n, data: { ...n.data, canExpand, isExpanded: false } };
+            const nodesWithExpandInfo = markExpandableNodes(result.nodes, expandedFormulas, reactionId);
+            const updateMap = new Map(result.updatedNodes.map((n) => [n.id, n]));
+
+            setNodes((nds) => {
+              let next = nds;
+              if (result.nodes.length > 0) {
+                next = [...next, ...nodesWithExpandInfo];
               }
-              return n;
-            });
-            
-            if (result.nodes.length > 0) {
-              setNodes((nds) => [...nds, ...nodesWithExpandInfo]);
-            }
-            
-            if (result.edges.length > 0) {
-              setEdges((eds) => [...eds, ...result.edges]);
-            }
-            
-            if (result.updatedNodes.length > 0) {
-              const updateMap = new Map(result.updatedNodes.map((n) => [n.id, n]));
-              setNodes((nds) =>
-                nds.map((n) => {
-                  const update = updateMap.get(n.id);
-                  return update ? { ...n, data: update.data } : n;
-                })
-              );
-            }
-            
-            setExpandedFormulas((prev) => new Set([...prev, formula]));
-            
-            setNodes((nds) =>
-              nds.map((n) => {
+              next = next.map((n) => {
                 if (n.id === node.id) {
                   return { ...n, data: { ...n.data, isExpanded: true } };
                 }
-                return n;
-              })
-            );
-            
+                const update = updateMap.get(n.id);
+                return update ? { ...n, data: update.data } : n;
+              });
+              return next;
+            });
+
+            if (result.edges.length > 0) {
+              setEdges((eds) => [...eds, ...result.edges]);
+            }
+
+            setExpandedFormulas((prev) => new Set([...prev, formula]));
             return;
           }
         } else {
-          const formula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
           const result = collapseCompoundPredecessors(node.id, nodes, edges, reactionId);
-          
-          setNodes(() => result.remainingNodes);
+
+          setNodes(() => {
+            let next = result.remainingNodes;
+            if (result.updatedNode) {
+              next = next.map((n) =>
+                n.id === result.updatedNode!.id
+                  ? { ...n, data: { ...n.data, ...result.updatedNode!.data, isExpanded: false } }
+                  : n
+              );
+            } else {
+              next = next.map((n) =>
+                n.id === node.id
+                  ? { ...n, data: { ...n.data, isExpanded: false, canExpand: true } }
+                  : n
+              );
+            }
+            return next;
+          });
           setEdges(() => result.remainingEdges);
-          
-          if (result.updatedNode) {
-            setNodes((nds) =>
-              nds.map((n) => {
-                if (n.id === result.updatedNode!.id) {
-                  return { ...n, data: { ...n.data, ...result.updatedNode!.data, isExpanded: false } };
-                }
-                return n;
-              })
-            );
-          } else {
-            setNodes((nds) =>
-              nds.map((n) => {
-                if (n.id === node.id) {
-                  return { ...n, data: { ...n.data, isExpanded: false, canExpand: true } };
-                }
-                return n;
-              })
-            );
-          }
-          
+
           setExpandedFormulas((prev) => {
             const next = new Set(prev);
             next.delete(formula);
             return next;
           });
-          
+
           return;
         }
       }
@@ -199,8 +197,6 @@ export default function ReactionNetworkGraph({
           setCurrentEquation(node.data.equation);
         }
       }
-
-      setSelectedNodeId(node.id);
 
       const neighborIds = getNeighborNodes(node.id, edges);
       const connectedEdgeIds = new Set(
@@ -235,7 +231,6 @@ export default function ReactionNetworkGraph({
   );
 
   const handlePaneClick = useCallback(() => {
-    setSelectedNodeId(null);
     setNodes((nds) =>
       nds.map((n) => ({
         ...n,

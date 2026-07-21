@@ -77,7 +77,7 @@ export default function AIExplainModal({
     document.addEventListener("keydown", handleEscape);
     document.addEventListener("focus", handleFocusTrap, true);
 
-    setTimeout(() => {
+    const focusTimer = setTimeout(() => {
       closeButtonRef.current?.focus();
     }, 50);
 
@@ -115,6 +115,7 @@ export default function AIExplainModal({
       );
 
       return () => {
+        clearTimeout(focusTimer);
         controller.abort();
         document.body.style.overflow = originalOverflow;
         document.body.style.touchAction = originalTouchAction;
@@ -152,6 +153,7 @@ export default function AIExplainModal({
     }, ionicEquation);
 
     return () => {
+      clearTimeout(focusTimer);
       controller.abort();
       document.body.style.overflow = originalOverflow;
       document.body.style.touchAction = originalTouchAction;
@@ -160,9 +162,9 @@ export default function AIExplainModal({
     };
   }, [isOpen, equation, productName, condition, type, ionicEquation]);
 
-  const handleRetry = () => {
-    setError(null);
+  const startStream = (controller: AbortController) => {
     setLoading(true);
+    setError(null);
     setExplanation({});
     setCurrentKey(null);
     setIsComplete(false);
@@ -181,10 +183,18 @@ export default function AIExplainModal({
         cacheExplanation(equation, productName, result);
       },
       onError: (err) => {
+        if (controller.signal.aborted) return;
         setError(err.message || "AI 解释请求失败");
         setLoading(false);
       },
     }, ionicEquation);
+  };
+
+  const handleRetry = () => {
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+    startStream(controller);
   };
 
   if (!isOpen) return null;
@@ -317,6 +327,13 @@ export default function AIExplainModal({
   );
 }
 
+const sectionColorMap = {
+  cyan: "text-cyan-400",
+  emerald: "text-emerald-400",
+  orange: "text-orange-400",
+  purple: "text-purple-400",
+};
+
 function ExplanationSection({
   icon,
   title,
@@ -330,19 +347,12 @@ function ExplanationSection({
   color: "cyan" | "emerald" | "orange" | "purple";
   isStreaming?: boolean;
 }) {
-  const colorMap = {
-    cyan: "text-cyan-400",
-    emerald: "text-emerald-400",
-    orange: "text-orange-400",
-    purple: "text-purple-400",
-  };
-
-  const isEmpty = !content || content.trim().length === 0;
+  const isEmpty = content.trim().length === 0;
 
   if (isEmpty && !isStreaming) {
     return (
       <div className="py-4">
-        <div className={cn("flex items-center gap-2 font-semibold opacity-40", colorMap[color])}>
+        <div className={cn("flex items-center gap-2 font-semibold opacity-40", sectionColorMap[color])}>
           {icon}
           {title}
         </div>
@@ -353,7 +363,7 @@ function ExplanationSection({
 
   return (
     <div className="py-4">
-      <div className={cn("flex items-center gap-2 font-semibold", colorMap[color])}>
+      <div className={cn("flex items-center gap-2 font-semibold", sectionColorMap[color])}>
         {icon}
         {title}
         {isStreaming && (

@@ -60,27 +60,7 @@ export function findReactiveSymbols(selectedSymbols: string[]): string[] {
  *   表示"选了这个元素，就能形成一个新的反应"
  */
 export function findCompoundReactiveSymbols(selectedSymbols: string[]): string[] {
-  if (selectedSymbols.length < 2) {
-    return findReactiveSymbols(selectedSymbols);
-  }
-
-  const set = new Set(selectedSymbols);
-  const partners = new Set<string>();
-
-  REACTIONS.forEach((r) => {
-    const reactantSet = new Set(r.reactants);
-    const hasSelected = selectedSymbols.every((s) => reactantSet.has(s));
-    if (!hasSelected) return;
-
-    // 链式模式：只高亮"差1个就能匹配"的元素
-    // 这样用户知道选了它就能发生反应，而不是高亮那些还需要更多元素的
-    const missing = r.reactants.filter((s) => !set.has(s));
-    if (missing.length === 1) {
-      partners.add(missing[0]);
-    }
-  });
-
-  return Array.from(partners);
+  return findReactiveSymbols(selectedSymbols);
 }
 
 export function findReactions(selectedSymbols: string[]): ChemicalReaction[] {
@@ -96,7 +76,8 @@ export function findReactions(selectedSymbols: string[]): ChemicalReaction[] {
  *  @param strictProductOnly - 如果为true，只搜索产物名称精确匹配
  */
 export function searchReactions(query: string, strictProductOnly: boolean = false): ChemicalReaction[] {
-  const q = query.trim().toLowerCase();
+  const trimmed = query.trim();
+  const q = trimmed.toLowerCase();
   if (!q) return [];
 
   const typeKeywords: Record<string, ReactionType> = {
@@ -109,7 +90,6 @@ export function searchReactions(query: string, strictProductOnly: boolean = fals
     "还原": "氧化还原",
     "其他": "其他",
   };
-  const trimmed = query.trim();
   if (trimmed in typeKeywords) {
     return REACTIONS.filter((r) => (r.type ?? "化合") === typeKeywords[trimmed]);
   }
@@ -144,7 +124,7 @@ export function getSymbolsFromReactions(reactions: { reactants: string[] }[]): s
 export function parseCompound(formula: string): string[] {
   const symbols: string[] = [];
   let i = 0;
-  const f = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
+  const f = formula.replace(/[₀-₉]/g, "");
   while (i < f.length) {
     if (f[i] === "(") {
       let depth = 1;
@@ -154,7 +134,6 @@ export function parseCompound(formula: string): string[] {
         if (f[j] === ")") depth--;
         j++;
       }
-      i = j;
       while (j < f.length && /[0-9]/.test(f[j])) j++;
       i = j;
     } else if (/[A-Z]/.test(f[i])) {
@@ -179,7 +158,7 @@ export function parseEquationLeft(equation: string): string[] {
     .map((p) =>
       p
         .trim()
-        .replace(/^[\d]+/, "")
+        .replace(/^\d+/, "")
         .replace(/\(浓\)|\(稀\)|\(熔融\)/g, "")
         .replace(/[↑↓]/g, "")
         .trim()
@@ -195,7 +174,7 @@ export function parseEquationRight(equation: string): string[] {
     .map((p) =>
       p
         .trim()
-        .replace(/^[\d]+/, "")
+        .replace(/^\d+/, "")
         .replace(/\(浓\)|\(稀\)|\(熔融\)/g, "")
         .replace(/[↑↓]/g, "")
         .trim()

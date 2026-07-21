@@ -61,7 +61,7 @@ function getTypeColor(type: ReactionType): string {
 }
 
 function isElementLike(symbol: string): boolean {
-  const cleaned = symbol.replace(/^[\d]+/, "").replace(/[↑↓]/g, "").trim();
+  const cleaned = symbol.replace(/^\d+/, "").replace(/[↑↓]/g, "").trim();
   if (ELEMENTS.some((e) => e.symbol === cleaned)) return true;
   if (DIATOMIC_ELEMENTS.has(cleaned)) return true;
   return false;
@@ -137,7 +137,7 @@ function parseEquationSide(side: string): EquationPart[] {
       
       const cleaned = trimmed
         .replace(/\(浓\)|\(稀\)|\(熔融\)/g, "")
-        .replace(/[↑↓]$/g, "")
+        .replace(/[↑↓]$/, "")
         .trim();
         
       const match = cleaned.match(/^([\d]*)(.+)$/);
@@ -156,21 +156,23 @@ function parseEquationSide(side: string): EquationPart[] {
     .filter((p) => p.formula);
 }
 
+function getEquationArrow(equation: string): string {
+  return equation.includes("→") ? "→" : equation.includes("⇌") ? "⇌" : "=";
+}
+
 function parseEquationLeftWithCoef(equation: string): EquationPart[] {
-  const arrow = equation.includes("→") ? "→" : equation.includes("⇌") ? "⇌" : "=";
-  const leftSide = equation.split(arrow)[0].trim();
+  const leftSide = equation.split(getEquationArrow(equation))[0].trim();
   return parseEquationSide(leftSide);
 }
 
 function parseEquationRightWithCoef(equation: string): EquationPart[] {
-  const arrow = equation.includes("→") ? "→" : equation.includes("⇌") ? "⇌" : "=";
-  const rightSide = equation.split(arrow)[1].trim();
+  const rightSide = equation.split(getEquationArrow(equation))[1].trim();
   return parseEquationSide(rightSide);
 }
 
 function normalizeCompounds(compounds: string[]): string[] {
   return compounds
-    .map((c) => c.replace(/[\d]+/g, "").replace(/[↑↓]/g, "").trim())
+    .map((c) => c.replace(/\d+/g, "").replace(/[↑↓]/g, "").trim())
     .sort();
 }
 
@@ -244,8 +246,6 @@ export function buildReactionChain(target: ChemicalReaction): ChemicalReaction[]
     const reactants = parseEquationLeft(r.equation);
     const compoundReactants = reactants.filter((r) => !isElementLike(r));
 
-    if (compoundReactants.length === 0) return;
-
     for (const targetCompound of compoundReactants) {
       if (reactionChain.size >= MAX_CHAIN_REACTIONS) break;
 
@@ -279,10 +279,7 @@ export function buildReactionChain(target: ChemicalReaction): ChemicalReaction[]
     if (visitedForDepth.has(r.id)) return;
     visitedForDepth.add(r.id);
 
-    const existing = reactionDepthMap.get(r.id);
-    if (existing === undefined || depth < existing) {
-      reactionDepthMap.set(r.id, depth);
-    }
+    reactionDepthMap.set(r.id, depth);
 
     const reactants = parseEquationLeft(r.equation);
     for (const reactant of reactants) {
@@ -512,7 +509,7 @@ export function expandCompoundPredecessors(
   
   let compoundLabel = labelMatch[1];
   compoundLabel = compoundLabel.replace(/_prod_.+$/, "").replace(/_pred_.+_\d+$/, "");
-  compoundLabel = compoundLabel.replace(/[↑↓]$/g, "");
+  compoundLabel = compoundLabel.replace(/[↑↓]$/, "");
   const producers = findReactionsProducing(compoundLabel);
   
   const currentReaction = REACTIONS.find((r) => r.id === currentReactionId);
@@ -595,7 +592,7 @@ export function expandCompoundPredecessors(
     for (const node of existingNodeMap.values()) {
       if (node.data.nodeType !== nodeType) continue;
       if (Math.abs(node.position.x - targetX) > layerTolerance) continue;
-      const nodeFormula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/g, "");
+      const nodeFormula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/, "");
       const cleanNodeFormula = cleanCompoundLabel(nodeFormula);
       if (cleanNodeFormula === cleanFormula) {
         return node;
@@ -627,7 +624,7 @@ export function expandCompoundPredecessors(
     if (!hasReactantStateSymbol) {
       const newStateSymbol = newLabel.match(/([↑↓])$/);
       if (newStateSymbol && !finalLabel.includes(newStateSymbol[1])) {
-        finalLabel = finalLabel.replace(/[↑↓]$/g, "") + newStateSymbol[1];
+        finalLabel = finalLabel.replace(/[↑↓]$/, "") + newStateSymbol[1];
         updated = true;
       }
     }
@@ -696,10 +693,8 @@ export function expandCompoundPredecessors(
       const y = findAvailableY(x, preferredY, nodeType);
       
       if (isEl) {
-        const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
-        const element = ELEMENTS.some((e) => e.symbol === baseSymbol)
-          ? ELEMENTS.find((e) => e.symbol === baseSymbol)
-          : undefined;
+        const baseSymbol = formula.replace(/[₀-₉]/g, "");
+        const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
         
         newNodes.push({
           id: key,
@@ -787,7 +782,7 @@ export function expandCompoundPredecessors(
     }
     
     const x = isTargetCompound ? compoundPosition.x : compoundLayerX;
-    const preferredY = isTargetCompound ? compoundPosition.y : compoundPosition.y;
+    const preferredY = compoundPosition.y;
     const nodeType: "element" | "compound" = isEl ? "element" : "compound";
     const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY, nodeType);
     
@@ -799,10 +794,8 @@ export function expandCompoundPredecessors(
       }
     } else if (!existingNodeMap.has(targetKey)) {
       if (isEl) {
-        const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
-        const element = ELEMENTS.some((e) => e.symbol === baseSymbol)
-          ? ELEMENTS.find((e) => e.symbol === baseSymbol)
-          : undefined;
+        const baseSymbol = formula.replace(/[₀-₉]/g, "");
+        const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
         
         newNodes.push({
           id: targetKey,
@@ -872,21 +865,6 @@ export function expandCompoundPredecessors(
     }
   });
   
-  if (newNodes.length > 0) {
-    const allNodes = [...existingNodes, ...newNodes];
-    const shiftX = 0;
-    
-    allNodes.forEach((n) => {
-      const existing = existingNodeMap.get(n.id);
-      if (existing && existing.position.x !== n.position.x + shiftX) {
-        const nodeToUpdate = updatedNodes.find((un) => un.id === n.id);
-        if (!nodeToUpdate) {
-          updatedNodes.push({ ...n, position: { ...n.position, x: n.position.x + shiftX } });
-        }
-      }
-    });
-  }
-  
   return { nodes: applyCollisionResolution(newNodes), edges: newEdges, updatedNodes };
 }
 
@@ -907,7 +885,7 @@ export function collapseCompoundPredecessors(
 
   let compoundLabel = labelMatch[1];
   compoundLabel = compoundLabel.replace(/_prod_.+$/, "").replace(/_pred_.+_\d+$/, "");
-  compoundLabel = compoundLabel.replace(/[↑↓]$/g, "");
+  compoundLabel = compoundLabel.replace(/[↑↓]$/, "");
   const producers = findReactionsProducing(compoundLabel);
   const currentReaction = REACTIONS.find((r) => r.id === currentReactionId);
   if (!currentReaction) {
@@ -958,7 +936,7 @@ export function collapseCompoundPredecessors(
   let updatedNode: Node<NodeData> | null = null;
   const compoundNode = existingNodes.find((n) => n.id === compoundKey);
   if (compoundNode && compoundNode.data.label.match(/[↑↓]$/)) {
-    const newLabel = compoundNode.data.label.replace(/[↑↓]$/g, "");
+    const newLabel = compoundNode.data.label.replace(/[↑↓]$/, "");
     updatedNode = {
       ...compoundNode,
       data: { ...compoundNode.data, label: newLabel, canExpand: true },
