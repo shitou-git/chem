@@ -5,7 +5,7 @@ import ReactionStage from "@/components/ReactionStage";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
 import { useChemStore } from "@/store/chemStore";
 import { ELEMENTS, GROUP_COLORS, GROUP_LABELS, type ElementGroup } from "@/data/elements";
-import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions, REACTION_TYPES, resolveChemicalAlias } from "@/data/reactions";
+import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions, REACTION_TYPES, resolveChemicalAlias, type ReactionType } from "@/data/reactions";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
@@ -281,7 +281,7 @@ export default function Home() {
                   showTypeDropdown && "border-cyan-500 bg-cyan-500/10"
                 )}
               >
-                {searchQuery.trim() && REACTION_TYPES.includes(searchQuery as any)
+                {searchQuery.trim() && REACTION_TYPES.includes(searchQuery as ReactionType)
                   ? searchQuery
                   : "选择类型"}
                 <svg
