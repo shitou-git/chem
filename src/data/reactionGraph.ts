@@ -32,6 +32,10 @@ const MAX_CHAIN_DEPTH = 5;
 const MAX_CHAIN_REACTIONS = 8;
 const LAYER_WIDTH = 160;
 const NODE_HEIGHT = 90;
+const NODE_MIN_WIDTH = 80;
+const NODE_REACTION_MIN_WIDTH = 120;
+const NODE_CHAR_WIDTH = 12;
+const NODE_PADDING = 32;
 
 const DIATOMIC_ELEMENTS = new Set([
   "H₂", "O₂", "N₂", "F₂", "Cl₂", "Br₂", "I₂", "O₃", "P₄", "S₈",
@@ -59,6 +63,56 @@ function isElementLike(symbol: string): boolean {
   if (ELEMENTS.some((e) => e.symbol === cleaned)) return true;
   if (DIATOMIC_ELEMENTS.has(cleaned)) return true;
   return false;
+}
+
+function estimateNodeWidth(label: string, nodeType: "element" | "compound" | "reaction"): number {
+  if (nodeType === "element") {
+    return 56;
+  }
+  if (nodeType === "reaction") {
+    return Math.max(NODE_REACTION_MIN_WIDTH, label.length * NODE_CHAR_WIDTH + NODE_PADDING);
+  }
+  return Math.max(NODE_MIN_WIDTH, label.length * NODE_CHAR_WIDTH + NODE_PADDING);
+}
+
+function applyCollisionResolution(nodes: Node<NodeData>[]): Node<NodeData>[] {
+  if (nodes.length === 0) return nodes;
+  
+  const resolved: Node<NodeData>[] = [...nodes];
+  
+  for (let i = 0; i < resolved.length; i++) {
+    let nodeA = resolved[i];
+    const widthA = estimateNodeWidth(nodeA.data.label, nodeA.data.nodeType as "element" | "compound" | "reaction");
+    const heightA = nodeA.data.nodeType === "element" ? 56 : NODE_HEIGHT;
+
+    for (let j = i + 1; j < resolved.length; j++) {
+      let nodeB = resolved[j];
+      
+      if (Math.abs(nodeA.position.x - nodeB.position.x) > LAYER_WIDTH) continue;
+      
+      const widthB = estimateNodeWidth(nodeB.data.label, nodeB.data.nodeType as "element" | "compound" | "reaction");
+      const heightB = nodeB.data.nodeType === "element" ? 56 : NODE_HEIGHT;
+      
+      const halfWidthA = widthA / 2;
+      const halfWidthB = widthB / 2;
+      const halfHeightA = heightA / 2;
+      const halfHeightB = heightB / 2;
+      
+      const xOverlap = halfWidthA + halfWidthB - Math.abs(nodeA.position.x - nodeB.position.x);
+      const yOverlap = halfHeightA + halfHeightB - Math.abs(nodeA.position.y - nodeB.position.y);
+      
+      if (xOverlap > 0 && yOverlap > 0) {
+        const shift = Math.ceil(yOverlap / 2) + 5;
+        const center = (nodeA.position.y + nodeB.position.y) / 2;
+        nodeA = { ...nodeA, position: { ...nodeA.position, y: center - shift - halfHeightA } };
+        nodeB = { ...nodeB, position: { ...nodeB.position, y: center + shift + halfHeightB } };
+        resolved[i] = nodeA;
+        resolved[j] = nodeB;
+      }
+    }
+  }
+  
+  return resolved;
 }
 
 function getItemKey(name: string, type: "element" | "compound"): string {
@@ -402,7 +456,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
     });
   });
 
-  return { nodes, edges };
+  return { nodes: applyCollisionResolution(nodes), edges };
 }
 
 export function getNeighborNodes(
@@ -825,7 +879,7 @@ export function expandCompoundPredecessors(
     });
   }
   
-  return { nodes: newNodes, edges: newEdges, updatedNodes };
+  return { nodes: applyCollisionResolution(newNodes), edges: newEdges, updatedNodes };
 }
 
 export function collapseCompoundPredecessors(
