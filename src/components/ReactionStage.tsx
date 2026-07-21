@@ -108,7 +108,7 @@ export default function ReactionStage() {
                 return (
                   <div
                     key={reaction.id}
-                    className="flex flex-col rounded-xl border border-slate-800 bg-gradient-to-br from-slate-950 to-slate-900 p-4"
+                    className="flex flex-col rounded-xl p-4"
                   >
                     <div className="mb-3 flex items-center gap-2">
                       <Beaker className="h-4 w-4 text-purple-400" />
