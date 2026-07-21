@@ -4095,9 +4095,9 @@
       "Ag",
       "N"
     ],
-    "product": "CH₃COOH + Ag + NH₃",
-    "productName": "乙酸、银和氨",
-    "equation": "CH₃CHO + 2Ag(NH₃)₂OH → CH₃COOH + 2Ag + 4NH₃↑ + H₂O",
+    "product": "CH₃COONH₄ + 2Ag↓ + 3NH₃↑ + H₂O",
+    "productName": "乙酸铵、银和氨",
+    "equation": "CH₃CHO + 2[Ag(NH₃)₂]OH → CH₃COONH₄ + 2Ag↓ + 3NH₃↑ + H₂O",
     "condition": "水浴加热",
     "description": "乙醛的银镜反应，生成光亮银镜，检验醛基。"
   },
