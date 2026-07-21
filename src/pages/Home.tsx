@@ -143,9 +143,12 @@ export default function Home() {
     // 解析化学别名（如生石灰 → 氧化钙）
     const resolvedQuery = resolveChemicalAlias(query.trim());
 
+    // 判断是否为方程式搜索（包含反应箭头）
+    const isEquationSearch = query.includes("→") || query.includes("⇌") || query.includes("=");
+
     // 再尝试精确匹配产物名称（用户搜索"氧化钙"只显示氧化钙为产物的反应）
     const exactProductReactions = searchReactions(resolvedQuery, true);
-    if (exactProductReactions.length > 0) {
+    if (exactProductReactions.length > 0 && !isEquationSearch) {
       setSearchResult(null);
       reset();
       setSearchOverride(true);
@@ -166,6 +169,15 @@ export default function Home() {
         setSearchOverride(true);
         setCurrentReactions(foundReactions);
         setMessage(`搜索"${query.trim()}"类反应，共找到 ${foundReactions.length} 个`);
+        return;
+      }
+
+      // 方程式搜索：直接展示精确匹配的反应（不选中元素）
+      if (isEquationSearch) {
+        reset();
+        setSearchOverride(true);
+        setCurrentReactions(foundReactions);
+        setMessage(`搜索方程式"${query.trim()}"，找到 ${foundReactions.length} 个反应`);
         return;
       }
 
