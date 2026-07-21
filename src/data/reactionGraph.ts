@@ -74,6 +74,7 @@ function getTypeColor(type: ReactionType): string {
     "取代": "#f472b6",
     "消去": "#fb7185",
     "加聚": "#c084fc",
+    "缩聚": "#e879f9",
     "其他": "#94a3b8",
   };
   return colors[type] || "#94a3b8";

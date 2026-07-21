@@ -12,6 +12,7 @@ export type ReactionType =
   | "取代"
   | "消去"
   | "加聚"
+  | "缩聚"
   | "其他";
 
 const ReactionTypeEnum = z.enum([
@@ -25,6 +26,7 @@ const ReactionTypeEnum = z.enum([
   "取代",
   "消去",
   "加聚",
+  "缩聚",
   "其他",
 ]);
 
@@ -181,6 +183,7 @@ export function searchReactions(query: string, strictProductOnly: boolean = fals
     "消除": "消去",
     "加聚": "加聚",
     "聚合": "加聚",
+    "缩聚": "缩聚",
     "其他": "其他",
   };
   if (trimmed in typeKeywords) {
@@ -217,6 +220,7 @@ export const REACTION_TYPES: ReactionType[] = [
   "取代",
   "消去",
   "加聚",
+  "缩聚",
   "其他",
 ];
 

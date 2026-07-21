@@ -7283,5 +7283,106 @@
     "equation": "Fe₂O₃ + 3CO → 2Fe + 3CO₂",
     "condition": "高温",
     "description": "高炉炼铁的主要反应，一氧化碳在高温下还原氧化铁，工业上冶炼铁的核心原理。"
+  },
+  {
+    "id": "electrochem-iron-corrosion",
+    "type": "氧化还原",
+    "reactants": [
+      "Fe",
+      "O",
+      "H"
+    ],
+    "product": "Fe(OH)₂",
+    "productName": "氢氧化亚铁",
+    "equation": "2Fe + O₂ + 2H₂O → 2Fe(OH)₂",
+    "condition": "常温",
+    "description": "钢铁吸氧腐蚀的总反应，铁作负极失去电子被氧化为Fe²⁺，氧气在正极得电子与水结合生成OH⁻，是电化学腐蚀的核心原理。负极：Fe - 2e⁻ → Fe²⁺，正极：O₂ + 2H₂O + 4e⁻ → 4OH⁻。"
+  },
+  {
+    "id": "aluminothermic-cr2o3",
+    "type": "氧化还原",
+    "reactants": [
+      "Al",
+      "Cr",
+      "O"
+    ],
+    "product": "Al₂O₃ + Cr",
+    "productName": "氧化铝和铬",
+    "equation": "2Al + Cr₂O₃ → Al₂O₃ + 2Cr",
+    "condition": "高温(点燃)",
+    "description": "铝热反应，铝粉与三氧化二铬在高温下发生剧烈氧化还原反应，放出大量热，用于冶炼难熔金属铬。"
+  },
+  {
+    "id": "aluminothermic-v2o5",
+    "type": "氧化还原",
+    "reactants": [
+      "Al",
+      "V",
+      "O"
+    ],
+    "product": "Al₂O₃ + V",
+    "productName": "氧化铝和钒",
+    "equation": "10Al + 3V₂O₅ → 5Al₂O₃ + 6V",
+    "condition": "高温(点燃)",
+    "description": "铝热反应，铝粉与五氧化二钒在高温下反应，用于工业冶炼金属钒。"
+  },
+  {
+    "id": "na2o2-so2",
+    "type": "氧化还原",
+    "reactants": [
+      "Na",
+      "O",
+      "S"
+    ],
+    "product": "Na₂SO₄",
+    "productName": "硫酸钠",
+    "equation": "Na₂O₂ + SO₂ → Na₂SO₄",
+    "condition": "常温",
+    "description": "过氧化钠与二氧化硫反应，与和CO₂反应不同，过氧化钠将SO₂直接氧化为硫酸钠，过氧化钠既是氧化剂又是还原剂。"
+  },
+  {
+    "id": "organic-phenol-formaldehyde",
+    "type": "缩聚",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "(C₇H₆O)ₙ + H₂O",
+    "productName": "酚醛树脂和水",
+    "equation": "nC₆H₅OH + nHCHO → (C₇H₆O)ₙ + nH₂O",
+    "condition": "催化剂(酸或碱)",
+    "description": "苯酚与甲醛发生缩聚反应生成酚醛树脂，单体是苯酚和甲醛，链节为-C₆H₃(OH)CH₂-，是重要的热固性塑料。"
+  },
+  {
+    "id": "silver-ammonia-preparation",
+    "type": "复分解",
+    "reactants": [
+      "Ag",
+      "N",
+      "O",
+      "H"
+    ],
+    "product": "AgOH + NH₄NO₃",
+    "productName": "氢氧化银和硝酸铵",
+    "equation": "AgNO₃ + NH₃·H₂O → AgOH↓ + NH₄NO₃",
+    "condition": "常温",
+    "description": "向硝酸银溶液中滴加少量氨水生成白色氢氧化银沉淀，是配制银氨溶液的第一步。",
+    "ionicEquation": "Ag⁺ + NH₃·H₂O → AgOH↓ + NH₄⁺"
+  },
+  {
+    "id": "silver-ammonia-dissolution",
+    "type": "其他",
+    "reactants": [
+      "Ag",
+      "N",
+      "O",
+      "H"
+    ],
+    "product": "[Ag(NH₃)₂]OH",
+    "productName": "氢氧化二氨合银",
+    "equation": "AgOH + 2NH₃·H₂O → [Ag(NH₃)₂]OH + 2H₂O",
+    "condition": "常温",
+    "description": "氢氧化银沉淀溶于过量氨水生成银氨溶液（氢氧化二氨合银），继续滴加氨水至沉淀恰好溶解即得银氨溶液，用于银镜反应。"
   }
 ]
