@@ -24,6 +24,8 @@ import {
   collapseCompoundPredecessors,
   hasPredecessorReaction,
   parseEquationLeft,
+  parseEquationLeftWithCoef,
+  parseEquationRightWithCoef,
 } from "@/data/reactionGraph";
 import { REACTIONS } from "@/data/reactions";
 import AIExplainModal from "./AIExplainModal";
@@ -195,6 +197,32 @@ export default function ReactionNetworkGraph({
         }
         if (node.data.equation) {
           setCurrentEquation(node.data.equation);
+          
+          const leftParts = parseEquationLeftWithCoef(node.data.equation);
+          const rightParts = parseEquationRightWithCoef(node.data.equation);
+          
+          const formulaLabelMap = new Map<string, string>();
+          leftParts.forEach((part) => {
+            formulaLabelMap.set(part.formula, part.label);
+          });
+          rightParts.forEach((part) => {
+            formulaLabelMap.set(part.formula, part.label);
+          });
+          
+          const neighborIds = getNeighborNodes(node.id, edges);
+          
+          setNodes((nds) =>
+            nds.map((n) => {
+              if (!neighborIds.includes(n.id)) return n;
+              
+              const currentFormula = extractFormula(n.data.label);
+              const newLabel = formulaLabelMap.get(currentFormula);
+              if (newLabel && newLabel !== n.data.label) {
+                return { ...n, data: { ...n.data, label: newLabel } };
+              }
+              return n;
+            })
+          );
         }
       }
 

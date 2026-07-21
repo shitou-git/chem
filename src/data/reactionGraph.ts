@@ -10,6 +10,16 @@ import {
 
 export { parseEquationLeft, parseEquationRight } from "./reactions";
 
+export function parseEquationLeftWithCoef(equation: string): EquationPart[] {
+  const leftSide = equation.split(getEquationArrow(equation))[0].trim();
+  return parseEquationSide(leftSide);
+}
+
+export function parseEquationRightWithCoef(equation: string): EquationPart[] {
+  const rightSide = equation.split(getEquationArrow(equation))[1].trim();
+  return parseEquationSide(rightSide);
+}
+
 export interface NodeData extends Record<string, unknown> {
   label: string;
   nodeType: "element" | "compound" | "reaction";
@@ -160,15 +170,7 @@ function getEquationArrow(equation: string): string {
   return equation.includes("→") ? "→" : equation.includes("⇌") ? "⇌" : "=";
 }
 
-function parseEquationLeftWithCoef(equation: string): EquationPart[] {
-  const leftSide = equation.split(getEquationArrow(equation))[0].trim();
-  return parseEquationSide(leftSide);
-}
 
-function parseEquationRightWithCoef(equation: string): EquationPart[] {
-  const rightSide = equation.split(getEquationArrow(equation))[1].trim();
-  return parseEquationSide(rightSide);
-}
 
 function normalizeCompounds(compounds: string[]): string[] {
   return compounds
