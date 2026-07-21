@@ -276,6 +276,9 @@ export default function ReactionNetworkGraph({
             <div className="flex items-center gap-2">
               <Network className="h-5 w-5 text-fuchsia-400" />
               <h2 className="text-base font-bold text-slate-100">反应网络图</h2>
+              <span className="text-xs text-slate-500">
+                {nodes.length}节点 · {edges.length}连线
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <div className="hidden items-center gap-2 text-xs text-slate-500 sm:flex">
@@ -291,14 +294,6 @@ export default function ReactionNetworkGraph({
                 <X className="h-4 w-4" />
               </button>
             </div>
-          </div>
-          <div className="mt-2 flex flex-wrap items-center gap-1.5">
-            <span className="rounded bg-slate-800/80 px-2 py-0.5 text-xs text-slate-400">
-              {reaction.condition}
-            </span>
-            <span className="rounded bg-slate-800/80 px-2 py-0.5 text-xs text-slate-400">
-              {nodes.length}节点 · {edges.length}连线
-            </span>
           </div>
         </div>
 
