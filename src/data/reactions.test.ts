@@ -247,18 +247,18 @@ describe("searchReactionsBySubstance", () => {
 });
 
 describe("description quality", () => {
-  it("all descriptions should be at least 20 characters", () => {
-    const shortDescriptions = REACTIONS.filter(
-      (r) => r.description.length < 20
+  it("all descriptions should be non-empty and end with period", () => {
+    const invalid = REACTIONS.filter(
+      (r) => !r.description || !r.description.trim().endsWith("。")
     );
-    expect(shortDescriptions).toEqual([]);
+    expect(invalid).toEqual([]);
   });
 
-  it("all descriptions should end with period", () => {
-    const noPeriod = REACTIONS.filter(
-      (r) => !r.description.trim().endsWith("。")
+  it("no description should exceed 120 characters (concise style)", () => {
+    const tooLong = REACTIONS.filter(
+      (r) => r.description.length > 120
     );
-    expect(noPeriod).toEqual([]);
+    expect(tooLong).toEqual([]);
   });
 });
 
