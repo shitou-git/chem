@@ -718,9 +718,18 @@ export function expandCompoundPredecessors(
   
   const totalReactants = reactantElements.length + reactantCompounds.length;
   
-  // Find existing main-reaction reactants on the leftmost layer so we can place
-  // precursor reactants just outside their range, keeping all reactants aligned
-  // vertically and evenly spaced.
+  // Find existing nodes already placed on the target reactant layer so we can
+  // stack precursor reactants compactly without large gaps.
+  const existingLayerNodes = Array.from(existingNodeMap.values()).filter(
+    (n) =>
+      Math.abs(n.position.x - reactantLayerX) <= LAYER_WIDTH / 2 &&
+      (n.data.nodeType === "element" || n.data.nodeType === "compound")
+  );
+  const existingLayerYs = existingLayerNodes.map((n) => n.position.y);
+  const minExistingLayerY = existingLayerYs.length > 0 ? Math.min(...existingLayerYs) : Infinity;
+  const maxExistingLayerY = existingLayerYs.length > 0 ? Math.max(...existingLayerYs) : -Infinity;
+  
+  // Fallback: use main-reaction reactants when the target layer is still empty.
   const mainReactantNodes = Array.from(existingNodeMap.values()).filter(
     (n) =>
       Math.abs(n.position.x - START_X) <= LAYER_WIDTH / 2 &&
@@ -730,11 +739,19 @@ export function expandCompoundPredecessors(
   const minMainReactantY = mainReactantYs.length > 0 ? Math.min(...mainReactantYs) : reactionY;
   const maxMainReactantY = mainReactantYs.length > 0 ? Math.max(...mainReactantYs) : reactionY;
   
-  // Place precursor reactants outward from the main reaction center, just beyond
-  // the existing main-reactant range so every node on this layer is spaced by 60px.
-  const startY = isAboveCenter
-    ? minMainReactantY - totalReactants * NODE_HEIGHT
-    : maxMainReactantY + NODE_HEIGHT;
+  // Place precursor reactants outward from the main reaction center.
+  // If the target layer already has nodes, stack the new ones right next to them
+  // so all nodes on this layer are evenly spaced.
+  let startY: number;
+  if (existingLayerNodes.length > 0) {
+    startY = isAboveCenter
+      ? minExistingLayerY - totalReactants * NODE_HEIGHT
+      : maxExistingLayerY + NODE_HEIGHT;
+  } else {
+    startY = isAboveCenter
+      ? minMainReactantY - totalReactants * NODE_HEIGHT
+      : maxMainReactantY + NODE_HEIGHT;
+  }
   
   const findAvailableY = (
     targetX: number,
