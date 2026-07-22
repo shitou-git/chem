@@ -716,8 +716,7 @@ export function expandCompoundPredecessors(
   
   const findAvailableY = (
     targetX: number,
-    preferredY: number,
-    _nodeType: string
+    preferredY: number
   ): number => {
     const occupiedYs: number[] = [];
     for (const node of existingNodeMap.values()) {
@@ -760,7 +759,7 @@ export function expandCompoundPredecessors(
     } else if (!existingNodeMap.has(key)) {
       const x = reactantLayerX;
       const preferredY = startY + idx * NODE_HEIGHT;
-      const y = findAvailableY(x, preferredY, nodeType);
+      const y = findAvailableY(x, preferredY);
       
       if (isEl) {
         const baseSymbol = formula.replace(/[₀-₉]/g, "");
@@ -886,7 +885,7 @@ export function expandCompoundPredecessors(
     
     const x = isTargetCompound ? compoundPosition.x : compoundLayerX;
     const preferredY = compoundPosition.y;
-    const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY, nodeType);
+    const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY);
     
     if (isTargetCompound) {
       const existingNode = existingNodeMap.get(compoundKey)!;
