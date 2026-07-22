@@ -712,11 +712,23 @@ export function expandCompoundPredecessors(
   const reactantCompounds = leftParts.filter((p) => !isElementLike(p.formula));
   
   const totalReactants = reactantElements.length + reactantCompounds.length;
-  const startY = reactionY - ((totalReactants - 1) * NODE_HEIGHT) / 2;
+  
+  // Find the main reaction center Y to determine outward direction
+  const mainReactionNode = existingNodeMap.get(`rxn:${currentReactionId}`);
+  const mainCenterY = mainReactionNode ? mainReactionNode.position.y : compoundPosition.y;
+  const isAboveCenter = compoundPosition.y < mainCenterY;
+  
+  // Place reactants outward from center:
+  // - If compound is above center, reactants go further up (decreasing Y)
+  // - If compound is below center, reactants go further down (increasing Y)
+  const startY = isAboveCenter
+    ? reactionY - totalReactants * NODE_HEIGHT
+    : reactionY + NODE_HEIGHT;
   
   const findAvailableY = (
     targetX: number,
-    preferredY: number
+    preferredY: number,
+    preferUp: boolean
   ): number => {
     const occupiedYs: number[] = [];
     for (const node of existingNodeMap.values()) {
@@ -735,9 +747,17 @@ export function expandCompoundPredecessors(
       const conflictUp = occupiedYs.some((oy) => Math.abs(oy - yUp) < minSpacing);
       const conflictDown = occupiedYs.some((oy) => Math.abs(oy - yDown) < minSpacing);
       
-      if (offset === 0 && !conflictUp) return preferredY;
-      if (offset > 0 && !conflictUp) return yUp;
-      if (!conflictDown) return yDown;
+      if (offset === 0 && !conflictUp && !conflictDown) return preferredY;
+      
+      if (preferUp) {
+        // Try upward first, then downward
+        if (!conflictUp) return yUp;
+        if (!conflictDown) return yDown;
+      } else {
+        // Try downward first, then upward
+        if (!conflictDown) return yDown;
+        if (!conflictUp) return yUp;
+      }
       
       offset += minSpacing;
       attempts++;
@@ -766,7 +786,7 @@ export function expandCompoundPredecessors(
     } else if (!existingNodeMap.has(key)) {
       const x = reactantLayerX;
       const preferredY = startY + idx * NODE_HEIGHT;
-      const y = findAvailableY(x, preferredY);
+      const y = findAvailableY(x, preferredY, isAboveCenter);
       
       if (isEl) {
         const baseSymbol = formula.replace(/[₀-₉]/g, "");
@@ -892,7 +912,7 @@ export function expandCompoundPredecessors(
     
     const x = isTargetCompound ? compoundPosition.x : compoundLayerX;
     const preferredY = compoundPosition.y;
-    const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY);
+    const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY, isAboveCenter);
     
     if (isTargetCompound) {
       const existingNode = existingNodeMap.get(compoundKey)!;
