@@ -37,10 +37,11 @@ function extractPrecipitateColor(info: string): string {
 }
 
 function CompoundNodeComponent({ data, selected }: NodeProps<CompoundNodeType>) {
-  const { label, color, canExpand, isExpanded, hasPrecipitate, precipitateInfo, compoundName } = data;
+  const { label, color, canExpand, isExpanded, precipitateInfo, compoundName } = data;
   const [showInfo, setShowInfo] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const hasPrecipitate = label.endsWith("↓");
   const shortInfo = precipitateInfo ? extractShortInfo(precipitateInfo) : "";
   const dotColor = precipitateInfo ? extractPrecipitateColor(precipitateInfo) : DEFAULT_PRECIPITATE_COLOR;
 

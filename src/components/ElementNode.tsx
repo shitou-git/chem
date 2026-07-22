@@ -37,10 +37,11 @@ function extractPrecipitateColor(info: string): string {
 }
 
 function ElementNodeComponent({ data, selected }: NodeProps<ElementNodeType>) {
-  const { label, color, element, hasPrecipitate, precipitateInfo } = data;
+  const { label, color, element, precipitateInfo } = data;
   const [showInfo, setShowInfo] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const hasPrecipitate = label.endsWith("↓");
   const shortInfo = precipitateInfo ? extractShortInfo(precipitateInfo) : "";
   const dotColor = precipitateInfo ? extractPrecipitateColor(precipitateInfo) : DEFAULT_PRECIPITATE_COLOR;
 

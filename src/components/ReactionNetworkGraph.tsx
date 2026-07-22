@@ -26,6 +26,7 @@ import {
   parseEquationLeft,
   parseEquationLeftWithCoef,
   parseEquationRightWithCoef,
+  extractPrecipitateInfo,
 } from "@/data/reactionGraph";
 import { REACTIONS } from "@/data/reactions";
 import AIExplainModal from "./AIExplainModal";
@@ -224,7 +225,17 @@ export default function ReactionNetworkGraph({
               const currentFormula = extractFormula(n.data.label);
               const newLabel = formulaLabelMap.get(currentFormula);
               if (newLabel && newLabel !== n.data.label) {
-                return { ...n, data: { ...n.data, label: newLabel } };
+                const newPrecipitateInfo = reactionData
+                  ? extractPrecipitateInfo(currentFormula, reactionData)
+                  : null;
+                return {
+                  ...n,
+                  data: {
+                    ...n.data,
+                    label: newLabel,
+                    precipitateInfo: newPrecipitateInfo || undefined,
+                  },
+                };
               }
               return n;
             })
