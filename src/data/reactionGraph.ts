@@ -46,6 +46,7 @@ export interface EdgeData extends Record<string, unknown> {
 
 const MAX_CHAIN_DEPTH = 5;
 const MAX_CHAIN_REACTIONS = 8;
+const START_X = 80;
 const LAYER_WIDTH = 160;
 const NODE_HEIGHT = 60;
 const NODE_MIN_WIDTH = 80;
@@ -356,7 +357,6 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
   const nodes: Node<NodeData>[] = [];
   const edges: Edge<EdgeData>[] = [];
 
-  const START_X = 80;
   const START_Y = 100;
 
   const leftParts = parseEquationLeftWithCoef(targetReaction.equation);
@@ -636,7 +636,7 @@ export function expandCompoundPredecessors(
     });
   }
   
-  const reactantLayerX = reactionX - LAYER_WIDTH * 2;
+  const reactantLayerX = reactionX - LAYER_WIDTH;
   
   const findSameNodeInLayer = (
     formula: string,
@@ -718,9 +718,23 @@ export function expandCompoundPredecessors(
   
   const totalReactants = reactantElements.length + reactantCompounds.length;
   
-  // Keep reactants centered around the reaction condition node, but prefer expanding
-  // outward (away from the main reaction center) when collisions occur.
-  const startY = reactionY - ((totalReactants - 1) * NODE_HEIGHT) / 2;
+  // Find existing main-reaction reactants on the leftmost layer so we can place
+  // precursor reactants just outside their range, keeping all reactants aligned
+  // vertically and evenly spaced.
+  const mainReactantNodes = Array.from(existingNodeMap.values()).filter(
+    (n) =>
+      Math.abs(n.position.x - START_X) <= LAYER_WIDTH / 2 &&
+      (n.data.nodeType === "element" || n.data.nodeType === "compound")
+  );
+  const mainReactantYs = mainReactantNodes.map((n) => n.position.y);
+  const minMainReactantY = mainReactantYs.length > 0 ? Math.min(...mainReactantYs) : reactionY;
+  const maxMainReactantY = mainReactantYs.length > 0 ? Math.max(...mainReactantYs) : reactionY;
+  
+  // Place precursor reactants outward from the main reaction center, just beyond
+  // the existing main-reactant range so every node on this layer is spaced by 60px.
+  const startY = isAboveCenter
+    ? minMainReactantY - totalReactants * NODE_HEIGHT
+    : maxMainReactantY + NODE_HEIGHT;
   
   const findAvailableY = (
     targetX: number,
