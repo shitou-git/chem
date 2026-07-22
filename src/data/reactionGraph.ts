@@ -47,7 +47,7 @@ export interface EdgeData extends Record<string, unknown> {
 const MAX_CHAIN_DEPTH = 5;
 const MAX_CHAIN_REACTIONS = 8;
 const LAYER_WIDTH = 160;
-const NODE_HEIGHT = 70;
+const NODE_HEIGHT = 60;
 const NODE_MIN_WIDTH = 80;
 const NODE_REACTION_MIN_WIDTH = 120;
 const NODE_CHAR_WIDTH = 12;
@@ -602,18 +602,7 @@ export function expandCompoundPredecessors(
   
   const reactionKey = `rxn:${bestProducer.id}`;
   const reactionX = compoundLayerX - LAYER_WIDTH;
-  
-  // 计算原反应物所在层的平均 y，使前驱反应节点位于被点击化合物与原反应物之间
-  const mainReactantLayerX = compoundLayerX - LAYER_WIDTH * 2;
-  const mainReactantNodes = existingNodes.filter((n) => {
-    if (n.data.nodeType === "reaction") return false;
-    return Math.abs(n.position.x - mainReactantLayerX) < LAYER_WIDTH / 2;
-  });
-  const avgMainReactantY =
-    mainReactantNodes.length > 0
-      ? mainReactantNodes.reduce((sum, n) => sum + n.position.y, 0) / mainReactantNodes.length
-      : compoundPosition.y;
-  const reactionY = (compoundPosition.y + avgMainReactantY) / 2;
+  const reactionY = compoundPosition.y;
   
   if (!existingNodeMap.has(reactionKey)) {
     newNodes.push({
