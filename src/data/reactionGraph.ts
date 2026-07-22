@@ -717,11 +717,10 @@ export function expandCompoundPredecessors(
   const findAvailableY = (
     targetX: number,
     preferredY: number,
-    nodeType: string
+    _nodeType: string
   ): number => {
     const occupiedYs: number[] = [];
     for (const node of existingNodeMap.values()) {
-      if (node.data.nodeType !== nodeType) continue;
       if (Math.abs(node.position.x - targetX) > LAYER_WIDTH / 2) continue;
       occupiedYs.push(node.position.y);
     }
