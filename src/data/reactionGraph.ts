@@ -651,6 +651,22 @@ export function expandCompoundPredecessors(
     }
     return undefined;
   };
+
+  const findSameNodeAnywhere = (
+    formula: string,
+    nodeType: "element" | "compound"
+  ): Node<NodeData> | undefined => {
+    const cleanFormula = cleanCompoundLabel(formula);
+    for (const node of existingNodeMap.values()) {
+      if (node.data.nodeType !== nodeType) continue;
+      const nodeFormula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/, "");
+      const cleanNodeFormula = cleanCompoundLabel(nodeFormula);
+      if (cleanNodeFormula === cleanFormula) {
+        return node;
+      }
+    }
+    return undefined;
+  };
   
   const hasReactantStateSymbol = leftParts.some((part) => part.label.includes("↑") || part.label.includes("↓"));
   
@@ -824,6 +840,7 @@ export function expandCompoundPredecessors(
   rightParts.forEach((part, idx) => {
     const { formula, label } = part;
     const isEl = isElementLike(formula);
+    const nodeType: "element" | "compound" = isEl ? "element" : "compound";
     
     const cleanProduct = cleanCompoundLabel(formula);
     const cleanCompoundLabelValue = cleanCompoundLabel(compoundLabel);
@@ -833,6 +850,36 @@ export function expandCompoundPredecessors(
     if (isTargetCompound) {
       targetKey = compoundKey;
     } else {
+      const existingSameNode = findSameNodeAnywhere(formula, nodeType);
+      if (existingSameNode) {
+        targetKey = existingSameNode.id;
+        const updatedNode = updateNodeLabel(existingSameNode, label);
+        if (updatedNode) {
+          updatedNodes.push(updatedNode);
+          existingNodeMap.set(targetKey, updatedNode);
+        }
+        const edgeId = `${reactionKey}-${targetKey}`;
+        if (!existingEdgeIds.has(edgeId)) {
+          newEdges.push({
+            id: edgeId,
+            source: reactionKey,
+            target: targetKey,
+            data: {
+              condition: bestProducer.condition,
+              reactionType: bestProducer.type ?? "其他",
+              reactionId: bestProducer.id,
+              equation: bestProducer.equation,
+              description: bestProducer.description,
+              ionicEquation: bestProducer.ionicEquation,
+              productName: bestProducer.productName,
+            },
+            style: { stroke: typeColor, strokeWidth: 2 },
+            animated: false,
+          });
+          existingEdgeIds.add(edgeId);
+        }
+        return;
+      }
       targetKey = isEl
         ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
         : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
@@ -840,7 +887,6 @@ export function expandCompoundPredecessors(
     
     const x = isTargetCompound ? compoundPosition.x : compoundLayerX;
     const preferredY = compoundPosition.y;
-    const nodeType: "element" | "compound" = isEl ? "element" : "compound";
     const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY, nodeType);
     
     if (isTargetCompound) {
