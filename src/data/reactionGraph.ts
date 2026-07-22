@@ -592,6 +592,11 @@ export function expandCompoundPredecessors(
   const compoundPosition = compoundNode.position;
   const compoundLayerX = compoundPosition.x;
   
+  // Find the main reaction center Y to determine outward direction when resolving collisions
+  const mainReactionNode = existingNodeMap.get(`rxn:${currentReactionId}`);
+  const mainCenterY = mainReactionNode ? mainReactionNode.position.y : compoundPosition.y;
+  const isAboveCenter = compoundPosition.y < mainCenterY;
+  
   const newNodes: Node<NodeData>[] = [];
   const newEdges: Edge<EdgeData>[] = [];
   const updatedNodes: Node<NodeData>[] = [];
@@ -602,7 +607,11 @@ export function expandCompoundPredecessors(
   
   const reactionKey = `rxn:${bestProducer.id}`;
   const reactionX = compoundLayerX - LAYER_WIDTH;
-  const reactionY = compoundPosition.y;
+  // Offset precursor reaction condition Y so that reaction condition nodes
+  // are evenly spaced (60px apart) instead of landing on product Y values.
+  const reactionY = isAboveCenter
+    ? compoundPosition.y - NODE_HEIGHT / 2
+    : compoundPosition.y + NODE_HEIGHT / 2;
   
   if (!existingNodeMap.has(reactionKey)) {
     newNodes.push({
@@ -631,7 +640,7 @@ export function expandCompoundPredecessors(
     });
   }
   
-  const reactantLayerX = reactionX - LAYER_WIDTH;
+  const reactantLayerX = reactionX - LAYER_WIDTH * 2;
   
   const findSameNodeInLayer = (
     formula: string,
@@ -712,11 +721,6 @@ export function expandCompoundPredecessors(
   const reactantCompounds = leftParts.filter((p) => !isElementLike(p.formula));
   
   const totalReactants = reactantElements.length + reactantCompounds.length;
-  
-  // Find the main reaction center Y to determine outward direction when resolving collisions
-  const mainReactionNode = existingNodeMap.get(`rxn:${currentReactionId}`);
-  const mainCenterY = mainReactionNode ? mainReactionNode.position.y : compoundPosition.y;
-  const isAboveCenter = compoundPosition.y < mainCenterY;
   
   // Keep reactants centered around the reaction condition node, but prefer expanding
   // outward (away from the main reaction center) when collisions occur.
