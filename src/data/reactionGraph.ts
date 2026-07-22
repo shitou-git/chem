@@ -214,7 +214,7 @@ function extractPrecipitateInfo(
   formula: string,
   reaction: ChemicalReaction
 ): string | null {
-  const cleanFormula = cleanCompoundLabel(formula);
+  const cleanFormula = cleanCompoundLabel(formula).replace(/[↑↓]$/, "");
   const arrow = getEquationArrow(reaction.equation);
   const rightSide = reaction.equation.split(arrow)[1].trim();
   const rightParts = rightSide.split("+").map((p) => p.trim());
