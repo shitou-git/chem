@@ -3096,7 +3096,7 @@
     ],
     "product": "Al(OH)₃ + (NH₄)₂SO₄",
     "productName": "氢氧化铝和硫酸铵",
-    "equation": "Al₂(SO₄)₃ + 6NH₃·H₂O → 2Al(OH)₃ + 3(NH₄)₂SO₄",
+    "equation": "Al₂(SO₄)₃ + 6NH₃·H₂O → 2Al(OH)₃↓ + 3(NH₄)₂SO₄",
     "condition": "常温",
     "description": "硫酸铝与氨水反应制备氢氧化铝。",
     "ionicEquation": "Al³⁺ + 3NH₃·H₂O → Al(OH)₃↓ + 3NH₄⁺"
