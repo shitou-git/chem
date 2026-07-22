@@ -713,17 +713,14 @@ export function expandCompoundPredecessors(
   
   const totalReactants = reactantElements.length + reactantCompounds.length;
   
-  // Find the main reaction center Y to determine outward direction
+  // Find the main reaction center Y to determine outward direction when resolving collisions
   const mainReactionNode = existingNodeMap.get(`rxn:${currentReactionId}`);
   const mainCenterY = mainReactionNode ? mainReactionNode.position.y : compoundPosition.y;
   const isAboveCenter = compoundPosition.y < mainCenterY;
   
-  // Place reactants outward from center:
-  // - If compound is above center, reactants go further up (decreasing Y)
-  // - If compound is below center, reactants go further down (increasing Y)
-  const startY = isAboveCenter
-    ? reactionY - totalReactants * NODE_HEIGHT
-    : reactionY + NODE_HEIGHT;
+  // Keep reactants centered around the reaction condition node, but prefer expanding
+  // outward (away from the main reaction center) when collisions occur.
+  const startY = reactionY - ((totalReactants - 1) * NODE_HEIGHT) / 2;
   
   const findAvailableY = (
     targetX: number,
