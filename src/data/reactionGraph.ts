@@ -110,7 +110,7 @@ function applyCollisionResolution(nodes: Node<NodeData>[]): Node<NodeData>[] {
   for (let i = 0; i < resolved.length; i++) {
     let nodeA = resolved[i];
     const widthA = estimateNodeWidth(nodeA.data.label, nodeA.data.nodeType as "element" | "compound" | "reaction");
-    const heightA = nodeA.data.nodeType === "element" ? 40 : NODE_HEIGHT;
+    const heightA = NODE_HEIGHT;
 
     for (let j = i + 1; j < resolved.length; j++) {
       let nodeB = resolved[j];
@@ -118,7 +118,7 @@ function applyCollisionResolution(nodes: Node<NodeData>[]): Node<NodeData>[] {
       if (Math.abs(nodeA.position.x - nodeB.position.x) > LAYER_WIDTH) continue;
       
       const widthB = estimateNodeWidth(nodeB.data.label, nodeB.data.nodeType as "element" | "compound" | "reaction");
-      const heightB = nodeB.data.nodeType === "element" ? 40 : NODE_HEIGHT;
+      const heightB = NODE_HEIGHT;
       
       const halfWidthA = widthA / 2;
       const halfWidthB = widthB / 2;
