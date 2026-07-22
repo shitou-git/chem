@@ -208,6 +208,35 @@ export function searchReactions(query: string, strictProductOnly: boolean = fals
   );
 }
 
+/** 判断搜索词是否像一个化合物/单质化学式 */
+export function isChemicalFormula(query: string): boolean {
+  const trimmed = query.trim();
+  if (!trimmed) return false;
+  // 包含大写字母+可能的小写字母+可能的下标数字+可能的括号
+  // 但不能是纯元素符号（单个大写或大写+小写）
+  const formulaPattern = /^[A-Z][a-z]?[₀-₉0-9A-Za-z\(\)（）·]+$/;
+  if (!formulaPattern.test(trimmed)) return false;
+  // 排除纯元素符号（如 Fe、O₂、Cl₂）
+  const elementPattern = /^[A-Z][a-z]?[₂₃₄]?$/;
+  if (elementPattern.test(trimmed)) return false;
+  return true;
+}
+
+/** 搜索包含某物质（作为反应物或产物）的所有反应 */
+export function searchReactionsBySubstance(substance: string): ChemicalReaction[] {
+  const trimmed = substance.trim();
+  if (!trimmed) return [];
+  
+  const normalized = trimmed.replace(/[↑↓]/g, "").trim();
+  
+  return REACTIONS.filter((r) => {
+    const leftParts = parseEquationLeft(r.equation).map(p => p.replace(/[↑↓]/g, "").trim());
+    const rightParts = parseEquationRight(r.equation).map(p => p.replace(/[↑↓]/g, "").trim());
+    const allParts = [...leftParts, ...rightParts];
+    return allParts.some(p => p === normalized || p.includes(normalized));
+  });
+}
+
 /** 支持的反应类型列表（用于 UI 快捷按钮） */
 export const REACTION_TYPES: ReactionType[] = [
   "化合",

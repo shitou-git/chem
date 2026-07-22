@@ -5,7 +5,7 @@ import ReactionStage from "@/components/ReactionStage";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
 import { useChemStore } from "@/store/chemStore";
 import { ELEMENTS, GROUP_COLORS, GROUP_LABELS, type ElementGroup } from "@/data/elements";
-import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions, REACTION_TYPES, resolveChemicalAlias, type ReactionType } from "@/data/reactions";
+import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions, REACTION_TYPES, resolveChemicalAlias, type ReactionType, isChemicalFormula, searchReactionsBySubstance } from "@/data/reactions";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
@@ -160,6 +160,22 @@ export default function Home() {
 
     // 判断是否为方程式搜索（包含反应箭头）
     const isEquationSearch = query.includes("→") || query.includes("⇌") || query.includes("=");
+
+    // 判断是否为化合物搜索（如 CaSO4、NaOH）
+    const isFormulaSearch = isChemicalFormula(resolvedQuery);
+
+    // 化合物搜索：直接返回包含该物质的所有反应
+    if (isFormulaSearch && !isEquationSearch) {
+      const substanceReactions = searchReactionsBySubstance(resolvedQuery);
+      if (substanceReactions.length > 0) {
+        setSearchResult(null);
+        reset();
+        setSearchOverride(true);
+        setCurrentReactions(substanceReactions);
+        setMessage(`搜索"${query.trim()}"相关反应，找到 ${substanceReactions.length} 个`);
+        return;
+      }
+    }
 
     // 再尝试精确匹配产物名称（用户搜索"氧化钙"只显示氧化钙为产物的反应）
     const exactProductReactions = searchReactions(resolvedQuery, true);

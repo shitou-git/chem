@@ -6,6 +6,8 @@ import {
   searchReactions,
   getSymbolsFromReactions,
   REACTIONS,
+  isChemicalFormula,
+  searchReactionsBySubstance,
 } from "@/data/reactions";
 
 describe("findReactiveSymbols", () => {
@@ -195,5 +197,51 @@ describe("ionic equation support", () => {
     const synthesisReactions = REACTIONS.filter((r) => r.type === "化合");
     const withIonic = synthesisReactions.filter((r) => r.ionicEquation);
     expect(withIonic.length).toBe(0);
+  });
+});
+
+describe("isChemicalFormula", () => {
+  it("should return true for compound formulas", () => {
+    expect(isChemicalFormula("CaSO₄")).toBe(true);
+    expect(isChemicalFormula("NaOH")).toBe(true);
+    expect(isChemicalFormula("Cu(OH)₂")).toBe(true);
+    expect(isChemicalFormula("H₂SO₄")).toBe(true);
+    expect(isChemicalFormula("NaCl")).toBe(true);
+  });
+
+  it("should return false for single elements", () => {
+    expect(isChemicalFormula("Fe")).toBe(false);
+    expect(isChemicalFormula("O₂")).toBe(false);
+    expect(isChemicalFormula("Cl₂")).toBe(false);
+    expect(isChemicalFormula("H")).toBe(false);
+  });
+
+  it("should return false for non-chemical strings", () => {
+    expect(isChemicalFormula("")).toBe(false);
+    expect(isChemicalFormula("水")).toBe(false);
+    expect(isChemicalFormula("氧化钙")).toBe(false);
+    expect(isChemicalFormula("化合")).toBe(false);
+  });
+});
+
+describe("searchReactionsBySubstance", () => {
+  it("should find reactions where substance is a reactant or product", () => {
+    const result = searchReactionsBySubstance("CaSO₄");
+    expect(result.length).toBeGreaterThan(0);
+  });
+
+  it("should find reactions with NaOH as reactant or product", () => {
+    const result = searchReactionsBySubstance("NaOH");
+    expect(result.length).toBeGreaterThan(0);
+  });
+
+  it("should return empty array for unknown substance", () => {
+    const result = searchReactionsBySubstance("XYZ₁₂₃");
+    expect(result).toEqual([]);
+  });
+
+  it("should return empty array for empty query", () => {
+    expect(searchReactionsBySubstance("")).toEqual([]);
+    expect(searchReactionsBySubstance("   ")).toEqual([]);
   });
 });
