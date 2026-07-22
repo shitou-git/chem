@@ -202,13 +202,13 @@ export default function ReactionStage() {
                     )}
 
                     {/* 按钮组 */}
-                    <div className="mt-auto flex gap-2">
+                    <div className="mt-auto flex gap-1.5">
                       <button
                         type="button"
                         onClick={() => handleSave(reaction)}
                         disabled={isSaved}
                         className={cn(
-                          "flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition",
+                          "flex flex-1 items-center justify-center gap-1 whitespace-nowrap rounded-lg px-1.5 py-2 text-xs sm:text-sm font-semibold transition",
                           isSaved
                             ? "cursor-default bg-emerald-500/20 text-emerald-400"
                             : "bg-cyan-500/15 text-cyan-400 hover:bg-cyan-500/25 hover:shadow-[0_0_14px_rgba(34,211,238,0.25)]"
@@ -230,7 +230,7 @@ export default function ReactionStage() {
                       <button
                         type="button"
                         onClick={() => openNetworkForReaction(reaction.id)}
-                        className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-fuchsia-500/15 px-3 py-2 text-sm font-semibold text-fuchsia-400 transition hover:bg-fuchsia-500/25 hover:shadow-[0_0_14px_rgba(232,121,249,0.25)]"
+                        className="flex flex-1 items-center justify-center gap-1 whitespace-nowrap rounded-lg bg-fuchsia-500/15 px-1.5 py-2 text-xs sm:text-sm font-semibold text-fuchsia-400 transition hover:bg-fuchsia-500/25 hover:shadow-[0_0_14px_rgba(232,121,249,0.25)]"
                       >
                         <Network className="h-4 w-4" />
                         网络图
@@ -239,7 +239,7 @@ export default function ReactionStage() {
                       <button
                         type="button"
                         onClick={() => handleAIExplain(reaction)}
-                        className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-amber-500/15 px-3 py-2 text-sm font-semibold text-amber-400 transition hover:bg-amber-500/25 hover:shadow-[0_0_14px_rgba(251,191,36,0.25)]"
+                        className="flex flex-1 items-center justify-center gap-1 whitespace-nowrap rounded-lg bg-amber-500/15 px-1.5 py-2 text-xs sm:text-sm font-semibold text-amber-400 transition hover:bg-amber-500/25 hover:shadow-[0_0_14px_rgba(251,191,36,0.25)]"
                       >
                         <Sparkles className="h-4 w-4" />
                         AI解释
