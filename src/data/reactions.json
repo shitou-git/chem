@@ -10,7 +10,8 @@
     "productName": "水",
     "equation": "2H₂ + O₂ → 2H₂O",
     "condition": "点燃",
-    "description": "氢气在氧气中燃烧生成水。"
+    "description": "氢气在氧气中燃烧生成水。",
+    "phenomenon": "氢气在氧气中安静燃烧，发出淡蓝色火焰，生成无色液滴（水雾）凝结在容器壁上。产物为中性液体。"
   },
   {
     "id": "h-cl",
@@ -23,7 +24,8 @@
     "productName": "氯化氢",
     "equation": "H₂ + Cl₂ → 2HCl",
     "condition": "点燃或光照",
-    "description": "氢气与氯气化合生成氯化氢气体。"
+    "description": "氢气与氯气化合生成氯化氢气体。",
+    "phenomenon": "氢气在氯气中安静燃烧，发出苍白色火焰，产生大量白雾（氯化氢气体遇水蒸气形成盐酸酸雾）。"
   },
   {
     "id": "h-n",
@@ -62,7 +64,8 @@
     "productName": "二氧化碳",
     "equation": "C + O₂ → CO₂",
     "condition": "点燃",
-    "description": "碳在氧气中充分燃烧生成二氧化碳。"
+    "description": "碳在氧气中充分燃烧生成二氧化碳。",
+    "phenomenon": "碳（木炭）在氧气中剧烈燃烧，发出白光，放出大量热，生成无色无味气体（使澄清石灰水变浑浊）。"
   },
   {
     "id": "c-o2",
@@ -75,7 +78,8 @@
     "productName": "一氧化碳",
     "equation": "2C + O₂ → 2CO",
     "condition": "不充分燃烧",
-    "description": "碳在氧气不足时不完全燃烧生成一氧化碳。"
+    "description": "碳在氧气不足时不完全燃烧生成一氧化碳。",
+    "phenomenon": "碳在氧气不足时燃烧，火焰呈蓝色，生成无色无味的一氧化碳气体（有毒！）。"
   },
   {
     "id": "n-o",
@@ -114,7 +118,8 @@
     "productName": "二氧化硫",
     "equation": "S + O₂ → SO₂",
     "condition": "点燃",
-    "description": "硫在空气中燃烧产生二氧化硫。"
+    "description": "硫在空气中燃烧产生二氧化硫。",
+    "phenomenon": "硫在氧气中燃烧，发出明亮的蓝紫色火焰（空气中为淡蓝色），生成有刺激性气味的无色气体。"
   },
   {
     "id": "p-o",
@@ -127,7 +132,8 @@
     "productName": "五氧化二磷",
     "equation": "4P + 5O₂ → 2P₂O₅",
     "condition": "点燃",
-    "description": "磷在氧气中燃烧生成五氧化二磷。"
+    "description": "磷在氧气中燃烧生成五氧化二磷。",
+    "phenomenon": "红磷在氧气中剧烈燃烧，发出耀眼白光，产生大量白烟（五氧化二磷固体小颗粒），放出大量热。"
   },
   {
     "id": "mg-o",
@@ -140,7 +146,8 @@
     "productName": "氧化镁",
     "equation": "2Mg + O₂ → 2MgO",
     "condition": "点燃",
-    "description": "镁条在空气中燃烧发出耀眼白光。"
+    "description": "镁条在空气中燃烧发出耀眼白光。",
+    "phenomenon": "镁条在空气中剧烈燃烧，发出耀眼白光（不可直视！），放出大量热，生成白色粉末状固体。"
   },
   {
     "id": "fe-o",
@@ -153,7 +160,8 @@
     "productName": "四氧化三铁",
     "equation": "3Fe + 2O₂ → Fe₃O₄",
     "condition": "点燃",
-    "description": "铁丝在氧气中剧烈燃烧生成四氧化三铁。"
+    "description": "铁丝在氧气中剧烈燃烧生成四氧化三铁。",
+    "phenomenon": "细铁丝在氧气中剧烈燃烧，火星四射，放出大量热，生成黑色固体（四氧化三铁）。"
   },
   {
     "id": "cu-o",
@@ -166,7 +174,8 @@
     "productName": "氧化铜",
     "equation": "2Cu + O₂ → 2CuO",
     "condition": "加热",
-    "description": "铜在加热条件下与氧气反应生成黑色氧化铜。"
+    "description": "铜在加热条件下与氧气反应生成黑色氧化铜。",
+    "phenomenon": "红色铜片在加热条件下表面逐渐变黑，生成黑色氧化铜。"
   },
   {
     "id": "na-cl",
@@ -179,7 +188,8 @@
     "productName": "氯化钠",
     "equation": "2Na + Cl₂ → 2NaCl",
     "condition": "点燃",
-    "description": "钠在氯气中燃烧生成氯化钠。"
+    "description": "钠在氯气中燃烧生成氯化钠。",
+    "phenomenon": "钠在氯气中剧烈燃烧，产生大量白烟（氯化钠固体颗粒），发出黄色火焰。"
   },
   {
     "id": "h-s",
@@ -218,7 +228,8 @@
     "productName": "氧化铝",
     "equation": "4Al + 3O₂ → 2Al₂O₃",
     "condition": "点燃",
-    "description": "铝在氧气中燃烧生成氧化铝。"
+    "description": "铝在氧气中燃烧生成氧化铝。",
+    "phenomenon": "铝粉在氧气中剧烈燃烧，发出耀眼白光，生成白色固体粉末。"
   },
   {
     "id": "zn-o",
@@ -244,7 +255,8 @@
     "productName": "氧化钾",
     "equation": "4K + O₂ → 2K₂O",
     "condition": "点燃",
-    "description": "钾在氧气中燃烧生成氧化钾。"
+    "description": "钾在氧气中燃烧生成氧化钾。",
+    "phenomenon": "钾在氧气中剧烈燃烧，火焰呈紫色（透过蓝色钴玻璃观察），生成黄色固体。"
   },
   {
     "id": "li-o",
@@ -270,7 +282,8 @@
     "productName": "氯化铁",
     "equation": "2Fe + 3Cl₂ → 2FeCl₃",
     "condition": "点燃",
-    "description": "铁丝在氯气中燃烧生成棕黄色氯化铁。"
+    "description": "铁丝在氯气中燃烧生成棕黄色氯化铁。",
+    "phenomenon": "红热铁丝在氯气中剧烈燃烧，产生大量棕黄色烟（氯化铁固体），瓶内充满棕黄色气体。"
   },
   {
     "id": "cu-cl",
@@ -517,7 +530,8 @@
     "productName": "氢气和氧气",
     "equation": "2H₂O → 2H₂↑ + O₂↑",
     "condition": "通电",
-    "description": "水在通电条件下分解为氢气和氧气。"
+    "description": "水在通电条件下分解为氢气和氧气。",
+    "phenomenon": "通电后两极均产生气泡，正极气体使带火星木条复燃（氧气），负极气体可点燃（氢气），体积比约1:2。"
   },
   {
     "id": "decomp-caco3",
@@ -531,7 +545,8 @@
     "productName": "氧化钙和二氧化碳",
     "equation": "CaCO₃ → CaO + CO₂↑",
     "condition": "高温",
-    "description": "石灰石在高温下分解生成氧化钙和二氧化碳。"
+    "description": "石灰石在高温下分解生成氧化钙和二氧化碳。",
+    "phenomenon": "石灰石高温煅烧后质量减少约44%，生成的氧化钙（生石灰）为白色块状固体，遇水放出大量热。"
   },
   {
     "id": "decomp-h2o2",
@@ -544,7 +559,8 @@
     "productName": "水和氧气",
     "equation": "2H₂O₂ → 2H₂O + O₂↑",
     "condition": "MnO₂催化",
-    "description": "过氧化氢在二氧化锰催化下分解为水和氧气。"
+    "description": "过氧化氢在二氧化锰催化下分解为水和氧气。",
+    "phenomenon": "加入二氧化锰后立即产生大量气泡（氧气），二氧化锰不消耗，反应前后质量不变（催化剂）。"
   },
   {
     "id": "decomp-kclo3",
@@ -572,7 +588,8 @@
     "productName": "锰酸钾、二氧化锰和氧气",
     "equation": "2KMnO₄ → K₂MnO₄ + MnO₂ + O₂↑",
     "condition": "加热",
-    "description": "高锰酸钾加热分解制取氧气。"
+    "description": "高锰酸钾加热分解制取氧气。",
+    "phenomenon": "紫黑色高锰酸钾晶体加热后产生氧气（使带火星木条复燃），试管内残留墨绿色固体混合物。"
   },
   {
     "id": "decomp-cuoh2",
@@ -586,7 +603,8 @@
     "productName": "氧化铜和水",
     "equation": "Cu(OH)₂ → CuO + H₂O",
     "condition": "加热",
-    "description": "氢氧化铜受热分解生成黑色氧化铜和水。"
+    "description": "氢氧化铜受热分解生成黑色氧化铜和水。",
+    "phenomenon": "蓝色氢氧化铜沉淀加热后变为黑色固体（氧化铜），同时试管口有水珠生成。"
   },
   {
     "id": "decomp-nh4hco3",
@@ -601,7 +619,8 @@
     "productName": "氨气、水和二氧化碳",
     "equation": "NH₄HCO₃ → NH₃↑ + H₂O + CO₂↑",
     "condition": "常温",
-    "description": "碳酸氢铵在常温下即可分解。"
+    "description": "碳酸氢铵在常温下即可分解。",
+    "phenomenon": "白色碳酸氢铵固体在常温下逐渐减少（升华般消失），产生刺激性氨味气体。"
   },
   {
     "id": "decomp-feoh3",
@@ -716,7 +735,8 @@
     "equation": "Fe + CuSO₄ → FeSO₄ + Cu",
     "condition": "常温",
     "description": "铁将铜从硫酸铜溶液中置换出来。",
-    "ionicEquation": "Fe + Cu²⁺ → Fe²⁺ + Cu"
+    "ionicEquation": "Fe + Cu²⁺ → Fe²⁺ + Cu",
+    "phenomenon": "铁丝浸入蓝色硫酸铜溶液后，表面析出红色金属铜，溶液蓝色逐渐变为浅绿色。"
   },
   {
     "id": "replace-zn-cu",
@@ -732,7 +752,8 @@
     "equation": "Zn + CuSO₄ → ZnSO₄ + Cu",
     "condition": "常温",
     "description": "锌将铜从硫酸铜溶液中置换出来。",
-    "ionicEquation": "Zn + Cu²⁺ → Zn²⁺ + Cu"
+    "ionicEquation": "Zn + Cu²⁺ → Zn²⁺ + Cu",
+    "phenomenon": "锌粒加入蓝色硫酸铜溶液后，锌表面析出红色海绵状铜，溶液蓝色逐渐褪去。"
   },
   {
     "id": "replace-zn-h",
@@ -747,7 +768,8 @@
     "equation": "Zn + 2HCl → ZnCl₂ + H₂↑",
     "condition": "常温",
     "description": "锌与盐酸反应生成氯化锌和氢气。",
-    "ionicEquation": "Zn + 2H⁺ → Zn²⁺ + H₂↑"
+    "ionicEquation": "Zn + 2H⁺ → Zn²⁺ + H₂↑",
+    "phenomenon": "锌粒与稀盐酸反应，产生大量气泡（氢气），锌粒逐渐溶解，溶液无色。反应放热。"
   },
   {
     "id": "replace-fe-h",
@@ -762,7 +784,8 @@
     "equation": "Fe + 2HCl → FeCl₂ + H₂↑",
     "condition": "常温",
     "description": "铁与盐酸反应生成氯化亚铁和氢气。",
-    "ionicEquation": "Fe + 2H⁺ → Fe²⁺ + H₂↑"
+    "ionicEquation": "Fe + 2H⁺ → Fe²⁺ + H₂↑",
+    "phenomenon": "铁丝与稀盐酸反应，缓慢产生气泡，溶液逐渐变为浅绿色（Fe²⁺）。"
   },
   {
     "id": "replace-mg-h",
@@ -777,7 +800,8 @@
     "equation": "Mg + 2HCl → MgCl₂ + H₂↑",
     "condition": "常温",
     "description": "镁与盐酸反应生成氯化镁和氢气。",
-    "ionicEquation": "Mg + 2H⁺ → Mg²⁺ + H₂↑"
+    "ionicEquation": "Mg + 2H⁺ → Mg²⁺ + H₂↑",
+    "phenomenon": "镁条与稀盐酸剧烈反应，产生大量气泡，镁条迅速溶解，放出大量热。"
   },
   {
     "id": "replace-al-h",
@@ -808,7 +832,8 @@
     "equation": "Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag",
     "condition": "常温",
     "description": "铜将银从硝酸银溶液中置换出来。",
-    "ionicEquation": "Cu + 2Ag⁺ → Cu²⁺ + 2Ag"
+    "ionicEquation": "Cu + 2Ag⁺ → Cu²⁺ + 2Ag",
+    "phenomenon": "铜丝浸入无色硝酸银溶液后，铜丝表面析出银白色树枝状银晶体，溶液逐渐变为蓝色。"
   },
   {
     "id": "replace-cl-br",
@@ -823,7 +848,8 @@
     "equation": "Cl₂ + 2NaBr → 2NaCl + Br₂",
     "condition": "常温",
     "description": "氯气将溴从溴化钠溶液中置换出来。",
-    "ionicEquation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂"
+    "ionicEquation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+    "phenomenon": "黄绿色氯气通入无色溴化钠溶液，溶液变为橙黄色（溴单质析出）。"
   },
   {
     "id": "replace-cl-i",
@@ -838,7 +864,8 @@
     "equation": "Cl₂ + 2KI → 2KCl + I₂",
     "condition": "常温",
     "description": "氯气将碘从碘化钾溶液中置换出来。",
-    "ionicEquation": "Cl₂ + 2I⁻ → 2Cl⁻ + I₂"
+    "ionicEquation": "Cl₂ + 2I⁻ → 2Cl⁻ + I₂",
+    "phenomenon": "氯气通入无色碘化钾溶液，溶液变为棕黄色（碘单质析出），加淀粉变蓝。"
   },
   {
     "id": "replace-zn-h2so4",
@@ -987,7 +1014,8 @@
     "equation": "NaOH + HCl → NaCl + H₂O",
     "condition": "常温",
     "description": "氢氧化钠与盐酸发生中和反应。",
-    "ionicEquation": "H⁺ + OH⁻ → H₂O"
+    "ionicEquation": "H⁺ + OH⁻ → H₂O",
+    "phenomenon": "无色溶液混合，无明显外观变化，但混合后溶液温度升高（中和放热）。滴加酚酞指示剂可观察颜色变化。"
   },
   {
     "id": "double-naoh-h2so4",
@@ -1020,7 +1048,8 @@
     "equation": "BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl",
     "condition": "常温",
     "description": "氯化钡与硫酸钠反应生成不溶于酸的硫酸钡沉淀。",
-    "ionicEquation": "Ba²⁺ + SO₄²⁻ → BaSO₄"
+    "ionicEquation": "Ba²⁺ + SO₄²⁻ → BaSO₄",
+    "phenomenon": "两种无色溶液混合后立即产生大量白色沉淀（硫酸钡），沉淀不溶于稀硝酸。"
   },
   {
     "id": "double-na2co3-hcl",
@@ -1037,7 +1066,8 @@
     "equation": "Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂↑",
     "condition": "常温",
     "description": "碳酸钠与盐酸反应产生二氧化碳气体。",
-    "ionicEquation": "CO₃²⁻ + 2H⁺ → H₂O + CO₂↑"
+    "ionicEquation": "CO₃²⁻ + 2H⁺ → H₂O + CO₂↑",
+    "phenomenon": "加入盐酸后立即产生大量气泡（二氧化碳），固体逐渐溶解，溶液无色。"
   },
   {
     "id": "double-caco3-hcl",
@@ -1054,7 +1084,8 @@
     "equation": "CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂↑",
     "condition": "常温",
     "description": "碳酸钙与盐酸反应产生二氧化碳气体。",
-    "ionicEquation": "CaCO₃ + 2H⁺ → Ca²⁺ + H₂O + CO₂↑"
+    "ionicEquation": "CaCO₃ + 2H⁺ → Ca²⁺ + H₂O + CO₂↑",
+    "phenomenon": "石灰石（或大理石）与盐酸反应，固体逐渐溶解，产生大量气泡（二氧化碳）。实验室制CO₂的方法。"
   },
   {
     "id": "double-cuso4-naoh",
@@ -1071,7 +1102,8 @@
     "equation": "CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄",
     "condition": "常温",
     "description": "硫酸铜与氢氧化钠反应生成蓝色氢氧化铜沉淀。",
-    "ionicEquation": "Cu²⁺ + 2OH⁻ → Cu(OH)₂"
+    "ionicEquation": "Cu²⁺ + 2OH⁻ → Cu(OH)₂",
+    "phenomenon": "蓝色硫酸铜溶液与无色氢氧化钠溶液混合，产生蓝色絮状沉淀（氢氧化铜）。"
   },
   {
     "id": "double-koh-hno3",
@@ -1152,7 +1184,8 @@
     "equation": "CuSO₄ + BaCl₂ → BaSO₄↓ + CuCl₂",
     "condition": "常温",
     "description": "硫酸铜与氯化钡反应生成硫酸钡沉淀。",
-    "ionicEquation": "Ba²⁺ + SO₄²⁻ → BaSO₄"
+    "ionicEquation": "Ba²⁺ + SO₄²⁻ → BaSO₄",
+    "phenomenon": "两种溶液混合后产生白色沉淀（硫酸钡），上层清液变为蓝绿色（氯化铜溶液）。"
   },
   {
     "id": "double-na2co3-cacl2",
@@ -1169,7 +1202,8 @@
     "equation": "Na₂CO₃ + CaCl₂ → CaCO₃↓ + 2NaCl",
     "condition": "常温",
     "description": "碳酸钠与氯化钙反应生成碳酸钙沉淀。",
-    "ionicEquation": "Ca²⁺ + CO₃²⁻ → CaCO₃"
+    "ionicEquation": "Ca²⁺ + CO₃²⁻ → CaCO₃",
+    "phenomenon": "两种无色溶液混合后立即产生白色沉淀（碳酸钙）。"
   },
   {
     "id": "double-na2co3-bacl2",
@@ -1203,7 +1237,8 @@
     "equation": "MgCl₂ + 2NaOH → Mg(OH)₂↓ + 2NaCl",
     "condition": "常温",
     "description": "氯化镁与氢氧化钠反应生成白色氢氧化镁沉淀。",
-    "ionicEquation": "Mg²⁺ + 2OH⁻ → Mg(OH)₂↓"
+    "ionicEquation": "Mg²⁺ + 2OH⁻ → Mg(OH)₂↓",
+    "phenomenon": "无色溶液混合后产生白色沉淀（氢氧化镁），沉淀溶于酸。"
   },
   {
     "id": "double-cuso4-na2co3",
@@ -1237,7 +1272,8 @@
     "equation": "NH₄Cl + NaOH → NaCl + NH₃↑ + H₂O",
     "condition": "加热",
     "description": "铵盐与碱共热放出氨气，用于检验铵根离子。",
-    "ionicEquation": "NH₄⁺ + OH⁻ → NH₃ + H₂O"
+    "ionicEquation": "NH₄⁺ + OH⁻ → NH₃ + H₂O",
+    "phenomenon": "混合加热后产生刺激性气味气体（氨气），使湿润红色石蕊试纸变蓝。"
   },
   {
     "id": "double-nh4no3-naoh",
@@ -1286,7 +1322,8 @@
     "equation": "KOH + HCl → KCl + H₂O",
     "condition": "常温",
     "description": "氢氧化钾与盐酸发生中和反应。",
-    "ionicEquation": "H⁺ + OH⁻ → H₂O"
+    "ionicEquation": "H⁺ + OH⁻ → H₂O",
+    "phenomenon": "无色溶液混合，无明显外观变化，混合后温度升高。"
   },
   {
     "id": "redox-co-fe2o3",
@@ -1300,7 +1337,8 @@
     "productName": "铁和二氧化碳",
     "equation": "3CO + Fe₂O₃ → 2Fe + 3CO₂",
     "condition": "高温",
-    "description": "一氧化碳还原氧化铁，工业高炉炼铁的主要反应。"
+    "description": "一氧化碳还原氧化铁，工业高炉炼铁的主要反应。",
+    "phenomenon": "红棕色氧化铁粉末在高温下被一氧化碳还原为灰黑色铁粉，产生的气体使澄清石灰水变浑浊。"
   },
   {
     "id": "redox-co-cuo",
@@ -1314,7 +1352,8 @@
     "productName": "铜和二氧化碳",
     "equation": "CO + CuO → Cu + CO₂",
     "condition": "加热",
-    "description": "一氧化碳还原氧化铜生成铜和二氧化碳。"
+    "description": "一氧化碳还原氧化铜生成铜和二氧化碳。",
+    "phenomenon": "黑色氧化铜粉末在加热下被一氧化碳还原为红色铜，产生的气体使澄清石灰水变浑浊。"
   },
   {
     "id": "redox-c-co2",
@@ -1340,7 +1379,8 @@
     "productName": "二氧化碳",
     "equation": "2CO + O₂ → 2CO₂",
     "condition": "点燃",
-    "description": "一氧化碳燃烧生成二氧化碳，火焰呈蓝色。"
+    "description": "一氧化碳燃烧生成二氧化碳，火焰呈蓝色。",
+    "phenomenon": "一氧化碳在空气中燃烧，发出蓝色火焰，生成无色无味气体（使澄清石灰水变浑浊）。"
   },
   {
     "id": "redox-ch4-o2",
@@ -1354,7 +1394,8 @@
     "productName": "二氧化碳和水",
     "equation": "CH₄ + 2O₂ → CO₂ + 2H₂O",
     "condition": "点燃",
-    "description": "甲烷燃烧生成二氧化碳和水，天然气的主要成分。"
+    "description": "甲烷燃烧生成二氧化碳和水，天然气的主要成分。",
+    "phenomenon": "甲烷安静燃烧，发出蓝色火焰，生成无色无味气体和水雾。"
   },
   {
     "id": "redox-c2h5oh-o2",
@@ -1368,7 +1409,8 @@
     "productName": "二氧化碳和水",
     "equation": "C₂H₅OH + 3O₂ → 2CO₂ + 3H₂O",
     "condition": "点燃",
-    "description": "乙醇燃烧生成二氧化碳和水。"
+    "description": "乙醇燃烧生成二氧化碳和水。",
+    "phenomenon": "乙醇燃烧，发出淡蓝色火焰，生成无色气体和水雾。"
   },
   {
     "id": "redox-cu-h2so4",
@@ -1383,7 +1425,8 @@
     "productName": "硫酸铜、二氧化硫和水",
     "equation": "Cu + 2H₂SO₄(浓) → CuSO₄ + SO₂↑ + 2H₂O",
     "condition": "加热",
-    "description": "铜与浓硫酸在加热下反应，浓硫酸表现强氧化性。"
+    "description": "铜与浓硫酸在加热下反应，浓硫酸表现强氧化性。",
+    "phenomenon": "铜片与浓硫酸共热，铜逐渐溶解，产生无色刺激性气体（SO₂），溶液变为蓝色。"
   },
   {
     "id": "redox-cu-hno3",
@@ -1398,7 +1441,8 @@
     "productName": "硝酸铜、二氧化氮和水",
     "equation": "Cu + 4HNO₃(浓) → Cu(NO₃)₂ + 2NO₂↑ + 2H₂O",
     "condition": "常温",
-    "description": "铜与浓硝酸反应生成红棕色二氧化氮气体。"
+    "description": "铜与浓硝酸反应生成红棕色二氧化氮气体。",
+    "phenomenon": "铜片与浓硝酸剧烈反应，产生大量红棕色气体（NO₂），溶液变为蓝绿色。"
   },
   {
     "id": "redox-c-hno3-dilute",
@@ -1428,7 +1472,8 @@
     "productName": "氯化锰、氯气和水",
     "equation": "MnO₂ + 4HCl(浓) → MnCl₂ + Cl₂↑ + 2H₂O",
     "condition": "加热",
-    "description": "二氧化锰与浓盐酸加热制取氯气，实验室制氯气原理。"
+    "description": "二氧化锰与浓盐酸加热制取氯气，实验室制氯气原理。",
+    "phenomenon": "黑色二氧化锰与浓盐酸共热，产生黄绿色气体（氯气），溶液变为浅绿色。"
   },
   {
     "id": "na-o-na2o",
@@ -1681,7 +1726,8 @@
     "productName": "氧化铝和铁",
     "equation": "2Al + Fe₂O₃ → Al₂O₃ + 2Fe",
     "condition": "高温",
-    "description": "铝热反应，铝还原氧化铁，放出大量热，用于焊接钢轨和冶炼难熔金属。"
+    "description": "铝热反应，铝还原氧化铁，放出大量热，用于焊接钢轨和冶炼难熔金属。",
+    "phenomenon": "铝热反应极为剧烈，放出大量热（温度可达2500℃以上），生成白烟和熔融态铁水，用于焊接钢轨。"
   },
   {
     "id": "al-mno2-al2o3-mn",
@@ -1774,7 +1820,8 @@
     "productName": "氢氧化铁",
     "equation": "4Fe(OH)₂ + O₂ + 2H₂O → 4Fe(OH)₃↓",
     "condition": "常温",
-    "description": "氢氧化亚铁被氧化，白色沉淀迅速变灰绿色，最后变为红褐色。"
+    "description": "氢氧化亚铁被氧化，白色沉淀迅速变灰绿色，最后变为红褐色。",
+    "phenomenon": "白色氢氧化亚铁沉淀在空气中迅速变为灰绿色，最终变为红褐色（氢氧化铁）。此颜色变化是Fe²⁺的特征。"
   },
   {
     "id": "fecl2-cl2-fecl3",
@@ -1877,7 +1924,8 @@
     "productName": "硝酸铜、一氧化氮和水",
     "equation": "3Cu + 8HNO₃(稀) → 3Cu(NO₃)₂ + 2NO↑ + 4H₂O",
     "condition": "常温",
-    "description": "铜与稀硝酸反应生成无色一氧化氮气体。"
+    "description": "铜与稀硝酸反应生成无色一氧化氮气体。",
+    "phenomenon": "铜片与稀硝酸反应，产生无色气体（NO），遇空气立即变为红棕色（NO₂），溶液变为蓝色。"
   },
   {
     "id": "cl2-h2o-hcl-hclo",
@@ -1906,7 +1954,8 @@
     "productName": "氯化钠、次氯酸钠和水",
     "equation": "Cl₂ + 2NaOH → NaCl + NaClO + H₂O",
     "condition": "常温",
-    "description": "氯气与氢氧化钠反应，制漂白液，也是实验室吸收尾气的方法。"
+    "description": "氯气与氢氧化钠反应，制漂白液，也是实验室吸收尾气的方法。",
+    "phenomenon": "黄绿色氯气通入氢氧化钠溶液后颜色逐渐褪去，制得无色漂白液。"
   },
   {
     "id": "cl2-caoh2-cacl2-ca(clo)2",
@@ -1921,7 +1970,8 @@
     "productName": "氯化钙、次氯酸钙和水",
     "equation": "2Cl₂ + 2Ca(OH)₂ → CaCl₂ + Ca(ClO)₂ + 2H₂O",
     "condition": "常温",
-    "description": "氯气与石灰乳反应制漂白粉，有效成分是次氯酸钙。"
+    "description": "氯气与石灰乳反应制漂白粉，有效成分是次氯酸钙。",
+    "phenomenon": "氯气通入石灰乳，黄绿色褪去，制得漂白粉（白色悬浊液）。"
   },
   {
     "id": "hclo-decomp",
@@ -2069,7 +2119,8 @@
     "productName": "二氧化碳、二氧化硫和水",
     "equation": "C + 2H₂SO₄(浓) → CO₂↑ + 2SO₂↑ + 2H₂O",
     "condition": "加热",
-    "description": "碳与浓硫酸加热反应，浓硫酸表现强氧化性，蔗糖发泡实验原理。"
+    "description": "碳与浓硫酸加热反应，浓硫酸表现强氧化性，蔗糖发泡实验原理。",
+    "phenomenon": "碳（蔗糖）与浓硫酸加热，碳被氧化产生大量气体，体积剧烈膨胀（\"黑面包实验\"），生成黑色多孔炭柱。"
   },
   {
     "id": "nh3-h2o-nh3h2o",
@@ -2274,7 +2325,8 @@
     "productName": "氧化镁和碳",
     "equation": "2Mg + CO₂ → 2MgO + C",
     "condition": "点燃",
-    "description": "镁在二氧化碳中剧烈燃烧，生成白色氧化镁和黑色碳。"
+    "description": "镁在二氧化碳中剧烈燃烧，生成白色氧化镁和黑色碳。",
+    "phenomenon": "镁条在二氧化碳中继续剧烈燃烧，发出耀眼白光，生成白色粉末（MgO）和黑色固体颗粒（碳）。"
   },
   {
     "id": "mg-n2-mg3n2",
@@ -2330,7 +2382,8 @@
     "productName": "氢氧化钙",
     "equation": "CaO + H₂O → Ca(OH)₂",
     "condition": "常温",
-    "description": "生石灰与水反应生成熟石灰，放出大量热。"
+    "description": "生石灰与水反应生成熟石灰，放出大量热。",
+    "phenomenon": "生石灰遇水剧烈反应，放出大量热（可使水沸腾），块状固体碎裂成粉末状熟石灰。"
   },
   {
     "id": "ca-cl2-cacl2",
@@ -3026,7 +3079,8 @@
     "productName": "1,2-二溴乙烷",
     "equation": "C₂H₄ + Br₂ → CH₂BrCH₂Br",
     "condition": "常温",
-    "description": "乙烯与溴水发生加成反应，溴水褪色。"
+    "description": "乙烯与溴水发生加成反应，溴水褪色。",
+    "phenomenon": "红棕色溴水褪色（加成反应），用于检验碳碳不饱和键。"
   },
   {
     "id": "c2h4-h2o-c2h5oh",
@@ -3082,7 +3136,8 @@
     "productName": "乙酸乙酯和水",
     "equation": "CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O",
     "condition": "浓硫酸、加热",
-    "description": "乙酸与乙醇在浓硫酸催化下发生酯化反应生成乙酸乙酯。"
+    "description": "乙酸与乙醇在浓硫酸催化下发生酯化反应生成乙酸乙酯。",
+    "phenomenon": "混合加热后生成有水果香味的无色透明液体（乙酸乙酯），浮在饱和碳酸钠溶液上层。"
   },
   {
     "id": "al2so43-nh3h2o-aloh3",
@@ -3204,7 +3259,8 @@
     "equation": "FeS + 2HCl → FeCl₂ + H₂S↑",
     "condition": "常温",
     "description": "实验室常用硫化亚铁与稀盐酸反应制取硫化氢。",
-    "ionicEquation": "FeS + 2H⁺ → Fe²⁺ + H₂S↑"
+    "ionicEquation": "FeS + 2H⁺ → Fe²⁺ + H₂S↑",
+    "phenomenon": "固体硫化亚铁与稀盐酸反应，产生臭鸡蛋气味气体（硫化氢），溶液变为浅绿色。"
   },
   {
     "id": "na2s-na2so3-h2so4-s",
@@ -3381,7 +3437,8 @@
     "equation": "NaCl + AgNO₃ → AgCl↓ + NaNO₃",
     "condition": "常温",
     "description": "氯化钠与硝酸银反应生成白色氯化银沉淀，常用于检验Cl⁻。",
-    "ionicEquation": "Ag⁺ + Cl⁻ → AgCl↓"
+    "ionicEquation": "Ag⁺ + Cl⁻ → AgCl↓",
+    "phenomenon": "两种无色溶液混合后立即产生白色凝乳状沉淀（氯化银），沉淀见光变紫色。"
   },
   {
     "id": "nabr-agno3-agbr",
@@ -3398,7 +3455,8 @@
     "equation": "NaBr + AgNO₃ → AgBr↓ + NaNO₃",
     "condition": "常温",
     "description": "溴化钠与硝酸银生成淡黄色沉淀。",
-    "ionicEquation": "Ag⁺ + Br⁻ → AgBr↓"
+    "ionicEquation": "Ag⁺ + Br⁻ → AgBr↓",
+    "phenomenon": "产生淡黄色沉淀（溴化银），见光易分解变色。"
   },
   {
     "id": "nai-agno3-agi",
@@ -3415,7 +3473,8 @@
     "equation": "NaI + AgNO₃ → AgI↓ + NaNO₃",
     "condition": "常温",
     "description": "碘化钠与硝酸银生成黄色沉淀。",
-    "ionicEquation": "Ag⁺ + I⁻ → AgI↓"
+    "ionicEquation": "Ag⁺ + I⁻ → AgI↓",
+    "phenomenon": "产生黄色沉淀（碘化银），见光易分解。"
   },
   {
     "id": "so2-h2s-s-h2o",
@@ -3558,7 +3617,8 @@
     "equation": "SiO₂ + 4HF → SiF₄ + 2H₂O",
     "condition": "常温",
     "description": "二氧化硅与氢氟酸反应，唯一能腐蚀玻璃的反应，不能用玻璃容器。",
-    "ionicEquation": "SiO₂ + 4HF → SiF₄↑ + 2H₂O"
+    "ionicEquation": "SiO₂ + 4HF → SiF₄↑ + 2H₂O",
+    "phenomenon": "氢氟酸腐蚀玻璃（试管壁变薄或消失），产生气体，因此氢氟酸必须用塑料瓶保存。"
   },
   {
     "id": "sio2-caco3-casio3-co2",
@@ -3998,7 +4058,8 @@
     "productName": "1,2-二溴乙烯",
     "equation": "C₂H₂ + Br₂ → C₂H₂Br₂",
     "condition": "常温",
-    "description": "乙炔与溴水1:1加成生成二溴乙烯，溴水褪色。"
+    "description": "乙炔与溴水1:1加成生成二溴乙烯，溴水褪色。",
+    "phenomenon": "溴水褪色，乙炔与溴发生加成反应。"
   },
   {
     "id": "c2h2-2br2-c2h2br4",
@@ -4099,7 +4160,8 @@
     "productName": "乙酸铵、银和氨",
     "equation": "CH₃CHO + 2[Ag(NH₃)₂]OH → CH₃COONH₄ + 2Ag↓ + 3NH₃↑ + H₂O",
     "condition": "水浴加热",
-    "description": "乙醛的银镜反应，生成光亮银镜，检验醛基。"
+    "description": "乙醛的银镜反应，生成光亮银镜，检验醛基。",
+    "phenomenon": "在洁净试管内壁形成光亮的银镜。这是检验醛基的特征反应，用于制镜和保温瓶镀银。"
   },
   {
     "id": "ch3cho-cuoh2-ch3cooh",
@@ -4114,7 +4176,8 @@
     "productName": "乙酸和氧化亚铜",
     "equation": "CH₃CHO + 2Cu(OH)₂ → CH₃COOH + Cu₂O + 2H₂O",
     "condition": "水浴加热",
-    "description": "乙醛与新制氢氧化铜反应生成红色氧化亚铜沉淀，检验醛基。"
+    "description": "乙醛与新制氢氧化铜反应生成红色氧化亚铜沉淀，检验醛基。",
+    "phenomenon": "蓝色絮状氢氧化铜沉淀加热后变为砖红色氧化亚铜沉淀。用于检验醛基（斐林反应）。"
   },
   {
     "id": "ch3cooc2h5-naoh-ch3coona",
@@ -4143,7 +4206,8 @@
     "productName": "溴苯和溴化氢",
     "equation": "C₆H₆ + Br₂ → C₆H₅Br + HBr",
     "condition": "FeBr₃催化",
-    "description": "苯与液溴在溴化铁催化下发生取代反应生成溴苯。"
+    "description": "苯与液溴在溴化铁催化下发生取代反应生成溴苯。",
+    "phenomenon": "在铁粉催化下，液溴与苯反应，产生白雾（HBr气体），溴的颜色褪去。"
   },
   {
     "id": "c6h6-hno3-c6h5no2",
@@ -4158,7 +4222,8 @@
     "productName": "硝基苯和水",
     "equation": "C₆H₆ + HNO₃ → C₆H₅NO₂ + H₂O",
     "condition": "浓硫酸、50-60℃",
-    "description": "苯与浓硝酸在浓硫酸催化下发生硝化反应生成硝基苯。"
+    "description": "苯与浓硝酸在浓硫酸催化下发生硝化反应生成硝基苯。",
+    "phenomenon": "苯与混酸（浓硝酸+浓硫酸）反应，生成淡黄色油状液体（硝基苯），有苦杏仁味。"
   },
   {
     "id": "c6h5no2-fe-c6h5nh2",
@@ -4217,7 +4282,8 @@
     "productName": "乙醇和二氧化碳",
     "equation": "C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂↑",
     "condition": "酒化酶",
-    "description": "葡萄糖在酒化酶作用下发酵生成乙醇和二氧化碳。"
+    "description": "葡萄糖在酒化酶作用下发酵生成乙醇和二氧化碳。",
+    "phenomenon": "葡萄糖溶液在酵母作用下产生气泡（CO₂），最终得到含乙醇的发酵液，有酒味。"
   },
   {
     "id": "ch3cooh-na2co3-ch3coona",
@@ -6746,7 +6812,8 @@
     "productName": "乙烯、溴化钠和水",
     "equation": "C₂H₅Br + NaOH → C₂H₄↑ + NaBr + H₂O",
     "condition": "醇、加热",
-    "description": "溴乙烷在氢氧化钠醇溶液中加热发生消去反应生成乙烯，卤代烃发生消去反应的条件是强碱的醇溶液。"
+    "description": "溴乙烷在氢氧化钠醇溶液中加热发生消去反应生成乙烯，卤代烃发生消去反应的条件是强碱的醇溶液。",
+    "phenomenon": "溴乙烷与氢氧化钠醇溶液共热，产生气体使酸性高锰酸钾褪色。"
   },
   {
     "id": "organic-ethanol-elimination",
@@ -6760,7 +6827,8 @@
     "productName": "乙烯和水",
     "equation": "C₂H₅OH → C₂H₄↑ + H₂O",
     "condition": "浓硫酸、170℃",
-    "description": "乙醇在浓硫酸催化下加热至170℃发生消去反应生成乙烯，实验室制乙烯的方法。"
+    "description": "乙醇在浓硫酸催化下加热至170℃发生消去反应生成乙烯，实验室制乙烯的方法。",
+    "phenomenon": "乙醇与浓硫酸共热至170℃，产生无色气体（乙烯），使溴水或酸性高锰酸钾褪色。"
   },
   {
     "id": "organic-ethanol-ether",
@@ -7065,5 +7133,523 @@
     "equation": "AgOH + 2NH₃·H₂O → [Ag(NH₃)₂]OH + 2H₂O",
     "condition": "常温",
     "description": "氢氧化银沉淀溶于过量氨水生成银氨溶液（氢氧化二氨合银），继续滴加氨水至沉淀恰好溶解即得银氨溶液，用于银镜反应。"
+  },
+  {
+    "id": "organic-ch4-pyrolysis",
+    "type": "分解",
+    "reactants": [
+      "C",
+      "H"
+    ],
+    "product": "C + H₂",
+    "productName": "炭黑和氢气",
+    "equation": "CH₄ → C + 2H₂",
+    "condition": "高温(>1000℃)",
+    "description": "甲烷在高温下裂解生成炭黑和氢气，工业制炭黑的主要方法。炭黑用作橡胶补强剂和油墨原料。",
+    "phenomenon": "甲烷通过高温管，管内壁沉积黑色炭黑，出口气体可点燃。"
+  },
+  {
+    "id": "organic-ch4-h2o-ni",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CO + H₂",
+    "productName": "一氧化碳和氢气",
+    "equation": "CH₄ + H₂O → CO + 3H₂",
+    "condition": "Ni催化���高温(700-900℃)",
+    "description": "甲烷与水蒸气在镍催化下重整制取合成气(CO+H₂)，合成气是重要的化工原料，可用于合成氨、甲醇等。"
+  },
+  {
+    "id": "organic-c2h4-hcn",
+    "type": "化合",
+    "reactants": [
+      "C",
+      "H",
+      "N"
+    ],
+    "product": "CH₂=CHCN",
+    "productName": "丙烯腈",
+    "equation": "C₂H₂ + HCN → CH₂=CHCN",
+    "condition": "催化剂(CuCl)、加热",
+    "description": "乙炔与氰化氢加成生成丙烯腈，丙烯腈是合成腈纶(人造羊毛)和ABS塑料的单体。"
+  },
+  {
+    "id": "organic-c2h4-kmno4",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "K",
+      "Mn"
+    ],
+    "product": "HOCH₂CH₂OH + MnO₂ + KOH",
+    "productName": "乙二醇、二氧化锰和氢氧化钾",
+    "equation": "3CH₂=CH₂ + 2KMnO₄ + 4H₂O → 3HOCH₂CH₂OH + 2MnO₂ + 2KOH",
+    "condition": "中性或碱性、常温",
+    "description": "乙烯使酸性高锰酸钾溶液褪色，被氧化为乙二醇。这是检验碳碳双键的常用方法。"
+  },
+  {
+    "id": "organic-c2h2-h2o",
+    "type": "化合",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CH₃CHO",
+    "productName": "乙醛",
+    "equation": "C₂H₂ + H₂O → CH₃CHO",
+    "condition": "HgSO₄催化、加热",
+    "description": "乙炔与水在汞盐催化下发生加成反应生成乙醛（库切洛夫反应）。这是工业制乙醛的经典方法，因汞污染已逐渐被乙烯氧化法替代。"
+  },
+  {
+    "id": "organic-c6h6-h2so4",
+    "type": "取代",
+    "reactants": [
+      "C",
+      "H",
+      "S",
+      "O"
+    ],
+    "product": "C₆H₅SO₃H + H₂O",
+    "productName": "苯磺酸和水",
+    "equation": "C₆H₆ + H₂SO₄(浓) → C₆H₅SO₃H + H₂O",
+    "condition": "加热(70-80℃)",
+    "description": "苯与浓硫酸发生磺化反应生成苯磺酸，磺酸基(-SO₃H)是亲水基团，用于合成洗涤剂和染料中间体。"
+  },
+  {
+    "id": "organic-c7h8-hno3-tnt",
+    "type": "取代",
+    "reactants": [
+      "C",
+      "H",
+      "N",
+      "O"
+    ],
+    "product": "C₇H₅N₃O₆ + H₂O",
+    "productName": "三硝基甲苯和水",
+    "equation": "C₇H₈ + 3HNO₃(浓) → C₇H₅N₃O₆ + 3H₂O",
+    "condition": "浓硫酸催化、加热",
+    "description": "甲苯与浓硝酸在浓硫酸催化下发生硝化反应生成2,4,6-三硝基甲苯(TNT)，TNT是一种重要的烈性炸药。",
+    "phenomenon": "甲苯硝化生成黄色针状TNT晶体，是一种烈性炸药。"
+  },
+  {
+    "id": "organic-c6h6-h2",
+    "type": "化合",
+    "reactants": [
+      "C",
+      "H"
+    ],
+    "product": "C₆H₁₂",
+    "productName": "环己烷",
+    "equation": "C₆H₆ + 3H₂ → C₆H₁₂",
+    "condition": "Ni催化、加热加压",
+    "description": "苯与氢气在镍催化下发生加成反应生成环己烷，环己烷是合成尼龙-6和尼龙-66的重要原料。"
+  },
+  {
+    "id": "organic-c6h6-cl2-light",
+    "type": "化合",
+    "reactants": [
+      "C",
+      "H",
+      "Cl"
+    ],
+    "product": "C₆H₆Cl₆",
+    "productName": "六六六",
+    "equation": "C₆H₆ + 3Cl₂ → C₆H₆Cl₆",
+    "condition": "紫外光照射",
+    "description": "苯与氯气在紫外光照射下发生加成反应生成六氯环己烷(六六六)，曾作为杀虫剂广泛使用，因残留问题已被禁用。",
+    "phenomenon": "苯与氯气在紫外光下加成，生成六六六白色晶体（已被禁用）。"
+  },
+  {
+    "id": "organic-c2h5oh-na",
+    "type": "置换",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "Na"
+    ],
+    "product": "C₂H₅ONa + H₂",
+    "productName": "乙醇钠和氢气",
+    "equation": "2C₂H₅OH + 2Na → 2C₂H₅ONa + H₂↑",
+    "condition": "常温",
+    "description": "乙醇与金属钠反应生成乙醇钠和氢气，反应比钠与水反应温和。可用于检验乙醇中的羟基氢。",
+    "phenomenon": "钠粒投入无水乙醇中，钠沉在底部缓慢反应产生气泡，不如与水反应剧烈。"
+  },
+  {
+    "id": "organic-c2h5oh-kmno4",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "K",
+      "Mn",
+      "S"
+    ],
+    "product": "CH₃COOH + H₂O",
+    "productName": "乙酸和水",
+    "equation": "5C₂H₅OH + 4KMnO₄ + 6H₂SO₄ → 5CH₃COOH + 4MnSO₄ + 2K₂SO₄ + 11H₂O",
+    "condition": "酸性KMnO₄、加热",
+    "description": "乙醇被酸性高锰酸钾氧化为乙酸，高锰酸钾紫色褪去。此反应可用于检验酒驾（乙醇使酸性重铬酸钾由橙变绿）。"
+  },
+  {
+    "id": "organic-ch3oh-o2-hcho",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "HCHO + H₂O",
+    "productName": "甲醛和水",
+    "equation": "2CH₃OH + O₂ → 2HCHO + 2H₂O",
+    "condition": "Ag催化、加热(600℃)",
+    "description": "甲醇在银催化下被空气氧化为甲醛（福尔马林的主要成分）。甲醛是重要的有机化工原料，用于合成酚醛树脂、脲醛树脂等。"
+  },
+  {
+    "id": "organic-c2h5oh-hbr",
+    "type": "取代",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "Br"
+    ],
+    "product": "C₂H₅Br + H₂O",
+    "productName": "溴乙烷和水",
+    "equation": "C₂H₅OH + HBr → C₂H₅Br + H₂O",
+    "condition": "加热",
+    "description": "乙醇与氢溴酸发生取代反应生成溴乙烷，羟基被溴原子取代。实验室常用NaBr + H₂SO₄与乙醇共热制备溴乙烷。"
+  },
+  {
+    "id": "organic-hcho-silver-mirror",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "Ag",
+      "N"
+    ],
+    "product": "(NH₄)₂CO₃ + Ag + NH₃ + H₂O",
+    "productName": "碳酸铵、银、氨气和水",
+    "equation": "HCHO + 4[Ag(NH₃)₂]OH → (NH₄)₂CO₃ + 4Ag↓ + 6NH₃↑ + 2H₂O",
+    "condition": "水浴加热",
+    "description": "甲醛与银氨溶液（Tollens试剂）发生银镜反应，甲醛最终被氧化为碳酸根。此反应可用于检验醛基，工业上用于制镜和保温瓶镀银。",
+    "phenomenon": "甲醛与银氨溶液反应，试管壁形成光亮银镜。甲醛还原性强于乙醛，可生成碳酸铵。"
+  },
+  {
+    "id": "organic-hcho-cuoh2",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "Cu"
+    ],
+    "product": "HCOOH + Cu₂O + H₂O",
+    "productName": "甲酸、氧化亚铜和水",
+    "equation": "HCHO + 2Cu(OH)₂ → HCOOH + Cu₂O↓ + 2H₂O",
+    "condition": "加热",
+    "description": "甲醛与新制氢氧化铜（斐林试剂）加热反应，生成砖红色氧化亚铜沉淀。甲醛被氧化为甲酸，甲酸可进一步被氧化。"
+  },
+  {
+    "id": "organic-ch3cho-h2",
+    "type": "化合",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "C₂H₅OH",
+    "productName": "乙醇",
+    "equation": "CH₃CHO + H₂ → C₂H₅OH",
+    "condition": "Ni催化、加热",
+    "description": "乙醛催化加氢还原为乙醇，这是羰基加氢的典型反应，也是工业制乙醇的方法之一。"
+  },
+  {
+    "id": "organic-ch3coch3-h2",
+    "type": "化合",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CH₃CHOHCH₃",
+    "productName": "异丙醇",
+    "equation": "CH₃COCH₃ + H₂ → CH₃CHOHCH₃",
+    "condition": "Ni催化、加热加压",
+    "description": "丙酮催化加氢生成异丙醇。酮羰基的活性低于醛羰基，需要更剧烈的条件。异丙醇广泛用作溶剂和消毒剂。"
+  },
+  {
+    "id": "organic-hcooh-silver-mirror",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "Ag",
+      "N"
+    ],
+    "product": "CO₂ + H₂O + Ag + NH₃",
+    "productName": "二氧化碳、水、银和氨气",
+    "equation": "HCOOH + 2[Ag(NH₃)₂]OH → CO₂↑ + 2H₂O + 2Ag↓ + 4NH₃↑",
+    "condition": "水浴加热",
+    "description": "甲酸虽然属于羧酸，但分子结构中含醛基(-CHO)，因此也能发生银镜反应。这是甲酸区别于其他羧酸的特征反应。",
+    "phenomenon": "甲酸也能发生银镜反应（含醛基结构），区别于其他羧酸。"
+  },
+  {
+    "id": "organic-hcooh-c2h5oh",
+    "type": "其他",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "HCOOC₂H₅ + H₂O",
+    "productName": "甲酸乙酯和水",
+    "equation": "HCOOH + C₂H₅OH ⇌ HCOOC₂H₅ + H₂O",
+    "condition": "浓硫酸、加热",
+    "description": "甲酸与乙醇在浓硫酸催化下发生酯化反应生成甲酸乙酯。甲酸乙酯有水果香味，用作香料和有机合成中间体。"
+  },
+  {
+    "id": "organic-ch3cooc2h5-h2o-acid",
+    "type": "水解",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CH₃COOH + C₂H₅OH",
+    "productName": "乙酸和乙醇",
+    "equation": "CH₃COOC₂H₅ + H₂O ⇌ CH₃COOH + C₂H₅OH",
+    "condition": "稀酸催化、加热",
+    "description": "乙酸乙酯在稀酸催化下水解生成乙酸和乙醇。酯的水解是酯化反应的逆反应，酸性条件下水解不完全（可逆）。",
+    "phenomenon": "乙酸乙酯在稀酸中加热水解，水果香味逐渐消失，最终得到乙酸和乙醇的混合液。"
+  },
+  {
+    "id": "organic-fat-saponification",
+    "type": "水解",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "Na"
+    ],
+    "product": "C₁₇H₃₅COONa + C₃H₅(OH)₃",
+    "productName": "硬脂酸钠和甘油",
+    "equation": "(C₁₇H₃₅COO)₃C₃H₅ + 3NaOH → 3C₁₇H₃₅COONa + C₃H₅(OH)₃",
+    "condition": "加热",
+    "description": "油脂（硬脂酸甘油酯）与氢氧化钠共热发生皂化反应，生成高级脂肪酸钠（肥皂的主要成分）和甘油。这是工业制肥皂的基本原理。",
+    "phenomenon": "油脂与氢氧化钠共热后得到黏稠液体（肥皂和甘油混合物），加食盐可盐析出固体肥皂。"
+  },
+  {
+    "id": "organic-propylene-polymerization",
+    "type": "加聚",
+    "reactants": [
+      "C",
+      "H"
+    ],
+    "product": "-(CH₂-CH(CH₃))ₙ-",
+    "productName": "聚丙烯",
+    "equation": "nCH₃CH=CH₂ → -(CH₂-CH(CH₃))ₙ-",
+    "condition": "催化剂(TiCl₄-AlEt₃)、加热加压",
+    "description": "丙烯在Ziegler-Natta催化剂作用下发生加聚反应生成聚丙烯(PP)。聚丙烯是五大通用塑料之一，用于制造管道、汽车零件、纤维等。"
+  },
+  {
+    "id": "organic-tetrafluoroethylene-polymerization",
+    "type": "加聚",
+    "reactants": [
+      "C",
+      "F"
+    ],
+    "product": "-(CF₂-CF₂)ₙ-",
+    "productName": "聚四氟乙烯",
+    "equation": "nCF₂=CF₂ → -(CF₂-CF₂)ₙ-",
+    "condition": "引发剂、加热加压",
+    "description": "四氟乙烯加聚生成聚四氟乙烯(PTFE)，商品名特氟龙(Teflon)。具有耐高温、耐腐蚀、不粘附等优异性能，用于不粘锅涂层、密封材料等。"
+  },
+  {
+    "id": "organic-nylon66",
+    "type": "缩聚",
+    "reactants": [
+      "C",
+      "H",
+      "N",
+      "O"
+    ],
+    "product": "尼龙-66 + H₂O",
+    "productName": "尼龙-66和水",
+    "equation": "nH₂N(CH₂)₆NH₂ + nHOOC(CH₂)₄COOH → -(HN(CH₂)₆NHCO(CH₂)₄CO)ₙ- + (2n-1)H₂O",
+    "condition": "加热",
+    "description": "己二胺与己二酸发生缩聚反应生成尼龙-66。尼龙-66是世界上第一种合成纤维，具有高强度、耐磨等优良性能。"
+  },
+  {
+    "id": "organic-pet",
+    "type": "缩聚",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "PET + HOCH₂CH₂OH",
+    "productName": "聚对苯二甲酸乙二醇酯和乙二醇",
+    "equation": "nHOCH₂CH₂OH + nHOOC-C₆H₄-COOH → -(OCH₂CH₂OCO-C₆H₄-CO)ₙ- + (2n-1)H₂O",
+    "condition": "催化剂(Sb₂O₃)、高温、真空",
+    "description": "对苯二甲酸与乙二醇缩聚生成聚对苯二甲酸乙二醇酯(PET)。PET广泛用于饮料瓶(聚酯瓶)和涤纶纤维，是产量最大的聚酯品种。"
+  },
+  {
+    "id": "organic-glucose-silver-mirror",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "Ag",
+      "N"
+    ],
+    "product": "C₆H₁₂O₇ + Ag + NH₃ + H₂O",
+    "productName": "葡萄糖酸、银、氨气和水",
+    "equation": "CH₂OH(CHOH)₄CHO + 2[Ag(NH₃)₂]OH → CH₂OH(CHOH)₄COOH + 2Ag↓ + 4NH₃↑ + H₂O",
+    "condition": "水浴加热",
+    "description": "葡萄糖含醛基，能与银氨溶液发生银镜反应生成葡萄糖酸并在试管壁上形成光亮的银镜。此反应证明葡萄糖是还原性糖。",
+    "phenomenon": "葡萄糖溶液与银氨溶液水浴加热，试管壁形成光亮银镜。用于尿糖检测。"
+  },
+  {
+    "id": "organic-glucose-cuoh2",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O",
+      "Cu"
+    ],
+    "product": "C₆H₁₂O₇ + Cu₂O↓ + H₂O",
+    "productName": "葡萄糖酸、氧化亚铜和水",
+    "equation": "CH₂OH(CHOH)₄CHO + 2Cu(OH)₂ → CH₂OH(CHOH)₄COOH + Cu₂O↓ + 2H₂O",
+    "condition": "加热",
+    "description": "葡萄糖与新制氢氧化铜加热反应生成砖红色氧化亚铜沉淀。此反应用于糖尿病患者的尿糖检测（班氏试剂法）。",
+    "phenomenon": "葡萄糖溶液与新制氢氧化铜加热，先生成绛蓝色溶液（多羟基作用），加热后产生砖红色沉淀。"
+  },
+  {
+    "id": "organic-maltose-hydrolysis",
+    "type": "水解",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "C₆H₁₂O₆",
+    "productName": "葡萄糖",
+    "equation": "C₁₂H₂₂O₁₁ + H₂O → 2C₆H₁₂O₆",
+    "condition": "稀酸或麦芽糖酶催化、加热",
+    "description": "麦芽糖在稀酸或麦芽糖酶催化下水解生成两分子葡萄糖。麦芽糖是淀粉在淀粉酶作用下水解的中间产物，用于制作饴糖。",
+    "phenomenon": "麦芽糖溶液在稀酸中加热后，用班氏试剂检验可产生砖红色沉淀（还原糖增加）。"
+  },
+  {
+    "id": "organic-cellulose-hydrolysis",
+    "type": "水解",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "C₆H₁₂O₆",
+    "productName": "葡萄糖",
+    "equation": "(C₆H₁₀O₅)ₙ + nH₂O → nC₆H₁₂O₆",
+    "condition": "浓酸或纤维素酶催化、加热",
+    "description": "纤维素在浓酸或纤维素酶催化下水解最终生成葡萄糖。纤维素比淀粉更难水解，人体缺乏纤维素酶无法消化纤维素（膳食纤维）。",
+    "phenomenon": "棉花（纤维素）在浓硫酸中逐渐溶解，加热水解后得到还原性糖溶液。"
+  },
+  {
+    "id": "organic-glycine-hcl",
+    "type": "复分解",
+    "reactants": [
+      "C",
+      "H",
+      "N",
+      "O",
+      "Cl"
+    ],
+    "product": "[NH₃CH₂COOH]Cl",
+    "productName": "甘氨酸盐酸盐",
+    "equation": "NH₂CH₂COOH + HCl → [NH₃CH₂COOH]⁺Cl⁻",
+    "condition": "常温",
+    "description": "甘氨酸（氨基乙酸）与盐酸反应，氨基(-NH₂)结合质子生成铵盐。体现氨基酸的两性——既能与酸反应也能与碱反应。"
+  },
+  {
+    "id": "organic-glycine-naoh",
+    "type": "复分解",
+    "reactants": [
+      "C",
+      "H",
+      "N",
+      "O",
+      "Na"
+    ],
+    "product": "NH₂CH₂COONa + H₂O",
+    "productName": "甘氨酸钠和水",
+    "equation": "NH₂CH₂COOH + NaOH → NH₂CH₂COONa + H₂O",
+    "condition": "常温",
+    "description": "甘氨酸与氢氧化钠反应，羧基(-COOH)与碱中和生成氨基酸钠盐。体现氨基酸的两性电离性质。",
+    "phenomenon": "甘氨酸溶于氢氧化钠溶液，羧基被中和。氨基酸是两性物质。"
+  },
+  {
+    "id": "organic-protein-salting-out",
+    "type": "其他",
+    "reactants": [
+      "C",
+      "H",
+      "N",
+      "O",
+      "S"
+    ],
+    "product": "蛋白质↓",
+    "productName": "蛋白质沉淀",
+    "equation": "蛋白质(溶液) + NaCl(浓) → 蛋白质↓(盐析)",
+    "condition": "加入浓NaCl或(NH₄)₂SO₄溶液",
+    "description": "向蛋白质溶液中加入浓的无机盐溶液（如NaCl、Na₂SO₄、(\"NH₄)₂SO₄），蛋白质溶解度降低而析出，称为盐析。盐析是可逆过程，加水后蛋白质可重新溶解，用于分离提纯蛋白质。"
+  },
+  {
+    "id": "organic-protein-denaturation",
+    "type": "其他",
+    "reactants": [
+      "C",
+      "H",
+      "N",
+      "O",
+      "S"
+    ],
+    "product": "蛋白质(变性)",
+    "productName": "变性蛋白质",
+    "equation": "蛋白质(溶液) → 蛋白质↓(变性)",
+    "condition": "加热、紫外线、强酸、强碱、重金属盐、乙醇等",
+    "description": "蛋白质在加热、紫外线、强酸、强碱、重金属盐（如CuSO₄、Pb(NO₃)₂）、乙醇等作用下发生变性，空间结构被破坏，溶解度降低而凝固。变性是不可逆的，如煮鸡蛋、医用酒精消毒。",
+    "phenomenon": "鸡蛋清溶液加热后凝固变白（不可逆），加入乙醇或重金属盐也产生沉淀。"
+  },
+  {
+    "id": "organic-protein-biuret",
+    "type": "其他",
+    "reactants": [
+      "C",
+      "H",
+      "N",
+      "O",
+      "Cu",
+      "Na",
+      "S"
+    ],
+    "product": "紫色络合物",
+    "productName": "紫色络合物",
+    "equation": "蛋白质 + CuSO₄(稀) + NaOH → 紫色络合物",
+    "condition": "常温、碱性条件",
+    "description": "蛋白质在碱性溶液中与稀硫酸铜溶液反应呈紫色（双缩脲反应），用于检验蛋白质中的肽键。肽键越多，颜色越深。",
+    "phenomenon": "蛋白质溶液中加NaOH溶液和稀CuSO₄，溶液呈紫色。肽键越多颜色越深。"
   }
 ]
