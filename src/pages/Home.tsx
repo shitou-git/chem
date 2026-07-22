@@ -347,7 +347,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 p-4 md:p-6">
+      <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 p-3 sm:p-4 md:p-6">
         <div ref={tableRef}>
           <PeriodicTable
             highlightSymbol={searchResult}

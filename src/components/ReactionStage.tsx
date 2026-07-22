@@ -109,7 +109,7 @@ export default function ReactionStage() {
                   <div
                     key={reaction.id}
                     className={cn(
-                      "flex flex-col rounded-xl p-4",
+                      "flex w-full flex-col rounded-xl p-3 sm:p-4",
                       index % 2 !== 0 && "md:border-l md:border-slate-800",
                       index < currentReactions.length - 1 && "border-b border-slate-800"
                     )}
