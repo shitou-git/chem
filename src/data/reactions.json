@@ -7793,5 +7793,694 @@
     "condition": "常温、碱性条件",
     "description": "蛋白质在碱性溶液中与稀硫酸铜溶液反应呈紫色（双缩脲反应），用于检验蛋白质中的肽键。肽键越多，颜色越深。",
     "phenomenon": "蛋白质溶液中加NaOH溶液和稀CuSO₄，溶液呈紫色。肽键越多颜色越深。"
+  },
+  {
+    "id": "electrochem-daniell-cell",
+    "type": "氧化还原",
+    "reactants": [
+      "Zn",
+      "Cu"
+    ],
+    "product": "ZnSO₄ + Cu",
+    "productName": "硫酸锌和铜",
+    "equation": "Zn + CuSO₄ → ZnSO₄ + Cu",
+    "condition": "原电池（丹尼尔电池）",
+    "description": "丹尼尔电池（Daniell Cell）是最经典的原电池。锌为负极（阳极），铜为正极（阴极）。负极反应：Zn - 2e⁻ → Zn²⁺；正极反应：Cu²⁺ + 2e⁻ → Cu。总反应为 Zn + Cu²⁺ → Zn²⁺ + Cu，电动势约为 1.10V。",
+    "ionicEquation": "Zn + Cu²⁺ → Zn²⁺ + Cu",
+    "phenomenon": "锌片逐渐溶解变薄，铜片上析出红色海绵状铜。电流表指针偏转，证明有电流产生。溶液蓝色（Cu²⁺）逐渐变浅。",
+    "industrialUse": "湿法冶金（从铜矿浸出液中置换铜）、电池工业基础原理",
+    "dailyLife": "丹尼尔电池是最早的实用电池之一，为现代干电池奠定了基础",
+    "enthalpy": "ΔG° = -212 kJ/mol（对应 E° = 1.10V）"
+  },
+  {
+    "id": "electrochem-lead-acid-discharge",
+    "type": "氧化还原",
+    "reactants": [
+      "Pb",
+      "Pb",
+      "H",
+      "S",
+      "O"
+    ],
+    "product": "PbSO₄ + H₂O",
+    "productName": "硫酸铅和水",
+    "equation": "Pb + PbO₂ + 2H₂SO₄ → 2PbSO₄ + 2H₂O",
+    "condition": "放电",
+    "description": "铅蓄电池放电反应。负极：Pb + SO₄²⁻ - 2e⁻ → PbSO₄；正极：PbO₂ + 4H⁺ + SO₄²⁻ + 2e⁻ → PbSO₄ + 2H₂O。放电时硫酸浓度降低，两极均生成PbSO₄。电动势约 2.0V。",
+    "ionicEquation": "Pb + PbO₂ + 4H⁺ + 2SO₄²⁻ → 2PbSO₄ + 2H₂O",
+    "phenomenon": "放电时两极逐渐覆盖白色PbSO₄，电解液硫酸密度降低。可用密度计检测电池电量。",
+    "industrialUse": "汽车启动电池、UPS不间断电源、变电站直流电源",
+    "dailyLife": "汽车电瓶（铅酸蓄电池）的放电过程"
+  },
+  {
+    "id": "electrochem-lead-acid-charge",
+    "type": "氧化还原",
+    "reactants": [
+      "Pb",
+      "S",
+      "O"
+    ],
+    "product": "Pb + PbO₂ + H₂SO₄",
+    "productName": "铅、二氧化铅和硫酸",
+    "equation": "2PbSO₄ + 2H₂O → Pb + PbO₂ + 2H₂SO₄",
+    "condition": "充电（电解）",
+    "description": "铅蓄电池充电反应（放电反应的逆过程）。外加直流电源使PbSO₄在阴极还原为Pb、在阳极氧化为PbO₂，硫酸浓度回升。",
+    "ionicEquation": "2PbSO₄ + 2H₂O → Pb + PbO₂ + 4H⁺ + 2SO₄²⁻",
+    "phenomenon": "充电时两极的白色PbSO₄逐渐转化为海绵状Pb（灰色）和PbO₂（棕黑色），电解液密度升高，有气泡产生（后期电解水）。",
+    "industrialUse": "铅蓄电池可反复充放电循环使用，是二次电池的典型代表",
+    "dailyLife": "汽车电瓶充电过程"
+  },
+  {
+    "id": "electrochem-hydrogen-fuel-cell",
+    "type": "氧化还原",
+    "reactants": [
+      "H",
+      "O"
+    ],
+    "product": "H₂O",
+    "productName": "水",
+    "equation": "2H₂ + O₂ → 2H₂O",
+    "condition": "氢氧燃料电池（KOH电解质）",
+    "description": "氢氧燃料电池（碱性介质）。负极（H₂）：2H₂ + 4OH⁻ - 4e⁻ → 4H₂O；正极（O₂）：O₂ + 2H₂O + 4e⁻ → 4OH⁻。总反应与氢气燃烧相同，但能量以电能形式释放，效率可达50-60%，远高于热机。",
+    "ionicEquation": "2H₂ + O₂ → 2H₂O（碱性介质，OH⁻ 在电极反应中消耗和再生）",
+    "phenomenon": "电池工作时无火焰、无噪音，产物只有水。可观察到外电路有电流通过，电极表面有气泡产生。",
+    "industrialUse": "航天器电源（Apollo飞船、航天飞机）、氢能源汽车、分布式发电站",
+    "dailyLife": "丰田Mirai等氢燃料电池汽车使用此反应提供动力",
+    "enthalpy": "ΔH = -285.8 kJ/mol（理论能量转换效率不受卡诺循环限制）"
+  },
+  {
+    "id": "electrochem-methane-fuel-cell",
+    "type": "氧化还原",
+    "reactants": [
+      "C",
+      "H",
+      "O"
+    ],
+    "product": "CO₂ + H₂O",
+    "productName": "二氧化碳和水",
+    "equation": "CH₄ + 2O₂ → CO₂ + 2H₂O",
+    "condition": "熔融碳酸盐燃料电池（MCFC）",
+    "description": "甲烷燃料电池（熔融碳酸盐介质）。负极：CH₄ + 4CO₃²⁻ - 8e⁻ → 5CO₂ + 2H₂O；正极：2O₂ + 4CO₂ + 8e⁻ → 4CO₃²⁻。工作温度约650°C，可直接使用天然气。",
+    "phenomenon": "高温运行（~650°C），无需贵金属催化剂。排出气体为CO₂和水蒸气。",
+    "industrialUse": "大型固定式发电站（数百kW至MW级）、天然气高效发电",
+    "dailyLife": "以天然气为燃料的高效清洁发电技术"
+  },
+  {
+    "id": "electrochem-lithium-ion-discharge",
+    "type": "氧化还原",
+    "reactants": [
+      "Li",
+      "C",
+      "Co",
+      "O"
+    ],
+    "product": "LiCoO₂ + C",
+    "productName": "钴酸锂和石墨",
+    "equation": "LiC₆ + CoO₂ → C₆ + LiCoO₂",
+    "condition": "锂离子电池放电",
+    "description": "锂离子电池放电反应（以钴酸锂/石墨体系为例）。负极：LiC₆ - e⁻ → C₆ + Li⁺；正极：CoO₂ + Li⁺ + e⁻ → LiCoO₂。Li⁺ 从石墨层间脱出，经电解液嵌入正极。工作电压约 3.6-3.7V。",
+    "phenomenon": "放电过程中无可见变化（全固态密封）。电池轻微发热，电压从满电4.2V逐渐降至截止电压约3.0V。",
+    "industrialUse": "消费电子产品（手机、笔记本）、电动汽车（Tesla、比亚迪等）、储能电站",
+    "dailyLife": "手机、笔记本电脑、电动汽车中的锂离子电池放电过程"
+  },
+  {
+    "id": "electrochem-chloralkali",
+    "type": "电解",
+    "reactants": [
+      "Na",
+      "Cl",
+      "H",
+      "O"
+    ],
+    "product": "NaOH + H₂ + Cl₂",
+    "productName": "氢氧化钠、氢气和氯气",
+    "equation": "2NaCl + 2H₂O → 2NaOH + H₂↑ + Cl₂↑",
+    "condition": "电解饱和食盐水（氯碱工业）",
+    "description": "氯碱工业核心反应。阳极（石墨或钛基）：2Cl⁻ - 2e⁻ → Cl₂↑；阴极（铁网）：2H₂O + 2e⁻ → H₂↑ + 2OH⁻。需用阳离子交换膜隔离两极产物，防止Cl₂与NaOH反应。是化学工业最重要的电解过程之一。",
+    "ionicEquation": "2Cl⁻ + 2H₂O → 2OH⁻ + H₂↑ + Cl₂↑",
+    "phenomenon": "阳极产生黄绿色有刺激性气味气体（Cl₂），阴极产生无色无味气体（H₂）。阴极区溶液使酚酞变红（生成NaOH）。离子交换膜法可得到高纯NaOH。",
+    "industrialUse": "氯碱工业——同时生产烧碱（NaOH）、氯气（Cl₂）和氢气（H₂），三者均为重要化工原料",
+    "dailyLife": "烧碱用于肥皂、造纸；氯气用于自来水消毒、PVC塑料生产"
+  },
+  {
+    "id": "electrochem-electroplate-zn",
+    "type": "电解",
+    "reactants": [
+      "Zn"
+    ],
+    "product": "Zn",
+    "productName": "锌镀层",
+    "equation": "Zn²⁺ + 2e⁻ → Zn（阴极）",
+    "condition": "电镀锌",
+    "description": "电镀锌（镀锌）。阳极为纯锌板，阴极为待镀工件。阳极：Zn - 2e⁻ → Zn²⁺；阴极：Zn²⁺ + 2e⁻ → Zn。电解液中Zn²⁺浓度保持不变，阳极锌溶解补充镀液中的Zn²⁺。",
+    "ionicEquation": "Zn(阳极) → Zn²⁺ → Zn(阴极)",
+    "phenomenon": "阳极锌板逐渐溶解，阴极工件表面沉积银白色锌层。镀层均匀致密，具有良好的防腐性能。",
+    "industrialUse": "钢铁防腐——镀锌钢板（白铁皮）广泛用于建筑、汽车、家电",
+    "dailyLife": "镀锌水管、铁皮屋顶、汽车车身防腐"
+  },
+  {
+    "id": "electrochem-electrorefine-cu",
+    "type": "电解",
+    "reactants": [
+      "Cu"
+    ],
+    "product": "Cu",
+    "productName": "精铜",
+    "equation": "Cu(粗铜) → Cu²⁺ → Cu(精铜)",
+    "condition": "电解精炼铜",
+    "description": "电解精炼铜。阳极为粗铜（含Zn、Fe、Ni、Ag、Au等杂质），阴极为纯铜薄片。阳极：Cu - 2e⁻ → Cu²⁺（比Cu活泼的金属也溶解）；阴极：Cu²⁺ + 2e⁻ → Cu。活泼金属离子留在溶液，不活泼金属（Ag、Au、Pt）沉入阳极泥。精铜纯度可达99.95-99.99%。",
+    "ionicEquation": "Cu(粗铜阳极) - 2e⁻ → Cu²⁺ → Cu(精铜阴极) + 2e⁻",
+    "phenomenon": "粗铜阳极逐渐溶解变小，阴极纯铜逐渐增厚。阳极泥中可回收贵金属（金、银、铂等），具有重要经济价值。",
+    "industrialUse": "铜的电解精炼是生产高纯导电铜的必备工艺，阳极泥可回收贵金属",
+    "dailyLife": "电线电缆中的铜导体需要电解精炼达到高纯度以保证导电性"
+  },
+  {
+    "id": "electrochem-hall-heroult",
+    "type": "电解",
+    "reactants": [
+      "Al",
+      "O"
+    ],
+    "product": "Al + O₂",
+    "productName": "铝和氧气",
+    "equation": "2Al₂O₃(熔融冰晶石) → 4Al + 3O₂↑",
+    "condition": "电解熔融氧化铝（Hall-Héroult法）",
+    "description": "Hall-Héroult 电解炼铝法。将Al₂O₃溶于熔融冰晶石（Na₃AlF₆，约950-980°C）中电解。阴极（碳衬）：Al³⁺ + 3e⁻ → Al；阳极（碳棒）：2O²⁻ - 4e⁻ → O₂↑（阳极碳被氧化为CO₂）。冰晶石作用是降低Al₂O₃熔点（从2050°C降至~950°C）。",
+    "phenomenon": "高温熔融电解，阴极析出液态铝沉于槽底定期放出。阳极碳棒逐渐消耗（与O₂反应生成CO₂），需定期更换。",
+    "industrialUse": "现代炼铝的唯一工业化方法，全球年产铝超6000万吨",
+    "dailyLife": "铝制门窗、易拉罐、飞机材料等均源自此电解工艺"
+  },
+  {
+    "id": "electrochem-electrolysis-water",
+    "type": "电解",
+    "reactants": [
+      "H",
+      "O"
+    ],
+    "product": "H₂ + O₂",
+    "productName": "氢气和氧气",
+    "equation": "2H₂O → 2H₂↑ + O₂↑",
+    "condition": "电解水（加入少量NaOH或H₂SO₄增强导电性）",
+    "description": "电解水制氢。纯水导电性差，需加入电解质。阴极：2H₂O + 2e⁻ → H₂↑ + 2OH⁻（或 2H⁺ + 2e⁻ → H₂↑）；阳极：4OH⁻ - 4e⁻ → 2H₂O + O₂↑（或 2H₂O - 4e⁻ → 4H⁺ + O₂↑）。H₂:O₂ 体积比为 2:1。",
+    "ionicEquation": "2H₂O → 2H₂↑ + O₂↑",
+    "phenomenon": "阴极产生气体体积约为阳极的两倍（H₂:O₂=2:1）。可用带火星木条检验阳极O₂（复燃），用燃着的木条检验阴极H₂（淡蓝色火焰）。",
+    "industrialUse": "绿氢生产（使用可再生能源电力电解水）、氢气制备",
+    "dailyLife": "中学化学课堂演示实验——水的组成验证",
+    "enthalpy": "ΔH = +285.8 kJ/mol（需吸收能量）"
+  },
+  {
+    "id": "electrochem-oxygen-corrosion",
+    "type": "氧化还原",
+    "reactants": [
+      "Fe",
+      "O",
+      "H"
+    ],
+    "product": "Fe₂O₃·xH₂O",
+    "productName": "铁锈",
+    "equation": "2Fe + O₂ + 2H₂O → 2Fe(OH)₂ → Fe₂O₃·xH₂O（铁锈）",
+    "condition": "中性或弱酸性潮湿环境（吸氧腐蚀）",
+    "description": "铁的吸氧腐蚀——最常见的金属腐蚀形式。负极（Fe）：2Fe - 4e⁻ → 2Fe²⁺；正极（C等杂质）：O₂ + 2H₂O + 4e⁻ → 4OH⁻。Fe²⁺ + 2OH⁻ → Fe(OH)₂↓（白色），进一步被氧化：4Fe(OH)₂ + O₂ + 2H₂O → 4Fe(OH)₃，脱水后形成铁锈 Fe₂O₃·xH₂O（红棕色）。",
+    "ionicEquation": "2Fe + O₂ + 2H₂O → 2Fe²⁺ + 4OH⁻ → 2Fe(OH)₂",
+    "phenomenon": "铁表面先出现白色沉淀Fe(OH)₂，随后迅速变为灰绿色，最终变为红棕色铁锈。铁锈疏松多孔，不能保护内部铁继续腐蚀。",
+    "industrialUse": "钢铁腐蚀是最大的材料损耗问题——全球每年因腐蚀损失的钢铁约占年产量的20-30%",
+    "dailyLife": "铁门、铁栏杆生锈；铁钉在水中生锈比在干燥空气中快得多"
+  },
+  {
+    "id": "electrochem-hydrogen-corrosion",
+    "type": "氧化还原",
+    "reactants": [
+      "Fe",
+      "H"
+    ],
+    "product": "Fe²⁺ + H₂",
+    "productName": "亚铁离子和氢气",
+    "equation": "Fe + 2H⁺ → Fe²⁺ + H₂↑",
+    "condition": "酸性环境（析氢腐蚀）",
+    "description": "铁的析氢腐蚀，发生在酸性较强的环境中。负极（Fe）：Fe - 2e⁻ → Fe²⁺；正极（C等杂质）：2H⁺ + 2e⁻ → H₂↑。与吸氧腐蚀相比，析氢腐蚀需要较低的pH环境（一般pH<4）。",
+    "ionicEquation": "Fe + 2H⁺ → Fe²⁺ + H₂↑",
+    "phenomenon": "铁表面有气泡产生（H₂），铁逐渐溶解。溶液可能变为浅绿色（Fe²⁺）。在酸性工业废水中腐蚀尤为严重。",
+    "industrialUse": "化工设备在酸性介质中的腐蚀机理——需选用耐酸材料或加缓蚀剂",
+    "dailyLife": "酸雨加速钢铁设施的腐蚀"
+  },
+  {
+    "id": "electrochem-sacrificial-anode",
+    "type": "氧化还原",
+    "reactants": [
+      "Zn",
+      "Fe",
+      "O",
+      "H"
+    ],
+    "product": "Zn(OH)₂ + Fe（被保护）",
+    "productName": "氢氧化锌和被保护的铁",
+    "equation": "2Zn + O₂ + 2H₂O → 2Zn(OH)₂（牺牲阳极保护铁）",
+    "condition": "牺牲阳极的阴极保护法",
+    "description": "牺牲阳极保护法。将更活泼金属（如Zn、Mg、Al）与铁相连，活泼金属作为阳极优先被腐蚀，铁作为阴极被保护。Zn比Fe活泼（E°(Zn²⁺/Zn) = -0.76V < E°(Fe²⁺/Fe) = -0.44V），优先失去电子。",
+    "ionicEquation": "Zn - 2e⁻ → Zn²⁺（阳极溶解）；O₂ + 2H₂O + 4e⁻ → 4OH⁻（阴极）",
+    "phenomenon": "锌块（阳极）逐渐消耗，铁（被保护体）不腐蚀。需定期更换牺牲阳极。锌表面出现白色腐蚀产物Zn(OH)₂。",
+    "industrialUse": "船体防腐（锌块）、埋地管道保护（镁阳极）、热水器内胆保护（镁棒）",
+    "dailyLife": "热水器中的镁棒——防止内胆腐蚀，需定期更换"
+  },
+  {
+    "id": "electrochem-metal-activity-series",
+    "type": "置换",
+    "reactants": [
+      "Zn",
+      "Cu"
+    ],
+    "product": "ZnSO₄ + Cu",
+    "productName": "硫酸锌和铜",
+    "equation": "Zn + CuSO₄ → ZnSO₄ + Cu",
+    "condition": "常温溶液反应",
+    "description": "金属活动性顺序的典型验证反应。锌比铜活泼（E°(Zn²⁺/Zn) = -0.76V，E°(Cu²⁺/Cu) = +0.34V），Zn可将Cu²⁺从其盐溶液中置换出来。金属活动性顺序：K>Ca>Na>Mg>Al>Zn>Fe>Sn>Pb>(H)>Cu>Hg>Ag>Pt>Au。",
+    "ionicEquation": "Zn + Cu²⁺ → Zn²⁺ + Cu",
+    "phenomenon": "锌片表面覆盖红色铜层，溶液蓝色（Cu²⁺）逐渐褪去变为无色（Zn²⁺）。溶液温度略有升高（放热反应）。",
+    "industrialUse": "湿法炼铜、金属活动性顺序是判断置换反应能否发生的依据",
+    "dailyLife": "中学化学经典演示实验——'铁树开花'（铁钉放入硫酸铜溶液）"
+  },
+  {
+    "id": "electrochem-dry-cell",
+    "type": "氧化还原",
+    "reactants": [
+      "Zn",
+      "Mn",
+      "N",
+      "H",
+      "O"
+    ],
+    "product": "Zn(NH₃)₂Cl₂ + MnO(OH)",
+    "productName": "氯化二氨合锌和碱式氧化锰",
+    "equation": "Zn + 2MnO₂ + 2NH₄Cl → Zn(NH₃)₂Cl₂ + Mn₂O₃ + H₂O",
+    "condition": "锌锰干电池放电",
+    "description": "锌锰干电池（Leclanché电池）放电反应。负极为锌筒：Zn - 2e⁻ → Zn²⁺；正极为MnO₂和碳棒：2MnO₂ + 2NH₄⁺ + 2e⁻ → Mn₂O₃ + 2NH₃ + H₂O。Zn²⁺与NH₃和Cl⁻形成配合物。电压约1.5V，不可充电。",
+    "phenomenon": "电池放电过程中锌筒逐渐变薄（可能穿孔漏液）。长时间使用后电压下降，无法再驱动用电器。旧电池外壳变软。",
+    "industrialUse": "最广泛使用的一次电池——遥控器、手电筒、钟表、玩具",
+    "dailyLife": "普通5号、7号干电池的工作原理"
+  },
+  {
+    "id": "electrochem-alkaline-battery",
+    "type": "氧化还原",
+    "reactants": [
+      "Zn",
+      "Mn",
+      "O",
+      "K",
+      "H"
+    ],
+    "product": "ZnO + Mn₂O₃",
+    "productName": "氧化锌和三氧化二锰",
+    "equation": "Zn + 2MnO₂ → ZnO + Mn₂O₃",
+    "condition": "碱性锌锰电池放电（KOH电解质）",
+    "description": "碱性锌锰电池。负极为锌粉：Zn + 2OH⁻ - 2e⁻ → ZnO + H₂O；正极为MnO₂：2MnO₂ + H₂O + 2e⁻ → Mn₂O₃ + 2OH⁻。与普通锌锰电池相比，使用KOH电解质，容量更大、大电流放电性能更好、低温性能更优。",
+    "phenomenon": "放电过程中电压稳定，大电流放电性能优于普通碳性电池。密封性好，不易漏液。",
+    "industrialUse": "高能量需求设备——数码相机、电动玩具、无线鼠标、强光手电",
+    "dailyLife": "碱性电池（如南孚、Duracell）比碳性电池更耐用"
+  },
+  {
+    "id": "electrochem-nimh-charge-discharge",
+    "type": "氧化还原",
+    "reactants": [
+      "Ni",
+      "O",
+      "H",
+      "La"
+    ],
+    "product": "Ni(OH)₂ + LaNi₅",
+    "productName": "氢氧化镍和LaNi₅合金",
+    "equation": "6NiO(OH) + LaNi₅H₆ → 6Ni(OH)₂ + LaNi₅",
+    "condition": "镍氢电池放电（KOH电解质）",
+    "description": "镍氢电池（NiMH）放电反应（以LaNi₅储氢合金为例，简化形式为 NiO(OH) + MH → Ni(OH)₂ + M）。正极：NiO(OH) + H₂O + e⁻ → Ni(OH)₂ + OH⁻；负极：LaNi₅H₆ + 6OH⁻ - 6e⁻ → LaNi₅ + 6H₂O。总反应：6NiO(OH) + LaNi₅H₆ → 6Ni(OH)₂ + LaNi₅。电压约1.2V，可充放电数百次。",
+    "phenomenon": "充放电循环中电池温度变化小，无记忆效应（优于镍镉电池）。放电电压平台约1.2V，充电末期电压升至约1.5V。",
+    "industrialUse": "混合动力汽车（如丰田普锐斯早期型号）、电动工具、数码相机",
+    "dailyLife": "可充电5号/7号电池（Eneloop等品牌）"
+  },
+  {
+    "id": "electrochem-faraday-electrolysis",
+    "type": "电解",
+    "reactants": [
+      "Ag",
+      "N",
+      "O"
+    ],
+    "product": "Ag + O₂ + HNO₃",
+    "productName": "银、氧气和硝酸",
+    "equation": "4AgNO₃ + 2H₂O → 4Ag + O₂↑ + 4HNO₃",
+    "condition": "电解硝酸银溶液（惰性电极）",
+    "description": "电解AgNO₃溶液（Pt或石墨电极）。阴极：Ag⁺ + e⁻ → Ag↓（银镜状析出）；阳极：2H₂O - 4e⁻ → O₂↑ + 4H⁺。每通过1法拉第电量（96485 C）可在阴极析出1 mol Ag（107.87g）。这是法拉第电解定律的经典验证实验。",
+    "ionicEquation": "4Ag⁺ + 2H₂O → 4Ag↓ + O₂↑ + 4H⁺",
+    "phenomenon": "阴极上析出银白色树枝状银晶体（银镜），阳极产生细小气泡（O₂）。溶液逐渐变为酸性（HNO₃生成），pH降低。",
+    "industrialUse": "银的精炼和回收、法拉第定律的定量验证",
+    "dailyLife": "电化学基础定律——法拉第定律的教学演示实验"
+  },
+  {
+    "id": "electrochem-rust-removal",
+    "type": "氧化还原",
+    "reactants": [
+      "Fe",
+      "O",
+      "H",
+      "C"
+    ],
+    "product": "Fe + CO₂ + H₂O",
+    "productName": "铁、二氧化碳和水",
+    "equation": "Fe₂O₃ + 3CO → 2Fe + 3CO₂",
+    "condition": "高温还原（不是电化学，但属金属防腐相关）",
+    "description": "注意：此条目为热还原除锈（非电化学），但属于腐蚀与防护体系的补充。高炉炼铁核心反应——用CO还原铁矿石。Fe₂O₃ + 3CO → 2Fe + 3CO₂。实际上分步进行：Fe₂O₃ → Fe₃O₄ → FeO → Fe。",
+    "phenomenon": "红棕色Fe₂O₃逐渐变为灰色海绵状铁。尾气中含大量CO₂和未反应的CO。炉温约800-1000°C。",
+    "industrialUse": "高炉炼铁核心还原反应",
+    "dailyLife": "钢铁冶炼的第一步——从铁矿石到生铁"
+  },
+  {
+    "id": "complex-ag-nh3-formation",
+    "type": "其他",
+    "reactants": [
+      "Ag",
+      "N",
+      "H",
+      "O"
+    ],
+    "product": "[Ag(NH₃)₂]OH",
+    "productName": "氢氧化二氨合银(I)",
+    "equation": "AgOH + 2NH₃·H₂O → [Ag(NH₃)₂]OH + 2H₂O",
+    "condition": "过量氨水",
+    "description": "银氨配合物的形成。AgOH（或Ag₂O）溶于过量氨水形成二氨合银(I)配离子 [Ag(NH₃)₂]⁺。这是银镜反应（Tollens试剂）的基础——[Ag(NH₃)₂]⁺ 是温和氧化剂，可被醛或还原糖还原为银镜。配位数为2，空间构型为直线形。",
+    "ionicEquation": "AgOH + 2NH₃·H₂O → [Ag(NH₃)₂]⁺ + OH⁻ + 2H₂O",
+    "phenomenon": "棕色AgOH（或Ag₂O）沉淀溶于过量氨水，形成无色透明溶液。此溶液久置可能生成爆炸性Ag₃N（雷银），需现配现用。",
+    "industrialUse": "银镜反应（制镜工业、保温瓶镀银）、Tollens试剂检测醛基",
+    "dailyLife": "暖水瓶内壁银光闪闪的镀层就是银镜反应的产物"
+  },
+  {
+    "id": "complex-ag-nh3-destruction",
+    "type": "其他",
+    "reactants": [
+      "Ag",
+      "N",
+      "H",
+      "O"
+    ],
+    "product": "AgNO₃ + NH₄NO₃ + H₂O",
+    "productName": "硝酸银和硝酸铵",
+    "equation": "[Ag(NH₃)₂]OH + 3HNO₃ → AgNO₃ + 2NH₄NO₃ + H₂O",
+    "condition": "酸化破坏银氨配合物",
+    "description": "加酸破坏银氨配合物。H⁺ 与配体 NH₃ 结合为 NH₄⁺，配离子解体：[Ag(NH₃)₂]⁺ + 2H⁺ → Ag⁺ + 2NH₄⁺。酸化后再加Cl⁻可得AgCl白色沉淀，用于银离子的鉴定。",
+    "ionicEquation": "[Ag(NH₃)₂]⁺ + 2H⁺ → Ag⁺ + 2NH₄⁺",
+    "phenomenon": "无色溶液酸化后，若加入Cl⁻则产生白色凝乳状AgCl沉淀。AgCl可溶于氨水（再形成银氨配离子），此性质用于Ag⁺的分离鉴定。",
+    "industrialUse": "银的回收和定性分析中的离子分离",
+    "dailyLife": "分析化学中银离子的鉴定方法"
+  },
+  {
+    "id": "complex-cu-nh3-formation",
+    "type": "其他",
+    "reactants": [
+      "Cu",
+      "N",
+      "H",
+      "S",
+      "O"
+    ],
+    "product": "[Cu(NH₃)₄]SO₄",
+    "productName": "硫酸四氨合铜(II)",
+    "equation": "CuSO₄ + 4NH₃·H₂O → [Cu(NH₃)₄]SO₄ + 4H₂O",
+    "condition": "过量氨水",
+    "description": "铜氨配合物的形成。Cu²⁺ 与 NH₃ 配位形成深蓝色四氨合铜(II)配离子 [Cu(NH₃)₄]²⁺。配位数为4，空间构型为平面正方形（dsp²杂化）。这是Cu²⁺的特征鉴定反应之一。配合物稳定常数 K稳 ≈ 2.1×10¹³。",
+    "ionicEquation": "Cu²⁺ + 4NH₃·H₂O → [Cu(NH₃)₄]²⁺ + 4H₂O",
+    "phenomenon": "浅蓝色CuSO₄溶液滴加氨水，先生成蓝色Cu(OH)₂沉淀，继续加氨水沉淀溶解变为深蓝色溶液（绛蓝色）。颜色变化非常显著，是Cu²⁺的特征反应。",
+    "industrialUse": "铜氨纤维（人造丝）的制备——纤维素溶于铜氨溶液后纺丝",
+    "dailyLife": "铜离子（Cu²⁺）的化学鉴定——深蓝色铜氨溶液"
+  },
+  {
+    "id": "complex-cu-nh3-destruction",
+    "type": "其他",
+    "reactants": [
+      "Cu",
+      "N",
+      "H",
+      "S"
+    ],
+    "product": "CuSO₄ + (NH₄)₂SO₄",
+    "productName": "硫酸铜和硫酸铵",
+    "equation": "[Cu(NH₃)₄]SO₄ + 2H₂SO₄ → CuSO₄ + 2(NH₄)₂SO₄",
+    "condition": "加酸酸化",
+    "description": "酸化破坏铜氨配合物。H⁺ 与配体 NH₃ 结合为 NH₄⁺，配合物解体。溶液从深蓝色变回浅蓝色（水合Cu²⁺的颜色）。",
+    "ionicEquation": "[Cu(NH₃)₄]²⁺ + 4H⁺ → Cu²⁺ + 4NH₄⁺",
+    "phenomenon": "深蓝色溶液逐渐变为浅蓝色，说明[Cu(NH₃)₄]²⁺已被破坏，释放出Cu²⁺。",
+    "industrialUse": "铜的回收——从铜氨废液中回收铜",
+    "dailyLife": "演示配位平衡的移动——加酸使平衡向解离方向移动"
+  },
+  {
+    "id": "complex-prussian-blue",
+    "type": "复分解",
+    "reactants": [
+      "Fe",
+      "K",
+      "C",
+      "N"
+    ],
+    "product": "Fe₄[Fe(CN)₆]₃",
+    "productName": "普鲁士蓝（亚铁氰化铁）",
+    "equation": "4FeCl₃ + 3K₄[Fe(CN)₆] → Fe₄[Fe(CN)₆]₃↓ + 12KCl",
+    "condition": "常温溶液反应",
+    "description": "普鲁士蓝（Prussian Blue）的生成——Fe³⁺的经典鉴定反应。Fe³⁺ 与 [Fe(CN)₆]⁴⁻（亚铁氰根）反应生成深蓝色沉淀 Fe₄[Fe(CN)₆]₃。此蓝色颜料是历史上第一个人工合成的配位化合物颜料（1704年发现）。",
+    "ionicEquation": "4Fe³⁺ + 3[Fe(CN)₆]⁴⁻ → Fe₄[Fe(CN)₆]₃↓",
+    "phenomenon": "黄色FeCl₃溶液与淡黄色K₄[Fe(CN)₆]溶液混合，立即产生深蓝色沉淀（普鲁士蓝）。颜色鲜艳，遮盖力强，是最早的合成颜料之一。",
+    "industrialUse": "蓝色颜料（绘画、油墨、印染）、Fe³⁺的定性检测",
+    "dailyLife": "蓝墨水、蓝色蜡笔中可能含有普鲁士蓝颜料"
+  },
+  {
+    "id": "complex-turnbull-blue",
+    "type": "复分解",
+    "reactants": [
+      "Fe",
+      "K",
+      "C",
+      "N"
+    ],
+    "product": "Fe₃[Fe(CN)₆]₂",
+    "productName": "滕氏蓝（铁氰化亚铁）",
+    "equation": "3FeCl₂ + 2K₃[Fe(CN)₆] → Fe₃[Fe(CN)₆]₂↓ + 6KCl",
+    "condition": "常温溶液反应",
+    "description": "滕氏蓝（Turnbull's Blue）的生成——Fe²⁺的经典鉴定反应。Fe²⁺ 与 [Fe(CN)₆]³⁻（铁氰根）反应生成蓝色沉淀。现代研究认为滕氏蓝与普鲁士蓝本质上是同一物质（电子转移后结构相同），但在定性分析中两者分别用于检测Fe³⁺和Fe²⁺。",
+    "ionicEquation": "3Fe²⁺ + 2[Fe(CN)₆]³⁻ → Fe₃[Fe(CN)₆]₂↓",
+    "phenomenon": "浅绿色FeCl₂溶液与黄色K₃[Fe(CN)₆]溶液混合，产生蓝色沉淀。此反应是鉴定Fe²⁺的灵敏方法。",
+    "industrialUse": "Fe²⁺的定性检测",
+    "dailyLife": "分析化学实验中区分Fe²⁺和Fe³⁺的经典方法"
+  },
+  {
+    "id": "complex-fe-scn",
+    "type": "其他",
+    "reactants": [
+      "Fe",
+      "K",
+      "S",
+      "C",
+      "N"
+    ],
+    "product": "[Fe(SCN)]²⁺",
+    "productName": "硫氰合铁(III)配离子",
+    "equation": "FeCl₃ + 3KSCN → Fe(SCN)₃ + 3KCl",
+    "condition": "常温溶液反应",
+    "description": "硫氰酸铁配合物的生成——Fe³⁺最灵敏的鉴定反应之一。Fe³⁺与SCN⁻形成血红色配合物。实际溶液中存在一系列配离子：[Fe(SCN)]²⁺、[Fe(SCN)₂]⁺、Fe(SCN)₃等，颜色从橙红到血红色。此反应极为灵敏，检出限可达1ppm。",
+    "ionicEquation": "Fe³⁺ + SCN⁻ → [Fe(SCN)]²⁺（主要）",
+    "phenomenon": "淡黄色FeCl₃溶液与无色KSCN溶液混合，立即变为血红色溶液。颜色深浅与Fe³⁺浓度成正比，可用于比色法定量测定铁含量。",
+    "industrialUse": "分光光度法测定水中铁含量、法医鉴定血迹（血液中的Fe³⁺与SCN⁻显色）",
+    "dailyLife": "电影中'伤口流血'特效——FeCl₃与KSCN反应的红色溶液"
+  },
+  {
+    "id": "complex-cu-tartrate-fehlings",
+    "type": "其他",
+    "reactants": [
+      "Cu",
+      "O",
+      "C",
+      "H",
+      "K",
+      "Na"
+    ],
+    "product": "[Cu(C₄H₄O₆)₂]⁴⁻",
+    "productName": "酒石酸合铜(II)配离子",
+    "equation": "CuSO₄ + 2KNaC₄H₄O₆ + 2NaOH → Na₂[Cu(C₄H₄O₆)₂] + K₂SO₄ + Na₂SO₄ + 2H₂O",
+    "condition": "碱性溶液（斐林试剂）",
+    "description": "斐林试剂（Fehling's Reagent）的配制原理。Cu²⁺在碱性溶液中会生成Cu(OH)₂沉淀，加入酒石酸钾钠（KNaC₄H₄O₆）作为配位剂，形成可溶的酒石酸合铜(II)配离子 [Cu(C₄H₄O₆)₂]⁴⁻（深蓝色），防止Cu(OH)₂沉淀。此试剂用于检测醛基——加热时Cu²⁺被还原为砖红色Cu₂O↓。",
+    "ionicEquation": "Cu²⁺ + 2C₄H₄O₆²⁻ + 2OH⁻ → [Cu(C₄H₄O₆)₂]⁴⁻ + 2H₂O",
+    "phenomenon": "深蓝色透明溶液（斐林试剂）。与醛共热时，蓝色褪去，生成砖红色Cu₂O沉淀。颜色变化明显，是醛基的经典检测方法。",
+    "industrialUse": "食品工业中检测还原糖（葡萄糖、果糖、麦芽糖等）",
+    "dailyLife": "医院尿糖检测曾用斐林试剂（现已多被葡萄糖氧化酶试纸替代）"
+  },
+  {
+    "id": "complex-cocl2-hydrate",
+    "type": "其他",
+    "reactants": [
+      "Co",
+      "Cl",
+      "H",
+      "O"
+    ],
+    "product": "[Co(H₂O)₆]Cl₂ → [CoCl₄]²⁻",
+    "productName": "氯化钴的颜色变化",
+    "equation": "[Co(H₂O)₆]²⁺(粉红) + 4Cl⁻ ⇌ [CoCl₄]²⁻(蓝色) + 6H₂O",
+    "condition": "加热或加浓盐酸",
+    "description": "钴配合物的配位平衡与颜色变化。水合钴离子 [Co(H₂O)₆]²⁺ 为粉红色（八面体），氯合钴离子 [CoCl₄]²⁻ 为蓝色（四面体）。此平衡对温度和Cl⁻浓度敏感——加热或加浓HCl使平衡右移变蓝，冷却或加水使平衡左移变粉红。",
+    "ionicEquation": "[Co(H₂O)₆]²⁺ + 4Cl⁻ ⇌ [CoCl₄]²⁻ + 6H₂O",
+    "phenomenon": "粉红色CoCl₂溶液加热后变为蓝色，冷却后又恢复粉红色。CoCl₂·6H₂O晶体为粉红色，加热失水变为蓝色无水CoCl₂。此性质可用于制作变色硅胶干燥剂。",
+    "industrialUse": "变色硅胶干燥剂（蓝色=干燥，粉红色=吸湿饱和需更换）、隐形墨水",
+    "dailyLife": "干燥剂中的蓝色指示硅胶——变粉红后说明已吸湿，需要烘烤再生"
+  },
+  {
+    "id": "complex-zn-nh3",
+    "type": "其他",
+    "reactants": [
+      "Zn",
+      "N",
+      "H",
+      "S",
+      "O"
+    ],
+    "product": "[Zn(NH₃)₄]SO₄",
+    "productName": "硫酸四氨合锌(II)",
+    "equation": "ZnSO₄ + 4NH₃·H₂O → [Zn(NH₃)₄]SO₄ + 4H₂O",
+    "condition": "过量氨水",
+    "description": "锌氨配合物的形成。Zn²⁺与过量NH₃形成四氨合锌(II)配离子 [Zn(NH₃)₄]²⁺。配位数为4，空间构型为四面体（sp³杂化）。K稳 ≈ 2.9×10⁹。Zn(OH)₂既可溶于酸也可溶于碱（两性），还可溶于氨水（配合溶解），三种溶解方式机制不同。",
+    "ionicEquation": "Zn²⁺ + 4NH₃·H₂O → [Zn(NH₃)₄]²⁺ + 4H₂O",
+    "phenomenon": "Zn(OH)₂白色沉淀溶于过量氨水，形成无色透明溶液。与Cu²⁺（深蓝色）和Ni²⁺（蓝色/紫色）形成鲜明对比，可用于区分。",
+    "industrialUse": "锌氨配合物在电镀锌工艺中用作镀液成分",
+    "dailyLife": "Zn²⁺、Cu²⁺、Ni²⁺等离子在氨水中的不同行为是定性分析的基础"
+  },
+  {
+    "id": "complex-ni-nh3",
+    "type": "其他",
+    "reactants": [
+      "Ni",
+      "N",
+      "H",
+      "S",
+      "O"
+    ],
+    "product": "[Ni(NH₃)₆]SO₄",
+    "productName": "硫酸六氨合镍(II)",
+    "equation": "NiSO₄ + 6NH₃·H₂O → [Ni(NH₃)₆]SO₄ + 6H₂O",
+    "condition": "过量氨水",
+    "description": "镍氨配合物的形成。Ni²⁺与过量NH₃形成六氨合镍(II)配离子 [Ni(NH₃)₆]²⁺。配位数为6，空间构型为八面体（sp³d²杂化）。K稳 ≈ 5.5×10⁸。Ni(OH)₂不溶于过量NaOH，但可溶于氨水，这一性质用于Ni²⁺与Fe³⁺、Cr³⁺的分离。",
+    "ionicEquation": "Ni²⁺ + 6NH₃·H₂O → [Ni(NH₃)₆]²⁺ + 6H₂O",
+    "phenomenon": "绿色Ni(OH)₂沉淀溶于过量氨水，形成蓝色/紫色溶液。[Ni(NH₃)₆]²⁺呈蓝紫色，与[Cu(NH₃)₄]²⁺（深蓝色）可区分。",
+    "industrialUse": "镍的湿法冶金和电镀镍中的中间过程",
+    "dailyLife": "Ni²⁺与Cu²⁺在氨水中的不同颜色反应可用于定性鉴别"
+  },
+  {
+    "id": "complex-ca-edta",
+    "type": "其他",
+    "reactants": [
+      "Ca",
+      "C",
+      "H",
+      "N",
+      "O"
+    ],
+    "product": "[Ca(EDTA)]²⁻",
+    "productName": "EDTA合钙(II)配离子",
+    "equation": "Ca²⁺ + H₂Y²⁻ → [CaY]²⁻ + 2H⁺",
+    "condition": "pH≈10（NH₃-NH₄Cl缓冲溶液）",
+    "description": "EDTA（乙二胺四乙酸，缩写为H₄Y）与Ca²⁺形成1:1螯合物。EDTA是六齿配体（4个羧基O + 2个氨基N），与大多数金属离子形成稳定的1:1配合物。这是络合滴定法的基础反应。用铬黑T作指示剂，终点由酒红色变为纯蓝色。",
+    "ionicEquation": "Ca²⁺ + H₂Y²⁻ → [CaY]²⁻ + 2H⁺",
+    "phenomenon": "含Ca²⁺溶液加铬黑T呈酒红色，EDTA滴定至终点时变为纯蓝色。颜色变化敏锐，可用于定量测定。",
+    "industrialUse": "水质硬度测定（络合滴定法测定Ca²⁺+Mg²⁺总量）、食品中钙含量分析",
+    "dailyLife": "自来水硬度检测——水垢多少与钙镁离子浓度直接相关"
+  },
+  {
+    "id": "complex-fe-edta",
+    "type": "其他",
+    "reactants": [
+      "Fe",
+      "C",
+      "H",
+      "N",
+      "O"
+    ],
+    "product": "[Fe(EDTA)]⁻",
+    "productName": "EDTA合铁(III)配离子",
+    "equation": "Fe³⁺ + H₂Y²⁻ → [FeY]⁻ + 2H⁺",
+    "condition": "pH≈2（酸性溶液）",
+    "description": "EDTA与Fe³⁺的配合。Fe³⁺与EDTA形成极稳定的螯合物（K稳 ≈ 1.3×10²⁵），远大于Ca²⁺-EDTA（K稳 ≈ 5×10¹⁰）。利用此稳定性差异，可在酸性条件下用EDTA选择性滴定Fe³⁺（此时Ca²⁺、Mg²⁺不干扰）。",
+    "ionicEquation": "Fe³⁺ + H₂Y²⁻ → [FeY]⁻ + 2H⁺",
+    "phenomenon": "黄色Fe³⁺溶液加磺基水杨酸呈紫红色，EDTA滴定至终点变为淡黄色。",
+    "industrialUse": "络合滴定法分别测定混合离子中Fe³⁺、Al³⁺、Ca²⁺、Mg²⁺的含量",
+    "dailyLife": "水泥、矿石、土壤中金属元素的定量分析"
+  },
+  {
+    "id": "complex-hg-i2-nessler",
+    "type": "其他",
+    "reactants": [
+      "Hg",
+      "I",
+      "K",
+      "N",
+      "H"
+    ],
+    "product": "Hg₂NI·H₂O",
+    "productName": "碘化氨基合汞（奈斯勒试剂反应）",
+    "equation": "2K₂[HgI₄] + NH₃ + 3KOH → Hg₂NI·H₂O↓ + 7KI + 2H₂O",
+    "condition": "碱性溶液（奈斯勒试剂）",
+    "description": "奈斯勒试剂（Nessler's Reagent）检测NH₃/NH₄⁺。K₂[HgI₄]的碱性溶液与微量NH₃反应生成黄色至红棕色沉淀Hg₂NI·H₂O（碘化氨基合汞）。此反应极为灵敏，可检出微量氨氮，常用于水质分析。",
+    "ionicEquation": "2[HgI₄]²⁻ + NH₃ + 3OH⁻ → Hg₂NI·H₂O↓ + 7I⁻ + 2H₂O",
+    "phenomenon": "��色溶液遇NH₃后产生黄色→橙黄色→红棕色沉淀（颜色随NH₃浓度加深）。微量NH₃产生黄色胶体溶液。",
+    "industrialUse": "水质监测——氨氮含量的标准检测方法（奈斯勒比色法）",
+    "dailyLife": "环境监测中水体氨氮污染的快速检测"
+  },
+  {
+    "id": "complex-agcl-dissolve",
+    "type": "其他",
+    "reactants": [
+      "Ag",
+      "Cl",
+      "N",
+      "H"
+    ],
+    "product": "[Ag(NH₃)₂]Cl",
+    "productName": "氯化二氨合银(I)",
+    "equation": "AgCl + 2NH₃·H₂O → [Ag(NH₃)₂]Cl + 2H₂O",
+    "condition": "浓氨水",
+    "description": "AgCl溶于氨水——因形成 [Ag(NH₃)₂]⁺ 配离子。AgCl(s) ⇌ Ag⁺ + Cl⁻，加入NH₃后Ag⁺被配位：[Ag(NH₃)₂]⁺ 的K稳 ≈ 1.1×10⁷，降低了游离Ag⁺浓度，使AgCl溶解平衡右移。此性质用于分离AgCl与Hg₂Cl₂（后者不溶于氨水）。",
+    "ionicEquation": "AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻",
+    "phenomenon": "白色AgCl沉淀溶于氨水，形成无色透明溶液。再加HNO₃酸化，AgCl重新沉淀（配合物被破坏）。",
+    "industrialUse": "银的湿法提取——AgCl用氨水溶解后电解回收银",
+    "dailyLife": "定性分析中Ag⁺、Hg₂²⁺、Pb²⁺的分离鉴定方案"
+  },
+  {
+    "id": "complex-ni-dmg",
+    "type": "其他",
+    "reactants": [
+      "Ni",
+      "C",
+      "H",
+      "N",
+      "O"
+    ],
+    "product": "Ni(C₄H₇N₂O₂)₂",
+    "productName": "二甲基乙二肟合镍(II)（鲜红色沉淀）",
+    "equation": "Ni²⁺ + 2C₄H₈N₂O₂ + 2NH₃·H₂O → Ni(C₄H₇N₂O₂)₂↓ + 2NH₄⁺ + 2H₂O",
+    "condition": "弱碱性（氨性溶液）",
+    "description": "丁二酮肟（二甲基乙二肟，DMG）与Ni²⁺在弱碱性条件下生成鲜红色螯合物沉淀。DMG是双齿配体，两个DMG分子与一个Ni²⁺配位形成平面正方形结构，分子内氢键使螯合物非常稳定。此反应是Ni²⁺的特效鉴定反应，检出限约0.1ppm。",
+    "ionicEquation": "Ni²⁺ + 2C₄H₈N₂O₂ + 2NH₃ → Ni(C₄H₇N₂O₂)₂↓ + 2NH₄⁺",
+    "phenomenon": "Ni²⁺溶液中加丁二酮肟试剂，产生鲜艳的红色絮状沉淀。颜色鲜明，是Ni²⁺的特征反应，不受大多数其他离子干扰。",
+    "industrialUse": "镍的定性检测和重量法测定——钢铁、合金中镍含量的分析",
+    "dailyLife": "不锈钢中镍元素的检测"
+  },
+  {
+    "id": "complex-al-f-cryolite",
+    "type": "其他",
+    "reactants": [
+      "Al",
+      "F",
+      "Na"
+    ],
+    "product": "Na₃[AlF₆]",
+    "productName": "六氟合铝酸钠（冰晶石）",
+    "equation": "Al(OH)₃ + 6HF + 3NaOH → Na₃[AlF₆] + 6H₂O",
+    "condition": "酸性条件下加Na⁺",
+    "description": "冰晶石 Na₃[AlF₆]（六氟合铝酸钠）的形成。Al³⁺与F⁻形成极稳定的 [AlF₆]³⁻ 配离子（K稳 ≈ 6.9×10¹⁹）。冰晶石在电解炼铝中用作Al₂O₃的溶剂，将熔点从2050°C降至约950°C。天然冰晶石产于格陵兰。",
+    "ionicEquation": "Al³⁺ + 6F⁻ → [AlF₆]³⁻",
+    "phenomenon": "白色Al(OH)₃溶于HF生成无色溶液，加Na⁺后析出白色冰晶石晶体。",
+    "industrialUse": "电解炼铝（Hall-Héroult法）中作熔剂——降低Al₂O₃熔点、提高电导率",
+    "dailyLife": "冰晶石是铝工业生产的关键辅料——每生产1吨铝约消耗20-30kg冰晶石"
   }
 ]
