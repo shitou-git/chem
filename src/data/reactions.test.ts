@@ -245,3 +245,47 @@ describe("searchReactionsBySubstance", () => {
     expect(searchReactionsBySubstance("   ")).toEqual([]);
   });
 });
+
+describe("description quality", () => {
+  it("all descriptions should be at least 20 characters", () => {
+    const shortDescriptions = REACTIONS.filter(
+      (r) => r.description.length < 20
+    );
+    expect(shortDescriptions).toEqual([]);
+  });
+
+  it("all descriptions should end with period", () => {
+    const noPeriod = REACTIONS.filter(
+      (r) => !r.description.trim().endsWith("。")
+    );
+    expect(noPeriod).toEqual([]);
+  });
+});
+
+describe("extended fields", () => {
+  it("should have safety field on reactions with hazardous substances", () => {
+    const hazardousReactions = REACTIONS.filter(
+      (r) =>
+        r.equation.includes("Cl₂") ||
+        r.equation.includes("SO₂") ||
+        r.equation.includes("NO₂") ||
+        r.equation.includes("CO") ||
+        r.equation.includes("H₂S") ||
+        r.equation.includes("Br₂")
+    );
+    const withSafety = hazardousReactions.filter((r) => r.safety);
+    expect(withSafety.length).toBe(hazardousReactions.length);
+  });
+
+  it("should accept reactions with new optional fields", () => {
+    const sample = REACTIONS[0];
+    expect(typeof sample.description).toBe("string");
+    // safety and relatedReactions are optional, so they may be undefined
+    if (sample.safety) {
+      expect(typeof sample.safety).toBe("string");
+    }
+    if (sample.relatedReactions) {
+      expect(Array.isArray(sample.relatedReactions)).toBe(true);
+    }
+  });
+});

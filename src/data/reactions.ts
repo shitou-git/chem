@@ -38,9 +38,15 @@ const ChemicalReactionSchema = z.object({
   productName: z.string().min(1),
   equation: z.string().min(1),
   condition: z.string().min(1),
-  description: z.string().optional(),
+  description: z.string().min(1),
   ionicEquation: z.string().min(1).optional(),
   ionicReactants: z.array(z.string().min(1)).optional(),
+  phenomenon: z.string().min(1).optional(),
+  industrialUse: z.string().min(1).optional(),
+  dailyLife: z.string().min(1).optional(),
+  enthalpy: z.string().min(1).optional(),
+  safety: z.string().min(1).optional(),
+  relatedReactions: z.array(z.string().min(1)).optional(),
 });
 
 export type ChemicalReaction = z.infer<typeof ChemicalReactionSchema>;
