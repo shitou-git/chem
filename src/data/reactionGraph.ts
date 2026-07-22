@@ -236,41 +236,6 @@ function extractPrecipitateInfo(
   return null;
 }
 
-const GLOBAL_PRECIPITATE_INFO_MAP = new Map<string, string>();
-
-function buildGlobalPrecipitateInfoMap() {
-  REACTIONS.forEach((reaction) => {
-    if (!reaction.description) return;
-    const arrow = getEquationArrow(reaction.equation);
-    const rightSide = reaction.equation.split(arrow)[1].trim();
-    const rightParts = rightSide.split("+").map((p) => p.trim());
-
-    rightParts.forEach((p) => {
-      if (!p.includes("↓")) return;
-      const clean = cleanCompoundLabel(
-        p.replace(/[↑↓]$/, "").replace(/^\d+/, "").replace(/\(浓\)|\(稀\)|\(熔融\)/g, "").trim()
-      );
-      if (clean && !GLOBAL_PRECIPITATE_INFO_MAP.has(clean)) {
-        GLOBAL_PRECIPITATE_INFO_MAP.set(clean, reaction.description!);
-      }
-    });
-  });
-}
-
-buildGlobalPrecipitateInfoMap();
-
-function getPrecipitateInfo(
-  formula: string,
-  reaction?: ChemicalReaction
-): string | null {
-  const cleanFormula = cleanCompoundLabel(formula);
-  if (reaction) {
-    const info = extractPrecipitateInfo(formula, reaction);
-    if (info) return info;
-  }
-  return GLOBAL_PRECIPITATE_INFO_MAP.get(cleanFormula) || null;
-}
-
 function findReactionsProducing(compound: string): ChemicalReaction[] {
   const cleanCompound = cleanCompoundLabel(compound);
   return REACTIONS.filter((r) => {
@@ -426,7 +391,6 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
     if (isEl) {
       const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
       const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
-      const precipitateInfo = getPrecipitateInfo(formula, targetReaction);
       nodes.push({
         id: key,
         type: "element",
@@ -435,13 +399,10 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
           nodeType: "element",
           color: getElementColor(baseSymbol),
           element,
-          hasPrecipitate: !!precipitateInfo,
-          precipitateInfo: precipitateInfo || undefined,
         },
         position: { x: START_X, y },
       });
     } else {
-      const precipitateInfo = getPrecipitateInfo(formula, targetReaction);
       nodes.push({
         id: key,
         type: "compound",
@@ -450,8 +411,6 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
           nodeType: "compound",
           color: typeColor,
           compoundName: getCompoundName(label),
-          hasPrecipitate: !!precipitateInfo,
-          precipitateInfo: precipitateInfo || undefined,
         },
         position: { x: START_X, y },
       });
@@ -500,7 +459,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
     if (isEl) {
       const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
       const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
-      const precipitateInfo = getPrecipitateInfo(formula, targetReaction);
+      const precipitateInfo = extractPrecipitateInfo(formula, targetReaction);
       nodes.push({
         id: key,
         type: "element",
@@ -515,7 +474,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
         position: { x: START_X + LAYER_WIDTH * 2, y },
       });
     } else {
-      const precipitateInfo = getPrecipitateInfo(formula, targetReaction);
+      const precipitateInfo = extractPrecipitateInfo(formula, targetReaction);
       nodes.push({
         id: key,
         type: "compound",
@@ -791,7 +750,6 @@ export function expandCompoundPredecessors(
       if (isEl) {
         const baseSymbol = formula.replace(/[₀-₉]/g, "");
         const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
-        const precipitateInfo = getPrecipitateInfo(formula, bestProducer);
         
         newNodes.push({
           id: key,
@@ -801,8 +759,6 @@ export function expandCompoundPredecessors(
             nodeType: "element",
             color: getElementColor(baseSymbol),
             element,
-            hasPrecipitate: !!precipitateInfo,
-            precipitateInfo: precipitateInfo || undefined,
           },
           position: { x, y },
         });
@@ -814,13 +770,10 @@ export function expandCompoundPredecessors(
             nodeType: "element",
             color: getElementColor(baseSymbol),
             element,
-            hasPrecipitate: !!precipitateInfo,
-            precipitateInfo: precipitateInfo || undefined,
           },
           position: { x, y },
         });
       } else {
-        const precipitateInfo = getPrecipitateInfo(formula, bestProducer);
         newNodes.push({
           id: key,
           type: "compound",
@@ -829,8 +782,6 @@ export function expandCompoundPredecessors(
             nodeType: "compound",
             color: "#64748b",
             compoundName: getCompoundName(label),
-            hasPrecipitate: !!precipitateInfo,
-            precipitateInfo: precipitateInfo || undefined,
           },
           position: { x, y },
         });
@@ -842,8 +793,6 @@ export function expandCompoundPredecessors(
             nodeType: "compound",
             color: "#64748b",
             compoundName: getCompoundName(label),
-            hasPrecipitate: !!precipitateInfo,
-            precipitateInfo: precipitateInfo || undefined,
           },
           position: { x, y },
         });
@@ -914,7 +863,7 @@ export function expandCompoundPredecessors(
       if (isEl) {
         const baseSymbol = formula.replace(/[₀-₉]/g, "");
         const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
-        const precipitateInfo = getPrecipitateInfo(formula, bestProducer);
+        const precipitateInfo = extractPrecipitateInfo(formula, bestProducer);
         
         newNodes.push({
           id: targetKey,
@@ -943,7 +892,7 @@ export function expandCompoundPredecessors(
           position: { x, y },
         });
       } else {
-        const precipitateInfo = getPrecipitateInfo(formula, bestProducer);
+        const precipitateInfo = extractPrecipitateInfo(formula, bestProducer);
         newNodes.push({
           id: targetKey,
           type: "compound",
