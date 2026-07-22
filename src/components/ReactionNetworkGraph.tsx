@@ -363,7 +363,7 @@ export default function ReactionNetworkGraph({
               <span className="text-xs text-slate-400">{currentEquation}</span>
             </div>
             <div className="mt-1 text-xs text-slate-400 leading-relaxed">
-              {currentDescription || "点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释"}
+              {currentDescription.replace(/。$/, "") || "点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释"}
             </div>
           </div>
         </div>
