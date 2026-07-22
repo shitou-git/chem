@@ -607,11 +607,7 @@ export function expandCompoundPredecessors(
   
   const reactionKey = `rxn:${bestProducer.id}`;
   const reactionX = compoundLayerX - LAYER_WIDTH;
-  // Offset precursor reaction condition Y so that reaction condition nodes
-  // are evenly spaced (60px apart) instead of landing on product Y values.
-  const reactionY = isAboveCenter
-    ? compoundPosition.y - NODE_HEIGHT / 2
-    : compoundPosition.y + NODE_HEIGHT / 2;
+  const reactionY = compoundPosition.y;
   
   if (!existingNodeMap.has(reactionKey)) {
     newNodes.push({
