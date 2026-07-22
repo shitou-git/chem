@@ -214,7 +214,7 @@ export function isChemicalFormula(query: string): boolean {
   if (!trimmed) return false;
   // 包含大写字母+可能的小写字母+可能的下标数字+可能的括号
   // 但不能是纯元素符号（单个大写或大写+小写）
-  const formulaPattern = /^[A-Z][a-z]?[₀-₉0-9A-Za-z\(\)（）·]+$/;
+  const formulaPattern = /^[A-Z][a-z]?[₀-₉0-9A-Za-z()（）·]+$/;
   if (!formulaPattern.test(trimmed)) return false;
   // 排除纯元素符号（如 Fe、O₂、Cl₂）
   const elementPattern = /^[A-Z][a-z]?[₂₃₄]?$/;
