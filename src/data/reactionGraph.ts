@@ -636,7 +636,7 @@ export function expandCompoundPredecessors(
     });
   }
   
-  const reactantLayerX = reactionX - LAYER_WIDTH * 2;
+  const reactantLayerX = reactionX - LAYER_WIDTH;
   
   const findSameNodeInLayer = (
     formula: string,
@@ -718,9 +718,12 @@ export function expandCompoundPredecessors(
   
   const totalReactants = reactantElements.length + reactantCompounds.length;
   
-  // Keep precursor reactants centered around the reaction condition node.
-  const startY = reactionY - ((totalReactants - 1) * NODE_HEIGHT) / 2;
+  // Center precursor reactants around the reaction condition node by default.
+  let startY = reactionY - ((totalReactants - 1) * NODE_HEIGHT) / 2;
   
+  // Check whether any preferred position conflicts with existing nodes on this layer.
+  // If so, shift the entire set outward (away from main-reaction center) so they
+  // remain symmetric around the reaction condition while avoiding overlaps.
   const findAvailableY = (
     targetX: number,
     preferredY: number,
@@ -746,11 +749,9 @@ export function expandCompoundPredecessors(
       if (offset === 0 && !conflictUp && !conflictDown) return preferredY;
       
       if (preferUp) {
-        // Try upward first, then downward
         if (!conflictUp) return yUp;
         if (!conflictDown) return yDown;
       } else {
-        // Try downward first, then upward
         if (!conflictDown) return yDown;
         if (!conflictUp) return yUp;
       }
@@ -760,6 +761,40 @@ export function expandCompoundPredecessors(
     }
     return preferredY + minSpacing * 20;
   };
+  
+  // Check if any of the proposed reactant positions would collide.
+  const hasAnyCollision = (baseY: number): boolean => {
+    for (let idx = 0; idx < totalReactants; idx++) {
+      const preferredY = baseY + idx * NODE_HEIGHT;
+      const occupiedYs: number[] = [];
+      for (const node of existingNodeMap.values()) {
+        if (Math.abs(node.position.x - reactantLayerX) > LAYER_WIDTH / 2) continue;
+        occupiedYs.push(node.position.y);
+      }
+      if (occupiedYs.some((oy) => Math.abs(oy - preferredY) < NODE_HEIGHT)) {
+        return true;
+      }
+    }
+    return false;
+  };
+  
+  // If centered positions collide, shift the entire block outward.
+  if (hasAnyCollision(startY)) {
+    const occupiedYs: number[] = [];
+    for (const node of existingNodeMap.values()) {
+      if (Math.abs(node.position.x - reactantLayerX) > LAYER_WIDTH / 2) continue;
+      occupiedYs.push(node.position.y);
+    }
+    occupiedYs.sort((a, b) => a - b);
+    
+    if (isAboveCenter) {
+      // Shift above the highest occupied position.
+      startY = occupiedYs[0] - totalReactants * NODE_HEIGHT;
+    } else {
+      // Shift below the lowest occupied position.
+      startY = occupiedYs[occupiedYs.length - 1] + NODE_HEIGHT;
+    }
+  }
   
   leftParts.forEach((part, idx) => {
     const { formula, label } = part;
