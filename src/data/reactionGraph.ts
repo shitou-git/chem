@@ -602,7 +602,18 @@ export function expandCompoundPredecessors(
   
   const reactionKey = `rxn:${bestProducer.id}`;
   const reactionX = compoundLayerX - LAYER_WIDTH;
-  const reactionY = compoundPosition.y;
+  
+  // 计算原反应物所在层的平均 y，使前驱反应节点位于被点击化合物与原反应物之间
+  const mainReactantLayerX = compoundLayerX - LAYER_WIDTH * 2;
+  const mainReactantNodes = existingNodes.filter((n) => {
+    if (n.data.nodeType === "reaction") return false;
+    return Math.abs(n.position.x - mainReactantLayerX) < LAYER_WIDTH / 2;
+  });
+  const avgMainReactantY =
+    mainReactantNodes.length > 0
+      ? mainReactantNodes.reduce((sum, n) => sum + n.position.y, 0) / mainReactantNodes.length
+      : compoundPosition.y;
+  const reactionY = (compoundPosition.y + avgMainReactantY) / 2;
   
   if (!existingNodeMap.has(reactionKey)) {
     newNodes.push({
@@ -726,16 +737,23 @@ export function expandCompoundPredecessors(
     
     if (occupiedYs.length === 0) return preferredY;
     
-    let y = preferredY;
     const minSpacing = NODE_HEIGHT;
+    let offset = 0;
     let attempts = 0;
     while (attempts < 20) {
-      const hasConflict = occupiedYs.some((oy) => Math.abs(oy - y) < minSpacing);
-      if (!hasConflict) return y;
-      y += minSpacing;
+      const yUp = preferredY - offset;
+      const yDown = preferredY + offset;
+      const conflictUp = occupiedYs.some((oy) => Math.abs(oy - yUp) < minSpacing);
+      const conflictDown = occupiedYs.some((oy) => Math.abs(oy - yDown) < minSpacing);
+      
+      if (offset === 0 && !conflictUp) return preferredY;
+      if (offset > 0 && !conflictUp) return yUp;
+      if (!conflictDown) return yDown;
+      
+      offset += minSpacing;
       attempts++;
     }
-    return y;
+    return preferredY + minSpacing * 20;
   };
   
   leftParts.forEach((part, idx) => {
