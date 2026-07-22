@@ -391,6 +391,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
     if (isEl) {
       const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
       const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
+      const precipitateInfo = extractPrecipitateInfo(formula, targetReaction);
       nodes.push({
         id: key,
         type: "element",
@@ -399,6 +400,8 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
           nodeType: "element",
           color: getElementColor(baseSymbol),
           element,
+          hasPrecipitate: !!precipitateInfo,
+          precipitateInfo: precipitateInfo || undefined,
         },
         position: { x: START_X, y },
       });
@@ -459,6 +462,7 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
     if (isEl) {
       const baseSymbol = formula.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, "");
       const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
+      const precipitateInfo = extractPrecipitateInfo(formula, targetReaction);
       nodes.push({
         id: key,
         type: "element",
@@ -467,6 +471,8 @@ export function buildSingleReactionGraph(targetReaction: ChemicalReaction): {
           nodeType: "element",
           color: getElementColor(baseSymbol),
           element,
+          hasPrecipitate: !!precipitateInfo,
+          precipitateInfo: precipitateInfo || undefined,
         },
         position: { x: START_X + LAYER_WIDTH * 2, y },
       });
@@ -860,6 +866,7 @@ export function expandCompoundPredecessors(
       if (isEl) {
         const baseSymbol = formula.replace(/[₀-₉]/g, "");
         const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
+        const precipitateInfo = extractPrecipitateInfo(formula, bestProducer);
         
         newNodes.push({
           id: targetKey,
@@ -869,6 +876,8 @@ export function expandCompoundPredecessors(
             nodeType: "element",
             color: getElementColor(baseSymbol),
             element,
+            hasPrecipitate: !!precipitateInfo,
+            precipitateInfo: precipitateInfo || undefined,
           },
           position: { x, y },
         });
@@ -880,6 +889,8 @@ export function expandCompoundPredecessors(
             nodeType: "element",
             color: getElementColor(baseSymbol),
             element,
+            hasPrecipitate: !!precipitateInfo,
+            precipitateInfo: precipitateInfo || undefined,
           },
           position: { x, y },
         });
