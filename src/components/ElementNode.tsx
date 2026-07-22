@@ -69,9 +69,9 @@ function ElementNodeComponent({ data, selected }: NodeProps<ElementNodeType>) {
     <div className="relative" ref={containerRef}>
       <div
         className={`
-          relative flex h-14 min-w-[56px] items-center justify-center
-          rounded-lg border-2 bg-slate-900/95 font-bold text-lg
-          px-3 transition-all duration-200 whitespace-nowrap
+          relative flex h-10 min-w-[40px] items-center justify-center
+          rounded-lg border-2 bg-slate-900/95 font-bold text-base
+          px-2 transition-all duration-200 whitespace-nowrap
           ${selected ? "border-cyan-400 ring-2 ring-cyan-400/50 scale-110" : "border-slate-700"}
         `}
         style={{
@@ -81,12 +81,12 @@ function ElementNodeComponent({ data, selected }: NodeProps<ElementNodeType>) {
       >
         {hasPrecipitate && (
           <div
-            className="absolute -right-2 -top-2 z-20 flex h-5 w-5 items-center justify-center rounded-full text-white cursor-pointer hover:opacity-80 transition-opacity shadow-lg"
+            className="absolute -right-1.5 -top-1.5 z-20 flex h-4 w-4 items-center justify-center rounded-full text-white cursor-pointer hover:opacity-80 transition-opacity shadow-lg"
             style={{ backgroundColor: dotColor }}
             onClick={handlePrecipitateClick}
             title="查看沉淀信息"
           >
-            <Info className="h-3 w-3" />
+            <Info className="h-2.5 w-2.5" />
           </div>
         )}
         <Handle
@@ -111,7 +111,7 @@ function ElementNodeComponent({ data, selected }: NodeProps<ElementNodeType>) {
 
       {showInfo && shortInfo && (
         <div
-          className="absolute left-1/2 -translate-x-1/2 -top-8 z-30 rounded-md border border-slate-600 bg-slate-800/95 px-2 py-0.5 text-xs text-slate-200 whitespace-nowrap shadow-lg"
+          className="absolute left-1/2 -translate-x-1/2 -top-7 z-30 rounded-md border border-slate-600 bg-slate-800/95 px-1.5 py-0.5 text-xs text-slate-200 whitespace-nowrap shadow-lg"
           onClick={(e) => e.stopPropagation()}
         >
           {shortInfo}

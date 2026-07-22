@@ -19,7 +19,8 @@ function ReactionNodeComponent({ data, selected }: NodeProps<ReactionNodeType>) 
       style={{
         color: color || "#94a3b8",
         boxShadow: selected ? `0 0 20px ${color || "#94a3b8"}40` : `0 0 10px ${color || "#94a3b8"}25`,
-        minWidth: "120px",
+        minWidth: "100px",
+        maxWidth: "180px",
       }}
     >
       <Handle
@@ -28,7 +29,7 @@ function ReactionNodeComponent({ data, selected }: NodeProps<ReactionNodeType>) 
         className="!h-2 !w-2 !border-slate-700 !bg-slate-800"
         isConnectable={false}
       />
-      <span className="z-10 whitespace-nowrap">{label}</span>
+      <span className="z-10 text-center text-xs leading-tight">{label}</span>
       <Handle
         type="source"
         position={Position.Right}

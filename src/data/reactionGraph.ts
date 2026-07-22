@@ -47,7 +47,7 @@ export interface EdgeData extends Record<string, unknown> {
 const MAX_CHAIN_DEPTH = 5;
 const MAX_CHAIN_REACTIONS = 8;
 const LAYER_WIDTH = 160;
-const NODE_HEIGHT = 90;
+const NODE_HEIGHT = 70;
 const NODE_MIN_WIDTH = 80;
 const NODE_REACTION_MIN_WIDTH = 120;
 const NODE_CHAR_WIDTH = 12;
@@ -94,7 +94,7 @@ function getCompoundName(label: string): string | undefined {
 
 function estimateNodeWidth(label: string, nodeType: "element" | "compound" | "reaction"): number {
   if (nodeType === "element") {
-    return Math.max(56, label.length * NODE_CHAR_WIDTH + NODE_PADDING);
+    return Math.max(40, label.length * NODE_CHAR_WIDTH + NODE_PADDING);
   }
   if (nodeType === "reaction") {
     return Math.max(NODE_REACTION_MIN_WIDTH, label.length * NODE_CHAR_WIDTH + NODE_PADDING);
@@ -110,7 +110,7 @@ function applyCollisionResolution(nodes: Node<NodeData>[]): Node<NodeData>[] {
   for (let i = 0; i < resolved.length; i++) {
     let nodeA = resolved[i];
     const widthA = estimateNodeWidth(nodeA.data.label, nodeA.data.nodeType as "element" | "compound" | "reaction");
-    const heightA = nodeA.data.nodeType === "element" ? 56 : NODE_HEIGHT;
+    const heightA = nodeA.data.nodeType === "element" ? 40 : NODE_HEIGHT;
 
     for (let j = i + 1; j < resolved.length; j++) {
       let nodeB = resolved[j];
@@ -118,7 +118,7 @@ function applyCollisionResolution(nodes: Node<NodeData>[]): Node<NodeData>[] {
       if (Math.abs(nodeA.position.x - nodeB.position.x) > LAYER_WIDTH) continue;
       
       const widthB = estimateNodeWidth(nodeB.data.label, nodeB.data.nodeType as "element" | "compound" | "reaction");
-      const heightB = nodeB.data.nodeType === "element" ? 56 : NODE_HEIGHT;
+      const heightB = nodeB.data.nodeType === "element" ? 40 : NODE_HEIGHT;
       
       const halfWidthA = widthA / 2;
       const halfWidthB = widthB / 2;
