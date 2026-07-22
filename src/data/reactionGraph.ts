@@ -846,14 +846,28 @@ export function expandCompoundPredecessors(
     if (isTargetCompound) {
       const existingNode = existingNodeMap.get(compoundKey)!;
       const newStateSymbol = label.match(/([↑↓])$/);
-      
+      const hasNewPrecipitate = newStateSymbol ? newStateSymbol[1] === "↓" : false;
+      const precipitateInfo = hasNewPrecipitate
+        ? extractPrecipitateInfo(formula, bestProducer)
+        : null;
+
       if (!hasReactantStateSymbol) {
         const stateSymbolPart = newStateSymbol ? newStateSymbol[1] : "";
         const currentLabelWithoutState = existingNode.data.label.replace(/[↑↓]$/, "");
-        if (currentLabelWithoutState + stateSymbolPart !== existingNode.data.label) {
+        const newLabel = currentLabelWithoutState + stateSymbolPart;
+        const hasPrecipitateChanged =
+          existingNode.data.hasPrecipitate !== hasNewPrecipitate ||
+          existingNode.data.precipitateInfo !== (precipitateInfo || undefined);
+
+        if (currentLabelWithoutState + stateSymbolPart !== existingNode.data.label || hasPrecipitateChanged) {
           const updatedNode = {
             ...existingNode,
-            data: { ...existingNode.data, label: currentLabelWithoutState + stateSymbolPart },
+            data: {
+              ...existingNode.data,
+              label: newLabel,
+              hasPrecipitate: hasNewPrecipitate,
+              precipitateInfo: precipitateInfo || undefined,
+            },
           };
           updatedNodes.push(updatedNode);
           existingNodeMap.set(compoundKey, updatedNode);
