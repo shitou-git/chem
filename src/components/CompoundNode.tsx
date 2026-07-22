@@ -8,9 +8,9 @@ type CompoundNodeType = Node<NodeData, "compound">;
 function extractShortInfo(fullInfo: string): string {
   const idx = fullInfo.indexOf("生成");
   if (idx !== -1) {
-    return fullInfo.slice(idx + 2).trim().replace(/^[，,]?\s*/, "");
+    return fullInfo.slice(idx + 2).trim().replace(/^[，,]?\s*/, "").replace(/。$/, "");
   }
-  return fullInfo;
+  return fullInfo.replace(/。$/, "");
 }
 
 const colorMap: Record<string, string> = {

@@ -198,7 +198,7 @@ export default function ReactionStage() {
                     </div>
 
                     {reaction.description && (
-                      <p className="mb-3 text-xs text-slate-500">{reaction.description}</p>
+                      <p className="mb-3 text-xs text-slate-500">{reaction.description.replace(/。$/, "")}</p>
                     )}
 
                     {/* 按钮组 */}
