@@ -657,22 +657,6 @@ export function expandCompoundPredecessors(
     return undefined;
   };
 
-  const findSameNodeAnywhere = (
-    formula: string,
-    nodeType: "element" | "compound"
-  ): Node<NodeData> | undefined => {
-    const cleanFormula = cleanCompoundLabel(formula);
-    for (const node of existingNodeMap.values()) {
-      if (node.data.nodeType !== nodeType) continue;
-      const nodeFormula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/, "");
-      const cleanNodeFormula = cleanCompoundLabel(nodeFormula);
-      if (cleanNodeFormula === cleanFormula) {
-        return node;
-      }
-    }
-    return undefined;
-  };
-  
   const hasReactantStateSymbol = leftParts.some((part) => part.label.includes("↑") || part.label.includes("↓"));
   
   const updateNodeLabel = (
