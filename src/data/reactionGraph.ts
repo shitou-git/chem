@@ -638,6 +638,11 @@ export function expandCompoundPredecessors(
   
   const reactantLayerX = reactionX - LAYER_WIDTH;
   
+  const extractFormulaFromId = (id: string): string | null => {
+    if (!id.startsWith("cpd:") && !id.startsWith("el:")) return null;
+    return id.replace(/^(cpd|el):/, "").replace(/_(pred|prod)_.+$/, "");
+  };
+
   const findSameNodeInLayer = (
     formula: string,
     targetX: number,
@@ -648,7 +653,8 @@ export function expandCompoundPredecessors(
     for (const node of existingNodeMap.values()) {
       if (node.data.nodeType !== nodeType) continue;
       if (Math.abs(node.position.x - targetX) > layerTolerance) continue;
-      const nodeFormula = node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/, "");
+      const nodeFormula = extractFormulaFromId(node.id) ||
+        node.data.label.replace(/^\d+\s*/, "").replace(/[↑↓]$/, "");
       const cleanNodeFormula = cleanCompoundLabel(nodeFormula);
       if (cleanNodeFormula === cleanFormula) {
         return node;
