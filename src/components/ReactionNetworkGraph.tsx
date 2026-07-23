@@ -43,13 +43,13 @@ function extractFormula(label: string): string {
 
 function markExpandableNodes(
   nodes: Node<NodeData>[],
-  expandedNodeIds: Set<string>,
+  expandedFormulas: Set<string>,
   reactionId: string
 ): Node<NodeData>[] {
   return nodes.map((n) => {
     if (n.data.nodeType === "compound") {
       const formula = extractFormula(n.data.label);
-      const canExpand = !expandedNodeIds.has(n.id) && hasPredecessorReaction(formula, reactionId);
+      const canExpand = !expandedFormulas.has(formula) && hasPredecessorReaction(formula, reactionId);
       return { ...n, data: { ...n.data, canExpand, isExpanded: false } };
     }
     return n;
@@ -75,7 +75,7 @@ export default function ReactionNetworkGraph({
     ionicEquation?: string;
   } | null>(null);
 
-  const [expandedNodeIds, setExpandedNodeIds] = useState<Set<string>>(new Set());
+  const [expandedFormulas, setExpandedFormulas] = useState<Set<string>>(new Set());
 
   const [currentDescription, setCurrentDescription] = useState<string>("");
 
@@ -124,7 +124,7 @@ export default function ReactionNetworkGraph({
   useEffect(() => {
     setNodes(initialNodes);
     setEdges(initialEdges);
-    setExpandedNodeIds(new Set());
+    setExpandedFormulas(new Set());
     setCurrentProductName(reaction?.productName || "");
     setCurrentEquation(reaction?.equation || "");
     setCurrentDescription(reaction?.description || "");
@@ -133,11 +133,12 @@ export default function ReactionNetworkGraph({
   const handleNodeClick = useCallback(
     (_: React.MouseEvent, node: Node<NodeData>) => {
       if (node.data.nodeType === "compound" && node.data.canExpand) {
-        if (!expandedNodeIds.has(node.id)) {
+        const formula = extractFormula(node.data.label);
+        if (!expandedFormulas.has(formula)) {
           const result = expandCompoundPredecessors(node.id, nodes, edges, reactionId);
 
           if (result.nodes.length > 0 || result.edges.length > 0 || result.updatedNodes.length > 0) {
-            const nodesWithExpandInfo = markExpandableNodes(result.nodes, expandedNodeIds, reactionId);
+            const nodesWithExpandInfo = markExpandableNodes(result.nodes, expandedFormulas, reactionId);
             const updateMap = new Map(result.updatedNodes.map((n) => [n.id, n]));
 
             setNodes((nds) => {
@@ -149,6 +150,12 @@ export default function ReactionNetworkGraph({
                 if (n.id === node.id) {
                   return { ...n, data: { ...n.data, isExpanded: true } };
                 }
+                if (n.data.nodeType === "compound") {
+                  const nFormula = extractFormula(n.data.label);
+                  if (nFormula === formula) {
+                    return { ...n, data: { ...n.data, isExpanded: true } };
+                  }
+                }
                 const update = updateMap.get(n.id);
                 return update ? { ...n, data: update.data } : n;
               });
@@ -159,7 +166,7 @@ export default function ReactionNetworkGraph({
               setEdges((eds) => [...eds, ...result.edges]);
             }
 
-            setExpandedNodeIds((prev) => new Set([...prev, node.id]));
+            setExpandedFormulas((prev) => new Set([...prev, formula]));
             return;
           }
         } else {
@@ -167,26 +174,22 @@ export default function ReactionNetworkGraph({
 
           setNodes(() => {
             let next = result.remainingNodes;
-            if (result.updatedNode) {
-              next = next.map((n) =>
-                n.id === result.updatedNode!.id
-                  ? { ...n, data: { ...n.data, ...result.updatedNode!.data, isExpanded: false } }
-                  : n
-              );
-            } else {
-              next = next.map((n) =>
-                n.id === node.id
-                  ? { ...n, data: { ...n.data, isExpanded: false, canExpand: true } }
-                  : n
-              );
-            }
+            next = next.map((n) => {
+              if (n.data.nodeType === "compound") {
+                const nFormula = extractFormula(n.data.label);
+                if (nFormula === formula) {
+                  return { ...n, data: { ...n.data, isExpanded: false, canExpand: true } };
+                }
+              }
+              return n;
+            });
             return next;
           });
           setEdges(() => result.remainingEdges);
 
-          setExpandedNodeIds((prev) => {
+          setExpandedFormulas((prev) => {
             const next = new Set(prev);
-            next.delete(node.id);
+            next.delete(formula);
             return next;
           });
 
@@ -271,7 +274,7 @@ export default function ReactionNetworkGraph({
         }))
       );
     },
-    [edges, setNodes, setEdges, expandedNodeIds, reactionId, nodes]
+    [edges, setNodes, setEdges, expandedFormulas, reactionId, nodes]
   );
 
   const handlePaneClick = useCallback(() => {
