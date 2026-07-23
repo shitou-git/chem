@@ -150,6 +150,12 @@ export default function ReactionNetworkGraph({
                 if (n.id === node.id) {
                   return { ...n, data: { ...n.data, isExpanded: true } };
                 }
+                if (n.data.nodeType === "compound") {
+                  const nFormula = extractFormula(n.data.label);
+                  if (nFormula === formula) {
+                    return { ...n, data: { ...n.data, isExpanded: true } };
+                  }
+                }
                 const update = updateMap.get(n.id);
                 return update ? { ...n, data: update.data } : n;
               });
@@ -168,19 +174,15 @@ export default function ReactionNetworkGraph({
 
           setNodes(() => {
             let next = result.remainingNodes;
-            if (result.updatedNode) {
-              next = next.map((n) =>
-                n.id === result.updatedNode!.id
-                  ? { ...n, data: { ...n.data, ...result.updatedNode!.data, isExpanded: false } }
-                  : n
-              );
-            } else {
-              next = next.map((n) =>
-                n.id === node.id
-                  ? { ...n, data: { ...n.data, isExpanded: false, canExpand: true } }
-                  : n
-              );
-            }
+            next = next.map((n) => {
+              if (n.data.nodeType === "compound") {
+                const nFormula = extractFormula(n.data.label);
+                if (nFormula === formula) {
+                  return { ...n, data: { ...n.data, isExpanded: false, canExpand: true } };
+                }
+              }
+              return n;
+            });
             return next;
           });
           setEdges(() => result.remainingEdges);
