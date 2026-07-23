@@ -153,7 +153,7 @@ export default function ReactionNetworkGraph({
                 if (n.data.nodeType === "compound") {
                   const nFormula = extractFormula(n.data.label);
                   if (nFormula === formula) {
-                    return { ...n, data: { ...n.data, isExpanded: true } };
+                    return { ...n, data: { ...n.data, canExpand: false } };
                   }
                 }
                 const update = updateMap.get(n.id);
@@ -175,10 +175,13 @@ export default function ReactionNetworkGraph({
           setNodes(() => {
             let next = result.remainingNodes;
             next = next.map((n) => {
+              if (n.id === node.id) {
+                return { ...n, data: { ...n.data, isExpanded: false, canExpand: true } };
+              }
               if (n.data.nodeType === "compound") {
                 const nFormula = extractFormula(n.data.label);
                 if (nFormula === formula) {
-                  return { ...n, data: { ...n.data, isExpanded: false, canExpand: true } };
+                  return { ...n, data: { ...n.data, canExpand: true } };
                 }
               }
               return n;
