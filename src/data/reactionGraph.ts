@@ -643,7 +643,7 @@ export function expandCompoundPredecessors(
     targetX: number,
     nodeType: "element" | "compound"
   ): Node<NodeData> | undefined => {
-    const cleanFormula = cleanCompoundLabel(formula);
+    const cleanFormula = cleanCompoundLabel(formula.replace(/^\d+\s*/, "").replace(/[↑↓]$/, ""));
     const layerTolerance = LAYER_WIDTH / 2;
     for (const node of existingNodeMap.values()) {
       if (node.data.nodeType !== nodeType) continue;
