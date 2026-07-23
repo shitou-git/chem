@@ -904,9 +904,11 @@ export function expandCompoundPredecessors(
     
     let targetKey: string;
     if (isTargetCompound) {
-      targetKey = compoundKey;
+      targetKey = isEl
+        ? `${getItemKey(formula, "element")}_prod_${bestProducer.id}_${idx}`
+        : `${getItemKey(formula, "compound")}_prod_${bestProducer.id}_${idx}`;
     } else {
-      const existingSameNode = findSameNodeAnywhere(formula, nodeType);
+      const existingSameNode = findSameNodeInLayer(formula, compoundLayerX, nodeType);
       if (existingSameNode) {
         targetKey = existingSameNode.id;
         const updatedNode = updateNodeLabel(existingSameNode, label);
@@ -940,47 +942,22 @@ export function expandCompoundPredecessors(
         ? `${getItemKey(formula, "element")}_pred_${bestProducer.id}_${idx}`
         : `${getItemKey(formula, "compound")}_pred_${bestProducer.id}_${idx}`;
     }
-    
-    const x = isTargetCompound ? compoundPosition.x : compoundLayerX;
+
+    const x = compoundLayerX;
     const preferredY = compoundPosition.y;
     const y = isTargetCompound ? compoundPosition.y : findAvailableY(x, preferredY, isAboveCenter);
-    
-    if (isTargetCompound) {
-      const existingNode = existingNodeMap.get(compoundKey)!;
+
+    if (!existingNodeMap.has(targetKey)) {
       const newStateSymbol = label.match(/([↑↓])$/);
       const hasNewPrecipitate = newStateSymbol ? newStateSymbol[1] === "↓" : false;
       const precipitateInfo = hasNewPrecipitate
         ? extractPrecipitateInfo(formula, bestProducer)
         : null;
 
-      if (!hasReactantStateSymbol) {
-        const stateSymbolPart = newStateSymbol ? newStateSymbol[1] : "";
-        const currentLabelWithoutState = existingNode.data.label.replace(/[↑↓]$/, "");
-        const newLabel = currentLabelWithoutState + stateSymbolPart;
-        const hasPrecipitateChanged =
-          existingNode.data.hasPrecipitate !== hasNewPrecipitate ||
-          existingNode.data.precipitateInfo !== (precipitateInfo || undefined);
-
-        if (currentLabelWithoutState + stateSymbolPart !== existingNode.data.label || hasPrecipitateChanged) {
-          const updatedNode = {
-            ...existingNode,
-            data: {
-              ...existingNode.data,
-              label: newLabel,
-              hasPrecipitate: hasNewPrecipitate,
-              precipitateInfo: precipitateInfo || undefined,
-            },
-          };
-          updatedNodes.push(updatedNode);
-          existingNodeMap.set(compoundKey, updatedNode);
-        }
-      }
-    } else if (!existingNodeMap.has(targetKey)) {
       if (isEl) {
         const baseSymbol = formula.replace(/[₀-₉]/g, "");
         const element = ELEMENTS.find((e) => e.symbol === baseSymbol);
-        const precipitateInfo = extractPrecipitateInfo(formula, bestProducer);
-        
+
         newNodes.push({
           id: targetKey,
           type: "element",
@@ -1008,14 +985,13 @@ export function expandCompoundPredecessors(
           position: { x, y },
         });
       } else {
-        const precipitateInfo = extractPrecipitateInfo(formula, bestProducer);
         newNodes.push({
           id: targetKey,
           type: "compound",
           data: {
             label,
             nodeType: "compound",
-            color: "#64748b",
+            color: typeColor,
             compoundName: getCompoundName(label),
             hasPrecipitate: !!precipitateInfo,
             precipitateInfo: precipitateInfo || undefined,
@@ -1028,7 +1004,7 @@ export function expandCompoundPredecessors(
           data: {
             label,
             nodeType: "compound",
-            color: "#64748b",
+            color: typeColor,
             compoundName: getCompoundName(label),
             hasPrecipitate: !!precipitateInfo,
             precipitateInfo: precipitateInfo || undefined,
