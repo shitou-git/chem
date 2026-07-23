@@ -895,9 +895,28 @@ export function expandCompoundPredecessors(
     let targetKey: string;
     
     if (isTargetCompound) {
-      targetKey = isEl
-        ? `${getItemKey(formula, "element")}_prod_${bestProducer.id}_${idx}`
-        : `${getItemKey(formula, "compound")}_prod_${bestProducer.id}_${idx}`;
+      targetKey = compoundKey;
+      const edgeId = `${reactionKey}-${targetKey}`;
+      if (!existingEdgeIds.has(edgeId)) {
+        newEdges.push({
+          id: edgeId,
+          source: reactionKey,
+          target: targetKey,
+          data: {
+            condition: bestProducer.condition,
+            reactionType: bestProducer.type ?? "其他",
+            reactionId: bestProducer.id,
+            equation: bestProducer.equation,
+            description: bestProducer.description,
+            ionicEquation: bestProducer.ionicEquation,
+            productName: bestProducer.productName,
+          },
+          style: { stroke: typeColor, strokeWidth: 2 },
+          animated: false,
+        });
+        existingEdgeIds.add(edgeId);
+      }
+      return;
     } else {
       const existingSameNode = findSameNodeInLayer(formula, compoundLayerX, nodeType);
       if (existingSameNode) {
