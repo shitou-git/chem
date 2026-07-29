@@ -11149,5 +11149,142 @@
     "industrialUse": "电解炼铝（Hall-Héroult法）中作熔剂——降低Al₂O₃熔点、提高电导率",
     "dailyLife": "冰晶石是铝工业生产的关键辅料——每生产1吨铝约消耗20-30kg冰晶石",
     "safety": "氢氧化钠/氢氧化钾具强腐蚀性，佩戴防护手套和护目镜。皮肤接触立即用大量清水冲洗。"
+  },
+  {
+    "id": "na2o-hcl-nacl-h2o",
+    "type": "复分解",
+    "reactants": [
+      "Na",
+      "O",
+      "H",
+      "Cl"
+    ],
+    "product": "NaCl + H₂O",
+    "productName": "氯化钠和水",
+    "equation": "Na₂O + 2HCl → 2NaCl + H₂O",
+    "condition": "常温",
+    "description": "氧化钠与盐酸反应生成氯化钠和水。",
+    "ionicEquation": "Na₂O + 2H⁺ → 2Na⁺ + H₂O",
+    "phenomenon": "白色固体溶解，溶液温度升高（放热反应）。",
+    "safety": "盐酸有腐蚀性，操作时注意防护。",
+    "relatedReactions": [
+      "na2o-h2o-naoh",
+      "naoh-hcl-nacl-h2o"
+    ]
+  },
+  {
+    "id": "na2o2-hcl-nacl-o2-h2o",
+    "type": "氧化还原",
+    "reactants": [
+      "Na",
+      "O",
+      "H",
+      "Cl"
+    ],
+    "product": "NaCl + O₂↑ + H₂O",
+    "productName": "氯化钠、氧气和水",
+    "equation": "2Na₂O₂ + 4HCl → 4NaCl + O₂↑ + 2H₂O",
+    "condition": "常温",
+    "description": "过氧化钠与盐酸反应生成氯化钠、氧气和水。",
+    "ionicEquation": "2Na₂O₂ + 4H⁺ → 4Na⁺ + O₂↑ + 2H₂O",
+    "phenomenon": "淡黄色固体溶解，产生能使带火星木条复燃的气体（氧气）。",
+    "safety": "盐酸有腐蚀性，过氧化钠有强氧化性，避免接触皮肤和眼睛。",
+    "relatedReactions": [
+      "na2o2-h2o-o2",
+      "na2o-hcl-nacl-h2o"
+    ]
+  },
+  {
+    "id": "na2co3-hcl-nahco3-nacl",
+    "type": "复分解",
+    "reactants": [
+      "Na",
+      "C",
+      "O",
+      "H",
+      "Cl"
+    ],
+    "product": "NaHCO₃ + NaCl",
+    "productName": "碳酸氢钠和氯化钠",
+    "equation": "Na₂CO₃ + HCl → NaHCO₃ + NaCl",
+    "condition": "常温",
+    "description": "碳酸钠与少量盐酸反应生成碳酸氢钠和氯化钠。",
+    "ionicEquation": "CO₃²⁻ + H⁺ → HCO₃⁻",
+    "phenomenon": "碳酸钠溶液中加入少量盐酸，无明显气泡产生。",
+    "safety": "盐酸有腐蚀性，操作时注意防护。",
+    "relatedReactions": [
+      "na2co3-h2o-co2-nahco3",
+      "nahco3-hcl-nacl-h2o-co2"
+    ]
+  },
+  {
+    "id": "nahco3-hcl-nacl-h2o-co2",
+    "type": "复分解",
+    "reactants": [
+      "Na",
+      "C",
+      "O",
+      "H",
+      "Cl"
+    ],
+    "product": "NaCl + H₂O + CO₂↑",
+    "productName": "氯化钠、水和二氧化碳",
+    "equation": "NaHCO₃ + HCl → NaCl + H₂O + CO₂↑",
+    "condition": "常温",
+    "description": "碳酸氢钠与盐酸反应生成氯化钠、水和二氧化碳。",
+    "ionicEquation": "HCO₃⁻ + H⁺ → H₂O + CO₂↑",
+    "phenomenon": "碳酸氢钠与盐酸反应立即产生大量气泡（二氧化碳）。",
+    "industrialUse": "治疗胃酸过多的胃药原理。",
+    "safety": "盐酸有腐蚀性，操作时注意防护。",
+    "relatedReactions": [
+      "na2co3-hcl-nahco3-nacl",
+      "na2co3-h2o-co2-nahco3"
+    ]
+  },
+  {
+    "id": "caoh2-nahco3-caco3-naoh-h2o",
+    "type": "复分解",
+    "reactants": [
+      "Ca",
+      "O",
+      "H",
+      "C",
+      "Na"
+    ],
+    "product": "CaCO₃↓ + NaOH + H₂O",
+    "productName": "碳酸钙、氢氧化钠和水",
+    "equation": "Ca(OH)₂ + NaHCO₃ → CaCO₃↓ + NaOH + H₂O",
+    "condition": "常温",
+    "description": "石灰水中加入少量碳酸氢钠生成碳酸钙沉淀、氢氧化钠和水。",
+    "ionicEquation": "Ca²⁺ + OH⁻ + HCO₃⁻ → CaCO₃↓ + H₂O",
+    "phenomenon": "澄清石灰水变浑浊（生成白色碳酸钙沉淀）。",
+    "safety": "氢氧化钙有腐蚀性，操作时注意防护。",
+    "relatedReactions": [
+      "caoh2-co2-caco3",
+      "nahco3-hcl-nacl-h2o-co2"
+    ]
+  },
+  {
+    "id": "caoh2-2nahco3-caco3-na2co3-h2o",
+    "type": "复分解",
+    "reactants": [
+      "Ca",
+      "O",
+      "H",
+      "C",
+      "Na"
+    ],
+    "product": "CaCO₃↓ + Na₂CO₃ + H₂O",
+    "productName": "碳酸钙、碳酸钠和水",
+    "equation": "Ca(OH)₂ + 2NaHCO₃ → CaCO₃↓ + Na₂CO₃ + 2H₂O",
+    "condition": "常温",
+    "description": "石灰水中加入过量碳酸氢钠生成碳酸钙沉淀、碳酸钠和水。",
+    "ionicEquation": "Ca²⁺ + 2OH⁻ + 2HCO₃⁻ → CaCO₃↓ + CO₃²⁻ + 2H₂O",
+    "phenomenon": "澄清石灰水变浑浊（生成白色碳酸钙沉淀）。",
+    "safety": "氢氧化钙有腐蚀性，操作时注意防护。",
+    "relatedReactions": [
+      "caoh2-co2-caco3",
+      "caoh2-nahco3-caco3-naoh-h2o"
+    ]
   }
 ]
