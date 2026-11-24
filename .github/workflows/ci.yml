@@ -78,6 +78,11 @@ jobs:
         with:
           path: dist
 
+      # GitHub artifact 元数据 API 存在最终一致性延迟，
+      # 上传后等待片刻，避免 deploy-pages 查询时读到空列表
+      - name: Wait for artifact metadata
+        run: sleep 30
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
