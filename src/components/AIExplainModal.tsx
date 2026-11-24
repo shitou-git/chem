@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { X, Loader2, AlertCircle, Lightbulb, Factory, Shield, BookOpen } from "lucide-react";
+import { X, Loader2, AlertCircle, Lightbulb, Factory, Shield, BookOpen, KeyRound } from "lucide-react";
 import {
   streamExplanation,
   replayCachedExplanation,
   getCachedExplanation,
   cacheExplanation,
+  getLocalApiKey,
+  setLocalApiKey,
+  clearLocalApiKey,
   type AIExplanation,
   type ExplanationKey,
   type FallbackInfo,
@@ -33,6 +36,9 @@ export default function AIExplainModal({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fallbackInfo, setFallbackInfo] = useState<FallbackInfo | null>(null);
+  const [localApiKey, setLocalApiKeyState] = useState(() => getLocalApiKey());
+  const [showKeyPanel, setShowKeyPanel] = useState(false);
+  const [keyDraft, setKeyDraft] = useState(() => getLocalApiKey());
   const [explanation, setExplanation] = useState<Partial<AIExplanation>>({});
   const [currentKey, setCurrentKey] = useState<ExplanationKey | null>(null);
   const [isComplete, setIsComplete] = useState(false);
@@ -248,6 +254,11 @@ export default function AIExplainModal({
             >
               {fallbackInfo ? "本地资料" : "AI生成"}
             </span>
+            {localApiKey && (
+              <span className="rounded bg-emerald-500/20 px-2 py-0.5 text-xs text-emerald-300">
+                直连模式
+              </span>
+            )}
             {!isComplete && hasAnyContent && (
               <span className="flex items-center gap-1 rounded bg-cyan-500/20 px-2 py-0.5 text-xs text-cyan-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
@@ -255,6 +266,19 @@ export default function AIExplainModal({
               </span>
             )}
           </div>
+          <button
+            onClick={() => setShowKeyPanel((v) => !v)}
+            className={cn(
+              "rounded-lg p-2 transition",
+              localApiKey
+                ? "text-emerald-400 hover:bg-slate-800"
+                : "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+            )}
+            aria-label={showKeyPanel ? "收起 API Key 设置" : "设置 API Key"}
+            title="设置本地 API Key"
+          >
+            <KeyRound className="h-5 w-5" />
+          </button>
           <button
             ref={closeButtonRef}
             onClick={onClose}
@@ -264,6 +288,51 @@ export default function AIExplainModal({
             <X className="h-5 w-5" />
           </button>
         </div>
+
+        {showKeyPanel && (
+          <div className="border-b border-slate-800 bg-slate-950/80 p-4">
+            <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-200">
+              <KeyRound className="h-4 w-4 text-emerald-400" />
+              自带 API Key（直连模式）
+            </div>
+            <p className="mb-3 text-xs leading-relaxed text-slate-500">
+              密钥只保存在当前浏览器，不会写入代码或上传到服务器。填写后将直连上游接口，可避开共享代理的限流。请仅在可信设备上使用。
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <input
+                type="password"
+                value={keyDraft}
+                onChange={(e) => setKeyDraft(e.target.value)}
+                placeholder="粘贴你的 API Key（sk-...）"
+                className="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-200 outline-none placeholder:text-slate-600 focus:border-emerald-500"
+              />
+              <button
+                onClick={() => {
+                  const next = keyDraft.trim();
+                  setLocalApiKey(next);
+                  setLocalApiKeyState(next);
+                  setShowKeyPanel(false);
+                  if (next) handleRetry();
+                }}
+                className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-slate-900 transition hover:bg-emerald-400"
+              >
+                保存并重试
+              </button>
+              {localApiKey && (
+                <button
+                  onClick={() => {
+                    clearLocalApiKey();
+                    setLocalApiKeyState("");
+                    setKeyDraft("");
+                  }}
+                  className="rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-400 transition hover:text-slate-200"
+                >
+                  清除
+                </button>
+              )}
+            </div>
+          </div>
+        )}
 
         <div className="border-b border-slate-800 bg-slate-950/50 p-4">
           <div className="mb-2 text-xs text-slate-500">化学方程式</div>

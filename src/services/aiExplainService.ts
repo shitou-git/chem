@@ -1,5 +1,5 @@
 /**
- * AI 解释服务 - 调用 Agnes 2.0 Flash API
+ * AI 解释服务 - 调用 Agnes 模型 API
  * 用于解释化学反应的原理、应用和注意事项
  * 支持流式输出，提升用户体验
  *
@@ -10,7 +10,33 @@
 import { REACTIONS, type ChemicalReaction } from "../data/reactions";
 
 const API_BASE_URL = import.meta.env.VITE_AGNES_API_URL || "https://api.chatlz.dpdns.org";
+const DIRECT_API_URL =
+  import.meta.env.VITE_AGNES_DIRECT_API_URL || "https://apihub.agnes-ai.com";
 const MODEL = import.meta.env.VITE_AGNES_MODEL || "agnes-3.0-flash";
+
+/** 用户自带 Key 只保存在本机浏览器，不进入仓库、不发送到我们的代理 */
+const LOCAL_KEY_STORAGE = "chem-lab:user-agnes-api-key";
+
+export function getLocalApiKey(): string {
+  try {
+    return localStorage.getItem(LOCAL_KEY_STORAGE) || "";
+  } catch {
+    return "";
+  }
+}
+
+export function setLocalApiKey(key: string): void {
+  try {
+    if (key) localStorage.setItem(LOCAL_KEY_STORAGE, key);
+    else localStorage.removeItem(LOCAL_KEY_STORAGE);
+  } catch {
+    // 隐私模式下 localStorage 可能不可用，忽略即可
+  }
+}
+
+export function clearLocalApiKey(): void {
+  setLocalApiKey("");
+}
 
 export interface AIExplanation {
   principle: string;
@@ -59,7 +85,7 @@ function describeHttpError(status: number, errorText: string, retryAfter?: numbe
     return new RateLimitError(`AI 服务当前请求过多${hint}`, retryAfter);
   }
   if (status === 401 || status === 403) {
-    return new Error("AI 服务密钥配置异常，请联系管理员");
+    return new Error("API Key 无效或已过期，请检查本地填写的密钥");
   }
   if (status >= 500) {
     return new Error(`AI 服务暂时不可用（${status}）`);
@@ -228,11 +254,21 @@ export async function streamExplanation(
   const { onUpdate, onDone, onError, onFallback } = callbacks;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/v1/chat/completions`, {
+    // 如果用户在本机填写了自己的 Key，则直连上游，绕开共享代理的限流
+    const localKey = getLocalApiKey().trim();
+    const endpoint = localKey
+      ? `${DIRECT_API_URL}/v1/chat/completions`
+      : `${API_BASE_URL}/v1/chat/completions`;
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (localKey) {
+      headers["Authorization"] = `Bearer ${localKey}`;
+    }
+
+    const response = await fetch(endpoint, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       signal,
       body: JSON.stringify({
         model: MODEL,
