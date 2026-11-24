@@ -7,6 +7,7 @@ import {
   cacheExplanation,
   type AIExplanation,
   type ExplanationKey,
+  type FallbackInfo,
 } from "@/services/aiExplainService";
 import { cn } from "@/lib/utils";
 
@@ -31,6 +32,7 @@ export default function AIExplainModal({
 }: AIExplainModalProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fallbackInfo, setFallbackInfo] = useState<FallbackInfo | null>(null);
   const [explanation, setExplanation] = useState<Partial<AIExplanation>>({});
   const [currentKey, setCurrentKey] = useState<ExplanationKey | null>(null);
   const [isComplete, setIsComplete] = useState(false);
@@ -43,6 +45,7 @@ export default function AIExplainModal({
     if (!isOpen) {
       setLoading(false);
       setError(null);
+      setFallbackInfo(null);
       setExplanation({});
       setCurrentKey(null);
       setIsComplete(false);
@@ -87,6 +90,7 @@ export default function AIExplainModal({
       abortRef.current = controller;
       setLoading(true);
       setError(null);
+      setFallbackInfo(null);
       setExplanation({});
       setCurrentKey(null);
       setIsComplete(false);
@@ -128,10 +132,12 @@ export default function AIExplainModal({
     abortRef.current = controller;
     setLoading(true);
     setError(null);
+    setFallbackInfo(null);
     setExplanation({});
     setCurrentKey(null);
     setIsComplete(false);
 
+    let usedFallback = false;
     streamExplanation(equation, productName, condition, type, {
       onUpdate: (partial, key) => {
         setExplanation(partial);
@@ -143,14 +149,21 @@ export default function AIExplainModal({
         setIsComplete(true);
         setCurrentKey(null);
         setLoading(false);
-        cacheExplanation(equation, productName, result);
+        // 本地资料不写入 AI 缓存，下一次打开仍会尝试真正的 AI 服务
+        if (!usedFallback) cacheExplanation(equation, productName, result);
       },
       onError: (err) => {
         if (controller.signal.aborted) return;
         setError(err.message || "AI 解释请求失败");
         setLoading(false);
       },
-    }, ionicEquation);
+      onFallback: (info) => {
+        if (controller.signal.aborted) return;
+        usedFallback = true;
+        setFallbackInfo(info);
+        setError(null);
+      },
+    }, ionicEquation, controller.signal);
 
     return () => {
       clearTimeout(focusTimer);
@@ -165,10 +178,12 @@ export default function AIExplainModal({
   const startStream = (controller: AbortController) => {
     setLoading(true);
     setError(null);
+    setFallbackInfo(null);
     setExplanation({});
     setCurrentKey(null);
     setIsComplete(false);
 
+    let usedFallback = false;
     streamExplanation(equation, productName, condition, type, {
       onUpdate: (partial, key) => {
         setExplanation(partial);
@@ -180,14 +195,20 @@ export default function AIExplainModal({
         setIsComplete(true);
         setCurrentKey(null);
         setLoading(false);
-        cacheExplanation(equation, productName, result);
+        if (!usedFallback) cacheExplanation(equation, productName, result);
       },
       onError: (err) => {
         if (controller.signal.aborted) return;
         setError(err.message || "AI 解释请求失败");
         setLoading(false);
       },
-    }, ionicEquation);
+      onFallback: (info) => {
+        if (controller.signal.aborted) return;
+        usedFallback = true;
+        setFallbackInfo(info);
+        setError(null);
+      },
+    }, ionicEquation, controller.signal);
   };
 
   const handleRetry = () => {
@@ -217,8 +238,15 @@ export default function AIExplainModal({
           <div className="flex items-center gap-2">
             <Lightbulb className="h-5 w-5 text-amber-400" />
             <h3 id="ai-modal-title" className="text-lg font-bold text-slate-100">AI 反应解释</h3>
-            <span className="rounded bg-amber-500/20 px-2 py-0.5 text-xs text-amber-400">
-              AI生成
+            <span
+              className={cn(
+                "rounded px-2 py-0.5 text-xs",
+                fallbackInfo
+                  ? "bg-sky-500/20 text-sky-300"
+                  : "bg-amber-500/20 text-amber-400"
+              )}
+            >
+              {fallbackInfo ? "本地资料" : "AI生成"}
             </span>
             {!isComplete && hasAnyContent && (
               <span className="flex items-center gap-1 rounded bg-cyan-500/20 px-2 py-0.5 text-xs text-cyan-400">
@@ -272,6 +300,23 @@ export default function AIExplainModal({
             </div>
           )}
 
+          {fallbackInfo && (
+            <div className="mb-4 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border border-sky-500/30 bg-sky-500/10 px-3 py-2 text-xs text-sky-300">
+              <AlertCircle className="h-3.5 w-3.5 shrink-0" />
+              <span>
+                {fallbackInfo.retryAfterSeconds
+                  ? `AI 服务繁忙，约 ${fallbackInfo.retryAfterSeconds} 秒后可重试，当前已切换为内置资料。`
+                  : "AI 服务暂时不可用，当前已切换为内置资料。"}
+              </span>
+              <button
+                onClick={handleRetry}
+                className="ml-auto rounded bg-sky-500/20 px-2 py-0.5 text-sky-200 transition hover:bg-sky-500/30"
+              >
+                重试 AI
+              </button>
+            </div>
+          )}
+
           {hasAnyContent && !error && (
             <div className="space-y-0">
               <ExplanationSection
@@ -316,7 +361,7 @@ export default function AIExplainModal({
 
               {isComplete && (
                 <div className="mt-6 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-400">
-                  ⚠️ 以上内容由 AI 自动生成，仅供学习参考。请以教材和教师讲解为准。
+                  ⚠️ {fallbackInfo ? "以上内容来自内置反应资料库" : "以上内容由 AI 自动生成"}，仅供学习参考。请以教材和教师讲解为准。
                 </div>
               )}
             </div>
