@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Search, Sparkles, Layers, GitBranch } from "lucide-react";
+import { Search, Sparkles, Layers, GitBranch, FlaskConical } from "lucide-react";
 import PeriodicTable from "@/components/PeriodicTable";
 import ReactionStage from "@/components/ReactionStage";
 import FavoritesDrawer from "@/components/FavoritesDrawer";
+import VirtualLabModal from "@/components/VirtualLabModal";
 import { useChemStore } from "@/store/chemStore";
 import { ELEMENTS, GROUP_COLORS, GROUP_LABELS, type ElementGroup } from "@/data/elements";
 import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions, REACTION_TYPES, resolveChemicalAlias, type ReactionType, isChemicalFormula, searchReactionsBySubstance } from "@/data/reactions";
@@ -25,6 +26,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState<string | null>(null);
   const [showTypeDropdown, setShowTypeDropdown] = useState(false);
+  const [labOpen, setLabOpen] = useState(false);
   const tableRef = useRef<HTMLDivElement>(null);
 
   const selectedSymbols = useMemo(
@@ -262,6 +264,17 @@ export default function Home() {
             <p className="mt-1 text-xs text-slate-400 md:text-sm">
               点击元素 → 探索化合物 → 配平化学方程式
             </p>
+            <button
+              type="button"
+              onClick={() => setLabOpen(true)}
+              className="mt-2.5 inline-flex items-center gap-2 rounded-lg border border-cyan-500/50 bg-gradient-to-r from-cyan-500/15 to-fuchsia-500/15 px-3 py-1.5 text-xs font-semibold text-cyan-300 transition hover:border-cyan-400 hover:from-cyan-500/25 hover:to-fuchsia-500/25 hover:shadow-[0_0_16px_rgba(34,211,238,0.3)] md:text-sm"
+            >
+              <FlaskConical className="h-4 w-4" />
+              进入 3D 虚拟实验台
+              <span className="rounded-full bg-cyan-500/20 px-1.5 py-0.5 text-[10px] text-cyan-300">
+                NEW
+              </span>
+            </button>
           </div>
 
           <div className="flex w-full flex-col items-end gap-2">
@@ -404,6 +417,10 @@ export default function Home() {
       </main>
 
       <FavoritesDrawer />
+
+      {labOpen && (
+        <VirtualLabModal isOpen={labOpen} onClose={() => setLabOpen(false)} />
+      )}
 
       <footer className="relative z-10 pb-6 pt-2 text-center text-xs text-slate-500">
         <p>课堂演示模式 · 支持触摸操作 · 方程式自动保存到浏览器本地</p>
