@@ -2,10 +2,15 @@
  * AI 解释服务 - 调用 Agnes 2.0 Flash API
  * 用于解释化学反应的原理、应用和注意事项
  * 支持流式输出，提升用户体验
+ *
+ * 当上游限流（429 / Cloudflare 1015）或服务不可用时，自动回退到本地反应库，
+ * 保证「AI 解释」入口始终能给出有价值的内容，而不是直接报错。
  */
 
+import { REACTIONS, type ChemicalReaction } from "../data/reactions";
+
 const API_BASE_URL = import.meta.env.VITE_AGNES_API_URL || "https://api.chatlz.dpdns.org";
-const MODEL = "agnes-2.0-flash";
+const MODEL = import.meta.env.VITE_AGNES_MODEL || "agnes-3.0-flash";
 
 export interface AIExplanation {
   principle: string;
@@ -16,10 +21,50 @@ export interface AIExplanation {
 
 export type ExplanationKey = keyof AIExplanation;
 
+/** 本地资料兜底的原因，用于 UI 提示 */
+export interface FallbackInfo {
+  reason: string;
+  retryAfterSeconds?: number;
+}
+
 export interface StreamCallbacks {
   onUpdate: (partial: Partial<AIExplanation>, currentKey: ExplanationKey | null) => void;
   onDone: (result: AIExplanation) => void;
   onError: (error: Error) => void;
+  /** 命中本地资料兜底时触发（可选） */
+  onFallback?: (info: FallbackInfo) => void;
+}
+
+/** 上游限流错误，携带 Retry-After 便于 UI 展示等待时间 */
+export class RateLimitError extends Error {
+  readonly retryAfterSeconds?: number;
+
+  constructor(message: string, retryAfterSeconds?: number) {
+    super(message);
+    this.name = "RateLimitError";
+    this.retryAfterSeconds = retryAfterSeconds;
+  }
+}
+
+function parseRetryAfter(response: Response): number | undefined {
+  const raw = response.headers.get("Retry-After");
+  if (!raw) return undefined;
+  const seconds = Number(raw);
+  return Number.isFinite(seconds) && seconds > 0 ? Math.ceil(seconds) : undefined;
+}
+
+function describeHttpError(status: number, errorText: string, retryAfter?: number): Error {
+  if (status === 429) {
+    const hint = retryAfter ? `，约 ${retryAfter} 秒后可重试` : "，请稍后再试";
+    return new RateLimitError(`AI 服务当前请求过多${hint}`, retryAfter);
+  }
+  if (status === 401 || status === 403) {
+    return new Error("AI 服务密钥配置异常，请联系管理员");
+  }
+  if (status >= 500) {
+    return new Error(`AI 服务暂时不可用（${status}）`);
+  }
+  return new Error(`API 请求失败: ${status} - ${errorText.slice(0, 120)}`);
 }
 
 const SECTION_MARKERS: Record<string, ExplanationKey> = {
@@ -96,15 +141,91 @@ function parseStreamContent(
   return { partial: result, currentKey };
 }
 
+/** 方程式归一化：忽略空格、系数、上下标和箭头写法差异 */
+function normalizeEquation(equation: string): string {
+  return equation
+    .replace(/\s+/g, "")
+    .replace(/[₀-₉]/g, (ch) => "₀₁₂₃₄₅₆₇₈₉".indexOf(ch).toString())
+    .replace(/→|⇌|=/g, "→")
+    .replace(/[↑↓]/g, "")
+    .toLowerCase();
+}
+
+function findReaction(
+  equation: string,
+  productName: string
+): ChemicalReaction | undefined {
+  const target = normalizeEquation(equation);
+  return (
+    REACTIONS.find((r) => normalizeEquation(r.equation) === target) ||
+    REACTIONS.find((r) => r.productName === productName) ||
+    REACTIONS.find((r) => r.productName.includes(productName) && productName.length > 0)
+  );
+}
+
+/**
+ * 用内置反应库构造兜底解释。
+ * 不依赖网络，覆盖全部 561 条反应，且包含现象/用途/安全/相关反应等字段。
+ */
+export function buildFallbackExplanation(
+  equation: string,
+  productName: string,
+  condition: string,
+  type: string,
+  ionicEquation?: string
+): AIExplanation | undefined {
+  const reaction = findReaction(equation, productName);
+  if (!reaction) return undefined;
+
+  const principleParts = [reaction.description];
+  if (condition) principleParts.push(`反应条件：${condition}。`);
+  if (reaction.phenomenon) principleParts.push(`实验现象：${reaction.phenomenon}`);
+
+  const applicationParts: string[] = [];
+  if (reaction.industrialUse) applicationParts.push(`工业用途：${reaction.industrialUse}`);
+  if (reaction.dailyLife) applicationParts.push(`生活应用：${reaction.dailyLife}`);
+  if (!applicationParts.length) {
+    applicationParts.push(
+      `${reaction.productName}是重要的化工原料或实验试剂，其用途由本身的酸碱性、氧化还原性等性质决定。`
+    );
+  }
+
+  const safety =
+    reaction.safety ||
+    "常规实验室安全操作：佩戴护目镜和实验服，在通风良好的环境中进行，远离明火并遵守教师指导。";
+
+  const extensionParts: string[] = [];
+  if (ionicEquation) extensionParts.push(`离子方程式：${ionicEquation}。`);
+  if (reaction.enthalpy) extensionParts.push(`能量变化：${reaction.enthalpy}。`);
+  const related = (reaction.relatedReactions || [])
+    .map((id) => REACTIONS.find((r) => r.id === id)?.equation)
+    .filter((eq): eq is string => Boolean(eq))
+    .slice(0, 3);
+  if (related.length) extensionParts.push(`可对比的相关反应：${related.join("；")}。`);
+  if (!extensionParts.length) {
+    extensionParts.push(
+      `本反应属于${reaction.type || type}反应，可结合反应物的类别和条件去理解同类反应的规律。`
+    );
+  }
+
+  return {
+    principle: principleParts.join(" "),
+    application: applicationParts.join(" "),
+    safety,
+    extension: extensionParts.join(" "),
+  };
+}
+
 export async function streamExplanation(
   equation: string,
   productName: string,
   condition: string,
   type: string,
   callbacks: StreamCallbacks,
-  ionicEquation?: string
+  ionicEquation?: string,
+  signal?: AbortSignal
 ): Promise<void> {
-  const { onUpdate, onDone, onError } = callbacks;
+  const { onUpdate, onDone, onError, onFallback } = callbacks;
 
   try {
     const response = await fetch(`${API_BASE_URL}/v1/chat/completions`, {
@@ -112,6 +233,7 @@ export async function streamExplanation(
       headers: {
         "Content-Type": "application/json",
       },
+      signal,
       body: JSON.stringify({
         model: MODEL,
         messages: [
@@ -126,7 +248,7 @@ export async function streamExplanation(
     if (!response.ok) {
       const errorText = await response.text();
       console.error("API 错误响应:", response.status, errorText);
-      throw new Error(`API 请求失败: ${response.status} - ${errorText}`);
+      throw describeHttpError(response.status, errorText, parseRetryAfter(response));
     }
 
     if (!response.body) {
@@ -204,10 +326,36 @@ export async function streamExplanation(
       extension: partial.extension || "",
     };
 
+    if (!Object.values(finalResult).some((v) => v.length > 0)) {
+      throw new Error("AI 返回内容为空");
+    }
+
     onDone(finalResult);
   } catch (error) {
-    console.error("AI 流式解释失败:", error);
-    onError(error instanceof Error ? error : new Error(String(error)));
+    if (signal?.aborted) return;
+
+    const err = error instanceof Error ? error : new Error(String(error));
+    console.error("AI 流式解释失败，准备使用本地资料兜底:", err);
+
+    const fallback = buildFallbackExplanation(
+      equation,
+      productName,
+      condition,
+      type,
+      ionicEquation
+    );
+
+    if (fallback) {
+      onFallback?.({
+        reason: err.message,
+        retryAfterSeconds: err instanceof RateLimitError ? err.retryAfterSeconds : undefined,
+      });
+      onUpdate(fallback, null);
+      onDone(fallback);
+      return;
+    }
+
+    onError(err);
   }
 }
 
