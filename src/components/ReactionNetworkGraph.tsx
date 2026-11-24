@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import {
   ReactFlow,
   Background,
@@ -9,7 +9,7 @@ import {
   type Node,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { X, ZoomIn, Maximize2, Network } from "lucide-react";
+import { X, ZoomIn, Maximize2, Network, Box } from "lucide-react";
 
 import { ElementNode } from "./ElementNode";
 import { CompoundNode } from "./CompoundNode";
@@ -30,6 +30,8 @@ import {
 } from "@/data/reactionGraph";
 import { REACTIONS } from "@/data/reactions";
 import AIExplainModal from "./AIExplainModal";
+
+const Reaction3DAnimation = lazy(() => import("./Reaction3DAnimation"));
 
 const nodeTypes = {
   element: ElementNode,
@@ -78,6 +80,12 @@ export default function ReactionNetworkGraph({
   const [expandedFormulas, setExpandedFormulas] = useState<Set<string>>(new Set());
 
   const [currentDescription, setCurrentDescription] = useState<string>("");
+  const [animationData, setAnimationData] = useState<{
+    equation: string;
+    condition: string;
+    type: string;
+    productName: string;
+  } | null>(null);
 
   const reaction = useMemo(
     () => REACTIONS.find((r) => r.id === reactionId),
@@ -209,6 +217,13 @@ export default function ReactionNetworkGraph({
 
           const reactionData = REACTIONS.find((r) => r.equation === node.data.equation);
           setCurrentDescription(reactionData?.description || "");
+
+          setAnimationData({
+            equation: node.data.equation,
+            condition: reactionData?.condition ?? "",
+            type: reactionData?.type ?? "",
+            productName: node.data.productName ?? "",
+          });
           
           const leftParts = parseEquationLeftWithCoef(node.data.equation);
           const rightParts = parseEquationRightWithCoef(node.data.equation);
@@ -381,6 +396,20 @@ export default function ReactionNetworkGraph({
             <div className="mt-1 text-xs text-slate-400 leading-relaxed">
               {currentDescription.replace(/。$/, "") || "点击化合物节点向左扩展前驱反应 · 点击连线查看 AI 解释"}
             </div>
+            <button
+              onClick={() =>
+                setAnimationData({
+                  equation: currentEquation,
+                  condition: "",
+                  type: "",
+                  productName: currentProductName,
+                })
+              }
+              className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-cyan-500/15 px-2.5 py-1 text-xs font-medium text-cyan-400 transition hover:bg-cyan-500/25"
+            >
+              <Box className="h-3.5 w-3.5" />
+              3D 演示此方程式
+            </button>
           </div>
         </div>
       </div>
@@ -395,6 +424,28 @@ export default function ReactionNetworkGraph({
           type={aiModalData.type}
           ionicEquation={aiModalData.ionicEquation}
         />
+      )}
+
+      {animationData && (
+        <Suspense
+          fallback={
+            <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/90 backdrop-blur-sm">
+              <div className="flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-900 px-5 py-3 text-sm text-slate-300">
+                <Box className="h-5 w-5 animate-pulse text-cyan-400" />
+                正在加载 3D 引擎…
+              </div>
+            </div>
+          }
+        >
+          <Reaction3DAnimation
+            isOpen={!!animationData}
+            onClose={() => setAnimationData(null)}
+            equation={animationData.equation}
+            condition={animationData.condition}
+            type={animationData.type}
+            productName={animationData.productName}
+          />
+        </Suspense>
       )}
 
     </div>
