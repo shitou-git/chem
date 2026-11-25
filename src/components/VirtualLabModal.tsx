@@ -1,8 +1,6 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import {
   X,
-  Flame,
-  Plus,
   RotateCcw,
   Beaker,
   ShieldAlert,
@@ -18,10 +16,12 @@ import {
   ArrowRight,
   ClipboardList,
   Stamp,
+  MousePointer2,
+  Hand,
 } from "lucide-react";
 import { VIRTUAL_LABS, type VirtualLabExperiment } from "@/data/virtualLab";
 import { cn } from "@/lib/utils";
-import type { LabPhase } from "./LabScene3D";
+import type { LabInteractionState } from "./LabScene3D";
 
 const LabScene3D = lazy(() => import("./LabScene3D"));
 
@@ -40,6 +40,15 @@ const STAGES: { id: Stage; label: string; icon: typeof Lightbulb }[] = [
   { id: "conclusion", label: "课本结论", icon: BookOpen },
 ];
 
+const INITIAL_INTERACTION: LabInteractionState = {
+  lampLit: false,
+  toolAt: "tray",
+  ignited: false,
+  reacted: false,
+};
+
+const heatOnly = (id: string) => id === "lab-cu" || id === "lab-h2";
+
 export default function VirtualLabModal({
   isOpen,
   onClose,
@@ -50,38 +59,38 @@ export default function VirtualLabModal({
   const [selected, setSelected] = useState<number | null>(null);
   const [predictDone, setPredictDone] = useState(false);
   const [records, setRecords] = useState<string[]>([]);
-  const [phase, setPhase] = useState<LabPhase>("idle");
-  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const [interaction, setInteraction] = useState<LabInteractionState>(INITIAL_INTERACTION);
+  const [resetToken, setResetToken] = useState(0);
   const experiment: VirtualLabExperiment = VIRTUAL_LABS[index] ?? VIRTUAL_LABS[0];
 
-  const clearTimers = () => {
-    timers.current.forEach(clearTimeout);
-    timers.current = [];
-  };
+  const handleStateChange = useCallback((s: LabInteractionState) => {
+    setInteraction((prev) =>
+      prev.lampLit === s.lampLit &&
+      prev.toolAt === s.toolAt &&
+      prev.ignited === s.ignited &&
+      prev.reacted === s.reacted
+        ? prev
+        : s
+    );
+  }, []);
 
   /** 切换实验（含切换实验时复位整个探究流程） */
   const goLab = (i: number) => {
-    clearTimers();
     setIndex((i + VIRTUAL_LABS.length) % VIRTUAL_LABS.length);
     setStage("predict");
     setSelected(null);
     setPredictDone(false);
     setRecords([]);
-    setPhase("idle");
+    setInteraction(INITIAL_INTERACTION);
+    setResetToken((t) => t + 1);
   };
 
   useEffect(() => {
     if (!isOpen) return;
     const found = initialLabId ? VIRTUAL_LABS.findIndex((l) => l.id === initialLabId) : -1;
-    if (found >= 0) {
-      goLab(found);
-    }
+    if (found >= 0) goLab(found);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, initialLabId]);
-
-  useEffect(() => {
-    return () => clearTimers();
-  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -92,6 +101,14 @@ export default function VirtualLabModal({
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, onClose]);
 
+  // 反应完成 → 自动记入观察记录
+  useEffect(() => {
+    if (!interaction.reacted) return;
+    setRecords((prev) =>
+      prev.includes(experiment.phenomenon) ? prev : [...prev, experiment.phenomenon]
+    );
+  }, [interaction.reacted, experiment.phenomenon]);
+
   if (!isOpen) return null;
 
   const chooseOption = (i: number) => {
@@ -100,43 +117,38 @@ export default function VirtualLabModal({
     setPredictDone(true);
   };
 
-  const addReagent = () => {
-    clearTimers();
-    setPhase("adding");
-    timers.current.push(setTimeout(() => setPhase("ready"), 950));
-  };
-
-  const ignite = () => {
-    clearTimers();
-    setPhase("igniting");
-    timers.current.push(setTimeout(() => setPhase("reacting"), 600));
-    timers.current.push(
-      setTimeout(() => {
-        setPhase("done");
-        setRecords((r) => [...r, experiment.phenomenon]);
-      }, 600 + experiment.duration * 1000)
-    );
-  };
-
   const reset = () => {
-    clearTimers();
-    setPhase("idle");
+    setInteraction(INITIAL_INTERACTION);
+    setRecords([]);
+    setResetToken((t) => t + 1);
   };
 
-  const canAdd = phase === "idle" || phase === "done";
-  const canIgnite = phase === "ready";
-  const showPhenomenon = phase === "reacting" || phase === "done";
-
-  const phaseLabel: Record<LabPhase, string> = {
-    idle: "准备就绪 · 请先加入试剂",
-    adding: "正在加入试剂…",
-    ready: "试剂已就位 · 可以点火了",
-    igniting: "点燃酒精灯…",
-    reacting: "反应进行中，观察现象…",
-    done: "反应完成 · 记下你看到的现象",
-  };
-
+  const showPhenomenon = interaction.reacted;
   const stageIndex = STAGES.findIndex((s) => s.id === stage);
+  const reagentName = experiment.reagents[0].name;
+
+  /** 当前该做什么 */
+  const guidance = !interaction.lampLit
+    ? { icon: MousePointer2, text: "点击桌上的酒精灯，先把它点燃", tone: "amber" as const }
+    : interaction.toolAt === "tray" && !interaction.ignited
+    ? { icon: Hand, text: `拖动托盘里的${reagentName}，移到酒精灯火焰上方`, tone: "cyan" as const }
+    : toolHeating(interaction)
+    ? { icon: Sparkles, text: "正在加热…稍等片刻，试剂即将点燃", tone: "cyan" as const }
+    : interaction.ignited && !interaction.reacted && heatOnly(experiment.id)
+    ? { icon: Sparkles, text: "仔细观察器材表面的变化", tone: "violet" as const }
+    : interaction.ignited && !interaction.reacted
+    ? {
+        icon: Hand,
+        text: `把点燃的${reagentName}拖进${
+          experiment.apparatus === "crucible" ? "坩埚" : "集气瓶"
+        }里`,
+        tone: "cyan" as const,
+      }
+    : interaction.reacted
+    ? { icon: CheckCircle2, text: "反应完成，把看到的现象记下来", tone: "emerald" as const }
+    : { icon: MousePointer2, text: "继续操作实验器材", tone: "amber" as const };
+
+  const GuidanceIcon = guidance.icon;
 
   return (
     <div className="fixed inset-0 z-[70] flex flex-col bg-slate-950/95 backdrop-blur">
@@ -201,7 +213,7 @@ export default function VirtualLabModal({
         ))}
       </div>
 
-      {/* 探究流程导航：先猜一猜 → 动手实验 → 课本结论 */}
+      {/* 探究流程导航 */}
       <div className="flex items-center justify-center gap-1 border-b border-slate-800/70 bg-slate-900/30 px-4 py-2">
         {STAGES.map((s, i) => {
           const Icon = s.icon;
@@ -249,22 +261,25 @@ export default function VirtualLabModal({
         })}
       </div>
 
-      {/* 主体：左 3D 场景 / 右 探究面板 */}
+      {/* 主体：左 3D 实验台 / 右 探究面板 */}
       <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        {/* 3D 视口 */}
-        <div className="relative min-h-[320px] flex-1">
+        <div className="relative min-h-[340px] flex-1">
           <Suspense
             fallback={
               <div className="flex h-full items-center justify-center gap-3 text-sm text-slate-400">
                 <Loader2 className="h-5 w-5 animate-spin text-cyan-400" />
-                正在加载 3D 实验场景…
+                正在准备实验器材…
               </div>
             }
           >
-            <LabScene3D experiment={experiment} phase={phase} />
+            <LabScene3D
+              experiment={experiment}
+              onStateChange={handleStateChange}
+              resetToken={resetToken}
+            />
           </Suspense>
 
-          {/* 方程式浮层（结论环节显示课本文字表达式） */}
+          {/* 方程式浮层 */}
           <div className="pointer-events-none absolute left-3 top-3 rounded-xl border border-slate-700/70 bg-slate-900/85 px-3 py-2 backdrop-blur">
             <div className="text-[10px] uppercase tracking-wider text-slate-500">
               {stage === "conclusion" ? "课本文字表达式" : "化学方程式"}
@@ -277,28 +292,25 @@ export default function VirtualLabModal({
             </div>
           </div>
 
-          {/* 阶段状态条 */}
-          <div className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-slate-700/70 bg-slate-900/85 px-4 py-1.5 text-xs text-slate-300 backdrop-blur">
-            <span
-              className={cn(
-                "mr-2 inline-block h-2 w-2 rounded-full",
-                phase === "reacting" || phase === "done"
-                  ? "animate-pulse bg-emerald-400"
-                  : phase === "ready"
-                  ? "bg-amber-400"
-                  : "bg-slate-500"
-              )}
-            />
-            {stage === "predict"
-              ? "先想一想，再动手验证"
-              : stage === "conclusion"
-              ? "对照课本原文，看看结论对不对"
-              : phaseLabel[phase]}
+          {/* 当前操作引导 */}
+          <div
+            className={cn(
+              "pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border px-4 py-1.5 text-xs backdrop-blur",
+              guidance.tone === "amber"
+                ? "border-amber-500/50 bg-amber-500/15 text-amber-200"
+                : guidance.tone === "emerald"
+                ? "border-emerald-500/50 bg-emerald-500/15 text-emerald-200"
+                : guidance.tone === "violet"
+                ? "border-violet-500/50 bg-violet-500/15 text-violet-200"
+                : "border-cyan-500/50 bg-cyan-500/15 text-cyan-200"
+            )}
+          >
+            <GuidanceIcon className="h-3.5 w-3.5" />
+            {stage === "conclusion" ? "对照课本原文，看看结论对不对" : guidance.text}
           </div>
 
-          {/* 拖拽提示 */}
           <div className="pointer-events-none absolute right-3 top-3 rounded-lg border border-slate-700/70 bg-slate-900/85 px-2.5 py-1.5 text-[11px] text-slate-500 backdrop-blur">
-            拖拽旋转视角 · 滚轮缩放
+            拖拽空白处旋转视角 · 滚轮缩放
           </div>
         </div>
 
@@ -317,13 +329,10 @@ export default function VirtualLabModal({
           {stage === "experiment" && (
             <ExperimentPanel
               experiment={experiment}
-              phase={phase}
-              canAdd={canAdd}
-              canIgnite={canIgnite}
+              interaction={interaction}
+              guidance={guidance.text}
               showPhenomenon={showPhenomenon}
               records={records}
-              onAdd={addReagent}
-              onIgnite={ignite}
               onReset={reset}
               onNext={() => setStage("conclusion")}
             />
@@ -333,13 +342,20 @@ export default function VirtualLabModal({
             <ConclusionPanel
               experiment={experiment}
               selected={selected}
-              onBack={() => setStage("experiment")}
+              onBack={() => {
+                reset();
+                setStage("experiment");
+              }}
             />
           )}
         </div>
       </div>
     </div>
   );
+}
+
+function toolHeating(s: LabInteractionState) {
+  return s.toolAt === "flame" && !s.ignited;
 }
 
 /* ============================ 先猜一猜 ============================ */
@@ -455,31 +471,26 @@ function PredictPanel({
 /* ============================ 动手实验 ============================ */
 function ExperimentPanel({
   experiment,
-  phase,
-  canAdd,
-  canIgnite,
+  interaction,
+  guidance,
   showPhenomenon,
   records,
-  onAdd,
-  onIgnite,
   onReset,
   onNext,
 }: {
   experiment: VirtualLabExperiment;
-  phase: LabPhase;
-  canAdd: boolean;
-  canIgnite: boolean;
+  interaction: LabInteractionState;
+  guidance: string;
   showPhenomenon: boolean;
   records: string[];
-  onAdd: () => void;
-  onIgnite: () => void;
   onReset: () => void;
   onNext: () => void;
 }) {
-  const stepDone = (i: number) =>
-    (phase === "adding" && i === 0) ||
-    (phase === "ready" && i <= 1) ||
-    ((phase === "igniting" || phase === "reacting" || phase === "done") && i <= 2);
+  const stepsDone = [
+    interaction.lampLit,
+    interaction.ignited,
+    interaction.reacted,
+  ];
 
   return (
     <div>
@@ -489,13 +500,24 @@ function ExperimentPanel({
           动手实验
         </span>
       </div>
-      <p className="mb-4 text-xs text-slate-500">按步骤操作，观察现象并记下来</p>
+      <p className="mb-4 text-xs text-slate-500">在 3D 实验台上亲自操作器材，观察现象</p>
 
-      {/* 操作步骤 */}
+      {/* 当前引导 */}
+      <div className="mb-4 flex items-start gap-2 rounded-xl border border-cyan-600/30 bg-cyan-500/5 p-3">
+        <Hand className="mt-0.5 h-4 w-4 flex-shrink-0 text-cyan-400" />
+        <div>
+          <div className="mb-0.5 text-[11px] font-semibold uppercase tracking-wider text-cyan-400">
+            下一步操作
+          </div>
+          <p className="text-sm leading-relaxed text-cyan-100/90">{guidance}</p>
+        </div>
+      </div>
+
+      {/* 课本步骤 */}
       <div className="mb-4">
         <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-500">
           <Beaker className="h-3.5 w-3.5" />
-          实验步骤
+          课本实验步骤
         </div>
         <ol className="space-y-1.5">
           {experiment.steps.map((step, i) => (
@@ -503,7 +525,7 @@ function ExperimentPanel({
               key={i}
               className={cn(
                 "flex gap-2 rounded-lg border px-2.5 py-1.5 text-xs transition",
-                stepDone(i)
+                stepsDone[Math.min(i, 2)]
                   ? "border-cyan-500/40 bg-cyan-500/10 text-cyan-200"
                   : "border-slate-800 bg-slate-950/40 text-slate-400"
               )}
@@ -511,12 +533,12 @@ function ExperimentPanel({
               <span
                 className={cn(
                   "flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-bold",
-                  stepDone(i)
+                  stepsDone[Math.min(i, 2)]
                     ? "bg-cyan-500/30 text-cyan-200"
                     : "bg-slate-800 text-slate-500"
                 )}
               >
-                {i + 1}
+                {stepsDone[Math.min(i, 2)] ? "✓" : i + 1}
               </span>
               <span>{step}</span>
             </li>
@@ -524,44 +546,16 @@ function ExperimentPanel({
         </ol>
       </div>
 
-      {/* 操作按钮 */}
-      <div className="mb-4 grid grid-cols-2 gap-2">
-        <button
-          onClick={onAdd}
-          disabled={!canAdd}
-          className={cn(
-            "flex items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-sm font-semibold transition",
-            canAdd
-              ? "bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30"
-              : "cursor-not-allowed bg-slate-800/50 text-slate-600"
-          )}
-        >
-          <Plus className="h-4 w-4" />
-          加入试剂
-        </button>
-        <button
-          onClick={onIgnite}
-          disabled={!canIgnite}
-          className={cn(
-            "flex items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-sm font-semibold transition",
-            canIgnite
-              ? "bg-orange-500/20 text-orange-300 hover:bg-orange-500/30"
-              : "cursor-not-allowed bg-slate-800/50 text-slate-600"
-          )}
-        >
-          <Flame className="h-4 w-4" />
-          点火加热
-        </button>
-        <button
-          onClick={onReset}
-          className="col-span-2 flex items-center justify-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/40 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800"
-        >
-          <RotateCcw className="h-4 w-4" />
-          重置实验
-        </button>
-      </div>
+      {/* 重置 */}
+      <button
+        onClick={onReset}
+        className="mb-4 flex w-full items-center justify-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/40 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800"
+      >
+        <RotateCcw className="h-4 w-4" />
+        重置实验器材
+      </button>
 
-      {/* 现象观察（可记录） */}
+      {/* 现象观察 */}
       <div
         className={cn(
           "mb-3 rounded-xl border p-3 transition",
@@ -580,11 +574,11 @@ function ExperimentPanel({
             showPhenomenon ? "text-slate-200" : "text-slate-600"
           )}
         >
-          {showPhenomenon ? experiment.phenomenon : "点火后观察实验现象…"}
+          {showPhenomenon ? experiment.phenomenon : "完成实验操作后，这里会显示观察到的现象…"}
         </p>
       </div>
 
-      {/* 观察记录表 */}
+      {/* 观察记录 */}
       <div className="mb-3 rounded-xl border border-slate-800 bg-slate-950/40 p-3">
         <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-slate-400">
           <ClipboardList className="h-3.5 w-3.5" />
@@ -616,10 +610,10 @@ function ExperimentPanel({
 
       <button
         onClick={onNext}
-        disabled={phase !== "done"}
+        disabled={!interaction.reacted}
         className={cn(
           "flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition",
-          phase === "done"
+          interaction.reacted
             ? "bg-violet-500/20 text-violet-300 hover:bg-violet-500/30"
             : "cursor-not-allowed bg-slate-800/50 text-slate-600"
         )}
@@ -652,7 +646,6 @@ function ConclusionPanel({
       </div>
       <p className="mb-4 text-xs text-slate-500">人教版九年级化学 · {t.chapter}</p>
 
-      {/* 猜想对照 */}
       <div
         className={cn(
           "mb-3 flex items-start gap-2 rounded-xl border p-3",
@@ -678,7 +671,6 @@ function ConclusionPanel({
         </div>
       </div>
 
-      {/* 课本原文引用 */}
       <div className="mb-3 rounded-xl border border-slate-700 bg-slate-950/50 p-3">
         <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-cyan-400">
           <BookOpen className="h-3.5 w-3.5" />
@@ -689,7 +681,6 @@ function ConclusionPanel({
         </p>
       </div>
 
-      {/* 结论解读 */}
       <div className="mb-3 rounded-xl border border-slate-800 bg-slate-950/40 p-3">
         <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-violet-300">
           <Sparkles className="h-3.5 w-3.5" />
@@ -701,7 +692,6 @@ function ConclusionPanel({
         />
       </div>
 
-      {/* 盖章 */}
       <div className="mb-3 flex flex-col items-center rounded-xl border border-emerald-500/30 bg-emerald-500/5 py-4">
         <div className="mb-2 flex h-16 w-16 items-center justify-center rounded-full border-2 border-emerald-500/60 bg-emerald-500/10">
           <Stamp className="h-8 w-8 text-emerald-400" />
