@@ -6,7 +6,7 @@ import FavoritesDrawer from "@/components/FavoritesDrawer";
 import VirtualLabModal from "@/components/VirtualLabModal";
 import { useChemStore } from "@/store/chemStore";
 import { ELEMENTS, GROUP_COLORS, GROUP_LABELS, type ElementGroup } from "@/data/elements";
-import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, getSymbolsFromReactions, REACTION_TYPES, resolveChemicalAlias, type ReactionType, isChemicalFormula, searchReactionsBySubstance } from "@/data/reactions";
+import { findReactiveSymbols, findCompoundReactiveSymbols, findReactions, searchReactions, REACTION_TYPES, resolveChemicalAlias, type ReactionType, isChemicalFormula, searchReactionsBySubstance, findSubstanceMatches } from "@/data/reactions";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
@@ -157,6 +157,26 @@ export default function Home() {
       return;
     }
 
+    // 精准物质搜索（如「氯气」→ 只匹配真正含 Cl₂ 的反应）。
+    // 按单个物质精确比对，不做 productName 子串匹配，也不会把一堆无关元素选中高亮。
+    const substanceMatches = findSubstanceMatches(query.trim());
+    if (substanceMatches.length > 0) {
+      setSearchResult(null);
+      reset();
+      setSearchOverride(true);
+      setCurrentReactions(substanceMatches.map((m) => m.reaction));
+      const asReactant = substanceMatches.filter(
+        (m) => m.role === "reactant" || m.role === "both"
+      ).length;
+      const asProduct = substanceMatches.filter(
+        (m) => m.role === "product" || m.role === "both"
+      ).length;
+      setMessage(
+        `精准找到 ${substanceMatches.length} 个含「${query.trim()}」的反应（作反应物 ${asReactant} 个、作生成物 ${asProduct} 个）`
+      );
+      return;
+    }
+
     // 解析化学别名（如生石灰 → 氧化钙）
     const resolvedQuery = resolveChemicalAlias(query.trim());
 
@@ -214,32 +234,12 @@ export default function Home() {
         return;
       }
 
-      // 按物质搜索：获取所有涉及的元素并自动选中
-      setSearchOverride(false);
-      const symbols = getSymbolsFromReactions(foundReactions);
-      const elements = symbols
-        .map((s) => ELEMENTS.find((e) => e.symbol === s))
-        .filter(Boolean) as typeof ELEMENTS;
-
-      // 重置后批量选中
+      // 兜底：模糊命中时直接列出反应，不再自动选中所有反应物元素造成无关高亮
+      setSearchResult(null);
       reset();
-      elements.forEach((el) => {
-        if (!useChemStore.getState().selectedElements.some((s) => s.symbol === el.symbol)) {
-          toggleElement(el);
-        }
-      });
-
-      // 直接设置反应结果到舞台
+      setSearchOverride(true);
       setCurrentReactions(foundReactions);
       setMessage(`搜索"${query.trim()}"，找到 ${foundReactions.length} 个相关反应`);
-
-      // 滚动到第一个高亮元素
-      setTimeout(() => {
-        const el = document.getElementById(`element-${symbols[0]}`);
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
-        }
-      }, 100);
     } else {
       setSearchResult(null);
       setMessage(`未找到与"${query.trim()}"相关的物质或元素`);
