@@ -16,7 +16,7 @@
  */
 
 const DEFAULT_UPSTREAM_API = "https://apihub.agnes-ai.com/v1/chat/completions";
-const WORKERS_AI_MODEL = "@cf/qwen/qwen2.5-coder-32b-instruct";
+const WORKERS_AI_MODEL = "@cf/zai-org/glm-4.7-flash";
 const RATE_LIMIT = 30;
 const RATE_LIMIT_WINDOW = 60;
 const CACHE_TTL_SECONDS = 60 * 60 * 24;
