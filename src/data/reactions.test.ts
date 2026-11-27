@@ -8,6 +8,8 @@ import {
   REACTIONS,
   isChemicalFormula,
   searchReactionsBySubstance,
+  findSubstanceMatches,
+  resolveSubstanceFormulas,
 } from "@/data/reactions";
 
 describe("findReactiveSymbols", () => {
@@ -287,5 +289,55 @@ describe("extended fields", () => {
     if (sample.relatedReactions) {
       expect(Array.isArray(sample.relatedReactions)).toBe(true);
     }
+  });
+});
+
+describe("findSubstanceMatches (精准物质搜索)", () => {
+  it("should resolve common substance names to formulas", () => {
+    expect(resolveSubstanceFormulas("氯气")).toContain("cl2");
+    expect(resolveSubstanceFormulas("氧气")).toContain("o2");
+    expect(resolveSubstanceFormulas("生石灰")).toContain("cao");
+    expect(resolveSubstanceFormulas("氯化钠")).toContain("nacl");
+  });
+
+  it("should only return reactions that truly contain 氯气 (Cl₂)", () => {
+    const matches = findSubstanceMatches("氯气");
+    expect(matches.length).toBeGreaterThan(0);
+    // 每条命中的反应，方程式里必须真的出现 Cl₂（反应物或产物）
+    for (const { reaction } of matches) {
+      const hasCl2 = /Cl₂/.test(reaction.equation) || /Cl2/.test(reaction.equation);
+      expect(hasCl2).toBe(true);
+    }
+    // 必须包含氯气作反应物的经典反应
+    expect(
+      matches.some(
+        (m) => m.reaction.equation.includes("Cl₂") && m.role === "reactant"
+      )
+    ).toBe(true);
+  });
+
+  it("should match 氯气 identically whether by name or formula", () => {
+    expect(findSubstanceMatches("氯气").length).toBe(
+      findSubstanceMatches("Cl₂").length
+    );
+  });
+
+  it("should not treat 含 n formulas as variables (NaCl / NH₃ / HNO₃)", () => {
+    expect(resolveSubstanceFormulas("氯化钠")).toContain("nacl");
+    expect(resolveSubstanceFormulas("氨")).toContain("nh3");
+    expect(resolveSubstanceFormulas("硝酸")).toContain("hno3");
+    expect(findSubstanceMatches("氯化钠").length).toBeGreaterThan(0);
+  });
+
+  it("should tag role correctly for a substance that is both reactant and product", () => {
+    const matches = findSubstanceMatches("水");
+    expect(matches.length).toBeGreaterThan(0);
+    expect(matches.some((m) => m.role === "reactant")).toBe(true);
+    expect(matches.some((m) => m.role === "product")).toBe(true);
+  });
+
+  it("should return empty array for unknown or empty query", () => {
+    expect(findSubstanceMatches("")).toEqual([]);
+    expect(findSubstanceMatches("不存在的物质xyz")).toEqual([]);
   });
 });
