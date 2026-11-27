@@ -948,3 +948,93 @@ export const chemicalAliasMap: Record<string, string> = {
 export function resolveChemicalAlias(query: string): string {
   return chemicalAliasMap[query.trim()] || query.trim();
 }
+
+// ===== 精准物质搜索 =====
+// 旧的 searchReactions 用 productName.includes(q) 做子串匹配，
+// 例如搜「氯气」会把产物名里含「氯气」字样的反应全算进来，
+// 再由调用方把这些反应的所有反应物元素选中，导致大量无关高亮。
+// 下面改为把方程式拆成单个物质后做精确比对，并标明该物质在反应中的角色。
+
+/** 把单个物质归一化：去系数/上下标/状态符号，统一小写，便于精确比对 */
+function normalizeSubstance(formula: string): string {
+  return formula
+    .trim()
+    .replace(/[↑↓]/g, "")
+    .replace(/\((?:浓|稀|熔融|s|l|g|aq)\)/gi, "")
+    .replace(/[₀-₉]/g, (ch) => SUBSCRIPT_MAP[ch] ?? ch)
+    .replace(/\s+/g, "")
+    .replace(/^\d+/, "")
+    .toLowerCase();
+}
+
+/** 名称/别名 → 化学式列表（由 COMPOUND_NAMES 反向建立） */
+/** 是否为确定的化学式（排除 nH₂O、(2n-1)H₂O 这类聚合物通式） */
+function isConcreteFormula(formula: string): boolean {
+  return !/n[A-Z]|\([^)]*n[^)]*\)/.test(formula);
+}
+
+const NAME_TO_FORMULAS: Record<string, string[]> = (() => {
+  const map: Record<string, string[]> = {};
+  for (const [formula, name] of Object.entries(COMPOUND_NAMES)) {
+    if (!name || !isConcreteFormula(formula)) continue;
+    (map[name] ||= []).push(formula);
+  }
+  return map;
+})();
+
+/** 看起来像一个化学式（含 ASCII 大写字母开头），而非中文描述 */
+function looksLikeFormula(text: string): boolean {
+  return /^[A-Z][a-z]?[A-Za-z0-9₀-₉()（）·]*$/.test(text);
+}
+
+/** 把用户的搜索词解析成目标化学式（归一化后），支持名称、别名、化学式 */
+export function resolveSubstanceFormulas(query: string): string[] {
+  const raw = query.trim();
+  if (!raw) return [];
+
+  const targets = new Set<string>();
+  const candidates = [raw, resolveChemicalAlias(raw)];
+
+  for (const candidate of candidates) {
+    if (!candidate) continue;
+    // 名称 → 化学式（如 氯气 → Cl₂、生石灰 → CaO）
+    for (const formula of NAME_TO_FORMULAS[candidate] ?? []) {
+      targets.add(normalizeSubstance(formula));
+    }
+    // 直接输入化学式（含单质 Cl₂ / Cl2）
+    if (looksLikeFormula(candidate)) {
+      targets.add(normalizeSubstance(candidate));
+    }
+  }
+
+  return Array.from(targets).filter(Boolean);
+}
+
+export interface SubstanceMatch {
+  reaction: ChemicalReaction;
+  /** 目标物质在反应中的角色 */
+  role: "reactant" | "product" | "both";
+}
+
+/** 精准查找「真正包含该物质」的反应，单个物质逐一比对，不做子串匹配 */
+export function findSubstanceMatches(query: string): SubstanceMatch[] {
+  const targets = resolveSubstanceFormulas(query);
+  if (targets.length === 0) return [];
+  const targetSet = new Set(targets);
+
+  const matches: SubstanceMatch[] = [];
+  for (const reaction of REACTIONS) {
+    const reactants = parseEquationLeft(reaction.equation).map(normalizeSubstance);
+    const products = parseEquationRight(reaction.equation).map(normalizeSubstance);
+    const inReactants = reactants.some((s) => targetSet.has(s));
+    const inProducts = products.some((s) => targetSet.has(s));
+
+    if (inReactants || inProducts) {
+      matches.push({
+        reaction,
+        role: inReactants && inProducts ? "both" : inReactants ? "reactant" : "product",
+      });
+    }
+  }
+  return matches;
+}
