@@ -1,19 +1,22 @@
 /**
  * AI 解释代理 Worker
  *
- * 职责：
- * 1. 隐藏 API Key，转发请求到上游模型服务
- * 2. 按客户端做基础限流（修复了原 Retry-After 恒为 0 的问题）
- * 3. 可选：用 KV 缓存相同问题的结果，减少上游调用（对 Cloudflare 1015 限流很关键）
- * 4. 把上游 429/1015 转成结构化 JSON，方便前端做本地资料兜底
+ * 双通道：
+ * 1. 主通道：Agnes（API_KEY secret），质量好
+ * 2. 兜底通道：Cloudflare Workers AI（CF_TOKEN secret），不经过 Agnes，避免出口 IP 限流
  *
- * 绑定（Cloudflare Worker 设置 → 变量和机密）：
- * - API_KEY（机密）：上游 API Key
- * - AI_CACHE（可选 KV 命名空间）：缓存解释结果
- * - UPSTREAM_API（可选变量）：自定义上游地址
+ * 当 Agnes 返回 429（限流）或网络失败时，自动切换到 Workers AI，
+ * 前端无感知，不需要填 key，也不会看到「AI 服务限流」。
+ *
+ * 绑定：
+ * - API_KEY（机密）：Agnes 上游 API Key
+ * - CF_TOKEN（机密）：Cloudflare API Token，需包含 Workers AI 权限
+ * - CF_ACCOUNT_ID（机密）：Cloudflare 账户 ID
+ * - AI_CACHE（可选 KV）：缓存成功结果，减少上游调用
  */
 
 const DEFAULT_UPSTREAM_API = "https://apihub.agnes-ai.com/v1/chat/completions";
+const WORKERS_AI_MODEL = "@cf/qwen/qwen2.5-coder-32b-instruct";
 const RATE_LIMIT = 30;
 const RATE_LIMIT_WINDOW = 60;
 const CACHE_TTL_SECONDS = 60 * 60 * 24;
@@ -83,11 +86,9 @@ function jsonResponse(data, status = 200, extraHeaders = {}) {
 }
 
 function decorateResponse(upstreamResponse, rateLimit, extra = {}) {
-  const headers = new Headers(upstreamResponse.headers);
+  const headers = new Headers();
   addCorsHeaders(headers);
-  headers.delete("content-encoding");
-  headers.delete("content-length");
-  headers.delete("set-cookie");
+  headers.set("Content-Type", upstreamResponse.headers.get("Content-Type") || "text/event-stream; charset=utf-8");
   headers.set("X-Accel-Buffering", "no");
   headers.set("Cache-Control", "no-cache");
   headers.set("X-RateLimit-Limit", String(RATE_LIMIT));
@@ -98,18 +99,65 @@ function decorateResponse(upstreamResponse, rateLimit, extra = {}) {
   return headers;
 }
 
+/** 调用 Cloudflare Workers AI（不经过 Agnes，不受其出口 IP 限流影响） */
+async function callWorkersAI(bodyText) {
+  const token = typeof CF_TOKEN !== "undefined" ? CF_TOKEN : "";
+  const accountId = typeof CF_ACCOUNT_ID !== "undefined" ? CF_ACCOUNT_ID : "";
+  if (!token || !accountId) return null;
+
+  let body;
+  try {
+    body = JSON.parse(bodyText);
+  } catch {
+    return null;
+  }
+  body.model = WORKERS_AI_MODEL;
+
+  try {
+    return await fetch(
+      `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/v1/chat/completions`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      }
+    );
+  } catch (e) {
+    console.warn("Workers AI 兜底请求失败:", e);
+    return null;
+  }
+}
+
+/** 透传流式响应，同时后台写 KV 缓存 */
+function streamWithCache(event, upstreamResponse, rateLimit, cacheKey, cache, extra) {
+  const headers = decorateResponse(upstreamResponse, rateLimit, extra);
+  if (cache && upstreamResponse.body) {
+    const [toClient, toCache] = upstreamResponse.body.tee();
+    event.waitUntil(
+      (async () => {
+        try {
+          const text = await new Response(toCache).text();
+          if (text.length > 0 && text.length < 1024 * 1024) {
+            await cache.put(cacheKey, text, { expirationTtl: CACHE_TTL_SECONDS });
+          }
+        } catch (e) {
+          console.warn("写入 AI 缓存失败:", e);
+        }
+      })()
+    );
+    return new Response(toClient, { status: 200, headers });
+  }
+  return new Response(upstreamResponse.body, { status: 200, headers });
+}
+
 async function handleRequest(event, request) {
   if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: (() => {
-      const headers = new Headers();
-      addCorsHeaders(headers);
-      return headers;
-    })() });
-  }
-
-  const apiKey = typeof API_KEY !== "undefined" ? API_KEY : "";
-  if (!apiKey) {
-    return jsonResponse({ error: "API_KEY 未配置" }, 500);
+    const headers = new Headers();
+    addCorsHeaders(headers);
+    return new Response(null, { status: 204, headers });
   }
 
   const rateLimit = checkRateLimit(getClientKey(request));
@@ -144,70 +192,72 @@ async function handleRequest(event, request) {
     }
   }
 
-  try {
-    const upstreamResponse = await fetch(getUpstreamApi(), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: bodyText,
-      cf: { cacheTtl: 0, cacheEverything: false },
-    });
+  const apiKey = typeof API_KEY !== "undefined" ? API_KEY : "";
+  let upstreamResponse = null;
 
-    // 上游限流（Cloudflare 1015 等）：转成可读 JSON，并透传 Retry-After
-    if (upstreamResponse.status === 429) {
-      const retryAfterRaw = upstreamResponse.headers.get("Retry-After");
-      const retryAfter = Number(retryAfterRaw);
-      const seconds = Number.isFinite(retryAfter) && retryAfter > 0 ? Math.ceil(retryAfter) : undefined;
-      const headers = new Headers();
-      addCorsHeaders(headers);
-      headers.set("X-Upstream-Error", "rate-limited");
-      if (seconds) headers.set("Retry-After", String(seconds));
-      return jsonResponse(
-        {
-          error: seconds
-            ? `上游 AI 服务限流，约 ${seconds} 秒后可重试`
-            : "上游 AI 服务限流，请稍后再试",
-          retryAfter: seconds,
+  // 主通道：Agnes
+  if (apiKey) {
+    try {
+      upstreamResponse = await fetch(getUpstreamApi(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
         },
-        429,
-        Object.fromEntries(headers.entries())
-      );
+        body: bodyText,
+        cf: { cacheTtl: 0, cacheEverything: false },
+      });
+    } catch (e) {
+      console.warn("Agnes 请求失败，尝试 Workers AI:", e);
+      upstreamResponse = null;
     }
-
-    if (!upstreamResponse.ok) {
-      const errorText = await upstreamResponse.text();
-      return jsonResponse(
-        { error: `上游 AI 服务返回 ${upstreamResponse.status}`, detail: errorText.slice(0, 200) },
-        upstreamResponse.status
-      );
-    }
-
-    const headers = decorateResponse(upstreamResponse, rateLimit, { "X-Cache": "MISS" });
-
-    // 流式透传，同时后台写入 KV；不阻塞用户收到首字节
-    if (cache && upstreamResponse.body) {
-      const [toClient, toCache] = upstreamResponse.body.tee();
-      event.waitUntil(
-        (async () => {
-          try {
-            const text = await new Response(toCache).text();
-            if (text.length > 0 && text.length < 1024 * 1024) {
-              await cache.put(cacheKey, text, { expirationTtl: CACHE_TTL_SECONDS });
-            }
-          } catch (e) {
-            console.warn("写入 AI 缓存失败:", e);
-          }
-        })()
-      );
-      return new Response(toClient, { status: 200, headers });
-    }
-
-    return new Response(upstreamResponse.body, { status: 200, headers });
-  } catch (error) {
-    return jsonResponse({ error: error && error.message ? error.message : String(error) }, 500);
   }
+
+  const agnesOk = upstreamResponse && upstreamResponse.ok;
+  const agnesLimited = upstreamResponse && upstreamResponse.status === 429;
+
+  if (agnesOk) {
+    return streamWithCache(event, upstreamResponse, rateLimit, cacheKey, cache, {
+      "X-AI-Provider": "agnes",
+      "X-Cache": "MISS",
+    });
+  }
+
+  // 兜底通道：Workers AI（Agnes 限流、失败或未配置时）
+  const fallback = await callWorkersAI(bodyText);
+  if (fallback && fallback.ok) {
+    return streamWithCache(event, fallback, rateLimit, cacheKey, cache, {
+      "X-AI-Provider": "workers-ai",
+      "X-Cache": "MISS",
+    });
+  }
+
+  // 两条通道都不可用：返回结构化错误，前端走本地资料兜底
+  if (agnesLimited) {
+    const retryAfterRaw = upstreamResponse.headers.get("Retry-After");
+    const retryAfter = Number(retryAfterRaw);
+    const seconds = Number.isFinite(retryAfter) && retryAfter > 0 ? Math.ceil(retryAfter) : undefined;
+    return jsonResponse(
+      {
+        error: seconds
+          ? `AI 服务限流，约 ${seconds} 秒后可重试`
+          : "AI 服务限流，请稍后再试",
+        retryAfter: seconds,
+      },
+      429,
+      { "X-Upstream-Error": "rate-limited" }
+    );
+  }
+
+  if (upstreamResponse && !upstreamResponse.ok) {
+    const errorText = await upstreamResponse.text();
+    return jsonResponse(
+      { error: `AI 服务返回 ${upstreamResponse.status}`, detail: errorText.slice(0, 200) },
+      upstreamResponse.status
+    );
+  }
+
+  return jsonResponse({ error: "AI 服务暂时不可用，请稍后重试" }, 503);
 }
 
 addEventListener("fetch", (event) => {
